@@ -1,0 +1,121 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity" >
+    
+    <com.example.helloworld.SlidingLayout  
+        android:id="@+id/slidingLayout_main"  
+        android:layout_width="fill_parent"  
+        android:layout_height="fill_parent"  
+        android:orientation="horizontal" > 
+	    <LinearLayout  
+	            android:id="@+id/menu"  
+	            android:layout_width="fill_parent"  
+	            android:layout_height="fill_parent"  
+	            android:background="@drawable/leaves"
+	            android:orientation="vertical" >
+	              
+	        	<Button
+	        	    android:id="@+id/menuButton0_main"
+	        	    android:layout_width="wrap_content"
+	        	    android:layout_height="wrap_content"
+	        	    android:text="@string/UserInfo" />
+
+	        	<Button
+	        	    android:id="@+id/menuButton1_main"
+	        	    android:layout_width="wrap_content"
+	        	    android:layout_height="wrap_content"
+	        	    android:text="@string/PartyList" />
+
+	        	<Button
+	        	    android:id="@+id/menuButton2_main"
+	        	    android:layout_width="wrap_content"
+	        	    android:layout_height="wrap_content"
+	        	    android:text="@string/FriendsList" />
+
+	        	<Button
+	        	    android:id="@+id/menuButton3_main"
+	        	    android:layout_width="wrap_content"
+	        	    android:layout_height="wrap_content"
+	        	    android:text="@string/Message" />
+
+	        	<Button
+	        	    android:id="@+id/menuButton4_main"
+	        	    android:layout_width="wrap_content"
+	        	    android:layout_height="wrap_content"
+	        	    android:text="@string/PartyStarted" />
+
+	        	<Button
+	        	    android:id="@+id/menuButton5_main"
+	        	    android:layout_width="wrap_content"
+	        	    android:layout_height="wrap_content"
+	        	    android:text="@string/PartyPaticipated" />
+
+	        	<Button
+	        	    android:id="@+id/menuButton6_main"
+	        	    android:layout_width="wrap_content"
+	        	    android:layout_height="wrap_content"
+	        	    android:text="@string/PartyToPaticipate" />
+
+	        	<Button
+	        	    android:id="@+id/menuButton7_main"
+	        	    android:layout_width="wrap_content"
+	        	    android:layout_height="wrap_content"
+	        	    android:text="@string/Options" />
+
+	        	<Button
+	        	    android:id="@+id/menuButton8_main"
+	        	    android:layout_width="wrap_content"
+	        	    android:layout_height="wrap_content"
+	        	    android:text="@string/LogOut" />
+        	
+	    </LinearLayout>
+	    <RelativeLayout 
+	        android:id="@+id/content"  
+	        android:layout_width="fill_parent"  
+	        android:layout_height="fill_parent"  >
+			<RelativeLayout 
+			    android:id="@+id/title0"
+			    android:layout_width="fill_parent"
+			    android:layout_height="38dp"
+			    android:background="@color/lightskyblue">
+				<TextView
+				    android:id="@+id/myTextView2"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:layout_centerHorizontal="true"
+				    android:layout_centerVertical="true"
+				    android:text="@string/text3" />
+				<Button
+				    android:id="@+id/button_menu"
+				    android:layout_width="wrap_content"
+				    android:layout_height="wrap_content"
+				    android:layout_centerHorizontal="true"
+				    android:layout_alignParentLeft="true"
+				    android:text="@string/button_menu"/>
+				<Button 
+				    android:id="@+id/button_publishflag"
+		        	android:layout_width="wrap_content"
+		        	android:layout_height="wrap_content"
+		        	android:layout_centerHorizontal="true"
+		        	android:layout_alignParentRight="true"
+		        	android:text="@string/button_publish_flag"/>	
+			</RelativeLayout>
+		    <LinearLayout
+		        android:layout_width="fill_parent"
+		        android:layout_height="fill_parent"
+		        android:layout_alignParentLeft="true"
+		        android:layout_below="@+id/title0"
+		        android:orientation="vertical" >
+		            <ListView 
+		                android:id="@android:id/list"
+		                android:layout_width="fill_parent"
+		                android:layout_height="wrap_content"
+		                android:drawSelectorOnTop="false"
+		                android:scrollbars="vertical" />	            
+		    </LinearLayout>	
+		</RelativeLayout>
+	</com.example.helloworld.SlidingLayout>  
+</LinearLayout>

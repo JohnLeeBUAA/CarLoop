@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <com.example.helloworld.SlidingLayout  
+        android:id="@+id/slidingLayout_friendlist"  
+        android:layout_width="fill_parent"  
+        android:layout_height="fill_parent"  
+        android:orientation="horizontal" > 
+	   <LinearLayout  
+			android:id="@+id/menu3"  
+		    android:layout_width="fill_parent"  
+		    android:layout_height="fill_parent"  
+		    android:background="@drawable/leaves"
+		    android:orientation="vertical" >              
+
+		    <Button
+		        android:id="@+id/menuButton0_friendlist"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/UserInfo" />
+
+		    <Button
+		        android:id="@+id/menuButton1_friendlist"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/PartyList" />
+
+		    <Button
+		        android:id="@+id/menuButton2_friendlist"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/FriendsList" />
+        	
+		    <Button
+		        android:id="@+id/menuButton3_friendlist"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/Message" />
+
+		    <Button
+		        android:id="@+id/menuButton4_friendlist"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/PartyStarted" />
+
+		    <Button
+		        android:id="@+id/menuButton5_friendlist"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/PartyPaticipated" />
+
+		    <Button
+		        android:id="@+id/menuButton6_friendlist"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/PartyToPaticipate" />
+
+		    <Button
+		        android:id="@+id/menuButton7_friendlist"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/Options" />
+
+		    <Button
+		        android:id="@+id/menuButton8_friendlist"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/LogOut" />
+     		
+	    </LinearLayout>
+	<RelativeLayout 
+			    android:id="@+id/content2"  
+			    android:layout_width="fill_parent"  
+			    android:layout_height="fill_parent"  >
+		 <RelativeLayout 
+			    android:id="@+id/title7"
+			    android:layout_width="fill_parent"
+			    android:layout_height="38dp"
+			    android:background="@color/lightskyblue">
+			    <Button 
+		        android:id="@+id/button_menu_friendlist"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"	
+		        android:layout_centerVertical="true"
+		        android:layout_alignParentLeft="true"
+		        android:text="@string/button_menu" />
+			<TextView 
+			    android:id="@+id/friendlist"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_centerVertical="true"
+			    android:layout_centerHorizontal="true"
+			    android:text="@string/FriendsList"/>
+			<Button 
+			    android:id="@+id/add_friend"
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_centerVertical="true"
+			    android:layout_alignParentRight="true"
+			    android:text="@string/addfriend"	/>
+			</RelativeLayout>
+<LinearLayout
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:layout_alignParentLeft="true"
+	android:layout_below="@+id/title7"
+	android:orientation="vertical" >
+	<ListView 
+		android:id="@android:id/list"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:drawSelectorOnTop="false"
+		android:scrollbars="vertical" />	            
+</LinearLayout>	
+</RelativeLayout>
+	</com.example.helloworld.SlidingLayout>  
+</LinearLayout>

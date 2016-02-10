@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/bg3"
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="horizontal"
+    android:paddingBottom="1dp"
+    android:paddingLeft="10dp" >
+
+    <TextView android:id="@+id/event_participated"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:textSize="10pt"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentLeft="true"
+        android:singleLine="true" />
+
+    <Button
+        android:id="@+id/button_share_participated"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/image001"
+        android:focusable="false"
+        android:text="@string/share"
+        android:textSize="10pt" />
+
+    <Button
+        android:id="@+id/button_photowall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/image001"
+        android:focusable="false"
+        android:text="@string/photowall"
+        android:textSize="10pt" />
+
+</RelativeLayout>
