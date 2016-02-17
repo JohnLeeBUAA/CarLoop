@@ -37,9 +37,9 @@ public class User {
         }
     }
 
-    public static boolean signUp(String username, String password, String email, int identity) {
+    public static boolean signUp(String username, String password, String email) {
         GlobalVariables.user_id = 1;
-        GlobalVariables.user_identity = identity;
+        GlobalVariables.user_identity = 0;
         return true;
     }
 }

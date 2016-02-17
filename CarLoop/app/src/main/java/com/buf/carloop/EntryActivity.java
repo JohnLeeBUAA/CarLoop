@@ -28,14 +28,8 @@ public class EntryActivity extends AppCompatActivity {
         else {
             GlobalVariables.user_id = user_id;
             GlobalVariables.user_identity = user_identity;
-            if(user_identity == 1) {
-                Intent intent = new Intent(this, ConfirmedListDriver.class);
-                startActivity(intent);
-            }
-            else {
-                Intent intent = new Intent(this, ConfirmedListPassenger.class);
-                startActivity(intent);
-            }
+            Intent intent = new Intent(this, CarpoolList.class);
+            startActivity(intent);
         }
     }
 }

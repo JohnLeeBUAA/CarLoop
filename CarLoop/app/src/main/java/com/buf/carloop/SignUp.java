@@ -1,6 +1,8 @@
 package com.buf.carloop;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -37,15 +39,22 @@ public class SignUp extends AppCompatActivity {
 
     public void signUp(View view) {
         if(validate()) {
-            if(User.signUp(username.getText().toString(), password.getText().toString(), email.getText().toString(), 0)) {
+            if(User.signUp(username.getText().toString(), password.getText().toString(), email.getText().toString())) {
+                SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putInt("user_id", GlobalVariables.user_id);
+                editor.putInt("user_identity", GlobalVariables.user_identity);
+                editor.commit();
                 Toast.makeText(this, "Sign up success", Toast.LENGTH_SHORT).show();
 
                 if(driver.isChecked()) {
-                    Intent intent = new Intent(this, AddDriverInfo.class);
+                    Intent intent = new Intent(this, DriverVehicleInfo.class);
+                    intent.putExtra("type", "Add");
                     startActivity(intent);
                 }
                 else {
-                    Intent intent = new Intent(this, ConfirmedListPassenger.class);
+                    Intent intent = new Intent(this, CarpoolList.class);
+                    intent.putExtra("type", "Confirmed");
                     startActivity(intent);
                 }
             }

@@ -17,9 +17,31 @@ public class Footer extends AppCompatActivity {
         setContentView(R.layout.activity_footer);
     }
 
-    public void test(View view) {
-        Intent intent = new Intent(this, ConfirmedListPassenger.class);
+    public void add(View view) {
+        Intent intent = new Intent(this, CarpoolNew.class);
+        intent.putExtra("type", "Add");
         startActivity(intent);
     }
 
+    public void search(View view) {
+        Intent intent = new Intent(this, CarpoolNew.class);
+        intent.putExtra("type", "Search");
+        startActivity(intent);
+    }
+
+    public void list(View view) {
+        Intent intent = new Intent(this, CarpoolList.class);
+        intent.putExtra("type", "Confirmed");
+        startActivity(intent);
+    }
+
+    public void chat(View view) {
+        Intent intent = new Intent(this, Chat.class);
+        startActivity(intent);
+    }
+
+    public void settings(View view) {
+        Intent intent = new Intent(this, Settings.class);
+        startActivity(intent);
+    }
 }

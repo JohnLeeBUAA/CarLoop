@@ -20,14 +20,6 @@
             android:label="@string/title_activity_sign_in"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ConfirmedListDriver"
-            android:label="@string/title_activity_confirmed_list_driver"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ConfirmedListPassenger"
-            android:label="@string/title_activity_confirmed_list_passenger"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".SignUp"
             android:label="@string/title_activity_sign_up"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -36,12 +28,36 @@
             android:label="@string/title_activity_forgot_password"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".AddDriverInfo"
-            android:label="@string/title_activity_add_driver_info"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".Footer"
             android:label="@string/title_activity_footer"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CarpoolList"
+            android:label="@string/title_activity_carpool_list"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CarpoolSingle"
+            android:label="@string/title_activity_carpool_single"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Settings"
+            android:label="@string/title_activity_settings"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".CarpoolNew"
+            android:label="@string/title_activity_carpool_new"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".DriverVehicleInfo"
+            android:label="@string/title_activity_driver_vehicle_info"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ManageProfile"
+            android:label="@string/title_activity_manage_profile"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ChangePassword"
+            android:label="@string/title_activity_change_password"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
