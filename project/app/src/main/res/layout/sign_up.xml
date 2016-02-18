@@ -12,7 +12,7 @@
     tools:context=".sign_up">
 
     <ProgressBar
-        android:id="@+id/login_progress"
+        android:id="@+id/sign_up_progress"
         style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -20,12 +20,12 @@
         android:visibility="gone" />
 
     <ScrollView
-        android:id="@+id/login_form"
+        android:id="@+id/sign_up_form"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/email_login_form"
+            android:id="@+id/email_sign_up_form"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -51,7 +51,7 @@
                     android:id="@+id/username"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="\t Username"
+                    android:hint="\t  Username"
                     android:inputType="textPersonName"
                     android:drawableLeft="@android:drawable/btn_star_big_off"
                     android:maxLines="1"
@@ -68,7 +68,7 @@
                     android:id="@+id/email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="\t  Email"
+                    android:hint="\t   Email"
                     android:inputType="textEmailAddress"
                     android:drawableLeft="@android:drawable/sym_action_email"
                     android:maxLines="1"

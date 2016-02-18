@@ -9,87 +9,89 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
+    android:background="@drawable/sign_in_backcolor"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.buf.carloop.SignUp"
     tools:showIn="@layout/activity_sign_up">
 
+
     <LinearLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:padding="15dip"
+        android:layout_margin="15dip"
+        android:orientation="vertical"
+        android:background="@drawable/sign_in_border">
+
         <EditText android:id="@+id/username_signup"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:hint="Username" />
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
         <EditText android:id="@+id/password_signup"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:hint="Password" />
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
         <EditText android:id="@+id/confirm_password_signup"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
             android:hint="Confirm Password" />
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
         <EditText android:id="@+id/email_signup"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
             android:hint="E-mail Address" />
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Choose Your Identity: "/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
         <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:orientation="horizontal">
 
             <RadioButton android:id="@+id/passenger_signup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Passenger Only"
-                android:checked="true"/>
+                android:text="Passenger"
+                android:checked="true"
+                android:layout_gravity="left" />
+
             <RadioButton android:id="@+id/driver_signup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Driver &amp; Passenger" />
+                android:text="Driver &amp; Passenger"
+                android:layout_marginLeft="30dp"
+                android:layout_gravity="right" />
+
         </RadioGroup>
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical|center_horizontal|center">
+        android:layout_margin="15dip">
+
         <Button
-            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:text="Cancel"
+            android:onClick="back"
+            android:background="#617f99" />
+
+        <Button
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:text="Sign Up"
-            android:onClick="signUp"/>
+            android:onClick="signUp"
+            android:background="#4f8446"/>
+
     </LinearLayout>
 
 </LinearLayout>

@@ -61,6 +61,11 @@ public class SignUp extends AppCompatActivity {
         }
     }
 
+    public void back(View view){
+        Intent intent = new Intent(this, SignIn.class);
+        startActivity(intent);
+    }
+
     private boolean validate() {
         String username_val = username.getText().toString();
         String password_val = password.getText().toString();

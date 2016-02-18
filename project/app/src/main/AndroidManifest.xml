@@ -15,7 +15,10 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".sign_up_activity"
-            android:label="@string/title_activity_sign_up_activity"></activity>
+            android:label="@string/title_activity_sign_up_activity" />
+        <activity
+            android:name=".sign_in_activity"
+            android:label="@string/title_activity_sign_in_activity"></activity>
     </application>
 
 </manifest>
