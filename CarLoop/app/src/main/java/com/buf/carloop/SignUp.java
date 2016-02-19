@@ -4,8 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -46,7 +44,6 @@ public class SignUp extends AppCompatActivity {
                 editor.putInt("user_identity", GlobalVariables.user_identity);
                 editor.commit();
                 Toast.makeText(this, "Sign up success", Toast.LENGTH_SHORT).show();
-
                 if(driver.isChecked()) {
                     Intent intent = new Intent(this, DriverVehicleInfo.class);
                     intent.putExtra("type", "Add");
