@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 public class DriverVehicleInfo extends Footer {
 
     private String type;
+    private Vehicle vehicle;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
