@@ -40,15 +40,7 @@ public class ForgotPassword extends AppCompatActivity {
 //                Toast.makeText(this, "An email to retrieve password has been sent to: " + email.getText().toString() + ", please check your mailbox", Toast.LENGTH_SHORT).show();
 //            }
 //        }
-//        try {
-//            GMailSender sender = new GMailSender("lizijinbuaa@gmail.com", "199337myj");
-//            sender.sendMail("This is Subject",
-//                    "This is Body",
-//                    "liziinbuaa@gmail.com",
-//                    "z542li@uwaterloo.ca");
-//        } catch (Exception e) {
-//            Log.e("SendMail", e.getMessage(), e);
-//        }
+
         sendEmail("lizijinbuaa@gmail.com", "JohnLee", "123456");
     }
 
@@ -59,7 +51,16 @@ public class ForgotPassword extends AppCompatActivity {
         String content = "Dear " + username + ",\nThe temporary password to your CarLoop account is: " + temp_password
                 + ". Please change your password as soon as possible.\n\nBest,\nCarLoop Team\n";
 
-
+        try {
+            GMailSender sender = new GMailSender("carloop.service@gmail.com", "carloopservice");
+            sender.sendMail("test subject",
+                    "test content",
+                    "carloop.service@gmail.com",
+                    "carloop.service@gmail.com");
+            Toast.makeText(this, "Email sent", Toast.LENGTH_LONG).show();
+        } catch (Exception e) {
+            Toast.makeText(this, "Sending email failed", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private boolean validate() {
