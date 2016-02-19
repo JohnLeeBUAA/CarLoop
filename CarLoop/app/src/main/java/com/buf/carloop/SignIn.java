@@ -4,10 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Pair;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -54,6 +53,7 @@ public class SignIn extends AppCompatActivity {
     }
 
     private boolean validate() {
+        new EndpointsAsyncTask().execute(new Pair<Context, String>(this, "Manfred"));
         String username_val = username.getText().toString();
         String password_val = password.getText().toString();
         if(username_val.equals("") || password_val.equals("")) {
