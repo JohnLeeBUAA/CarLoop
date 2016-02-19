@@ -19,7 +19,7 @@ public class User {
     /*
     select u_id, u_name, u_password, u_identity from user where u_name = username
     if username does not exist, return 0
-    if username exist but password does not match, return 1
+    if username exist but password does not match, return 1  you need to MD5 encrypt password before compare the password in DB
     valid return 2, MUST SET GlobalVariables.user_id = u_id, GlobalVariables.user_identity = u_identity
      */
     public static int signIn(String username, String password) {
@@ -62,7 +62,7 @@ public class User {
 
     /*
     create new user
-    MD5 encrypt password
+    MD5 encrypt password before store to DB
     u_rate = 0
     after insert, MUST SET GlobalVariables.user_id = last inserted id, GlobalVariables.user_identity = 0
      */
@@ -76,6 +76,23 @@ public class User {
     update user on u_id == user_id
      */
     public static boolean updateUser(int user_id, String avatar, String gender, String phone, String description) {
+        return true;
+    }
+
+    /*
+    check if password is correct with user_id
+    MD5 encrypt password before compare with u_password in DB
+    return true if match, false if not
+     */
+    public static boolean checkPassword(int user_id, String password) {
+        return true;
+    }
+
+    /*
+    update password with u_id == user_id
+    MD5 encrypt new_password before update in DB
+     */
+    public static boolean updatePassword(int user_id, String new_password) {
         return true;
     }
 }
