@@ -9,77 +9,87 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
+    android:background="@drawable/sign_in_backcolor"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.buf.carloop.DriverVehicleInfo"
     tools:showIn="@layout/activity_driver_vehicle_info">
 
     <LinearLayout
-        android:paddingTop="20dp"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-        <TextView
+        android:layout_height="wrap_content"
+        android:padding="15dip"
+        android:layout_margin="15dip"
+        android:orientation="vertical"
+        android:background="@drawable/sign_in_border">
+
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Driver Info:"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="@drawable/license"
+                android:layout_gravity="center"
+                android:backgroundTint="#7d7d7d"/>
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:text="Driver Info:"
+                android:textSize="15dp"
+                android:textStyle="italic"
+                android:textColor="#7d7d7d"
+                android:layout_marginLeft="10dp"
+                android:gravity="bottom" />
+        </LinearLayout>
+
         <EditText android:id="@+id/license_addvehicleinfo"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:hint="Driver's License" />
-    </LinearLayout>
+            android:hint="License Number" />
 
-    <LinearLayout
-        android:paddingTop="20dp"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-        <TextView
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Vehicle Info:"/>
-    </LinearLayout>
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp">
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="@drawable/vehicle"
+                android:layout_gravity="center"
+                android:backgroundTint="#7d7d7d"/>
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:text="Vehicle Info:"
+                android:textSize="15dp"
+                android:textStyle="italic"
+                android:textColor="#7d7d7d"
+                android:gravity="bottom"
+                android:layout_marginLeft="10dp"/>
+        </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
         <EditText android:id="@+id/manufacture_addvehicleinfo"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:hint="Manufacture" />
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
         <EditText android:id="@+id/model_addvehicleinfo"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:hint="Model" />
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
         <EditText android:id="@+id/plate_addvehicleinfo"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:hint="Plate" />
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
         <EditText android:id="@+id/mileage_addvehicleinfo"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:hint="Mileage" />
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
         <EditText android:id="@+id/capacity_addvehicleinfo"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -89,12 +99,19 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical|center_horizontal|center">
+        android:padding="15dip"
+        android:orientation="vertical">
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add"
-            android:onClick="addVehicle"/>
+            android:layout_marginLeft="10dp"
+            android:text="Submit"
+            android:onClick="addVehicle"
+            android:background="#4f8446"
+            android:layout_gravity="center_horizontal"/>
+
     </LinearLayout>
+
 
 </LinearLayout>
