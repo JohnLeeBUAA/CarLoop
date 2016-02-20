@@ -31,7 +31,7 @@ public class ChangePassword extends Footer {
 
     public void updatePassword(View view) {
         if(validate() && User.updatePassword(GlobalVariables.user_id, newpassword.getText().toString())) {
-            Toast.makeText(this, "Password changed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Password updated", Toast.LENGTH_SHORT).show();
         }
     }
 

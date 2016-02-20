@@ -16,6 +16,86 @@ public class User {
     private String u_phone;
     private String u_description;
 
+    public int getU_id() {
+        return u_id;
+    }
+
+    public void setU_id(int u_id) {
+        this.u_id = u_id;
+    }
+
+    public String getU_name() {
+        return u_name;
+    }
+
+    public void setU_name(String u_name) {
+        this.u_name = u_name;
+    }
+
+    public String getU_password() {
+        return u_password;
+    }
+
+    public void setU_password(String u_password) {
+        this.u_password = u_password;
+    }
+
+    public String getU_email() {
+        return u_email;
+    }
+
+    public void setU_email(String u_email) {
+        this.u_email = u_email;
+    }
+
+    public int getU_identity() {
+        return u_identity;
+    }
+
+    public void setU_identity(int u_identity) {
+        this.u_identity = u_identity;
+    }
+
+    public String getU_avatar() {
+        return u_avatar;
+    }
+
+    public void setU_avatar(String u_avatar) {
+        this.u_avatar = u_avatar;
+    }
+
+    public double getU_rate() {
+        return u_rate;
+    }
+
+    public void setU_rate(double u_rate) {
+        this.u_rate = u_rate;
+    }
+
+    public String getU_gender() {
+        return u_gender;
+    }
+
+    public void setU_gender(String u_gender) {
+        this.u_gender = u_gender;
+    }
+
+    public String getU_phone() {
+        return u_phone;
+    }
+
+    public void setU_phone(String u_phone) {
+        this.u_phone = u_phone;
+    }
+
+    public String getU_description() {
+        return u_description;
+    }
+
+    public void setU_description(String u_description) {
+        this.u_description = u_description;
+    }
+
     /*
     select u_id, u_name, u_password, u_identity from user where u_name = username
     if username does not exist, return 0
@@ -61,6 +141,16 @@ public class User {
     }
 
     /*
+    select u_email from user where u_name = username
+    no record, return 0
+    u_email != email, return 1
+    valid return 2
+     */
+    public static int matchEmail(String username, String email) {
+        return 2;
+    }
+
+    /*
     create new user
     MD5 encrypt password before store to DB
     u_rate = 0
@@ -93,6 +183,14 @@ public class User {
     MD5 encrypt new_password before update in DB
      */
     public static boolean updatePassword(int user_id, String new_password) {
+        return true;
+    }
+
+    /*
+    update password with u_name == username
+    MD5 encrypt temp_password before update in DB
+     */
+    public static boolean retrievePassword(String username, String temp_password) {
         return true;
     }
 }
