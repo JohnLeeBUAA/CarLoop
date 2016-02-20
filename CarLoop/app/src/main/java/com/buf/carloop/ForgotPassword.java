@@ -41,26 +41,36 @@ public class ForgotPassword extends AppCompatActivity {
 //            }
 //        }
 
-        sendEmail("lizijinbuaa@gmail.com", "JohnLee", "123456");
+        sendEmail("lizijinbuaa@gmail.com", "John Lee", "123456");
+        Toast.makeText(this, "An email to retrieve password has been sent to: " + email.getText().toString() + ", please check your mailbox", Toast.LENGTH_SHORT).show();
     }
 
     /*
     inform the user with the temp password with email
      */
     private void sendEmail(String email, String username, String temp_password) {
-        String content = "Dear " + username + ",\nThe temporary password to your CarLoop account is: " + temp_password
+        final String email_content = "Dear " + username + ",\nThe temporary password to your CarLoop account is: " + temp_password
                 + ". Please change your password as soon as possible.\n\nBest,\nCarLoop Team\n";
+        final String to_email = email;
 
-        try {
-            GMailSender sender = new GMailSender("carloop.service@gmail.com", "carloopservice");
-            sender.sendMail("test subject",
-                    "test content",
-                    "carloop.service@gmail.com",
-                    "carloop.service@gmail.com");
-            Toast.makeText(this, "Email sent", Toast.LENGTH_LONG).show();
-        } catch (Exception e) {
-            Toast.makeText(this, "Sending email failed", Toast.LENGTH_SHORT).show();
-        }
+        Thread thread = new Thread(new Runnable(){
+            @Override
+            public void run() {
+                try {
+                    Mail m = new Mail("carloop.service@gmail.com", "carloopservice");
+
+                    String[] toArr = {to_email};
+                    m.setTo(toArr);
+                    m.setFrom("carloop.service@gmail.com");
+                    m.setSubject("Retrieve password to your CarLoop account");
+                    m.setBody(email_content);
+                    m.send();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        thread.start();
     }
 
     private boolean validate() {
