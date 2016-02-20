@@ -30,13 +30,15 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <TextView
+                android:id="@+id/username_manage_profile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="John Smith"/>
+                android:text="Username"/>
             <TextView
+                android:id="@+id/email_manage_profile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="sample123@company.com"/>
+                android:text="sample.email@company.com"/>
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -60,31 +62,30 @@
             android:id="@+id/identity_radiogroup_settings"
             android:orientation="horizontal">
 
-            <RadioButton android:id="@+id/passenger_settings"
+            <RadioButton
+                android:id="@+id/male_manage_profile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Male"
-                android:onClick="switchIdentity"/>
+                android:text="Male" />
 
-            <RadioButton android:id="@+id/driver_settings"
+            <RadioButton
+                android:id="@+id/female_manage_profile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Female"
-                android:onClick="switchIdentity"/>
+                android:text="Female" />
         </RadioGroup>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
-        <EditText android:id="@+id/capacity_addvehicleinfo"
+        <EditText
+            android:id="@+id/phone_manage_profile"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:inputType="phone"
             android:hint="Phone" />
     </LinearLayout>
-
-
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -99,6 +100,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
         <EditText
+            android:id="@+id/description_manage_profile"
             android:inputType="textMultiLine"
             android:lines="4"
             android:minLines="4"
@@ -116,7 +118,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Update"
-            android:onClick="retrievePassword"/>
+            android:onClick="updateProfile" />
     </LinearLayout>
 
 </LinearLayout>

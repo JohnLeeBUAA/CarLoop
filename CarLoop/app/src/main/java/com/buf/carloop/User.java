@@ -10,7 +10,7 @@ public class User {
     private String u_password; //MD5 encrypted
     private String u_email;
     private int u_identity;
-    private String u_avatar;
+    private byte[] u_avatar;
     private double u_rate;
     private String u_gender;
     private String u_phone;
@@ -56,11 +56,11 @@ public class User {
         this.u_identity = u_identity;
     }
 
-    public String getU_avatar() {
+    public byte[] getU_avatar() {
         return u_avatar;
     }
 
-    public void setU_avatar(String u_avatar) {
+    public void setU_avatar(byte[] u_avatar) {
         this.u_avatar = u_avatar;
     }
 
@@ -165,7 +165,7 @@ public class User {
     /*
     update user on u_id == user_id
      */
-    public static boolean updateUser(int user_id, String avatar, String gender, String phone, String description) {
+    public static boolean updateUser(int user_id, byte[] avatar, String gender, String phone, String description) {
         return true;
     }
 
@@ -191,6 +191,30 @@ public class User {
     MD5 encrypt temp_password before update in DB
      */
     public static boolean retrievePassword(String username, String temp_password) {
+        return true;
+    }
+
+    /*
+    search user with u_id == user_id
+     */
+    public static User getUser(int user_id) {
+        User user = new User();
+//        user.setU_avatar(null);
+//        user.setU_gender("male");
+//        user.setU_description("Some description about me");
+//        user.setU_phone("123-456-7890");
+        user.setU_name("Billie Joe");
+        user.setU_email("something@somewhere.com");
+
+        return user;
+    }
+
+    /*
+    update u_identity = 1 on u_id == user_id
+    MUST SET GlobalVariables.user_identity = 1;
+     */
+    public static boolean setDriver(int user_id) {
+        GlobalVariables.user_identity = 1;
         return true;
     }
 }

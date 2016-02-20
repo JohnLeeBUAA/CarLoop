@@ -1,6 +1,8 @@
 package com.buf.carloop;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -65,7 +67,11 @@ public class DriverVehicleInfo extends Footer {
             if(type.equals("Add")) {
                 if(Vehicle.addVehicle(GlobalVariables.user_id, license.getText().toString(), manufacturer.getText().toString(),
                         model.getText().toString(), plate.getText().toString(), Integer.parseInt(mileage.getText().toString()), Integer.parseInt(capacity.getText().toString()))) {
-                    //set user_identity
+                    User.setDriver(GlobalVariables.user_id);
+                    SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPref.edit();
+                    editor.putInt("user_identity", GlobalVariables.user_identity);
+                    editor.commit();
                     Toast.makeText(this, "Add driver and vehicle info success", Toast.LENGTH_SHORT).show();
                 }
             }
