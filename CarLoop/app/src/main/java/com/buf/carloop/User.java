@@ -27,11 +27,23 @@ public class User {
     if username exist but password does not match, return 1
     valid return 2, MUST SET GlobalVariables.user_id = u_id, GlobalVariables.user_identity = u_identity
      */
-    public static int signIn(String username, String password) {
-        if(!username.equals("li")) {
+    public static int signIn(String username, String password){
+        //new EndpointsAsyncTask().execute(new Pair<Context, String>(this, "Luke"));
+
+        //check if username exists
+        GetUserEntityAsyncTask task = new GetUserEntityAsyncTask();
+        task.execute(username);
+        UserEntity user = null;
+        try{
+            user = task.get(5000, TimeUnit.MILLISECONDS);
+        }
+        catch (Exception e){
+        }
+        if(user == null) {
             return 0;
         }
-        else if(!password.equals("123")) {
+        //check if password matches
+        if(!password.equals(user.getUPassword())) {
             return 1;
         }
         else {
@@ -45,12 +57,15 @@ public class User {
     search username only
      */
     public static boolean existUsername(String username) {
-        if(username.equals("li")) {
-            return true;
+        GetUserEntityAsyncTask task = new GetUserEntityAsyncTask();
+        task.execute(username);
+        UserEntity user = null;
+        try{
+            user = task.get(5000, TimeUnit.MILLISECONDS);
         }
-        else {
-            return false;
+        catch (Exception e){
         }
+        return user!=null;
     }
 
     /*
@@ -72,22 +87,22 @@ public class User {
     after insert, MUST SET GlobalVariables.user_id = last inserted id, GlobalVariables.user_identity = 0
      */
     public static boolean signUp(String username, String password, String email) {
-        GlobalVariables.user_id = 1;
-        GlobalVariables.user_identity = 0;
         UserEntity newUser = new UserEntity();
         newUser.setUName(username);
         newUser.setUPassword(password);
         newUser.setUEmail(email);
-
         SignUpAsyncTask task = new SignUpAsyncTask();
         task.execute(newUser);
+        boolean success;
         try{
-            return task.get(5000, TimeUnit.MILLISECONDS);
+            success = task.get(5000, TimeUnit.MILLISECONDS);
         }
         catch (Exception e){
             return false;
         }
-
+        GlobalVariables.user_id = 1;
+        GlobalVariables.user_identity = 0;
+        return success;
     }
 
     /*

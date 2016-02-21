@@ -28,7 +28,7 @@ public class MyEndpoint {
     @ApiMethod(name = "sayHi")
     public MyBean sayHi(@Named("name") String name) {
         MyBean response = new MyBean();
-        response.setData("API to be fixed, " + name);
+        response.setData("Hi, " + name);
 
         return response;
     }

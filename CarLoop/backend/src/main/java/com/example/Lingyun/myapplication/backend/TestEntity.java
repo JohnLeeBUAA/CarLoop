@@ -10,4 +10,20 @@ import com.googlecode.objectify.annotation.Id;
 public class TestEntity {
     @Id private String name;
     private String password; //MD5 encrypted
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

@@ -14,13 +14,13 @@ public class SignUpAsyncTask extends AsyncTask<UserEntity, Void, Boolean> {
     private Context context;
     private static final String LOG_TAG = SignUpAsyncTask.class.getSimpleName();
 
-//        SignUpAsyncTask(Context context) {
-//            this.context = context;
-//            }
+    SignUpAsyncTask(Context context) {this.context = context;}
+    SignUpAsyncTask() {}
 
     @Override
     protected Boolean doInBackground(UserEntity... newUser) {
-        UserEntityApi userEntityApiService = APIService.UserEntityApiService;
+        UserEntityApi userEntityApiService = APIService.userEntityApiService;
+        //try to insert to database
         try {
             userEntityApiService.insert(newUser[0]).execute();
         } catch (Exception e) {
