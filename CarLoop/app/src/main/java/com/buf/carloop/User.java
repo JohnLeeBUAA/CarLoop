@@ -3,8 +3,13 @@ package com.buf.carloop;
 /**
  * Created by zijin on 16/02/16.
  */
-public class User {
 
+import com.example.lingyun.myapplication.backend.userEntityApi.model.UserEntity;
+
+import java.util.concurrent.TimeUnit;
+
+public class User {
+    private static final String LOG_TAG = User.class.getSimpleName();
     private int u_id;
     private String u_name;
     private String u_password; //MD5 encrypted
@@ -69,7 +74,20 @@ public class User {
     public static boolean signUp(String username, String password, String email) {
         GlobalVariables.user_id = 1;
         GlobalVariables.user_identity = 0;
-        return true;
+        UserEntity newUser = new UserEntity();
+        newUser.setUName(username);
+        newUser.setUPassword(password);
+        newUser.setUEmail(email);
+
+        SignUpAsyncTask task = new SignUpAsyncTask();
+        task.execute(newUser);
+        try{
+            return task.get(5000, TimeUnit.MILLISECONDS);
+        }
+        catch (Exception e){
+            return false;
+        }
+
     }
 
     /*

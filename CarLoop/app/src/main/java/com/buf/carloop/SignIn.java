@@ -43,6 +43,7 @@ public class SignIn extends AppCompatActivity {
     }
 
     public void signUp(View view) {
+        new SignInAsyncTask(this).execute();
         Intent intent = new Intent(this, SignUp.class);
         startActivity(intent);
     }
@@ -53,7 +54,7 @@ public class SignIn extends AppCompatActivity {
     }
 
     private boolean validate() {
-        new EndpointsAsyncTask().execute(new Pair<Context, String>(this, "Manfred"));
+        new EndpointsAsyncTask().execute(new Pair<Context, String>(this, "Luke"));
         String username_val = username.getText().toString();
         String password_val = password.getText().toString();
         if(username_val.equals("") || password_val.equals("")) {
