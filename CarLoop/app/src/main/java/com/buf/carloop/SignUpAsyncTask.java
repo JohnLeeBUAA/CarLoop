@@ -29,9 +29,4 @@ public class SignUpAsyncTask extends AsyncTask<UserEntity, Void, Boolean> {
         }
         return true;
     }
-
-    @Override
-    protected void onPostExecute(Boolean result) {
-
-    }
 }
