@@ -17,7 +17,7 @@ public class JDBC {
 
     private static final ThreadLocal<Connection> threadLocal = new ThreadLocal<Connection>();
 
-    // 加载驱动 使用静态方法
+    // load the driver using the static way 加载驱动 使用静态方法
     static {
         try {
             Class.forName(DRIVERCLASS).newInstance();
@@ -26,16 +26,16 @@ public class JDBC {
         }
     }
 
-    //创建数据库连接的方法
+    //create the method for the connection of database 创建数据库连接的方法
     public static Connection getConnection(){
-        //从线程中获得数据库连接
+        //get the database connection from the thread 从线程中获得数据库连接
         Connection  conn = threadLocal.get();
 
-        if (conn == null) { // 没有可用的数据库连接
+        if (conn == null) { // if there is no connection of the database没有可用的数据库连接
             try {
-                //通过url, username, password 获取
+                //then use url, username and password to get the connection 通过url, username, password 获取
 
-                //创建新的数据库连接
+                //create the connection of the database 创建新的数据库连接
                 conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
                 threadLocal.set(conn);
             } catch (SQLException e) {
@@ -45,16 +45,16 @@ public class JDBC {
         return conn;
     }
 
-    //关闭数据库连接
+    //close the connection of the database关闭数据库连接
     public static boolean closeConnection() {
         boolean isClosed = true;
-        //从线程中获取数据库连接
+        //get the connection from the local thread 从线程中获取数据库连接
         Connection conn = threadLocal.get();
         threadLocal.set(null);
-        //数据库连接有效
+        //if the connection works数据库连接有效
         if (conn != null) {
             try {
-                //关闭数据库连接
+                //close the connection of the database 关闭数据库连接
                 conn.close();
             } catch (SQLException e) {
                 isClosed = false;
