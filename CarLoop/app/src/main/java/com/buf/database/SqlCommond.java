@@ -19,7 +19,7 @@ import java.util.Map;
  */
 public class SqlCommond {
     // Query for several records
-    protected Vector selectSomeNote(String sql) {
+    public Vector selectSomeNote(String sql) {
         Vector<Vector<Object>> vector = new Vector<Vector<Object>>();
         //get the connection of database
         Connection conn = JDBC.getConnection();
@@ -55,7 +55,7 @@ public class SqlCommond {
     }
 
     // query for only one record 查询单个记录
-    protected Vector selectOnlyNote(String sql) {
+    public Vector selectOnlyNote(String sql) {
         Vector<Object> vector = null;
         Connection conn = JDBC.getConnection();
         try {
@@ -77,7 +77,7 @@ public class SqlCommond {
     }
 
     //query for several value 查询多个值
-    protected Vector selectSomeValue(String sql) {
+    public Vector selectSomeValue(String sql) {
         Vector<Object> vector = new Vector<Object>();
         Connection conn = JDBC.getConnection();
         try {
@@ -95,7 +95,7 @@ public class SqlCommond {
     }
 
     //query for only one value 查询单个值
-    protected Object selectOnlyValue(String sql) {
+    public Object selectOnlyValue(String sql) {
         Object value = null;
         Connection conn = JDBC.getConnection();
         try {
@@ -162,9 +162,21 @@ public class SqlCommond {
     }
 
     public static void main(String[] args) {
-        SqlCommond d = new SqlCommond();
-        d.longHaul("delete from tb_order_item");
-        d.longHaul("delete from tb_order_form");
-        d.longHaul("delete from tb_user");
+        String username = "test3";
+        String password = "1234";
+        String email = "liu1@gmail.com";
+        String sqlSelect = "select u_password from user where u_name = '" + username + "';";
+        SqlCommond sqlCommond = new SqlCommond();
+        Object value = sqlCommond.selectOnlyValue(sqlSelect);
+
+        if(value == null) {
+            System.out.println("user doesn't exist");
+        }
+        else if (!value.equals(password)){
+            System.out.println("password wrong");
+        }
+        else {
+            System.out.println("user log in!");
+        }
     }
 }

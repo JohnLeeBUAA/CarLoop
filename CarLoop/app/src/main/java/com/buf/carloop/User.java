@@ -1,5 +1,9 @@
 package com.buf.carloop;
 
+import com.buf.database.SqlCommond;
+
+import java.util.Vector;
+
 /**
  * Created by zijin on 16/02/16.
  */
@@ -23,6 +27,23 @@ public class User {
     valid return 2, MUST SET GlobalVariables.user_id = u_id, GlobalVariables.user_identity = u_identity
      */
     public static int signIn(String username, String password) {
+        String sqlSelect = "select u_password from user where u_name = '" + username + "';";
+        SqlCommond sqlCommond = new SqlCommond();
+        Object value = sqlCommond.selectOnlyValue(sqlSelect);
+
+        if (value == null) {
+            return 0;
+        }
+        else if (!value.equals(password)) {
+            return 1;
+        }
+        else {
+            GlobalVariables.user_id = 1;
+            GlobalVariables.user_identity = 2;
+            return 2;
+        }
+
+        /*
         if(!username.equals("li")) {
             return 0;
         }
@@ -34,13 +55,18 @@ public class User {
             GlobalVariables.user_identity = 2;
             return 2;
         }
+        */
     }
 
     /*
     search username only
      */
     public static boolean existUsername(String username) {
-        if(username.equals("li")) {
+        String sqlSelect = "select u_name from user where u_name = '" + username + "';";
+        SqlCommond sqlCommond = new SqlCommond();
+        Object value = sqlCommond.selectOnlyValue(sqlSelect);
+
+        if(value == null) {
             return true;
         }
         else {
@@ -52,7 +78,12 @@ public class User {
     search email only
      */
     public static boolean existEmail(String email) {
-        if(email.equals("a@a.com")) {
+
+        String sqlSelect = "select u_email from user where u_email = '" + email + "';";
+        SqlCommond sqlCommond = new SqlCommond();
+        Object value = sqlCommond.selectOnlyValue(sqlSelect);
+
+        if(value == null) {
             return true;
         }
         else {
@@ -69,6 +100,12 @@ public class User {
     public static boolean signUp(String username, String password, String email) {
         GlobalVariables.user_id = 1;
         GlobalVariables.user_identity = 0;
+
+        // Sql insert user operation
+        String sqlCreate = "insert into user (u_name, u_password, u_email) values ('" + username + "', '"
+                + password + "', '" + email + "');";
+        SqlCommond sqlCommond = new SqlCommond();
+        sqlCommond.longHaul(sqlCreate);
         return true;
     }
 
