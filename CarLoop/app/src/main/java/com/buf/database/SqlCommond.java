@@ -133,7 +133,7 @@ public class SqlCommond {
                 //rollback 回滚
                 conn.rollback();
             } catch (SQLException e1) {
-                e1.printStackTrace();;
+                e1.printStackTrace();
             }
             e.printStackTrace();
         }
@@ -162,9 +162,10 @@ public class SqlCommond {
     }
 
     public static void main(String[] args) {
-        String username = "test3";
+        String username = "test";
         String password = "1234";
         String email = "liu1@gmail.com";
+
         String sqlSelect = "select u_password from user where u_name = '" + username + "';";
         SqlCommond sqlCommond = new SqlCommond();
         Object value = sqlCommond.selectOnlyValue(sqlSelect);

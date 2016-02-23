@@ -9,10 +9,14 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 public class JDBC {
     private static final String DRIVERCLASS = "com.mysql.jdbc.Driver";
-
+/*
     private static final String URL = "jdbc:mysql://localhost:3306/javabase";
     private static final String USERNAME = "test";
     private static final String PASSWORD = "test1234";
+*/
+    private static final String URL = "jdbc:mysql://104.196.60.15/carpool";
+    private static final String USERNAME = "root";
+    private static final String PASSWORD = "carpool";
 
 
     private static final ThreadLocal<Connection> threadLocal = new ThreadLocal<Connection>();

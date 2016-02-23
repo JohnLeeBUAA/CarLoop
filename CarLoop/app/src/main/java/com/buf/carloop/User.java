@@ -101,12 +101,12 @@ public class User {
         GlobalVariables.user_id = 1;
         GlobalVariables.user_identity = 0;
 
-        // Sql insert user operation
+        // Sql create user operation
         String sqlCreate = "insert into user (u_name, u_password, u_email) values ('" + username + "', '"
                 + password + "', '" + email + "');";
         SqlCommond sqlCommond = new SqlCommond();
-        sqlCommond.longHaul(sqlCreate);
-        return true;
+        boolean value = sqlCommond.longHaul(sqlCreate);
+        return value;
     }
 
     /*

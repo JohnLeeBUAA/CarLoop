@@ -11,9 +11,9 @@ public class testjavadatabase {
 
     public static void main(String[] args) {
         // TODO Auto-generated method stub
-        String url = "jdbc:mysql://localhost:3306/javabase";
-        String username = "test";
-        String password = "test1234";
+        String url = "jdbc:mysql://104.196.60.15";
+        String username = "root";
+        String password = "carpool";
 
         System.out.println("Connecting database...");
         try {
