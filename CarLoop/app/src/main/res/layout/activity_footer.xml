@@ -44,7 +44,7 @@
                 android:drawableTop="@drawable/chat"
                 android:paddingTop="9dp"
                 android:background="#3F51B5"
-                android:onClick="chat"/>
+                android:onClick="message"/>
             <Button
                 android:layout_weight="1"
                 android:layout_width="0dp"

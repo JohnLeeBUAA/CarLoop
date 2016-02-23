@@ -18,9 +18,16 @@ public class Footer extends AppCompatActivity {
     }
 
     public void add(View view) {
-        Intent intent = new Intent(this, CarpoolNew.class);
-        intent.putExtra("type", "Add");
-        startActivity(intent);
+        if(GlobalVariables.user_identity == 1) {
+            Intent intent = new Intent(this, CarpoolNew.class);
+            intent.putExtra("type", "Create");
+            startActivity(intent);
+        }
+        else {
+            Intent intent = new Intent(this, CarpoolNew.class);
+            intent.putExtra("type", "Demand");
+            startActivity(intent);
+        }
     }
 
     public void search(View view) {
@@ -35,8 +42,8 @@ public class Footer extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void chat(View view) {
-        Intent intent = new Intent(this, Chat.class);
+    public void message(View view) {
+        Intent intent = new Intent(this, Message.class);
         startActivity(intent);
     }
 

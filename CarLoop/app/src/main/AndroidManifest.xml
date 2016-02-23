@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.buf.carloop">
+
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -66,6 +67,10 @@
         <activity
             android:name=".EmailTest"
             android:label="@string/title_activity_email_test"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Message"
+            android:label="@string/title_activity_message"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
