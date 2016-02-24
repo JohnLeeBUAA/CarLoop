@@ -18,7 +18,7 @@ public class CarpoolSingle extends Footer {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
+        this.setTitle("Carpool Detail");
     }
 
 }
