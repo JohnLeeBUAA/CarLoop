@@ -36,9 +36,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:text="Driver Info:"
-                android:textSize="15dp"
-                android:textStyle="italic"
-                android:textColor="#7d7d7d"
+                android:textSize="17dp"
+                android:textColor="#737373"
                 android:layout_marginLeft="10dp"
                 android:gravity="bottom"/>
         </LinearLayout>
@@ -62,9 +61,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:text="Vehicle Info:"
-                android:textSize="15dp"
-                android:textStyle="italic"
-                android:textColor="#7d7d7d"
+                android:textSize="17dp"
+                android:textColor="#737373"
                 android:gravity="bottom"
                 android:layout_marginLeft="10dp"/>
         </LinearLayout>
@@ -112,8 +110,8 @@
             android:layout_height="wrap_content"
             android:text="Submit"
             android:onClick="addVehicle"
-            android:background="#4f8446"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/green_button"/>
 
     </LinearLayout>
 
