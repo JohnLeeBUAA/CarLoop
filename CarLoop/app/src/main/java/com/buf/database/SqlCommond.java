@@ -98,6 +98,7 @@ public class SqlCommond {
     public Object selectOnlyValue(String sql) {
         Object value = null;
         Connection conn = JDBC.getConnection();
+        if (conn == null) System.out.println("why connection is null?");
         try {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
