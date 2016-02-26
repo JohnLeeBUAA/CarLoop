@@ -182,6 +182,31 @@ public class User {
     update user on u_id == user_id
      */
     public static boolean updateUser(int user_id, String avatar, String gender, String phone, String description) {
-        return true;
+        updateUserSQL task = new updateUserSQL();
+        task.execute(Integer.toString(user_id), avatar, gender, phone, description);
+        try {
+            boolean value = task.get(5000, TimeUnit.MILLISECONDS);
+            return value;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private static class updateUserSQL extends AsyncTask<String, Void, Boolean> {
+        public updateUserSQL(){}
+        @Override
+        public Boolean doInBackground(String... params) {
+            String sqlSelect = "update user set  u_avatar= '" + params[1] + "'," +
+                    "u_gender='" + params[2] + "', " +
+                    "u_phone='" + params[3] + "', " +
+                    "u_description='" + params[4] + "', " +
+                    "where u_id=" + params[0] + ";";
+            SqlCommond sqlCommond = new SqlCommond();
+            Boolean value = sqlCommond.longHaul(sqlSelect);
+            System.out.println(params[0]);
+            System.out.println(value);
+            return value;
+        }
     }
 }
