@@ -65,10 +65,6 @@
             android:label="@string/title_activity_change_password"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".EmailTest"
-            android:label="@string/title_activity_email_test"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".Message"
             android:label="@string/title_activity_message"
             android:theme="@style/AppTheme.NoActionBar"></activity>

@@ -128,7 +128,7 @@ public class Vehicle {
     search if license already exist
      */
     public static boolean existLicense(String license) {
-        return true;
+        return false;
     }
 
     /*
@@ -136,6 +136,7 @@ public class Vehicle {
      */
     public static boolean addVehicle(int driverid, String driverlicense, String manufacturer, String model, String plate, int mileage, int capacity) {
         addVehicleSQL task = new addVehicleSQL();
+        System.out.println("****************************************************************");
         task.execute(Integer.toString(driverid), driverlicense, manufacturer, model, plate, Integer.toString(mileage), Integer.toString(capacity));
         try {
             boolean value = task.get(5000, TimeUnit.MILLISECONDS);
@@ -150,9 +151,9 @@ public class Vehicle {
         public addVehicleSQL(){}
         @Override
         public Boolean doInBackground(String... params) {
-            String sqlSelect = "insert into vehicle (v_driverid, v_driverlicense, v_manufacturer, v_model, v_plate, v_mileage, v_capacity) values ('" +
-                    Integer.parseInt(params[0]) + "', '" + params[1] + "', '" + params[2] + "', '" + params[3] + "', '" + params[4] +
-                    "', " + Integer.parseInt(params[5]) + Integer.parseInt(params[6]) + ");";
+            String sqlSelect = "insert into vehicle (v_driverid, v_driverlicense, v_manufacturer, v_model, v_plate, v_mileage, v_capacity) values (" +
+                    Integer.parseInt(params[0]) + ", '" + params[1] + "', '" + params[2] + "', '" + params[3] + "', '" + params[4] +
+                    "', " + Integer.parseInt(params[5]) + ", " + Integer.parseInt(params[6]) + ");";
             SqlCommond sqlCommond = new SqlCommond();
             Boolean value = sqlCommond.longHaul(sqlSelect);
             System.out.println(params[0]);

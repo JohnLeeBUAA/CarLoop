@@ -322,6 +322,8 @@ public class User {
     public static boolean setDriver(int user_id) {
         GlobalVariables.user_identity = 1;
         return true;
+    }
+
     public static boolean updateUser(int user_id, String avatar, String gender, String phone, String description) {
         updateUserSQL task = new updateUserSQL();
         task.execute(Integer.toString(user_id), avatar, gender, phone, description);

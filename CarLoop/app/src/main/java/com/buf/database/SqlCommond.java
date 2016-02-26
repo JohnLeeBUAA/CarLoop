@@ -167,18 +167,13 @@ public class SqlCommond {
         String password = "1234";
         String email = "liu1@gmail.com";
 
-        String sqlSelect = "select u_password from user where u_name = '" + username + "';";
+        String sqlSelect = "insert into vehicle (v_driverid, v_driverlicense, v_manufacturer, v_model, v_plate, v_mileage, v_capacity) values (" +
+                Integer.parseInt("2") + ", '" + "2" + "', '" + "2" + "', '" + "2" + "', '" + "2" +
+                "', " + Integer.parseInt("2") + ", " + Integer.parseInt("2") + ");";
         SqlCommond sqlCommond = new SqlCommond();
-        Object value = sqlCommond.selectOnlyValue(sqlSelect);
+        Boolean value = sqlCommond.longHaul(sqlSelect);
 
-        if(value == null) {
-            System.out.println("user doesn't exist");
-        }
-        else if (!value.equals(password)){
-            System.out.println("password wrong");
-        }
-        else {
-            System.out.println("user log in!");
-        }
+            System.out.println(value);
+
     }
 }
