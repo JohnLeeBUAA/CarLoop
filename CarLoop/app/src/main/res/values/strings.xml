@@ -25,4 +25,6 @@
     <string name="title_activity_driver_vehicle_info">Driver And Vehicle Info</string>
     <string name="title_activity_manage_profile">Manage Profile</string>
     <string name="title_activity_change_password">Change Password</string>
+    <string name="title_activity_email_test">EmailTest</string>
+    <string name="title_activity_message">Message</string>
 </resources>
