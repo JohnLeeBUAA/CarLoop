@@ -53,8 +53,8 @@ public class SignUp extends AppCompatActivity {
                     startActivity(intent);
                 }
                 else {
-                    Intent intent = new Intent(this, CarpoolList.class);
-                    intent.putExtra("type", "Confirmed");
+                    Intent intent = new Intent(this, CarpoolNew.class);
+                    intent.putExtra("type", "Demand");
                     startActivity(intent);
                 }
             }
