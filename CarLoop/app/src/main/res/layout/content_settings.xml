@@ -1,103 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:background="@drawable/sign_in_backcolor"
     tools:context="com.buf.carloop.Settings"
     tools:showIn="@layout/activity_settings">
 
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:id="@+id/identity_label_settings"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="15dip"
+        android:layout_marginTop="85dp">
 
-    <LinearLayout
-        android:id="@+id/switch_settings"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:id="@+id/switch_settings"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Switch Your Identity:"/>
+            android:orientation="vertical">
 
-        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/identity_radiogroup_settings"
-            android:orientation="horizontal">
-
-            <RadioButton android:id="@+id/passenger_settings"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Passenger"
-                android:onClick="switchIdentity"/>
+                android:layout_gravity="center_horizontal">
+                <TextView
+                    android:id="@+id/identity_label_settings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="15dp"
+                    android:textStyle="italic"
+                    android:textColor="#7d7d7d"/>
+            </LinearLayout>
 
-            <RadioButton android:id="@+id/driver_settings"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Driver"
-                android:onClick="switchIdentity"/>
-        </RadioGroup>
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp">
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/license"
+                    android:layout_gravity="center"
+                    android:backgroundTint="#7d7d7d"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:text="Switch Identity:"
+                    android:textSize="15dp"
+                    android:textStyle="italic"
+                    android:textColor="#7d7d7d"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"/>
+
+            <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/identity_radiogroup_settings"
+                android:orientation="horizontal"
+                android:layout_marginLeft="5dp">
+
+                <RadioButton android:id="@+id/passenger_settings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Passenger"
+                    android:onClick="switchIdentity"/>
+
+                <RadioButton android:id="@+id/driver_settings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="Driver"
+                    android:onClick="switchIdentity"/>
+            </RadioGroup>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            style="@style/wrap_layout"
+            android:layout_marginTop="15dp">
+            <LinearLayout
+                style="@style/top_layout"
+                android:onClick="manageVehicle">
+                <TextView
+                    style="@style/usertext"
+                    android:id="@+id/manage_vehicle_settings" />
+                <ImageView
+                    style="@style/img_arrow"/>
+            </LinearLayout>
+
+            <View style="@style/bg_line"/>
+
+            <LinearLayout style="@style/mid_layout"
+                android:onClick="manageProfile">
+                <TextView style="@style/usertext"
+                    android:text="Manage Profile" />
+                <ImageView style="@style/img_arrow"/>
+            </LinearLayout>
+
+            <View style="@style/bg_line"/>
+
+            <LinearLayout style="@style/bottom_layout"
+                android:onClick="changePassword">
+                <TextView style="@style/usertext"
+                    android:text="Change Password"/>
+                <ImageView style="@style/img_arrow" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            style="@style/wrap_layout"
+            android:layout_marginTop="15dp">
+            <LinearLayout style="@style/single_layout"
+                android:onClick="logOut">
+                <TextView style="@style/usertext"
+                    android:text="Log Out"/>
+                <ImageView style="@style/img_arrow"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-        <Button
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:id="@+id/manage_vehicle_settings"
-            android:onClick="manageVehicle"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-        <Button
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Manage Profile"
-            android:onClick="manageProfile"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-        <Button
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Change Password"
-            android:onClick="changePassword"/>
-        <Button
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Log Out"
-            android:onClick="logOut"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-        <Button
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="***Test Purpose Delete Later***"
-            android:onClick="test"/>
-    </LinearLayout>
-
-</LinearLayout>
+</RelativeLayout>

@@ -36,11 +36,10 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:text="Driver Info:"
-                android:textSize="15dp"
-                android:textStyle="italic"
-                android:textColor="#7d7d7d"
+                android:textSize="17dp"
+                android:textColor="#737373"
                 android:layout_marginLeft="10dp"
-                android:gravity="bottom" />
+                android:gravity="bottom"/>
         </LinearLayout>
 
         <EditText android:id="@+id/license_addvehicleinfo"
@@ -51,8 +50,7 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="15dp">
+            android:orientation="horizontal">
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
@@ -63,9 +61,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:text="Vehicle Info:"
-                android:textSize="15dp"
-                android:textStyle="italic"
-                android:textColor="#7d7d7d"
+                android:textSize="17dp"
+                android:textColor="#737373"
                 android:gravity="bottom"
                 android:layout_marginLeft="10dp"/>
         </LinearLayout>
@@ -101,18 +98,20 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:padding="15dip"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:baselineAligned="false"
+        android:layout_below="@+id/linearLayout"
+        android:layout_alignRight="@+id/linearLayout"
+        android:layout_alignEnd="@+id/linearLayout">
 
         <Button
             android:id="@+id/button_addvehicleinfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
             android:text="Submit"
             android:onClick="addVehicle"
-            android:background="#4f8446"
-            android:layout_gravity="center_horizontal"/>
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/green_button"/>
 
     </LinearLayout>
 

@@ -1,5 +1,14 @@
 package com.buf.carloop;
 
+import android.os.AsyncTask;
+
+import com.buf.database.SqlCommond;
+import com.buf.database.testAsyncTask;
+
+import java.util.Objects;
+import java.util.Vector;
+import java.util.concurrent.TimeUnit;
+
 /**
  * Created by zijin on 16/02/16.
  */
@@ -103,6 +112,28 @@ public class User {
     valid return 2, MUST SET GlobalVariables.user_id = u_id, GlobalVariables.user_identity = u_identity
      */
     public static int signIn(String username, String password) {
+        /*
+        String sqlSelect = "select u_password from user where u_name = '" + username + "';";
+        SqlCommond sqlCommond = new SqlCommond();
+        Object value = sqlCommond.selectOnlyValue(sqlSelect);
+        */
+        signInSQL task = new signInSQL();
+        task.execute(username);
+        try {
+            Object value = task.get(5000, TimeUnit.MILLISECONDS);
+            if (value == null) {
+                return 0;
+            } else if (!value.equals(password)) {
+                return 1;
+            } else {
+                GlobalVariables.user_id = 1;
+                GlobalVariables.user_identity = 2;
+                return 2;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        /*
         if(!username.equals("li")) {
             return 0;
         }
@@ -114,32 +145,85 @@ public class User {
             GlobalVariables.user_identity = 2;
             return 2;
         }
+        */
+        return 0;
     }
-
+    private static class signInSQL extends AsyncTask<String, Void, Object>  {
+        public signInSQL(){}
+        @Override
+        public Object doInBackground(String... username) {
+            String sqlSelect = "select u_password from user where u_name = '" + username[0] + "';";
+            SqlCommond sqlCommond = new SqlCommond();
+            Object value = sqlCommond.selectOnlyValue(sqlSelect);
+            System.out.println(username[0]);
+            System.out.println(value);
+            return value;
+        }
+    }
     /*
     search username only
      */
     public static boolean existUsername(String username) {
-        if(username.equals("li")) {
+        existUsernameSQL task = new existUsernameSQL();
+        task.execute(username);
+        try {
+            Object value = task.get(5000, TimeUnit.MILLISECONDS);
+            if(value == null) {
+                return false;
+            }
+            else {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
             return true;
         }
-        else {
-            return false;
-        }
+
     }
 
+    private static class existUsernameSQL extends AsyncTask<String, Void, Object> {
+        public existUsernameSQL() {}
+
+        protected Object doInBackground(String... params) {
+            String sqlSelect = "select u_name from user where u_name = '" + params[0] + "';";
+            SqlCommond sqlCommond = new SqlCommond();
+            Object value = sqlCommond.selectOnlyValue(sqlSelect);
+            return value;
+        }
+
+    }
     /*
     search email only
      */
     public static boolean existEmail(String email) {
-        if(email.equals("a@a.com")) {
+        existEmailSQL task = new existEmailSQL();
+        task.execute(email);
+        try {
+            Object value = task.get(5000, TimeUnit.MILLISECONDS);
+            if(value == null) {
+                return false;
+            }
+            else {
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
             return true;
-        }
-        else {
-            return false;
         }
     }
 
+    private static class existEmailSQL extends AsyncTask<String, Void, Object> {
+        public existEmailSQL() {}
+
+        protected Object doInBackground(String... params) {
+            String sqlSelect = "select u_email from user where u_email = '" + params[0] + "';";
+            SqlCommond sqlCommond = new SqlCommond();
+            Object value = sqlCommond.selectOnlyValue(sqlSelect);
+            System.out.println("existEmailSQL:" + value);
+            return value;
+        }
+
+    }
     /*
     select u_email from user where u_name = username
     no record, return 0
@@ -159,9 +243,31 @@ public class User {
     public static boolean signUp(String username, String password, String email) {
         GlobalVariables.user_id = 1;
         GlobalVariables.user_identity = 0;
-        return true;
+
+        // Sql create user operation
+        signUpSQL task = new signUpSQL();
+        task.execute(username, password, email);
+        try {
+            boolean value = task.get(5000, TimeUnit.MILLISECONDS);
+            return value;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 
+    private static class signUpSQL extends AsyncTask <String, Void, Boolean> {
+
+        @Override
+        protected Boolean doInBackground(String... params) {
+            // Sql create user operation
+            String sqlCreate = "insert into user (u_name, u_password, u_email) values ('" + params[0] + "', '"
+                    + params[1] + "', '" + params[2] + "');";
+            SqlCommond sqlCommond = new SqlCommond();
+            boolean value = sqlCommond.longHaul(sqlCreate);
+            return value;
+        }
+    }
     /*
     update user on u_id == user_id
      */
@@ -216,5 +322,34 @@ public class User {
     public static boolean setDriver(int user_id) {
         GlobalVariables.user_identity = 1;
         return true;
+    }
+
+    public static boolean updateUser(int user_id, String avatar, String gender, String phone, String description) {
+        updateUserSQL task = new updateUserSQL();
+        task.execute(Integer.toString(user_id), avatar, gender, phone, description);
+        try {
+            boolean value = task.get(5000, TimeUnit.MILLISECONDS);
+            return value;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    private static class updateUserSQL extends AsyncTask<String, Void, Boolean> {
+        public updateUserSQL(){}
+        @Override
+        public Boolean doInBackground(String... params) {
+            String sqlSelect = "update user set  u_avatar= '" + params[1] + "'," +
+                    "u_gender='" + params[2] + "', " +
+                    "u_phone='" + params[3] + "', " +
+                    "u_description='" + params[4] + "', " +
+                    "where u_id=" + params[0] + ";";
+            SqlCommond sqlCommond = new SqlCommond();
+            Boolean value = sqlCommond.longHaul(sqlSelect);
+            System.out.println(params[0]);
+            System.out.println(value);
+            return value;
+        }
     }
 }

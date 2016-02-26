@@ -20,7 +20,7 @@ public class Settings extends Footer {
 
     private TextView identity_label;
     private LinearLayout switchl;
-    private Button manage_vehicle;
+    private TextView manage_vehicle;
     private RadioButton driver;
     private RadioButton passenger;
 
@@ -35,7 +35,7 @@ public class Settings extends Footer {
 
         identity_label = (TextView) findViewById(R.id.identity_label_settings);
         switchl = (LinearLayout) findViewById(R.id.switch_settings);
-        manage_vehicle = (Button) findViewById(R.id.manage_vehicle_settings);
+        manage_vehicle = (TextView) findViewById(R.id.manage_vehicle_settings);
         driver = (RadioButton) findViewById(R.id.driver_settings);
         passenger = (RadioButton) findViewById(R.id.passenger_settings);
 
