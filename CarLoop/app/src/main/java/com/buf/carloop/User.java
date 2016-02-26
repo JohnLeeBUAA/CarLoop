@@ -309,11 +309,12 @@ public class User {
 //        user.setU_gender("male");
 //        user.setU_description("Some description about me");
 //        user.setU_phone("123-456-7890");
-        user.setU_name("Billie Joe");
-        user.setU_email("something@somewhere.com");
+        user.setU_name("Nate Bill");
+        user.setU_email("lzljzys@gmail.com");
 
         return user;
     }
+
 
     /*
     update u_identity = 1 on u_id == user_id
