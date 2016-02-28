@@ -1,6 +1,8 @@
 package com.buf.database;
 
+import java.io.ByteArrayInputStream;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -141,6 +143,53 @@ public class SqlCommond {
         return isLongHaul;
     }
 
+    // get the image blob from database
+    public byte[] selectBlob(String sql) {
+        byte[] value = new byte[]{(byte) 0xe0};;
+        //get the connection of the database
+        Connection conn = JDBC.getConnection();
+        try {
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                value = rs.getBytes("u_avatar");
+            }
+            rs.close();
+            stmt.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return value;
+    }
+
+    //insert the image blob into database
+    public boolean insertBlob(String sql, byte[] blobData) {
+        boolean isLongHaul = true; // long lasting 持久化
+        //get the connection of the database 获取数据库连接
+        Connection conn = JDBC.getConnection();
+        try {
+            //set it as hand commitment设置为手动提交
+            conn.setAutoCommit(false);
+            //create the connection to mysql创建连接状态
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setBinaryStream(1, new ByteArrayInputStream(blobData), blobData.length);
+            stmt.executeUpdate();
+            stmt.close();
+            //commit the long lasting result 提交持久化
+            conn.commit();
+        } catch (SQLException e) {
+            //the long lasting fails持久化失败
+            isLongHaul = false;
+            try {
+                //rollback 回滚
+                conn.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
+            e.printStackTrace();
+        }
+        return isLongHaul;
+    }
     //change ResultSet to List ResultSet 转换到 List 方法
     public static List<Map<String, Object>> RsToList(ResultSet rs) throws java.sql.SQLException {
         if (rs == null)
