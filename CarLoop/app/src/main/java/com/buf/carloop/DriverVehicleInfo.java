@@ -73,6 +73,9 @@ public class DriverVehicleInfo extends Footer {
                     editor.putInt("user_identity", GlobalVariables.user_identity);
                     editor.commit();
                     Toast.makeText(this, "Add driver and vehicle info success", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(this, CarpoolNew.class);
+                    intent.putExtra("type", "Create");
+                    startActivity(intent);
                 }
             }
             else if(type.equals("Edit")) {

@@ -37,8 +37,8 @@ public class SignIn extends AppCompatActivity {
             editor.commit();
             Toast.makeText(this, "Sign in success", Toast.LENGTH_SHORT).show();
 
-            Intent intent = new Intent(this, CarpoolList.class);
-            intent.putExtra("type", "Confirmed");
+            Intent intent = new Intent(this, CarpoolNew.class);
+            intent.putExtra("type", "Create");
             startActivity(intent);
         }
     }
