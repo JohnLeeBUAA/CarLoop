@@ -7,6 +7,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.format.DateFormat;
+import android.text.format.Time;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -17,6 +19,8 @@ import android.widget.Toast;
 import android.widget.DatePicker;
 import android.view.View.OnClickListener;
 import java.util.Calendar;
+import java.util.Date;
+
 import android.content.DialogInterface.*;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -35,6 +39,18 @@ public class CarpoolNew extends Footer {
     private Button btn2;
     private Button btn3;
     private Button btn4;
+
+    private String depart_loc_val;
+    private double depart_lat_val;
+    private double depart_lng_val;
+    private String arrival_loc_val;
+    private double arrival_lat_val;
+    private double arrival_lng_val;
+    private Button set_depart_btn;
+    private Button set_arrival_btn;
+
+    private Calendar depart_date;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +106,7 @@ public class CarpoolNew extends Footer {
                         c.get(Calendar.YEAR),
                         c.get(Calendar.MONTH),
                         c.get(Calendar.DAY_OF_MONTH)).show();
+
             }
         });
 
@@ -107,6 +124,7 @@ public class CarpoolNew extends Footer {
                         c.get(Calendar.YEAR),
                         c.get(Calendar.MONTH),
                         c.get(Calendar.DAY_OF_MONTH)).show();
+                depart_date.set(c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
             }
         });
 
@@ -146,24 +164,25 @@ public class CarpoolNew extends Footer {
     }
 
     public void addCarpool(View view) {
-        if(type.equals("Create")) {
-            Toast.makeText(this, "Carpool created", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, CarpoolList.class);
-            intent.putExtra("type", "Created");
-            startActivity(intent);
-        }
-        else if(type.equals("Demand")) {
-            Toast.makeText(this, "Carpool demanded", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, CarpoolList.class);
-            intent.putExtra("type", "Demanded");
-            startActivity(intent);
-        }
-        else {
-            Toast.makeText(this, "Searching carpools", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, CarpoolList.class);
-            intent.putExtra("type", "Search");
-            startActivity(intent);
-        }
+
+//        if(type.equals("Create")) {
+//            Toast.makeText(this, "Carpool created", Toast.LENGTH_SHORT).show();
+//            Intent intent = new Intent(this, CarpoolList.class);
+//            intent.putExtra("type", "Created");
+//            startActivity(intent);
+//        }
+//        else if(type.equals("Demand")) {
+//            Toast.makeText(this, "Carpool demanded", Toast.LENGTH_SHORT).show();
+//            Intent intent = new Intent(this, CarpoolList.class);
+//            intent.putExtra("type", "Demanded");
+//            startActivity(intent);
+//        }
+//        else {
+//            Toast.makeText(this, "Searching carpools", Toast.LENGTH_SHORT).show();
+//            Intent intent = new Intent(this, CarpoolList.class);
+//            intent.putExtra("type", "Search");
+//            startActivity(intent);
+//        }
     }
 
 }

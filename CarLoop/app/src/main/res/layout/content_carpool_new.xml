@@ -48,9 +48,14 @@
                         android:layout_marginLeft="5dp"
                         android:layout_gravity="bottom"/>
                 </LinearLayout>
-                <EditText
+                <Button
+                    android:id="@+id/setdepart_carpoolnew"
+                    android:onClick="setDepart"
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:text="Set Location"
+                    android:textColor="#737373"
+                    android:background="@drawable/sign_in_border"/>
             </LinearLayout>
 
             <LinearLayout
@@ -86,9 +91,14 @@
                         android:layout_marginLeft="5dp"
                         android:layout_gravity="bottom"/>
                 </LinearLayout>
-                <EditText
+                <Button
+                    android:id="@+id/setdesti_carpoolnew"
+                    android:onClick="setDesti"
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:text="Set Location"
+                    android:textColor="#737373"
+                    android:background="@drawable/sign_in_border"/>
             </LinearLayout>
         </LinearLayout>
 

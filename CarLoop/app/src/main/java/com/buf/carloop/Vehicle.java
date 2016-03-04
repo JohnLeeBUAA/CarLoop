@@ -147,7 +147,6 @@ public class Vehicle {
                 driverid+ ", '" +driverlicense + "', '" + manufacturer + "', '" + model + "', '" + plate +
                 "', " +mileage + ", " + capacity + ");";
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
-        System.out.println("****************************************************************");
         task.execute(sqlComm);
         try {
             boolean value = task.get(5000, TimeUnit.MILLISECONDS);
