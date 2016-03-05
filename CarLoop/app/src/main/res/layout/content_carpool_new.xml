@@ -308,9 +308,10 @@
                         android:layout_gravity="bottom"/>
                 </LinearLayout>
                 <EditText
+                    android:id="@+id/maxpassenger_carpoolnew"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"/>
+                    android:inputType="numberDecimal|number"/>
             </LinearLayout>
 
             <LinearLayout
@@ -338,6 +339,7 @@
                         android:layout_gravity="bottom"/>
                 </LinearLayout>
                 <EditText
+                    android:id="@+id/price_carpoolnew"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal|number"/>

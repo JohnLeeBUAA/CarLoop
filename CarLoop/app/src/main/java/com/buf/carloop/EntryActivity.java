@@ -21,15 +21,21 @@ public class EntryActivity extends AppCompatActivity {
         // store user_identity for the switch function 0 - passenger only; 1 - driver or passenger
         int user_identity = sharedPref.getInt("user_identity", -1);
 
-        if(user_id == -1 || user_identity == -1) {
-            Intent intent = new Intent(this, SignIn.class);
-            startActivity(intent);
-        }
-        else {
-            GlobalVariables.user_id = user_id;
-            GlobalVariables.user_identity = user_identity;
-            Intent intent = new Intent(this, CarpoolList.class);
-            startActivity(intent);
-        }
+//        if(user_id == -1 || user_identity == -1) {
+//            Intent intent = new Intent(this, SignIn.class);
+//            startActivity(intent);
+//        }
+//        else {
+//            GlobalVariables.user_id = user_id;
+//            GlobalVariables.user_identity = user_identity;
+//            Intent intent = new Intent(this, CarpoolList.class);
+//            startActivity(intent);
+//        }
+        GlobalVariables.user_id = 1;
+        GlobalVariables.user_identity = 1;
+        Intent intent = new Intent(this, CarpoolNew.class);
+        intent.putExtra("type", "Create");
+        startActivity(intent);
+
     }
 }
