@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class Vehicle {
     private int v_id;
-    private int v_driverid;
+    private String v_drivername;
     private String v_driverlicense;
     private String v_manufacturer;
     private String v_model;
@@ -40,12 +40,12 @@ public class Vehicle {
         this.v_id = v_id;
     }
 
-    public int getV_driverid() {
-        return v_driverid;
+    public String getV_drivername() {
+        return v_drivername;
     }
 
-    public void setV_driverid(int v_driverid) {
-        this.v_driverid = v_driverid;
+    public void setV_drivername(String v_drivername) {
+        this.v_drivername = v_drivername;
     }
 
     public String getV_driverlicense() {
@@ -99,7 +99,7 @@ public class Vehicle {
     /*
     search vehicle with driverid
      */
-    public static Vehicle getVehicle(int driverid) {
+    public static Vehicle getVehicle(String drivername) {
         Vehicle vehicle = new Vehicle();
         String sqlComm = "select * from vehicle where v_driverid=" + driverid + ";";
         AsyncSelectOnlyNote task = new AsyncSelectOnlyNote();
@@ -142,7 +142,7 @@ public class Vehicle {
     /*
     add a new vehicle record
      */
-    public static boolean addVehicle(int driverid, String driverlicense, String manufacturer, String model, String plate, int mileage, int capacity) {
+    public static boolean addVehicle(String drivername, String driverlicense, String manufacturer, String model, String plate, int mileage, int capacity) {
         String sqlComm = "insert into vehicle (v_driverid, v_driverlicense, v_manufacturer, v_model, v_plate, v_mileage, v_capacity) values (" +
                 driverid+ ", '" +driverlicense + "', '" + manufacturer + "', '" + model + "', '" + plate +
                 "', " +mileage + ", " + capacity + ");";
@@ -160,7 +160,7 @@ public class Vehicle {
     /*
     update vehicle on v_driverid == driverid
      */
-    public static boolean updateVehicle(int driverid, String driverlicense, String manufacturer, String model, String plate, int mileage, int capacity) {
+    public static boolean updateVehicle(String drivername, String driverlicense, String manufacturer, String model, String plate, int mileage, int capacity) {
         String sqlComm = "update vehicle set  v_driverlicense= '" + driverlicense + "'," +
                 "v_manufacturer='" + manufacturer + "', " +
                 "v_model='" + model + "', " +

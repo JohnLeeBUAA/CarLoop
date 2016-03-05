@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -32,17 +33,7 @@ import android.app.TimePickerDialog;
 public class CarpoolNew extends Footer {
 
     private String type;
-    private Button button;
-    private LinearLayout labelarea;
-    private LinearLayout textarea;
-    private TextView tip;
-    private TextView tip2;
-    private TextView tip3;
-    private TextView tip4;
-    private Button btn;
-    private Button btn2;
-    private Button btn3;
-    private Button btn4;
+    private int carpoolid;
 
     private String depart_loc_val;
     private double depart_lat_val;
@@ -57,14 +48,24 @@ public class CarpoolNew extends Footer {
     private String time;
     private String date_range;
     private String time_range;
+    private TextView tip;
+    private TextView tip2;
+    private TextView tip3;
+    private TextView tip4;
+    private Button btn;
+    private Button btn2;
+    private Button btn3;
+    private Button btn4;
 
+    private LinearLayout maxpassengerarea;
+    private LinearLayout pricearea;
     private EditText maxpassenger;
     private EditText price;
     private String maxpassenger_val;
     private String price_val;
 
-    private int carpoolid;
-
+    private Button add_btn;
+    private ProgressBar bar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +76,9 @@ public class CarpoolNew extends Footer {
 
         setSupportActionBar(toolbar);
 
+        set_depart_btn = (Button) findViewById(R.id.setdepart_carpoolnew);
+        set_desti_btn = (Button) findViewById(R.id.setdesti_carpoolnew);
+
         tip = (TextView) findViewById(R.id.tip);
         tip2 = (TextView) findViewById(R.id.tip2);
         tip3 = (TextView) findViewById(R.id.tip3);
@@ -83,44 +87,52 @@ public class CarpoolNew extends Footer {
         btn2 = (Button) findViewById(R.id.btn2);
         btn3 = (Button) findViewById(R.id.btn3);
         btn4 = (Button) findViewById(R.id.btn4);
-        button = (Button) findViewById(R.id.add_carpool_new);
-        labelarea = (LinearLayout) findViewById(R.id.labelarea_carpool_new);
-        textarea = (LinearLayout) findViewById(R.id.textarea_carpool_new);
-
-        set_depart_btn = (Button) findViewById(R.id.setdepart_carpoolnew);
-        set_desti_btn = (Button) findViewById(R.id.setdesti_carpoolnew);
 
         maxpassenger = (EditText) findViewById(R.id.maxpassenger_carpoolnew);
         price = (EditText) findViewById(R.id.price_carpoolnew);
+        maxpassengerarea = (LinearLayout) findViewById(R.id.maxpassegerarea_carpoolnew);
+        pricearea = (LinearLayout) findViewById(R.id.pricearea_carpoolnew);
+
+        add_btn = (Button) findViewById(R.id.add_carpoolnew);
+        bar = (ProgressBar) findViewById(R.id.progressBar_carpoolnew);
+        bar.setVisibility(View.GONE);
 
         type = getIntent().getStringExtra("type");
 
         if(type.equals("Create")) {
             this.setTitle("Create Carpool");
-            button.setText("Create");
-        }
-        else if(type.equals("Demand")) {
-            this.setTitle("Demand Carpool");
-            button.setText("Demand");
-            labelarea.setVisibility(View.GONE);
-            textarea.setVisibility(View.GONE);
+            add_btn.setText("Create");
         }
         else if(type.equals("Search")) {
             this.setTitle("Search Carpool");
-            button.setText("Search");
-            labelarea.setVisibility(View.GONE);
-            textarea.setVisibility(View.GONE);
+            add_btn.setText("Search");
+            maxpassengerarea.setVisibility(View.GONE);
+            pricearea.setVisibility(View.GONE);
         }
-        else {
+        else if(type.equals("Edit")) {
             this.setTitle("Edit Carpool");
-            button.setText("Update");
+            add_btn.setText("Update");
 
-            //read carpool initialize fields
+            carpoolid = getIntent().getIntExtra("carpoolid", 0);
+            Carpool carpool = Carpool.getCarpool(carpoolid);
 
-            if(type.equals("EditDemand")) {
-                labelarea.setVisibility(View.GONE);
-                textarea.setVisibility(View.GONE);
-            }
+            depart_loc_val = carpool.getDepart_loc();
+            depart_lat_val = carpool.getDepart_lat();
+            depart_lng_val = carpool.getDepart_lng();
+            desti_loc_val = carpool.getDesti_loc();
+            desti_lat_val = carpool.getDesti_lat();
+            desti_lng_val = carpool.getDesti_lng();
+
+            set_depart_btn.setText(depart_loc_val);
+            set_desti_btn.setText(desti_loc_val);
+
+            tip.setText(carpool.getDate());
+            tip2.setText(carpool.getDate_range());
+            tip3.setText(carpool.getTime());
+            tip4.setText(carpool.getTime_range());
+
+            maxpassenger.setText(Integer.toString(carpool.getMaxpassenger()));
+            price.setText(Integer.toString(carpool.getPrice()));
         }
 
         btn.setOnClickListener(new OnClickListener() {
@@ -193,66 +205,82 @@ public class CarpoolNew extends Footer {
     }
 
     public void addCarpool(View view) {
-        if(validate()) {
-            if(type.equals("Create")) {
-                if(Carpool.createCarpool(
-                        GlobalVariables.user_id,
-                        depart_loc_val,
-                        depart_lat_val,
-                        depart_lng_val,
-                        desti_loc_val,
-                        desti_lat_val,
-                        desti_lng_val,
-                        date,
-                        time,
-                        date_range,
-                        time_range,
-                        Integer.parseInt(maxpassenger_val),
-                        Integer.parseInt(price_val)
-                )) {
-                    Toast.makeText(this, "Carpool created", Toast.LENGTH_SHORT).show();
+        add_btn.setVisibility(View.GONE);
+        bar.setVisibility(View.VISIBLE);
+        try {
+            if(validate()) {
+                if(type.equals("Create")) {
+                    if(Carpool.createCarpool(
+                            GlobalVariables.user_name,
+                            depart_loc_val,
+                            depart_lat_val,
+                            depart_lng_val,
+                            desti_loc_val,
+                            desti_lat_val,
+                            desti_lng_val,
+                            date,
+                            time,
+                            date_range,
+                            time_range,
+                            Integer.parseInt(maxpassenger_val),
+                            Integer.parseInt(price_val),
+                            0,
+                            0
+                    )) {
+                        Toast.makeText(this, "Carpool created", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(this, CarpoolList.class);
+                        intent.putExtra("type", "Created");
+                        startActivity(intent);
+                    }
+                }
+                else if(type.equals("Edit")) {
+                    if(Carpool.updateCarpool(
+                            carpoolid,
+                            depart_loc_val,
+                            depart_lat_val,
+                            depart_lng_val,
+                            desti_loc_val,
+                            desti_lat_val,
+                            desti_lng_val,
+                            date,
+                            time,
+                            date_range,
+                            time_range,
+                            Integer.parseInt(maxpassenger_val),
+                            Integer.parseInt(price_val)
+                    )) {
+                        Toast.makeText(this, "Carpool updated", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(this, CarpoolList.class);
+                        intent.putExtra("type", "Created");
+                        startActivity(intent);
+                    }
+                }
+                else if(type.equals("Search")) {
+                    Toast.makeText(this, "Searching carpools", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(this, CarpoolList.class);
-                    intent.putExtra("type", "Created");
+                    intent.putExtra("depart_lat_val", depart_lat_val);
+                    intent.putExtra("depart_lng_val", depart_lng_val);
+                    intent.putExtra("desti_lat_val", desti_lat_val);
+                    intent.putExtra("desti_lng_val", desti_lng_val);
+                    intent.putExtra("date", date);
+                    intent.putExtra("time", time);
+                    intent.putExtra("date_range", date_range);
+                    intent.putExtra("time_range", time_range);
+                    intent.putExtra("type", "Search Result");
                     startActivity(intent);
                 }
             }
-            else if(type.equals("Demand")) {
-                if(Carpool.demandCarpool(
-                        GlobalVariables.user_id,
-                        depart_loc_val,
-                        depart_lat_val,
-                        depart_lng_val,
-                        desti_loc_val,
-                        desti_lat_val,
-                        desti_lng_val,
-                        date,
-                        time,
-                        date_range,
-                        time_range
-                )) {
-                    Toast.makeText(this, "Carpool demanded", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(this, CarpoolList.class);
-                    intent.putExtra("type", "Demanded");
-                    startActivity(intent);
-                }
-            }
-            else if(type.equals("Search")) {
-                Toast.makeText(this, "Searching carpools", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(this, CarpoolList.class);
-                intent.putExtra("type", "Search");
-                intent.putExtra("depart_lat_val", depart_lat_val);
-                intent.putExtra("depart_lng_val", depart_lng_val);
-                intent.putExtra("desti_lat_val", desti_lat_val);
-                intent.putExtra("desti_lng_val", desti_lng_val);
-                intent.putExtra("date", date);
-                intent.putExtra("time", time);
-                intent.putExtra("date_range", date_range);
-                intent.putExtra("time_range", time_range);
-                startActivity(intent);
-            }
+        } catch (Exception e) {
+            Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+            add_btn.setVisibility(View.VISIBLE);
+            bar.setVisibility(View.GONE);
         }
     }
 
+    /*
+    interface for set departure location
+    NOTE: need to update the text on the button "set_depart_btn" for display purpose
+     */
     public void setDepart(View view) {
         depart_loc_val = "Waterloo";
         depart_lat_val = 11.11D;
@@ -260,6 +288,10 @@ public class CarpoolNew extends Footer {
         set_depart_btn.setText(depart_loc_val);
     }
 
+    /*
+    interface for set destination
+    NOTE: need to update the text on the button "set_desti_btn" for display purpose
+     */
     public void setDesti(View view) {
         desti_loc_val = "Toronto";
         desti_lat_val = 33.33D;
@@ -272,6 +304,10 @@ public class CarpoolNew extends Footer {
         time = tip3.getText().toString();
         date_range = tip2.getText().toString();
         time_range = tip4.getText().toString();
+
+        if(date_range.equals("")) date_range = date;
+        if(time_range.equals("")) time_range = time;
+
         maxpassenger_val = maxpassenger.getText().toString();
         price_val = price.getText().toString();
 
@@ -279,7 +315,7 @@ public class CarpoolNew extends Footer {
             Toast.makeText(this, "Input cannot be empty", Toast.LENGTH_SHORT).show();
             return false;
         }
-        else if ((type.equals("Create") || type.equals("EditCreate")) && (maxpassenger_val.equals("") || price_val.equals(""))){
+        else if ((type.equals("Create") || type.equals("Edit")) && (maxpassenger_val.equals("") || price_val.equals(""))){
             Toast.makeText(this, "Input cannot be empty", Toast.LENGTH_SHORT).show();
             return false;
         }

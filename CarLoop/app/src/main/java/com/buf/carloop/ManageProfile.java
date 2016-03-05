@@ -61,7 +61,7 @@ public class ManageProfile extends Footer {
         male = (RadioButton) findViewById(R.id.male_manage_profile);
         female = (RadioButton) findViewById(R.id.female_manage_profile);
 
-        User user = User.getUser(GlobalVariables.user_id);
+        User user = User.getUser(GlobalVariables.user_name);
 
         username.setText(user.getU_name());
         email.setText(user.getU_email());
@@ -116,7 +116,7 @@ public class ManageProfile extends Footer {
         String gender = null;
         if(male.isChecked()) gender = "male";
         else if(female.isChecked()) gender = "female";
-        if(User.updateUser(GlobalVariables.user_id, avatarimage, gender, phone.getText().toString(), description.getText().toString())) {
+        if(User.updateUser(GlobalVariables.user_name, avatarimage, gender, phone.getText().toString(), description.getText().toString())) {
             Toast.makeText(this, "Profile updated", Toast.LENGTH_SHORT).show();
         }
     }

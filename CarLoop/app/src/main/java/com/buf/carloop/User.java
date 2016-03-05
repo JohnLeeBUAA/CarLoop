@@ -249,7 +249,7 @@ public class User {
     /*
     update user on u_id == user_id
      */
-    public static boolean updateUser(int user_id, byte[] avatar, String gender, String phone, String description) {
+    public static boolean updateUser(String user_name, byte[] avatar, String gender, String phone, String description) {
         String sqlComm = "update user set" + 
                 "u_gender='" + gender + "', " +
                 "u_phone='" + phone + "', " +
@@ -268,7 +268,7 @@ public class User {
 
 
 
-    private static byte[] selectSQLBlob(int user_id) {
+    private static byte[] selectSQLBlob(String user_name) {
         String sqlComm = "select u_avatar from user_id where u_id = '" + user_id + "';";
         AsyncSelectBlob task = new AsyncSelectBlob();
         task.execute(sqlComm);
@@ -281,7 +281,7 @@ public class User {
         }
     }
 
-    private static boolean insertSQLBlob(int user_id, byte[] avatar) {
+    private static boolean insertSQLBlob(String user_name, byte[] avatar) {
         String sqlComm = "update user set" +
                 "u_avatar='" + avatar + "', " +
                 "where u_id=" + user_id + ";";
@@ -302,7 +302,7 @@ public class User {
     MD5 encrypt password before compare with u_password in DB
     return true if match, false if not
      */
-    public static boolean checkPassword(int user_id, String password) {
+    public static boolean checkPassword(String user_name, String password) {
         String sqlComm = "select u_password from user where u_id = '" + user_id + "';";
 
         AsyncSelectOnlyValue task = new AsyncSelectOnlyValue();
@@ -327,7 +327,7 @@ public class User {
     update password with u_id == user_id
     MD5 encrypt new_password before update in DB
      */
-    public static boolean updatePassword(int user_id, String new_password) {
+    public static boolean updatePassword(String user_name, String new_password) {
         String sqlComm = "update user set  u_password= '" + new_password + "'," +
                 "where u_id=" + user_id + ";";
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
@@ -363,7 +363,7 @@ public class User {
     /*
     search user with u_id == user_id
      */
-    public static User getUser(int user_id) {
+    public static User getUser(String user_name) {
         User user = new User();
         String sqlComm = "select u_name, u_email, u_gender, u_phone, u_description from user where u_id = '" + user_id + "';";
 
@@ -394,7 +394,7 @@ public class User {
     update u_identity = 1 on u_id == user_id
     MUST SET GlobalVariables.user_identity = 1;
      */
-    public static boolean setDriver(int user_id) {
+    public static boolean setDriver(String user_name) {
         GlobalVariables.user_identity = 1;
         String sqlComm = "update user set  u_identity=" + 1 +
                 " where u_id=" + user_id + ";";
@@ -409,7 +409,7 @@ public class User {
         }
     }
 
-    public static boolean updateUser(int user_id, String avatar, String gender, String phone, String description) {
+    public static boolean updateUser(String user_name, String avatar, String gender, String phone, String description) {
         String sqlComm = "update user set  u_avatar= '" + avatar + "'," +
                 "u_gender='" + gender + "', " +
                 "u_phone='" + phone + "', " +

@@ -285,7 +285,7 @@
             android:layout_marginTop="10dp">
 
             <LinearLayout
-                android:id="@+id/textarea_carpool_new"
+                android:id="@+id/maxpassegerarea_carpoolnew"
                 android:layout_weight="1"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -315,7 +315,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/labelarea_carpool_new"
+                android:id="@+id/pricearea_carpoolnew"
                 android:layout_weight="1"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -352,13 +352,20 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <Button
-                android:id="@+id/add_carpool_new"
+                android:id="@+id/add_carpoolnew"
                 android:onClick="addCarpool"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/green_button"/>
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/progressBar_carpoolnew"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal" />
         </LinearLayout>
 
     </LinearLayout>
