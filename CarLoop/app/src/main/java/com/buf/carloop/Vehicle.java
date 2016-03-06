@@ -150,8 +150,13 @@ public class Vehicle {
         System.out.println("****************************************************************");
         task.execute(sqlComm);
         try {
-            boolean value = task.get(5000, TimeUnit.MILLISECONDS);
-            return value;
+            Object value = task.get(5000, TimeUnit.MILLISECONDS);
+            if (value.getClass().equals(Boolean.class)) {
+                return (boolean)value;
+            }
+            else {
+                throw new Exception((String) value);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -172,8 +177,13 @@ public class Vehicle {
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
         task.execute(sqlComm);
         try {
-            boolean value = task.get(5000, TimeUnit.MILLISECONDS);
-            return value;
+            Object value = task.get(5000, TimeUnit.MILLISECONDS);
+            if (value.getClass().equals(Boolean.class)) {
+                return (boolean)value;
+            }
+            else {
+                throw new Exception((String) value);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return false;
