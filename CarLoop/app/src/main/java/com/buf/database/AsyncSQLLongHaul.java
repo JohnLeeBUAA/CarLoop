@@ -14,4 +14,9 @@ public class AsyncSQLLongHaul extends AsyncTask<String, Void, Boolean> {
         boolean value = sqlCommond.longHaul(params[0]);
         return value;
     }
+
+    @Override
+    protected void onPostExecute(Boolean aBoolean) {
+        super.onPostExecute(aBoolean);
+    }
 }

@@ -18,7 +18,8 @@ public class Create {
             String sqlCreate = "create table " + name +
                     " (u_id INT NOT NULL AUTO_INCREMENT, u_name VARCHAR(32), u_password CHAR(32)," +
                     " u_email VARCHAR(32), u_identity ENUM('0', '1'), u_avatar BLOB," +
-                    " u_rate DOUBLE, u_gender ENUM('male', 'female'), u_phone VARCHAR(32), u_description TEXT, PRIMARY KEY (u_id));";
+                    " u_rate DOUBLE, u_gender ENUM('male', 'female'), u_phone VARCHAR(32), u_description TEXT," +
+                    " UNIQUE (u_name), UNIQUE (u_email), PRIMARY KEY (u_id));";
             System.out.println(sqlCreate);
             rs = stmt.executeUpdate(sqlCreate);
             stmt.close();
@@ -73,6 +74,7 @@ public class Create {
         return 0;
     }
     public static void main(String[] args) {
-        Create.createTableVehichle("vehicle");
+
+        Create.createTableUser("user");
     }
 }
