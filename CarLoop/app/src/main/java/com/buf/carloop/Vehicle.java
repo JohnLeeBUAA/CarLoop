@@ -101,7 +101,7 @@ public class Vehicle {
      */
     public static Vehicle getVehicle(String drivername) {
         Vehicle vehicle = new Vehicle();
-        String sqlComm = "select * from vehicle where v_driverid=" + driverid + ";";
+        String sqlComm = "select * from vehicle where v_drivername='" + drivername + "';";
         AsyncSelectOnlyNote task = new AsyncSelectOnlyNote();
         task.execute(sqlComm);
         try {
@@ -143,14 +143,19 @@ public class Vehicle {
     add a new vehicle record
      */
     public static boolean addVehicle(String drivername, String driverlicense, String manufacturer, String model, String plate, int mileage, int capacity) {
-        String sqlComm = "insert into vehicle (v_driverid, v_driverlicense, v_manufacturer, v_model, v_plate, v_mileage, v_capacity) values (" +
-                driverid+ ", '" +driverlicense + "', '" + manufacturer + "', '" + model + "', '" + plate +
-                "', " +mileage + ", " + capacity + ");";
+        String sqlComm = "insert into vehicle (v_drivername, v_driverlicense, v_manufacturer, v_model, v_plate, v_mileage, v_capacity) values ('" +
+                drivername+ "', '" + driverlicense + "', '" + manufacturer + "', '" + model + "', '" + plate +
+                "', " + mileage + ", " + capacity + ");";
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
         task.execute(sqlComm);
         try {
-            boolean value = task.get(5000, TimeUnit.MILLISECONDS);
-            return value;
+            Object value = task.get(5000, TimeUnit.MILLISECONDS);
+            if (value.getClass().equals(Boolean.class)) {
+                return (boolean)value;
+            }
+            else {
+                throw new Exception((String) value);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -167,12 +172,17 @@ public class Vehicle {
                 "v_plate='" + plate + "', " +
                 "v_mileage=" + mileage + ", " +
                 "v_capacity=" + capacity + " " +
-                "where v_driverid=" + driverid + ";";
+                "where v_drivername='" + drivername + "';";
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
         task.execute(sqlComm);
         try {
-            boolean value = task.get(5000, TimeUnit.MILLISECONDS);
-            return value;
+            Object value = task.get(5000, TimeUnit.MILLISECONDS);
+            if (value.getClass().equals(Boolean.class)) {
+                return (boolean)value;
+            }
+            else {
+                throw new Exception((String) value);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return false;

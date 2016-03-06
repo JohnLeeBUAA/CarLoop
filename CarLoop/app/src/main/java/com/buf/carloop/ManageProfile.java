@@ -71,11 +71,14 @@ public class ManageProfile extends Footer {
             if(user.getU_gender().equals("male")) male.setChecked(true);
             else if(user.getU_gender().equals("female")) female.setChecked(true);
         }
+        avatarimage = null;
+        /*
         if(user.getU_avatar() == null) avatarimage = null;
         else {
             Bitmap bm = BitmapFactory.decodeByteArray(avatarimage, 0, avatarimage.length);
             if(!bm.equals(null)) avatar.setImageBitmap(bm);
         }
+        */
     }
 
     public void selectImage(View view) {
@@ -118,6 +121,10 @@ public class ManageProfile extends Footer {
         else if(female.isChecked()) gender = "female";
         if(User.updateUser(GlobalVariables.user_name, avatarimage, gender, phone.getText().toString(), description.getText().toString())) {
             Toast.makeText(this, "Profile updated", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            Toast.makeText(this, "Update profile  failed", Toast.LENGTH_SHORT).show();
         }
     }
 }
