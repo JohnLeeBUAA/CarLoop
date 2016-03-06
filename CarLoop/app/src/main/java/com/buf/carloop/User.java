@@ -230,7 +230,7 @@ public class User {
             e.printStackTrace();
             value = false;
         }
-        if (value) GlobalVariables.user_id = getUserID(username);
+        GlobalVariables.user_id = getUserID(username);
         return value;
     }
 
