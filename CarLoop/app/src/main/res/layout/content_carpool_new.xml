@@ -44,13 +44,14 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:textSize="17dp"
-                        android:text="Current"
+                        android:text="From"
                         android:layout_marginLeft="5dp"
                         android:layout_gravity="bottom"/>
                 </LinearLayout>
                 <EditText
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:id="@+id/TextFromLoc" />
             </LinearLayout>
 
             <LinearLayout
@@ -82,13 +83,14 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:textSize="17dp"
-                        android:text="Destination"
+                        android:text="To"
                         android:layout_marginLeft="5dp"
                         android:layout_gravity="bottom"/>
                 </LinearLayout>
                 <EditText
                     android:layout_width="fill_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:id="@+id/TextToLoc" />
             </LinearLayout>
         </LinearLayout>
 
