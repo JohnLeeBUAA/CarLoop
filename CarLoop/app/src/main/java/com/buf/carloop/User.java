@@ -212,7 +212,7 @@ public class User {
     create new user
     MD5 encrypt password before store to DB
     u_rate = 0
-    after insert, MUST SET GlobalVariables.user_id = last inserted id, GlobalVariables.user_identity = 0
+    after insert, MUST SET GlobalVariables.user_name = username, GlobalVariables.user_identity = 0
      */
     public static boolean signUp(String username, String password, String email) {
         Object value = true;
@@ -249,7 +249,7 @@ public class User {
         return 0;
     }
     /*
-    update user on u_id == user_id
+    update user on u_name == user_name
      */
     public static boolean updateUser(String user_name, byte[] avatar, String gender, String phone, String description) {
         String sqlComm = "update user set " +
@@ -305,7 +305,7 @@ public class User {
 
 
     /*
-    check if password is correct with user_id
+    check if password is correct with user_name
     MD5 encrypt password before compare with u_password in DB
     return true if match, false if not
      */
@@ -330,7 +330,7 @@ public class User {
     }
 
     /*
-    update password with u_id == user_id
+    update password with u_name == user_name
     MD5 encrypt new_password before update in DB
      */
     public static boolean updatePassword(String user_name, String new_password) {
@@ -373,7 +373,7 @@ public class User {
     }
 
     /*
-    search user with u_id == user_id
+    search user with u_name == user_name
      */
     public static User getUser(String user_name) {
         User user = new User();
@@ -403,7 +403,7 @@ public class User {
 
 
     /*
-    update u_identity = 1 on u_id == user_id
+    update u_identity = 1 on u_name == user_name
     MUST SET GlobalVariables.user_identity = 1;
      */
     public static boolean setDriver(String user_name) {

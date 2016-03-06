@@ -97,7 +97,7 @@ public class Vehicle {
     }
 
     /*
-    search vehicle with driverid
+    search vehicle with drivername
      */
     public static Vehicle getVehicle(String drivername) {
         Vehicle vehicle = new Vehicle();
@@ -163,7 +163,7 @@ public class Vehicle {
     }
 
     /*
-    update vehicle on v_driverid == driverid
+    update vehicle on v_drivername == drivername
      */
     public static boolean updateVehicle(String drivername, String driverlicense, String manufacturer, String model, String plate, int mileage, int capacity) {
         String sqlComm = "update vehicle set  v_driverlicense= '" + driverlicense + "'," +
