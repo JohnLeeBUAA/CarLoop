@@ -217,7 +217,7 @@ public class User {
     public static boolean signUp(String username, String password, String email) {
         GlobalVariables.user_id = 1;
         GlobalVariables.user_identity = 0;
-        boolean value = true;
+        Object value = true;
         String sqlComm = "insert into user (u_name, u_password, u_email, u_identity) values ('" + username + "', '"
                 + password + "', '" + email + "', '0');";
         // Sql create user operation
@@ -225,13 +225,16 @@ public class User {
         task.execute(sqlComm);
         try {
             value = task.get(5000, TimeUnit.MILLISECONDS);
+            if (!value.getClass().equals(Boolean.class)) {
+                throw new Exception((String) value);
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
             value = false;
         }
         GlobalVariables.user_id = getUserID(username);
-        return value;
+        return (boolean)value;
     }
 
     public static int getUserID(String username) {
@@ -255,15 +258,18 @@ public class User {
                 "u_phone='" + phone + "', " +
                 "u_description='" + description + "' " +
                 "where u_id=" + user_id + ";";
-        boolean value = false;
+        Object value = false;
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
         task.execute(sqlComm);
         try {
             value = task.get(5000, TimeUnit.MILLISECONDS);
+            if (!value.getClass().equals(Boolean.class)) {
+                throw new Exception((String) value);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return value && insertSQLBlob(user_id, avatar);
+        return (boolean)value && insertSQLBlob(user_id, avatar);
     }
 
 
@@ -333,8 +339,13 @@ public class User {
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
         task.execute(sqlComm);
         try {
-            boolean value = task.get(5000, TimeUnit.MILLISECONDS);
-            return value;
+            Object value = task.get(5000, TimeUnit.MILLISECONDS);
+            if (value.getClass().equals(Boolean.class)) {
+                return (boolean)value;
+            }
+            else {
+                throw new Exception((String) value);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -352,8 +363,13 @@ public class User {
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
         task.execute(sqlComm);
         try {
-            boolean value = task.get(5000, TimeUnit.MILLISECONDS);
-            return value;
+            Object value = task.get(5000, TimeUnit.MILLISECONDS);
+            if (value.getClass().equals(Boolean.class)) {
+                return (boolean)value;
+            }
+            else {
+                throw new Exception((String) value);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -401,8 +417,13 @@ public class User {
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
         task.execute(sqlComm);
         try {
-            boolean value = task.get(5000, TimeUnit.MILLISECONDS);
-            return value;
+            Object value = task.get(5000, TimeUnit.MILLISECONDS);
+            if (value.getClass().equals(Boolean.class)) {
+                return (boolean)value;
+            }
+            else {
+                throw new Exception((String) value);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return false;
@@ -418,8 +439,13 @@ public class User {
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
         task.execute(sqlComm);
         try {
-            boolean value = task.get(5000, TimeUnit.MILLISECONDS);
-            return value;
+            Object value = task.get(5000, TimeUnit.MILLISECONDS);
+            if (value.getClass().equals(Boolean.class)) {
+                return (boolean)value;
+            }
+            else {
+                throw new Exception((String) value);
+            }
         } catch (Exception e) {
             e.printStackTrace();
             return false;
