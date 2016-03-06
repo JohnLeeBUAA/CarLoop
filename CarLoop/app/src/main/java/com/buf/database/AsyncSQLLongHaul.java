@@ -1,6 +1,8 @@
 package com.buf.database;
 
+import android.content.Context;
 import android.os.AsyncTask;
+import android.widget.Toast;
 
 /**
  * Created by xin on 2016/2/27.
@@ -11,7 +13,17 @@ public class AsyncSQLLongHaul extends AsyncTask<String, Void, Boolean> {
     protected Boolean doInBackground(String... params) {
         // Sql create user operation
         SqlCommond sqlCommond = new SqlCommond();
-        boolean value = sqlCommond.longHaul(params[0]);
+        boolean value = false;
+        try {
+            value = sqlCommond.longHaul(params[0]);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return value;
+    }
+
+    @Override
+    protected void onPostExecute(Boolean aBoolean) {
+        super.onPostExecute(aBoolean);
     }
 }

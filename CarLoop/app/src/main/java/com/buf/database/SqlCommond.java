@@ -116,7 +116,7 @@ public class SqlCommond {
     }
 
     // insert, modify, delete the record 插入、修改、删除记录
-    public boolean longHaul(String sql) {
+    public boolean longHaul(String sql) throws Exception {
         boolean isLongHaul = true; // long lasting 持久化
         //get the connection of the database 获取数据库连接
         Connection conn = JDBC.getConnection();
@@ -139,6 +139,15 @@ public class SqlCommond {
                 e1.printStackTrace();
             }
             e.printStackTrace();
+            if (e.getMessage().contains("u_email")) {
+                throw new Exception("Email Exists");
+            }
+            else if (e.getMessage().contains("u_name")) {
+                throw new Exception("Username Exists");
+            }
+            else {
+                throw new Exception(e);
+            }
         }
         return isLongHaul;
     }
@@ -212,17 +221,21 @@ public class SqlCommond {
     }
 
     public static void main(String[] args) {
-        String username = "test";
+        String username = "test1";
         String password = "1234";
         String email = "liu1@gmail.com";
 
-        String sqlSelect = "insert into vehicle (v_driverid, v_driverlicense, v_manufacturer, v_model, v_plate, v_mileage, v_capacity) values (" +
-                Integer.parseInt("2") + ", '" + "2" + "', '" + "2" + "', '" + "2" + "', '" + "2" +
-                "', " + Integer.parseInt("2") + ", " + Integer.parseInt("2") + ");";
+        String sqlComm = "insert into user (u_name, u_password, u_email, u_identity) values ('" + username + "', '"
+                + password + "', '" + email + "', " + 0 + ");";
+
+
         SqlCommond sqlCommond = new SqlCommond();
-        Boolean value = sqlCommond.longHaul(sqlSelect);
-
-            System.out.println(value);
-
+        boolean value = true;
+        try {
+            value = sqlCommond.longHaul(sqlComm);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println(value);
     }
 }

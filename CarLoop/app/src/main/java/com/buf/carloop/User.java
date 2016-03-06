@@ -129,7 +129,7 @@ public class User {
                 return 1;
             } else {
                 GlobalVariables.user_id = (int) value.elementAt(0);
-                GlobalVariables.user_identity = (int) value.elementAt(3);
+                GlobalVariables.user_identity = Integer.parseInt((String)value.elementAt(4));
                 return 2;
             }
         } catch (Exception e) {
@@ -218,8 +218,8 @@ public class User {
         GlobalVariables.user_id = 1;
         GlobalVariables.user_identity = 0;
         boolean value = true;
-        String sqlComm = "insert into user (u_name, u_password, u_email) values ('" + username + "', '"
-                + password + "', '" + email + "');";
+        String sqlComm = "insert into user (u_name, u_password, u_email, u_identity) values ('" + username + "', '"
+                + password + "', '" + email + "', '0');";
         // Sql create user operation
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
         task.execute(sqlComm);
@@ -230,7 +230,7 @@ public class User {
             e.printStackTrace();
             value = false;
         }
-        GlobalVariables.user_id = getUserID(username);
+        if (value) GlobalVariables.user_id = getUserID(username);
         return value;
     }
 
@@ -396,7 +396,7 @@ public class User {
      */
     public static boolean setDriver(int user_id) {
         GlobalVariables.user_identity = 1;
-        String sqlComm = "update user set  u_identity=" + 1 +
+        String sqlComm = "update user set  u_identity='1'" +
                 " where u_id=" + user_id + ";";
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
         task.execute(sqlComm);
