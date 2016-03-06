@@ -1,25 +1,30 @@
 package com.buf.carloop;
 
-import android.content.DialogInterface;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-import android.widget.DatePicker;
-import android.view.View.OnClickListener;
+
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.Calendar;
-import android.content.DialogInterface.*;
-import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
+
+;
 
 public class CarpoolNew extends Footer {
 
@@ -35,6 +40,16 @@ public class CarpoolNew extends Footer {
     private Button btn2;
     private Button btn3;
     private Button btn4;
+    private EditText TextFromLoc;
+    private EditText TextToLoc;
+    private static final int FROM_PLACE_PICKER = 1;
+    private static final int TO_PLACE_PICKER = 2;
+
+    //Location informations
+    private String fromName;
+    private String toName;
+    private LatLng fromLatLng;
+    private LatLng toLatLng;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +71,9 @@ public class CarpoolNew extends Footer {
         button = (Button) findViewById(R.id.add_carpool_new);
         labelarea = (LinearLayout) findViewById(R.id.labelarea_carpool_new);
         textarea = (LinearLayout) findViewById(R.id.textarea_carpool_new);
+        TextFromLoc = (EditText) findViewById(R.id.TextFromLoc);
+        TextToLoc = (EditText) findViewById(R.id.TextToLoc);
+
 
         type = getIntent().getStringExtra("type");
 
@@ -75,6 +93,9 @@ public class CarpoolNew extends Footer {
             labelarea.setVisibility(View.GONE);
             textarea.setVisibility(View.GONE);
         }
+
+        TextFromLoc.setOnClickListener(buildPlacePickerListener(FROM_PLACE_PICKER));
+        TextToLoc.setOnClickListener(buildPlacePickerListener(TO_PLACE_PICKER));
 
         btn.setOnClickListener(new OnClickListener() {
             @Override
@@ -143,6 +164,46 @@ public class CarpoolNew extends Footer {
                         true).show();
             }
         });
+    }
+
+    public OnClickListener buildPlacePickerListener(final int id){
+        return new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    PlacePicker.IntentBuilder intentBuilder =
+                            new PlacePicker.IntentBuilder();
+                    Intent intent = intentBuilder.build(CarpoolNew.this);
+                    // Start the intent by requesting a result,
+                    // identified by a request code.
+                    startActivityForResult(intent, id);
+                } catch (GooglePlayServicesRepairableException e) {
+                    // ...
+                } catch (GooglePlayServicesNotAvailableException e) {
+                    // ...
+                }
+            }
+        };
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == FROM_PLACE_PICKER||requestCode == TO_PLACE_PICKER) {
+            if (resultCode == RESULT_OK) {
+                Place place = PlacePicker.getPlace(this,data);
+                place.getName();
+
+                if(requestCode == FROM_PLACE_PICKER){
+                    fromName = place.getName().toString();
+                    TextFromLoc.setText(fromName);
+                    fromLatLng = place.getLatLng();
+                }
+                else{
+                    toName = place.getName().toString();
+                    TextToLoc.setText(toName);
+                    toLatLng = place.getLatLng();
+                }
+            }
+        }
     }
 
     public void addCarpool(View view) {
