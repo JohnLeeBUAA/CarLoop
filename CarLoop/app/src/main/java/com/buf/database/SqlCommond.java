@@ -131,6 +131,7 @@ public class SqlCommond {
             stmt.close();
             //commit the long lasting result 提交持久化
             conn.commit();
+
         } catch (SQLException e) {
             //the long lasting fails持久化失败
             try {
@@ -141,7 +142,7 @@ public class SqlCommond {
             }
             e.printStackTrace();
             Log.v("**error**", "*************************\n" + e.getMessage());
-            if (e.getMessage().contains("u_name")) {
+            if (e.getMessage().contains("u_name") || e.getMessage().contains("PRIMARY")) {
                 return 1;
             }
             else if (e.getMessage().contains("u_email")) {

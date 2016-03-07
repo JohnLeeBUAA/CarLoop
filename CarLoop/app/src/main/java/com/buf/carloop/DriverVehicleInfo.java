@@ -113,8 +113,7 @@ public class DriverVehicleInfo extends Footer {
                         model_val, plate_val, mileage_int, capacity_int);
                 if(status == 0) {
                     Toast.makeText(this, "Driver and vehicle info updated", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(this, CarpoolNew.class);
-                    intent.putExtra("type", "Create");
+                    Intent intent = new Intent(this, Settings.class);
                     startActivity(intent);
                 }
                 else if(status == 3) {

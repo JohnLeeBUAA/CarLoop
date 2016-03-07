@@ -40,7 +40,7 @@ public class Create {
                     " (v_id INT NOT NULL AUTO_INCREMENT, v_drivername VARCHAR(32), v_driverlicense VARCHAR(32)," +
                     " v_manufacturer VARCHAR(32), v_model VARCHAR(32), v_plate VARCHAR(32)," +
                     " v_mileage INT, v_capacity INT, " +
-                    " UNIQUE (v_driverlicense), FOREIGN KEY (v_drivername) REFERENCES user(u_name), PRIMARY KEY (v_id));";
+                    " UNIQUE (v_driverlicense), UNIQUE (v_plate), FOREIGN KEY (v_drivername) REFERENCES user(u_name), PRIMARY KEY (v_id));";
             System.out.println(sqlCreate);
             rs = stmt.executeUpdate(sqlCreate);
             stmt.close();
@@ -61,7 +61,7 @@ public class Create {
                     " (v_id INT NOT NULL AUTO_INCREMENT, v_drivername VARCHAR(32), v_driverlicense VARCHAR(32)," +
                     " v_manufacturer VARCHAR(32), v_model VARCHAR(32), v_plate VARCHAR(32)," +
                     " v_mileage INT, v_capacity INT, " +
-                    " UNIQUE (v_driverlicense), UNIQUE (v_plate), FOREIGN KEY (v_drivername) REFERENCES user(u_name), PRIMARY KEY (v_id));";
+                    " UNIQUE (v_driverlicense), FOREIGN KEY (v_drivername) REFERENCES user(u_name), PRIMARY KEY (v_id));";
             System.out.println(sqlCreate);
             rs = stmt.executeUpdate(sqlCreate);
             stmt.close();

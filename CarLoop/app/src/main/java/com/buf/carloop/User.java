@@ -2,6 +2,7 @@ package com.buf.carloop;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.Button;
 
 import com.buf.database.AsyncInsertBlob;
@@ -257,7 +258,7 @@ public class User {
 
 
     private static byte[] selectSQLBlob(String user_name) {
-        String sqlComm = "select u_avatar from user_id where u_name = '" + user_name + "';";
+        String sqlComm = "select u_avatar from user where u_name = '" + user_name + "';";
         AsyncSelectBlob task = new AsyncSelectBlob();
         task.execute(sqlComm);
         try {
@@ -317,6 +318,7 @@ public class User {
     public static int updatePassword(String user_name, String new_password, String old_password) {
         String sqlComm = "update user set  u_password= '" + new_password + "' " +
                 "where u_name='" + user_name + "' and u_password='" + old_password + "';";
+        Log.v("****", sqlComm);
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
         task.execute(sqlComm);
         try {
@@ -371,7 +373,8 @@ public class User {
             e.printStackTrace();
             return null;
         }
-        user.setU_avatar(selectSQLBlob(user_name));
+        //user.setU_avatar(selectSQLBlob(user_name));
+        user.setU_avatar(null);
         return user;
     }
 
