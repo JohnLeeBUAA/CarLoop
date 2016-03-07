@@ -109,7 +109,7 @@ public class Settings extends Footer {
     public void logOut(View view) {
         SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putInt("user_id", -1);
+        editor.putString("user_name", "");
         editor.putInt("user_identity", -1);
         editor.commit();
         Intent intent = new Intent(this, SignIn.class);

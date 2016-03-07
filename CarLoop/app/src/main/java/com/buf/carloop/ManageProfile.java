@@ -61,7 +61,7 @@ public class ManageProfile extends Footer {
         male = (RadioButton) findViewById(R.id.male_manage_profile);
         female = (RadioButton) findViewById(R.id.female_manage_profile);
 
-        User user = User.getUser(GlobalVariables.user_id);
+        User user = User.getUser(GlobalVariables.user_name);
 
         username.setText(user.getU_name());
         email.setText(user.getU_email());
@@ -71,11 +71,14 @@ public class ManageProfile extends Footer {
             if(user.getU_gender().equals("male")) male.setChecked(true);
             else if(user.getU_gender().equals("female")) female.setChecked(true);
         }
+        avatarimage = null;
+        /*
         if(user.getU_avatar() == null) avatarimage = null;
         else {
             Bitmap bm = BitmapFactory.decodeByteArray(avatarimage, 0, avatarimage.length);
             if(!bm.equals(null)) avatar.setImageBitmap(bm);
         }
+        */
     }
 
     public void selectImage(View view) {
@@ -116,8 +119,12 @@ public class ManageProfile extends Footer {
         String gender = null;
         if(male.isChecked()) gender = "male";
         else if(female.isChecked()) gender = "female";
-        if(User.updateUser(GlobalVariables.user_id, avatarimage, gender, phone.getText().toString(), description.getText().toString())) {
+        if(User.updateUser(GlobalVariables.user_name, avatarimage, gender, phone.getText().toString(), description.getText().toString())) {
             Toast.makeText(this, "Profile updated", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            Toast.makeText(this, "Update profile  failed", Toast.LENGTH_SHORT).show();
         }
     }
 }

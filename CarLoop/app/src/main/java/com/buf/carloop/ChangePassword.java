@@ -30,7 +30,7 @@ public class ChangePassword extends Footer {
     }
 
     public void updatePassword(View view) {
-        if(validate() && User.updatePassword(GlobalVariables.user_id, newpassword.getText().toString())) {
+        if(validate() && User.updatePassword(GlobalVariables.user_name, newpassword.getText().toString())) {
             Toast.makeText(this, "Password updated", Toast.LENGTH_SHORT).show();
         }
     }
@@ -47,7 +47,7 @@ public class ChangePassword extends Footer {
             Toast.makeText(this, "New passwords do not match", Toast.LENGTH_SHORT).show();
             return false;
         }
-        else if(!User.checkPassword(GlobalVariables.user_id, old_val)) {
+        else if(!User.checkPassword(GlobalVariables.user_name, old_val)) {
             Toast.makeText(this, "Old password is not correct", Toast.LENGTH_SHORT).show();
             return false;
         }

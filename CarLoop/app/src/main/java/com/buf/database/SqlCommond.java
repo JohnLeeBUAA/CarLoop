@@ -139,14 +139,17 @@ public class SqlCommond {
                 e1.printStackTrace();
             }
             e.printStackTrace();
-            if (e.getMessage().contains("u_email")) {
-                throw new Exception("Email Exists");
-            }
-            else if (e.getMessage().contains("u_name")) {
+            if (e.getMessage().contains("u_name")) {
                 throw new Exception("Username Exists");
             }
+            else if (e.getMessage().contains("u_email")) {
+                throw new Exception("Email Exists");
+            }
+            else if (e.getMessage().contains("v_driverlicense")) {
+                throw new Exception("Driver license Exists");
+            }
             else {
-                throw new Exception(e);
+                throw new Exception("Network Error");
             }
         }
         return isLongHaul;
@@ -225,10 +228,16 @@ public class SqlCommond {
         String password = "1234";
         String email = "liu1@gmail.com";
 
+        String sqlComm = "update user set" +
+                " u_gender='" + "male" + "', " +
+                " u_phone='" + "1234" + "', " +
+                " u_description='" + "ewe" + "' " +
+                " where u_name='" + "1" + "';";
+        /*
         String sqlComm = "insert into user (u_name, u_password, u_email, u_identity) values ('" + username + "', '"
                 + password + "', '" + email + "', " + 0 + ");";
 
-
+*/
         SqlCommond sqlCommond = new SqlCommond();
         boolean value = true;
         try {
@@ -237,5 +246,6 @@ public class SqlCommond {
             System.out.println(e.getMessage());
         }
         System.out.println(value);
+
     }
 }

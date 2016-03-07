@@ -32,7 +32,7 @@ public class SignIn extends AppCompatActivity {
         if(validate()) {
             SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putInt("user_id", GlobalVariables.user_id);
+            editor.putString("user_name", GlobalVariables.user_name);
             editor.putInt("user_identity", GlobalVariables.user_identity);
             editor.commit();
             Toast.makeText(this, "Sign in success", Toast.LENGTH_SHORT).show();

@@ -42,7 +42,7 @@ public class SignUp extends AppCompatActivity {
             if(User.signUp(username.getText().toString(), password.getText().toString(), email.getText().toString())) {
                 SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putInt("user_id", GlobalVariables.user_id);
+                editor.putString("user_name", GlobalVariables.user_name);
                 editor.putInt("user_identity", GlobalVariables.user_identity);
                 editor.commit();
                 Toast.makeText(this, "Sign up success", Toast.LENGTH_SHORT).show();

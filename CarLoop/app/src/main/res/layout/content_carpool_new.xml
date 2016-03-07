@@ -44,14 +44,18 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:textSize="17dp"
-                        android:text="From"
+                        android:text="Current"
                         android:layout_marginLeft="5dp"
                         android:layout_gravity="bottom"/>
                 </LinearLayout>
-                <EditText
+                <Button
+                    android:id="@+id/setdepart_carpoolnew"
+                    android:onClick="setDepart"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/TextFromLoc" />
+                    android:text="Set Location"
+                    android:textColor="#737373"
+                    android:background="@drawable/sign_in_border"/>
             </LinearLayout>
 
             <LinearLayout
@@ -83,14 +87,18 @@
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:textSize="17dp"
-                        android:text="To"
+                        android:text="Destination"
                         android:layout_marginLeft="5dp"
                         android:layout_gravity="bottom"/>
                 </LinearLayout>
-                <EditText
+                <Button
+                    android:id="@+id/setdesti_carpoolnew"
+                    android:onClick="setDesti"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/TextToLoc" />
+                    android:text="Set Location"
+                    android:textColor="#737373"
+                    android:background="@drawable/sign_in_border"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -277,7 +285,7 @@
             android:layout_marginTop="10dp">
 
             <LinearLayout
-                android:id="@+id/textarea_carpool_new"
+                android:id="@+id/maxpassegerarea_carpoolnew"
                 android:layout_weight="1"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -300,13 +308,14 @@
                         android:layout_gravity="bottom"/>
                 </LinearLayout>
                 <EditText
+                    android:id="@+id/maxpassenger_carpoolnew"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"/>
+                    android:inputType="numberDecimal|number"/>
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/labelarea_carpool_new"
+                android:id="@+id/pricearea_carpoolnew"
                 android:layout_weight="1"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -330,6 +339,7 @@
                         android:layout_gravity="bottom"/>
                 </LinearLayout>
                 <EditText
+                    android:id="@+id/price_carpoolnew"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal|number"/>
@@ -342,13 +352,20 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <Button
-                android:id="@+id/add_carpool_new"
+                android:id="@+id/add_carpoolnew"
                 android:onClick="addCarpool"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/green_button"/>
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/progressBar_carpoolnew"
+                android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal" />
         </LinearLayout>
 
     </LinearLayout>

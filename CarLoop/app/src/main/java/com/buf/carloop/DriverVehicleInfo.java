@@ -52,7 +52,7 @@ public class DriverVehicleInfo extends Footer {
         else if(type.equals("Edit")){
             this.setTitle("Edit Driver And Vehicle Info");
             button.setText("Update");
-            vehicle = Vehicle.getVehicle(GlobalVariables.user_id);
+            vehicle = Vehicle.getVehicle(GlobalVariables.user_name);
             license.setText(vehicle.getV_driverlicense());
             manufacturer.setText(vehicle.getV_manufacturer());
             model.setText(vehicle.getV_model());
@@ -65,9 +65,9 @@ public class DriverVehicleInfo extends Footer {
     public void addVehicle(View view) {
         if(validate()) {
             if(type.equals("Add")) {
-                if(Vehicle.addVehicle(GlobalVariables.user_id, license.getText().toString(), manufacturer.getText().toString(),
+                if(Vehicle.addVehicle(GlobalVariables.user_name, license.getText().toString(), manufacturer.getText().toString(),
                         model.getText().toString(), plate.getText().toString(), Integer.parseInt(mileage.getText().toString()), Integer.parseInt(capacity.getText().toString()))) {
-                    User.setDriver(GlobalVariables.user_id);
+                    User.setDriver(GlobalVariables.user_name);
                     SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPref.edit();
                     editor.putInt("user_identity", GlobalVariables.user_identity);
@@ -79,7 +79,7 @@ public class DriverVehicleInfo extends Footer {
                 }
             }
             else if(type.equals("Edit")) {
-                if(Vehicle.updateVehicle(GlobalVariables.user_id, license.getText().toString(), manufacturer.getText().toString(),
+                if(Vehicle.updateVehicle(GlobalVariables.user_name, license.getText().toString(), manufacturer.getText().toString(),
                         model.getText().toString(), plate.getText().toString(), Integer.parseInt(mileage.getText().toString()), Integer.parseInt(capacity.getText().toString()))) {
                     Toast.makeText(this, "Driver and vehicle info updated", Toast.LENGTH_SHORT).show();
                 }

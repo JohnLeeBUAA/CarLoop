@@ -32,13 +32,27 @@ public class Footer extends AppCompatActivity {
 
     public void search(View view) {
         Intent intent = new Intent(this, CarpoolNew.class);
-        intent.putExtra("type", "Search");
+        if(GlobalVariables.user_identity == 1) {
+            //driver search demanded carpools
+            intent.putExtra("type", "SearchDemand");
+        }
+        else {
+            //passenger search created carpools
+            intent.putExtra("type", "Search");
+        }
         startActivity(intent);
     }
 
     public void list(View view) {
         Intent intent = new Intent(this, CarpoolList.class);
-        intent.putExtra("type", "Confirmed");
+        if(GlobalVariables.user_identity == 1) {
+            //display created list for driver
+            intent.putExtra("type", "Created");
+        }
+        else {
+            //display confirmed list for passenger
+            intent.putExtra("type", "Confirmed");
+        }
         startActivity(intent);
     }
 
