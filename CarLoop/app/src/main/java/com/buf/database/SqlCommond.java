@@ -116,7 +116,7 @@ public class SqlCommond {
     }
 
     // insert, modify, delete the record 插入、修改、删除记录
-    public boolean longHaul(String sql) throws Exception {
+    public int longHaul(String sql) {
         boolean isLongHaul = true; // long lasting 持久化
         //get the connection of the database 获取数据库连接
         Connection conn = JDBC.getConnection();
@@ -131,7 +131,6 @@ public class SqlCommond {
             conn.commit();
         } catch (SQLException e) {
             //the long lasting fails持久化失败
-            isLongHaul = false;
             try {
                 //rollback 回滚
                 conn.rollback();
@@ -140,19 +139,19 @@ public class SqlCommond {
             }
             e.printStackTrace();
             if (e.getMessage().contains("u_name")) {
-                throw new Exception("Username Exists");
+                return 1;
             }
             else if (e.getMessage().contains("u_email")) {
-                throw new Exception("Email Exists");
+                return 2;
             }
             else if (e.getMessage().contains("v_driverlicense")) {
-                throw new Exception("Driver license Exists");
+                return 3;
             }
             else {
-                throw new Exception("Network Error");
+                return -1;
             }
         }
-        return isLongHaul;
+        return 0;
     }
 
     // get the image blob from database
@@ -239,12 +238,7 @@ public class SqlCommond {
 
 */
         SqlCommond sqlCommond = new SqlCommond();
-        boolean value = true;
-        try {
-            value = sqlCommond.longHaul(sqlComm);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+       int value = sqlCommond.longHaul(sqlComm);
         System.out.println(value);
 
     }

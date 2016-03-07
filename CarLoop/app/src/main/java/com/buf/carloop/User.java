@@ -6,6 +6,7 @@ import com.buf.database.AsyncInsertBlob;
 import com.buf.database.AsyncSQLLongHaul;
 import com.buf.database.AsyncSelectBlob;
 import com.buf.database.AsyncSelectOnlyNote;
+import com.buf.database.AsyncSelectOnlyNote;
 import com.buf.database.AsyncSelectOnlyValue;
 import com.buf.database.SqlCommond;
 import com.buf.database.testAsyncTask;
@@ -214,25 +215,20 @@ public class User {
     u_rate = 0
     after insert, MUST SET GlobalVariables.user_id = last inserted id, GlobalVariables.user_identity = 0
      */
-    public static boolean signUp(String username, String password, String email) {
-        Object value = true;
+    public static int signUp(String username, String password, String email) {
         String sqlComm = "insert into user (u_name, u_password, u_email, u_identity) values ('" + username + "', '"
                 + password + "', '" + email + "', '0');";
         // Sql create user operation
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
         task.execute(sqlComm);
         try {
-            value = task.get(5000, TimeUnit.MILLISECONDS);
-            if (!value.getClass().equals(Boolean.class)) {
-                throw new Exception((String) value);
-            }
             GlobalVariables.user_identity = 0;
             GlobalVariables.user_name = username;
-            return (boolean) value;
+            return task.get(5000, TimeUnit.MILLISECONDS);
 
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return -1;
         }
     }
 
@@ -251,25 +247,22 @@ public class User {
     /*
     update user on u_id == user_id
      */
-    public static boolean updateUser(String user_name, byte[] avatar, String gender, String phone, String description) {
+    public static int updateUser(String user_name, byte[] avatar, String gender, String phone, String description) {
         String sqlComm = "update user set " +
                 "u_gender='" + gender + "', " +
                 "u_phone='" + phone + "', " +
                 "u_description='" + description + "' " +
                 "where u_name='" + user_name + "';";
-        Object value = false;
+        int value = 0;
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
         task.execute(sqlComm);
         try {
             value = task.get(5000, TimeUnit.MILLISECONDS);
-            if (!value.getClass().equals(Boolean.class)) {
-                throw new Exception((String) value);
-            }
         } catch (Exception e) {
             e.printStackTrace();
-            value = false;
+            return -1;
         }
-        return (boolean)value;
+        return value;
         //&& insertSQLBlob(user_name, avatar);
     }
 
@@ -334,20 +327,16 @@ public class User {
     update password with u_id == user_id
     MD5 encrypt new_password before update in DB
      */
-    public static boolean updatePassword(String user_name, String new_password) {
+    public static int updatePassword(String user_name, String new_password) {
         String sqlComm = "update user set  u_password= '" + new_password + "' " +
                 "where u_name='" + user_name + "';";
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
         task.execute(sqlComm);
         try {
-            Object value = task.get(5000, TimeUnit.MILLISECONDS);
-            if (!value.getClass().equals(Boolean.class)) {
-                throw new Exception((String) value);
-            }
-            return (boolean) value;
+            return task.get(5000, TimeUnit.MILLISECONDS);
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return -1;
         }
     }
 
@@ -355,21 +344,17 @@ public class User {
     update password with u_name == username
     MD5 encrypt temp_password before update in DB
      */
-    public static boolean retrievePassword(String username, String temp_password) {
+    public static int retrievePassword(String username, String temp_password) {
 
         String sqlComm = "update user set  u_password= '" + temp_password + "' " +
                 "where u_name='" + username + "';";
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
         task.execute(sqlComm);
         try {
-            Object value = task.get(5000, TimeUnit.MILLISECONDS);
-            if (!value.getClass().equals(Boolean.class)) {
-                throw new Exception((String) value);
-            }
-            return (boolean) value;
+            return task.get(5000, TimeUnit.MILLISECONDS);
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return -1;
         }
     }
 
@@ -407,25 +392,21 @@ public class User {
     update u_identity = 1 on u_id == user_id
     MUST SET GlobalVariables.user_identity = 1;
      */
-    public static boolean setDriver(String user_name) {
+    public static int setDriver(String user_name) {
         GlobalVariables.user_identity = 1;
         String sqlComm = "update user set  u_identity='1'" +
                 " where u_name='" + user_name + "';";
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
         task.execute(sqlComm);
         try {
-            Object value = task.get(5000, TimeUnit.MILLISECONDS);
-            if (!value.getClass().equals(Boolean.class)) {
-                throw new Exception((String) value);
-            }
-            return (boolean) value;
+            return task.get(5000, TimeUnit.MILLISECONDS);
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return -1;
         }
     }
 
-    public static boolean updateUser(String user_name, String avatar, String gender, String phone, String description) {
+    public static int updateUser(String user_name, String avatar, String gender, String phone, String description) {
         String sqlComm = "update user set  u_avatar= '" + avatar + "'," +
                 "u_gender='" + gender + "', " +
                 "u_phone='" + phone + "', " +
@@ -434,14 +415,10 @@ public class User {
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
         task.execute(sqlComm);
         try {
-            Object value = task.get(5000, TimeUnit.MILLISECONDS);
-            if (!value.getClass().equals(Boolean.class)) {
-                throw new Exception((String) value);
-            }
-            return (boolean) value;
+            return task.get(5000, TimeUnit.MILLISECONDS);
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return -1;
         }
     }
 }
