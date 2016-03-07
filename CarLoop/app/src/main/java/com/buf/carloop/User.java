@@ -126,18 +126,18 @@ public class User {
         try {
             Vector<Object> value = task.get(10000, TimeUnit.MILLISECONDS);
             if (value == null) {
-                return 0;
-            } else if (!value.elementAt(2).equals(password)) {
                 return 1;
+            } else if (!value.elementAt(2).equals(password)) {
+                return 2;
             } else {
                 GlobalVariables.user_identity = Integer.parseInt((String)value.elementAt(4));
                 GlobalVariables.user_name = username;
-                return 2;
+                return 0;
             }
         } catch (Exception e) {
             e.printStackTrace();
+            return -1;
         }
-        return 0;
     }
 
     /*

@@ -42,36 +42,35 @@ public class SignIn extends AppCompatActivity {
     public void signIn(View view) {
         btn.setVisibility(View.GONE);
         bar.setVisibility(View.VISIBLE);
-        try {
-            if(validate()) {
-                int status = User.signIn(username_val, password_val);
-                if(status == 0) {
-                    Toast.makeText(this, "Username does not exist", Toast.LENGTH_SHORT).show();
-                    btn.setVisibility(View.VISIBLE);
-                    bar.setVisibility(View.GONE);
-                }
-                else if(status == 1) {
-                    Toast.makeText(this, "Wrong password", Toast.LENGTH_SHORT).show();
-                    btn.setVisibility(View.VISIBLE);
-                    bar.setVisibility(View.GONE);
-                }
-                else if(status == 2) {
-                    SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPref.edit();
-                    editor.putString("user_name", GlobalVariables.user_name);
-                    editor.putInt("user_identity", GlobalVariables.user_identity);
-                    editor.commit();
-                    Intent intent = new Intent(this, CarpoolNew.class);
-                    intent.putExtra("type", "Create");
-                    startActivity(intent);
-                }
+        if(validate()) {
+            int status = User.signIn(username_val, password_val);
+            if(status == 0) {
+                SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("user_name", GlobalVariables.user_name);
+                editor.putInt("user_identity", GlobalVariables.user_identity);
+                editor.commit();
+                Intent intent = new Intent(this, CarpoolNew.class);
+                intent.putExtra("type", "Create");
+                startActivity(intent);
             }
-            else {
+            else if(status == 1) {
+                Toast.makeText(this, "Username does not exist", Toast.LENGTH_SHORT).show();
                 btn.setVisibility(View.VISIBLE);
                 bar.setVisibility(View.GONE);
             }
-        } catch (Exception e) {
-            Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();
+            else if(status == 2) {
+                Toast.makeText(this, "Wrong password", Toast.LENGTH_SHORT).show();
+                btn.setVisibility(View.VISIBLE);
+                bar.setVisibility(View.GONE);
+            }
+            else {
+                Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();
+                btn.setVisibility(View.VISIBLE);
+                bar.setVisibility(View.GONE);
+            }
+        }
+        else {
             btn.setVisibility(View.VISIBLE);
             bar.setVisibility(View.GONE);
         }

@@ -117,17 +117,4 @@ public class Settings extends Footer {
         Intent intent = new Intent(this, SignIn.class);
         startActivity(intent);
     }
-
-    public void test(View view) {
-        if(GlobalVariables.user_identity == 0) {
-            GlobalVariables.user_identity = 1;
-        }
-        else if(GlobalVariables.user_identity == 1) {
-            GlobalVariables.user_identity = 2;
-        }
-        else if(GlobalVariables.user_identity == 2) {
-            GlobalVariables.user_identity = 0;
-        }
-    }
-
 }

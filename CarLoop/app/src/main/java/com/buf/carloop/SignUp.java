@@ -53,33 +53,47 @@ public class SignUp extends AppCompatActivity {
     public void signUp(View view) {
         btn.setVisibility(View.GONE);
         bar.setVisibility(View.VISIBLE);
-        try {
-            if(validate()) {
-                if(User.signUp(username.getText().toString(), password.getText().toString(), email.getText().toString())) {
-                    SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPref.edit();
-                    editor.putString("user_name", GlobalVariables.user_name);
-                    editor.putInt("user_identity", GlobalVariables.user_identity);
-                    editor.commit();
-                    Toast.makeText(this, "Sign up success", Toast.LENGTH_SHORT).show();
+        if(validate()) {
+            int status = User.signUp(username.getText().toString(), password.getText().toString(), email.getText().toString());
+            if(status == 0) {
+                SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString("user_name", GlobalVariables.user_name);
+                editor.putInt("user_identity", GlobalVariables.user_identity);
+                editor.commit();
+                Toast.makeText(this, "Sign up success", Toast.LENGTH_SHORT).show();
 
-                    if(driver.isChecked()) {
-                        Intent intent = new Intent(this, DriverVehicleInfo.class);
-                        intent.putExtra("type", "Add");
-                        startActivity(intent);
-                    }
-                    else {
-                        Intent intent = new Intent(this, CarpoolNew.class);
-                        intent.putExtra("type", "Demand");
-                        startActivity(intent);
-                    }
+                if(driver.isChecked()) {
+                    Intent intent = new Intent(this, DriverVehicleInfo.class);
+                    intent.putExtra("type", "Add");
+                    startActivity(intent);
+                }
+                else {
+                    Intent intent = new Intent(this, CarpoolList.class);
+                    intent.putExtra("type", "Confirmed");
+                    startActivity(intent);
                 }
             }
-        } catch(Exception e) {
-            Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();
+            else if(status == 1) {
+                Toast.makeText(this, "User: " + username_val + " already exist", Toast.LENGTH_SHORT).show();
+                btn.setVisibility(View.VISIBLE);
+                bar.setVisibility(View.GONE);
+            }
+            else if(status == 2) {
+                Toast.makeText(this, "Email: " + email_val + " already exist", Toast.LENGTH_SHORT).show();
+                btn.setVisibility(View.VISIBLE);
+                bar.setVisibility(View.GONE);
+            }
+            else {
+                Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();
+                btn.setVisibility(View.VISIBLE);
+                bar.setVisibility(View.GONE);
+            }
         }
-        btn.setVisibility(View.VISIBLE);
-        bar.setVisibility(View.GONE);
+        else {
+            btn.setVisibility(View.VISIBLE);
+            bar.setVisibility(View.GONE);
+        }
     }
 
     public void back(View view){
@@ -104,14 +118,6 @@ public class SignUp extends AppCompatActivity {
             Toast.makeText(this, "Incorrect email format", Toast.LENGTH_SHORT).show();
             return false;
         }
-//        else if(User.existEmail(email_val)) {
-//            Toast.makeText(this, "Email: " + email_val + " already exist", Toast.LENGTH_SHORT).show();
-//            return false;
-//        }
-//        else if(User.existUsername(username_val)) {
-//            Toast.makeText(this, "User: " + username_val + " already exist", Toast.LENGTH_SHORT).show();
-//            return false;
-//        }
         else {
             return true;
         }
