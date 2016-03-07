@@ -123,41 +123,40 @@ public class User {
         AsyncSelectOnlyNote task = new AsyncSelectOnlyNote();
         task.execute(sqlComm);
         try {
-            Vector<Object> value = task.get(5000, TimeUnit.MILLISECONDS);
+            Vector<Object> value = task.get(10000, TimeUnit.MILLISECONDS);
             if (value == null) {
-                return 0;
-            } else if (!value.elementAt(2).equals(password)) {
                 return 1;
+            } else if (!value.elementAt(2).equals(password)) {
+                return 2;
             } else {
                 GlobalVariables.user_identity = Integer.parseInt((String)value.elementAt(4));
                 GlobalVariables.user_name = username;
-                return 2;
+                return 0;
             }
         } catch (Exception e) {
             e.printStackTrace();
+            return -1;
         }
-
-        return 0;
     }
 
     /*
     search username only
      */
-    public static boolean existUsername(String username) {
+    public static int existUsername(String username) {
         String sqlComm = "select u_name from user where u_name = '" + username + "';";
         AsyncSelectOnlyValue task = new AsyncSelectOnlyValue();
         task.execute(sqlComm);
         try {
-            Object value = task.get(5000, TimeUnit.MILLISECONDS);
+            Object value = task.get(10000, TimeUnit.MILLISECONDS);
             if(value == null) {
-                return false;
+                return 0; // username does not exit
             }
             else {
-                return true;
+                return 1; // username exits
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return true;
+            return -1;
         }
 
     }
@@ -165,21 +164,21 @@ public class User {
     /*
     search email only
      */
-    public static boolean existEmail(String email) {
+    public static int existEmail(String email) {
         String sqlComm = "select u_email from user where u_email = '" + email + "';";
         AsyncSelectOnlyValue task = new AsyncSelectOnlyValue();
         task.execute(sqlComm);
         try {
-            Object value = task.get(5000, TimeUnit.MILLISECONDS);
+            Object value = task.get(10000, TimeUnit.MILLISECONDS);
             if(value == null) {
-                return false;
+                return 0;  // it is legal
             }
             else {
-                return true;
+                return 1;   // email exists
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return true;
+            return -1;
         }
     }
 
@@ -195,18 +194,18 @@ public class User {
         AsyncSelectOnlyValue task = new AsyncSelectOnlyValue();
         task.execute(sqlComm);
         try {
-            Object value = task.get(5000, TimeUnit.MILLISECONDS);
+            Object value = task.get(10000, TimeUnit.MILLISECONDS);
             if (value == null) {
-                return 0;
+                return 2; // no record
             } else if (!value.equals(email)) {
-                return 1;
+                return 1;  // email does not match
             } else {
-                return 2;
+                return 0;  // match the email
             }
         } catch (Exception e) {
             e.printStackTrace();
+            return -1;
         }
-        return 2;
     }
 
     /*
@@ -224,7 +223,7 @@ public class User {
         try {
             GlobalVariables.user_identity = 0;
             GlobalVariables.user_name = username;
-            return task.get(5000, TimeUnit.MILLISECONDS);
+            return task.get(10000, TimeUnit.MILLISECONDS);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -232,18 +231,6 @@ public class User {
         }
     }
 
-    public static int getUserID(String username) {
-        String sqlComm = "select u_id from user where u_name = '" + username + "';";
-        AsyncSelectOnlyValue task = new AsyncSelectOnlyValue();
-        task.execute(sqlComm);
-        try {
-            Object value = task.get(5000, TimeUnit.MILLISECONDS);
-            return (int) value;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return 0;
-    }
     /*
     update user on u_id == user_id
      */
@@ -257,7 +244,7 @@ public class User {
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
         task.execute(sqlComm);
         try {
-            value = task.get(5000, TimeUnit.MILLISECONDS);
+            value = task.get(10000, TimeUnit.MILLISECONDS);
         } catch (Exception e) {
             e.printStackTrace();
             return -1;
@@ -288,7 +275,7 @@ public class User {
         AsyncInsertBlob task = new AsyncInsertBlob();
         task.execute(sqlComm);
         try {
-            boolean value = task.get(5000, TimeUnit.MILLISECONDS);
+            boolean value = task.get(10000, TimeUnit.MILLISECONDS);
             return value;
         } catch (Exception e) {
             e.printStackTrace();
@@ -302,25 +289,25 @@ public class User {
     MD5 encrypt password before compare with u_password in DB
     return true if match, false if not
      */
-    public static boolean checkPassword(String user_name, String password) {
+    public static int checkPassword(String user_name, String password) {
         String sqlComm = "select u_password from user where u_name = '" + user_name + "';";
 
         AsyncSelectOnlyValue task = new AsyncSelectOnlyValue();
         task.execute(sqlComm);
         try {
-            Object value = task.get(5000, TimeUnit.MILLISECONDS);
+            Object value = task.get(10000, TimeUnit.MILLISECONDS);
             if (value == null) {
-                return false;
+                return 2;   // no record
             } else if (value.equals(password)) {
-                return true;
+                return 0;   // match
             }
             else {
-                return false;
+                return 1;  // not match
             }
         } catch (Exception e) {
             e.printStackTrace();
+            return -1;
         }
-        return true;
     }
 
     /*
@@ -333,7 +320,7 @@ public class User {
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
         task.execute(sqlComm);
         try {
-            return task.get(5000, TimeUnit.MILLISECONDS);
+            return task.get(10000, TimeUnit.MILLISECONDS);
         } catch (Exception e) {
             e.printStackTrace();
             return -1;
@@ -351,7 +338,7 @@ public class User {
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
         task.execute(sqlComm);
         try {
-            return task.get(5000, TimeUnit.MILLISECONDS);
+            return task.get(10000, TimeUnit.MILLISECONDS);
         } catch (Exception e) {
             e.printStackTrace();
             return -1;
@@ -368,7 +355,7 @@ public class User {
         AsyncSelectOnlyNote task = new AsyncSelectOnlyNote();
         task.execute(sqlComm);
         try {
-            Vector value = task.get(5000, TimeUnit.MILLISECONDS);
+            Vector value = task.get(10000, TimeUnit.MILLISECONDS);
             if (value == null) {
                 return null;
             }
@@ -382,6 +369,7 @@ public class User {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
         user.setU_avatar(selectSQLBlob(user_name));
         return user;
@@ -399,7 +387,7 @@ public class User {
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
         task.execute(sqlComm);
         try {
-            return task.get(5000, TimeUnit.MILLISECONDS);
+            return task.get(10000, TimeUnit.MILLISECONDS);
         } catch (Exception e) {
             e.printStackTrace();
             return -1;
@@ -415,7 +403,7 @@ public class User {
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
         task.execute(sqlComm);
         try {
-            return task.get(5000, TimeUnit.MILLISECONDS);
+            return task.get(10000, TimeUnit.MILLISECONDS);
         } catch (Exception e) {
             e.printStackTrace();
             return -1;

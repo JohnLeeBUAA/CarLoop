@@ -52,8 +52,24 @@ public class Create {
     }
 
     public static int createTalbeCarpool_created(String name) {
-
-        return 0;
+        int rs;
+        //set up connection to the database
+        Connection conn = JDBC.getConnection();
+        try {
+            Statement stmt = conn.createStatement();
+            String sqlCreate = "create table " + name +
+                    " (v_id INT NOT NULL AUTO_INCREMENT, v_drivername VARCHAR(32), v_driverlicense VARCHAR(32)," +
+                    " v_manufacturer VARCHAR(32), v_model VARCHAR(32), v_plate VARCHAR(32)," +
+                    " v_mileage INT, v_capacity INT, " +
+                    " UNIQUE (v_driverlicense), FOREIGN KEY (v_drivername) REFERENCES user(u_name), PRIMARY KEY (v_id));";
+            System.out.println(sqlCreate);
+            rs = stmt.executeUpdate(sqlCreate);
+            stmt.close();
+        } catch(SQLException e) {
+            e.printStackTrace();
+            rs = -1;
+        }
+        return rs;
     }
 
     public static int createTableCarpoo_demanded(String name) {
