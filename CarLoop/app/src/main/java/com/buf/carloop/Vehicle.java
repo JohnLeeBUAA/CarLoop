@@ -121,21 +121,21 @@ public class Vehicle {
     /*
     search if license already exist
      */
-    public static boolean existLicense(String license) {
+    public static int existLicense(String license) {
         String sqlComm = "select v_driverlicense from user where v_driverlicense = '" + license + "';";
         AsyncSelectOnlyValue task = new AsyncSelectOnlyValue();
         task.execute(sqlComm);
         try {
-            Object value = task.get(5000, TimeUnit.MILLISECONDS);
+            Object value = task.get(10000, TimeUnit.MILLISECONDS);
             if(value == null) {
-                return false;
+                return 1;
             }
             else {
-                return true;
+                return 0;
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return true;
+            return -1;
         }
     }
 
@@ -149,7 +149,7 @@ public class Vehicle {
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
         task.execute(sqlComm);
         try {
-            return task.get(5000, TimeUnit.MILLISECONDS);
+            return task.get(10000, TimeUnit.MILLISECONDS);
         } catch (Exception e) {
             e.printStackTrace();
             return -1;
@@ -170,7 +170,7 @@ public class Vehicle {
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
         task.execute(sqlComm);
         try {
-            return task.get(5000, TimeUnit.MILLISECONDS);
+            return task.get(10000, TimeUnit.MILLISECONDS);
         } catch (Exception e) {
             e.printStackTrace();
             return -1;
