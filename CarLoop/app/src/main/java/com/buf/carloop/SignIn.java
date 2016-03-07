@@ -22,7 +22,7 @@ public class SignIn extends AppCompatActivity {
     private EditText password;
     private String username_val;
     private String password_val;
-    private Button signin;
+    private Button btn;
     private ProgressBar bar;
 
     @Override
@@ -34,25 +34,25 @@ public class SignIn extends AppCompatActivity {
 
         username = (EditText)findViewById(R.id.username_signin);
         password = (EditText)findViewById(R.id.password_signin);
-        signin = (Button) findViewById(R.id.signin);
-        bar = (ProgressBar) findViewById(R.id.progressBar_signin);
+        btn = (Button) findViewById(R.id.btn_signin);
+        bar = (ProgressBar) findViewById(R.id.bar_signin);
         bar.setVisibility(View.GONE);
     }
 
     public void signIn(View view) {
-        signin.setVisibility(View.GONE);
+        btn.setVisibility(View.GONE);
         bar.setVisibility(View.VISIBLE);
         try {
             if(validate()) {
                 int status = User.signIn(username_val, password_val);
                 if(status == 0) {
                     Toast.makeText(this, "Username does not exist", Toast.LENGTH_SHORT).show();
-                    signin.setVisibility(View.VISIBLE);
+                    btn.setVisibility(View.VISIBLE);
                     bar.setVisibility(View.GONE);
                 }
                 else if(status == 1) {
                     Toast.makeText(this, "Wrong password", Toast.LENGTH_SHORT).show();
-                    signin.setVisibility(View.VISIBLE);
+                    btn.setVisibility(View.VISIBLE);
                     bar.setVisibility(View.GONE);
                 }
                 else if(status == 2) {
@@ -66,9 +66,13 @@ public class SignIn extends AppCompatActivity {
                     startActivity(intent);
                 }
             }
+            else {
+                btn.setVisibility(View.VISIBLE);
+                bar.setVisibility(View.GONE);
+            }
         } catch (Exception e) {
             Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();
-            signin.setVisibility(View.VISIBLE);
+            btn.setVisibility(View.VISIBLE);
             bar.setVisibility(View.GONE);
         }
     }

@@ -1,6 +1,8 @@
 package com.buf.carloop;
 
+import android.content.Context;
 import android.os.AsyncTask;
+import android.widget.Button;
 
 import com.buf.database.AsyncInsertBlob;
 import com.buf.database.AsyncSQLLongHaul;
@@ -118,7 +120,6 @@ public class User {
      */
     public static int signIn(String username, String password) {
         String sqlComm = "select * from user where u_name = '" + username + "';";
-
         AsyncSelectOnlyNote task = new AsyncSelectOnlyNote();
         task.execute(sqlComm);
         try {
@@ -135,7 +136,6 @@ public class User {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return 0;
     }
 

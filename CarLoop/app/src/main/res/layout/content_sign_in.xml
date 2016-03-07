@@ -86,14 +86,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Sign In"
-                android:id="@+id/signin"
+                android:id="@+id/btn_signin"
                 android:onClick="signIn"
                 android:layout_gravity="right"
                 android:background="@drawable/blue_button" />
             <ProgressBar
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/progressBar_signin"
+                android:id="@+id/bar_signin"
                 android:layout_marginTop="10dp"
                 android:layout_gravity="center_horizontal" />
         </LinearLayout>

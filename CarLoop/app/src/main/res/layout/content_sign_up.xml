@@ -132,6 +132,7 @@
             android:background="@drawable/blue_button" />
 
         <Button
+            android:id="@+id/btn_signup"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -139,6 +140,13 @@
             android:text="Sign Up"
             android:onClick="signUp"
             android:background="@drawable/green_button"/>
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/bar_signup"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal" />
 
     </LinearLayout>
 
