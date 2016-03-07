@@ -142,30 +142,24 @@ public class Vehicle {
     /*
     add a new vehicle record
      */
-    public static boolean addVehicle(String drivername, String driverlicense, String manufacturer, String model, String plate, int mileage, int capacity) {
+    public static int addVehicle(String drivername, String driverlicense, String manufacturer, String model, String plate, int mileage, int capacity) {
         String sqlComm = "insert into vehicle (v_drivername, v_driverlicense, v_manufacturer, v_model, v_plate, v_mileage, v_capacity) values ('" +
                 drivername+ "', '" + driverlicense + "', '" + manufacturer + "', '" + model + "', '" + plate +
                 "', " + mileage + ", " + capacity + ");";
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
         task.execute(sqlComm);
         try {
-            Object value = task.get(5000, TimeUnit.MILLISECONDS);
-            if (value.getClass().equals(Boolean.class)) {
-                return (boolean)value;
-            }
-            else {
-                throw new Exception((String) value);
-            }
+            return task.get(5000, TimeUnit.MILLISECONDS);
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return -1;
         }
     }
 
     /*
     update vehicle on v_drivername == drivername
      */
-    public static boolean updateVehicle(String drivername, String driverlicense, String manufacturer, String model, String plate, int mileage, int capacity) {
+    public static int updateVehicle(String drivername, String driverlicense, String manufacturer, String model, String plate, int mileage, int capacity) {
         String sqlComm = "update vehicle set  v_driverlicense= '" + driverlicense + "'," +
                 "v_manufacturer='" + manufacturer + "', " +
                 "v_model='" + model + "', " +
@@ -176,16 +170,10 @@ public class Vehicle {
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
         task.execute(sqlComm);
         try {
-            Object value = task.get(5000, TimeUnit.MILLISECONDS);
-            if (value.getClass().equals(Boolean.class)) {
-                return (boolean)value;
-            }
-            else {
-                throw new Exception((String) value);
-            }
+            return task.get(5000, TimeUnit.MILLISECONDS);
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return -1;
         }
     }
 }
