@@ -314,9 +314,9 @@ public class User {
     update password with u_name == user_name
     MD5 encrypt new_password before update in DB
      */
-    public static int updatePassword(String user_name, String new_password) {
+    public static int updatePassword(String user_name, String new_password, String old_password) {
         String sqlComm = "update user set  u_password= '" + new_password + "' " +
-                "where u_name='" + user_name + "';";
+                "where u_name='" + user_name + "' and u_password='" + old_password + "';";
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
         task.execute(sqlComm);
         try {
@@ -331,10 +331,10 @@ public class User {
     update password with u_name == username
     MD5 encrypt temp_password before update in DB
      */
-    public static int retrievePassword(String username, String temp_password) {
+    public static int retrievePassword(String username, String email, String temp_password) {
 
         String sqlComm = "update user set  u_password= '" + temp_password + "' " +
-                "where u_name='" + username + "';";
+                "where u_name='" + username + "' and u_email='" + email + "';";
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
         task.execute(sqlComm);
         try {

@@ -54,7 +54,7 @@ public class SignUp extends AppCompatActivity {
         btn.setVisibility(View.GONE);
         bar.setVisibility(View.VISIBLE);
         if(validate()) {
-            int status = User.signUp(username.getText().toString(), password.getText().toString(), email.getText().toString());
+            int status = User.signUp(username_val, password_val, email_val);
             if(status == 0) {
                 SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();

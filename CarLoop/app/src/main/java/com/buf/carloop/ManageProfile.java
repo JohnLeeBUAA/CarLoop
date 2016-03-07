@@ -72,23 +72,24 @@ public class ManageProfile extends Footer {
         female = (RadioButton) findViewById(R.id.female_manage_profile);
 
         User user = User.getUser(GlobalVariables.user_name);
-
-        username.setText(user.getU_name());
-        email.setText(user.getU_email());
-        if(user.getU_phone() != null) phone.setText(user.getU_phone());
-        if(user.getU_description() != null) description.setText(user.getU_description());
-        if(user.getU_gender() != null) {
-            if(user.getU_gender().equals("male")) male.setChecked(true);
-            else if(user.getU_gender().equals("female")) female.setChecked(true);
+        if(user != null) {
+            username.setText(user.getU_name());
+            email.setText(user.getU_email());
+            if(user.getU_phone() != null) phone.setText(user.getU_phone());
+            if(user.getU_description() != null) description.setText(user.getU_description());
+            if(user.getU_gender() != null) {
+                if(user.getU_gender().equals("male")) male.setChecked(true);
+                else if(user.getU_gender().equals("female")) female.setChecked(true);
+            }
+            avatarimage = null;
+            /*
+            if(user.getU_avatar() == null) avatarimage = null;
+            else {
+                Bitmap bm = BitmapFactory.decodeByteArray(avatarimage, 0, avatarimage.length);
+                if(!bm.equals(null)) avatar.setImageBitmap(bm);
+            }
+            */
         }
-        avatarimage = null;
-        /*
-        if(user.getU_avatar() == null) avatarimage = null;
-        else {
-            Bitmap bm = BitmapFactory.decodeByteArray(avatarimage, 0, avatarimage.length);
-            if(!bm.equals(null)) avatar.setImageBitmap(bm);
-        }
-        */
     }
 
     public void selectImage(View view) {

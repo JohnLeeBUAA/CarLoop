@@ -20,6 +20,8 @@ public class ForgotPassword extends AppCompatActivity {
 
     private EditText username;
     private EditText email;
+    private String username_val;
+    private String email_val;
 
     private Button btn;
     private ProgressBar bar;
@@ -47,7 +49,7 @@ public class ForgotPassword extends AppCompatActivity {
             final Random rand = new Random();
             int rand_int = rand.nextInt(900000) + 100000; //generate a random 6-digits number as temp password;
             String temp_password = Integer.toString(rand_int);
-            int status = User.retrievePassword(username.getText().toString(), temp_password);
+            int status = User.retrievePassword(username_val, email_val, temp_password);
             if(status == 0) {
                 sendEmail(email.getText().toString(), username.getText().toString(), temp_password);
                 Toast.makeText(this, "An email to retrieve password has been sent to: "
@@ -56,8 +58,19 @@ public class ForgotPassword extends AppCompatActivity {
                 startActivity(intent);
             }
             else if(status == 1) {
-
+                Toast.makeText(this, "Invalid username and/or email", Toast.LENGTH_SHORT).show();
+                btn.setVisibility(View.VISIBLE);
+                bar.setVisibility(View.GONE);
             }
+            else {
+                Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();
+                btn.setVisibility(View.VISIBLE);
+                bar.setVisibility(View.GONE);
+            }
+        }
+        else {
+            btn.setVisibility(View.VISIBLE);
+            bar.setVisibility(View.GONE);
         }
     }
 
@@ -88,8 +101,8 @@ public class ForgotPassword extends AppCompatActivity {
     }
 
     private boolean validate() {
-        String username_val = username.getText().toString();
-        String email_val = email.getText().toString();
+        username_val = username.getText().toString();
+        email_val = email.getText().toString();
 
         if(username_val.equals("") || email_val.equals("")) {
             Toast.makeText(this, "Input cannot be empty", Toast.LENGTH_SHORT).show();
@@ -100,18 +113,7 @@ public class ForgotPassword extends AppCompatActivity {
             return false;
         }
         else {
-            int validate_status = User.matchEmail(username_val, email_val);
-            if(validate_status == 0) {
-                Toast.makeText(this, "User: " + username_val + " does not exist", Toast.LENGTH_SHORT).show();
-                return false;
-            }
-            else if(validate_status == 1) {
-                Toast.makeText(this, "Username and email do not match", Toast.LENGTH_SHORT).show();
-                return false;
-            }
-            else {
-                return true;
-            }
+            return true;
         }
     }
 

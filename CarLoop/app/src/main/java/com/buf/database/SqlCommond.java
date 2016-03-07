@@ -1,5 +1,7 @@
 package com.buf.database;
 
+import android.util.Log;
+
 import java.io.ByteArrayInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -138,6 +140,7 @@ public class SqlCommond {
                 e1.printStackTrace();
             }
             e.printStackTrace();
+            Log.v("**error**", "*************************\n" + e.getMessage());
             if (e.getMessage().contains("u_name")) {
                 return 1;
             }
@@ -146,6 +149,9 @@ public class SqlCommond {
             }
             else if (e.getMessage().contains("v_driverlicense")) {
                 return 3;
+            }
+            else if (e.getMessage().contains("u_password")) {
+                return 4;
             }
             else {
                 return -1;
