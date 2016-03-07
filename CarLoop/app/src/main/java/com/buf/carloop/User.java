@@ -123,7 +123,7 @@ public class User {
         AsyncSelectOnlyNote task = new AsyncSelectOnlyNote();
         task.execute(sqlComm);
         try {
-            Vector<Object> value = task.get(5000, TimeUnit.MILLISECONDS);
+            Vector<Object> value = task.get(10000, TimeUnit.MILLISECONDS);
             if (value == null) {
                 return 0;
             } else if (!value.elementAt(2).equals(password)) {
