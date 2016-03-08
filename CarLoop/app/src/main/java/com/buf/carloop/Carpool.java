@@ -2,6 +2,8 @@ package com.buf.carloop;
 
 import com.buf.database.AsyncSQLLongHaul;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -9,7 +11,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class Carpool {
     private int carpoolid;
-    private int driverid;
+    private String drivername;
     private String depart_loc;
     private double depart_lat;
     private double depart_lng;
@@ -26,6 +28,34 @@ public class Carpool {
     private int passengeraboard;
     private int status;
 
+    public Carpool() {
+
+    }
+
+    public Carpool(int carpoolid, String drivername,
+                   String depart_loc, double depart_lat, double depart_lng,
+                   String desti_loc, double desti_lat, double desti_lng,
+                   String date, String time, String date_range, String time_range,
+                   int maxpassenger, int price, int passengerconfirmed, int passengeraboard, int status) {
+        this.carpoolid = carpoolid;
+        this.drivername = drivername;
+        this.depart_loc = depart_loc;
+        this.depart_lat = depart_lat;
+        this.depart_lng = depart_lng;
+        this.desti_lat = desti_lat;
+        this.desti_loc = desti_loc;
+        this.desti_lng = desti_lng;
+        this.date = date;
+        this.time = time;
+        this.date_range = date_range;
+        this.time_range = time_range;
+        this.maxpassenger = maxpassenger;
+        this.price = price;
+        this.passengerconfirmed = passengerconfirmed;
+        this.passengeraboard = passengeraboard;
+        this.status = status;
+    }
+
     public int getCarpoolid() {
         return carpoolid;
     }
@@ -34,12 +64,12 @@ public class Carpool {
         this.carpoolid = carpoolid;
     }
 
-    public int getDriverid() {
-        return driverid;
+    public String getDrivername() {
+        return drivername;
     }
 
-    public void setDriverid(int driverid) {
-        this.driverid = driverid;
+    public void setDrivername(String drivername) {
+        this.drivername = drivername;
     }
 
     public String getDepart_loc() {
@@ -154,10 +184,18 @@ public class Carpool {
         this.passengeraboard = passengeraboard;
     }
 
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
     /*
-    search in created carpool with given id
-    return a Carpool instance
-     */
+        search in created carpool with given id
+        return a Carpool instance
+         */
     public static Carpool getCarpool(int carpoolid) {
         return new Carpool();
     }
@@ -236,5 +274,54 @@ public class Carpool {
             e.printStackTrace();
             return -1;
         }
+    }
+
+    public static List<Carpool> generateFakeList() {
+        List<Carpool> list = new ArrayList<Carpool>();
+        list.add(new Carpool(1, "John Lee",
+                "Waterloo", 11.11D, 22.22D,
+                "Toronto", 33.33D, 44.44D,
+                "2016/3/2", "12:00", "2016/3/8", "22:00",
+                4, 40, 3, 0, 0));
+        list.add(new Carpool(2, "Luke",
+                "Beijing", 11.11D, 22.22D,
+                "Tianjin", 33.33D, 44.44D,
+                "2016/4/3", "8:00", "2016/4/4", "10:00",
+                3, 55, 3, 0, 0));
+        list.add(new Carpool(1, "Jin Xin",
+                "Huston", 11.11D, 22.22D,
+                "Dallas", 33.33D, 44.44D,
+                "2016/5/2", "3:00", "2016/5/8", "5:00",
+                8, 90, 5, 0, 0));
+        return list;
+    }
+
+    public static List<Carpool> getCreatedList(String user_name) {
+        return generateFakeList();
+    }
+
+    public static List<Carpool> getInterestedList(String user_name) {
+        return generateFakeList();
+    }
+
+    public static List<Carpool> getConfirmedList(String user_name) {
+        return generateFakeList();
+    }
+
+    public static List<Carpool> getMessageList(String user_name) {
+        return generateFakeList();
+    }
+
+    public static List<Carpool> getSearchList(
+            double depart_lat_val,
+            double depart_lng_val,
+            double desti_lat_val,
+            double desti_lng_val,
+            String date,
+            String time,
+            String date_range,
+            String time_range
+    ) {
+        return generateFakeList();
     }
 }

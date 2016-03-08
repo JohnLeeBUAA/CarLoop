@@ -142,7 +142,6 @@ public class SqlCommond {
                 e1.printStackTrace();
             }
             e.printStackTrace();
-            Log.v("**error**", "*************************\n" + e.getMessage());
             if (e.getMessage().contains("u_name") || e.getMessage().contains("PRIMARY")) {
                 return 1;
             }

@@ -278,7 +278,7 @@ public class CarpoolNew extends Footer {
                 intent.putExtra("time", time);
                 intent.putExtra("date_range", date_range);
                 intent.putExtra("time_range", time_range);
-                intent.putExtra("type", "Search Result");
+                intent.putExtra("type", "Search");
                 startActivity(intent);
             }
         }

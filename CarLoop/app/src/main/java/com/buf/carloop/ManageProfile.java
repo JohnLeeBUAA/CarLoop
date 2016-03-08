@@ -135,7 +135,7 @@ public class ManageProfile extends Footer {
         int status = User.updateUser(GlobalVariables.user_name, avatarimage, gender, phone.getText().toString(), description.getText().toString());
         if(status == 0) {
             Toast.makeText(this, "Profile updated", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, ManageProfile.class);
+            Intent intent = new Intent(this, Settings.class);
             startActivity(intent);
         }
         else if(status == 1) {

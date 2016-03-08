@@ -57,7 +57,8 @@ public class Footer extends AppCompatActivity {
     }
 
     public void message(View view) {
-        Intent intent = new Intent(this, Message.class);
+        Intent intent = new Intent(this, CarpoolList.class);
+        intent.putExtra("type", "Message");
         startActivity(intent);
     }
 
