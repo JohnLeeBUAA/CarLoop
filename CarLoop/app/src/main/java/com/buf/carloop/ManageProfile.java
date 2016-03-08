@@ -20,8 +20,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,6 +47,9 @@ public class ManageProfile extends Footer {
     private RadioButton female;
     private byte[] avatarimage;
 
+    private Button btn;
+    private ProgressBar bar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +57,11 @@ public class ManageProfile extends Footer {
         ViewGroup.inflate(this, R.layout.activity_manage_profile, vg);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        btn = (Button) findViewById(R.id.btn_manageprofile);
+        bar = (ProgressBar) findViewById(R.id.bar_manageprofile);
+
+        bar.setVisibility(View.GONE);
 
         avatar = (ImageView) findViewById(R.id.avatar_manage_profile);
         username = (TextView) findViewById(R.id.username_manage_profile);
@@ -62,23 +72,24 @@ public class ManageProfile extends Footer {
         female = (RadioButton) findViewById(R.id.female_manage_profile);
 
         User user = User.getUser(GlobalVariables.user_name);
-
-        username.setText(user.getU_name());
-        email.setText(user.getU_email());
-        if(user.getU_phone() != null) phone.setText(user.getU_phone());
-        if(user.getU_description() != null) description.setText(user.getU_description());
-        if(user.getU_gender() != null) {
-            if(user.getU_gender().equals("male")) male.setChecked(true);
-            else if(user.getU_gender().equals("female")) female.setChecked(true);
+        if(user != null) {
+            username.setText(user.getU_name());
+            email.setText(user.getU_email());
+            if(user.getU_phone() != null) phone.setText(user.getU_phone());
+            if(user.getU_description() != null) description.setText(user.getU_description());
+            if(user.getU_gender() != null) {
+                if(user.getU_gender().equals("male")) male.setChecked(true);
+                else if(user.getU_gender().equals("female")) female.setChecked(true);
+            }
+            avatarimage = null;
+            /*
+            if(user.getU_avatar() == null) avatarimage = null;
+            else {
+                Bitmap bm = BitmapFactory.decodeByteArray(avatarimage, 0, avatarimage.length);
+                if(!bm.equals(null)) avatar.setImageBitmap(bm);
+            }
+            */
         }
-        avatarimage = null;
-        /*
-        if(user.getU_avatar() == null) avatarimage = null;
-        else {
-            Bitmap bm = BitmapFactory.decodeByteArray(avatarimage, 0, avatarimage.length);
-            if(!bm.equals(null)) avatar.setImageBitmap(bm);
-        }
-        */
     }
 
     public void selectImage(View view) {
@@ -116,15 +127,26 @@ public class ManageProfile extends Footer {
     }
 
     public void updateProfile(View view) {
+        btn.setVisibility(View.GONE);
+        bar.setVisibility(View.VISIBLE);
         String gender = null;
         if(male.isChecked()) gender = "male";
         else if(female.isChecked()) gender = "female";
-        if(User.updateUser(GlobalVariables.user_name, avatarimage, gender, phone.getText().toString(), description.getText().toString())) {
+        int status = User.updateUser(GlobalVariables.user_name, avatarimage, gender, phone.getText().toString(), description.getText().toString());
+        if(status == 0) {
             Toast.makeText(this, "Profile updated", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, ManageProfile.class);
+            startActivity(intent);
         }
-        else
-        {
-            Toast.makeText(this, "Update profile  failed", Toast.LENGTH_SHORT).show();
+        else if(status == 1) {
+            Toast.makeText(this, "Update profile failed", Toast.LENGTH_SHORT).show();
+            btn.setVisibility(View.VISIBLE);
+            bar.setVisibility(View.GONE);
+        }
+        else {
+            Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();
+            btn.setVisibility(View.VISIBLE);
+            bar.setVisibility(View.GONE);
         }
     }
 }

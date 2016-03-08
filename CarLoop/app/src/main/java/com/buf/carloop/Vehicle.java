@@ -97,7 +97,7 @@ public class Vehicle {
     }
 
     /*
-    search vehicle with driverid
+    search vehicle with drivername
      */
     public static Vehicle getVehicle(String drivername) {
         Vehicle vehicle = new Vehicle();
@@ -147,7 +147,6 @@ public class Vehicle {
                 drivername+ "', '" + driverlicense + "', '" + manufacturer + "', '" + model + "', '" + plate +
                 "', " + mileage + ", " + capacity + ");";
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
-        System.out.println("****************************************************************");
         task.execute(sqlComm);
         try {
             return task.get(10000, TimeUnit.MILLISECONDS);
@@ -158,7 +157,7 @@ public class Vehicle {
     }
 
     /*
-    update vehicle on v_driverid == driverid
+    update vehicle on v_drivername == drivername
      */
     public static int updateVehicle(String drivername, String driverlicense, String manufacturer, String model, String plate, int mileage, int capacity) {
         String sqlComm = "update vehicle set  v_driverlicense= '" + driverlicense + "'," +

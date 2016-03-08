@@ -225,8 +225,9 @@ public class CarpoolNew extends Footer {
                             Integer.parseInt(maxpassenger_val),
                             Integer.parseInt(price_val),
                             0,
+                            0,
                             0
-                    )) {
+                    )==0) {
                         Toast.makeText(this, "Carpool created", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(this, CarpoolList.class);
                         intent.putExtra("type", "Created");
@@ -248,7 +249,7 @@ public class CarpoolNew extends Footer {
                             time_range,
                             Integer.parseInt(maxpassenger_val),
                             Integer.parseInt(price_val)
-                    )) {
+                    )==0) {
                         Toast.makeText(this, "Carpool updated", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(this, CarpoolList.class);
                         intent.putExtra("type", "Created");

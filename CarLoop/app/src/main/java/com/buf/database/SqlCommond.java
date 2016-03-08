@@ -1,5 +1,7 @@
 package com.buf.database;
 
+import android.util.Log;
+
 import java.io.ByteArrayInputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -125,10 +127,12 @@ public class SqlCommond {
             conn.setAutoCommit(false);
             //create the connection to mysql创建连接状态
             Statement stmt = conn.createStatement();
-            stmt.executeUpdate(sql);
+            int status = stmt.executeUpdate(sql);
             stmt.close();
             //commit the long lasting result 提交持久化
             conn.commit();
+            if (status == 0) return 4; // password not match
+            else return 0;
         } catch (SQLException e) {
             //the long lasting fails持久化失败
             try {
@@ -138,6 +142,7 @@ public class SqlCommond {
                 e1.printStackTrace();
             }
             e.printStackTrace();
+            Log.v("**error**", "*************************\n" + e.getMessage());
             if (e.getMessage().contains("u_name")) {
                 return 1;
             }
@@ -151,7 +156,6 @@ public class SqlCommond {
                 return -1;
             }
         }
-        return 0;
     }
 
     // get the image blob from database
