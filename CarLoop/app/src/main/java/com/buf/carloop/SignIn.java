@@ -50,9 +50,17 @@ public class SignIn extends AppCompatActivity {
                 editor.putString("user_name", GlobalVariables.user_name);
                 editor.putInt("user_identity", GlobalVariables.user_identity);
                 editor.commit();
-                Intent intent = new Intent(this, CarpoolNew.class);
-                intent.putExtra("type", "Create");
-                startActivity(intent);
+                if(GlobalVariables.user_identity == 1) {
+                    Intent intent = new Intent(this, CarpoolNew.class);
+                    intent.putExtra("type", "Create");
+                    startActivity(intent);
+                }
+                else {
+                    Intent intent = new Intent(this, CarpoolNew.class);
+                    intent.putExtra("type", "Search");
+                    startActivity(intent);
+                }
+
             }
             else if(status == 1) {
                 Toast.makeText(this, "Username does not exist", Toast.LENGTH_SHORT).show();

@@ -131,12 +131,8 @@ public class SqlCommond {
             stmt.close();
             //commit the long lasting result 提交持久化
             conn.commit();
-<<<<<<< HEAD
-
-=======
             if (status == 0) return 4; // password not match
             else return 0;
->>>>>>> 0739aead2763f1a2aabea4514ddf895e8f71d640
         } catch (SQLException e) {
             //the long lasting fails持久化失败
             try {
@@ -155,6 +151,9 @@ public class SqlCommond {
             }
             else if (e.getMessage().contains("v_driverlicense")) {
                 return 3;
+            }
+            else if (e.getMessage().contains("v_plate")) {
+                return 5;
             }
             else {
                 return -1;
