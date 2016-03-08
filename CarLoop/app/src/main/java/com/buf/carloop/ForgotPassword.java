@@ -57,7 +57,7 @@ public class ForgotPassword extends AppCompatActivity {
                 Intent intent = new Intent(this, SignIn.class);
                 startActivity(intent);
             }
-            else if(status == 1) {
+            else if(status == 4) {
                 Toast.makeText(this, "Invalid username and/or email", Toast.LENGTH_SHORT).show();
                 btn.setVisibility(View.VISIBLE);
                 bar.setVisibility(View.GONE);
