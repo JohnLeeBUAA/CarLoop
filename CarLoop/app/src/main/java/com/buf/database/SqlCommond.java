@@ -17,6 +17,7 @@ import java.util.Objects;
 import java.util.Vector;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by xin on 2016/2/20.
@@ -233,6 +234,7 @@ public class SqlCommond {
         String password = "1234";
         String email = "liu1@gmail.com";
 
+        /*
         String sqlComm = "update user set" +
                 " u_gender='" + "male" + "', " +
                 " u_phone='" + "1234" + "', " +
@@ -243,9 +245,23 @@ public class SqlCommond {
                 + password + "', '" + email + "', " + 0 + ");";
 
 */
+/*
+        String sqlComm = String.format("insert into carpool_created (cc_drivername, cc_depart_lat, cc_depart_lng, cc_depart_loc, " +
+                        "cc_desti_lat, cc_desti_lng, cc_desti_loc, cc_date, cc_date_range, cc_time, cc_time_range, cc_maxpassenger, " +
+                        "cc_price, cc_passengerconfirmed, cc_passengeraboard, cc_status) values ('%s', %f, %f, '%s', %f, %f, '%s', " +
+                        "'%s', '%s', '%s', '%s', %d, %d, %d, %d, %d);", "xinjin", 15.0, 16.0, "nanjing", 15.0, 16.0,
+                "Toronto", "2015/10/10", "2015/5/10", "10:10", "11:00", 5, 10, 15, 1, 1);
+                */
+        String sqlComm = String.format("update carpool_created set cc_depart_lat=%f, cc_depart_lng=%f, cc_depart_loc='%s', " +
+                        "cc_desti_lat=%f, cc_desti_lng=%f, cc_desti_loc='%s', cc_date='%s', cc_date_range='%s', cc_time='%s', " +
+                        "cc_time_range='%s', cc_maxpassenger=%d, cc_price=%d where cc_id=%d;",
+                11.0, 12.0, "Toronto", 2.0, 3.0, "Nanjing", "2015/05/04", "2015/05/04", "11:11", "11:59", 10, 44, 1, 1);
+        // Sql create user operation
+
         SqlCommond sqlCommond = new SqlCommond();
        int value = sqlCommond.longHaul(sqlComm);
         System.out.println(value);
+
 
     }
 }

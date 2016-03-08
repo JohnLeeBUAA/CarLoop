@@ -60,8 +60,8 @@ public class Create {
             String sqlCreate = "create table " + "carpool_created" +
                     " (cc_id INT NOT NULL AUTO_INCREMENT, cc_drivername VARCHAR(32), cc_depart_lat DOUBLE," +
                     " cc_depart_lng DOUBLE, cc_depart_loc VARCHAR(32), cc_desti_lat DOUBLE," +
-                    " cc_desti_lng DOUBLE, cc_desti_loc VARCHAR(32), cc_data DATE, cc_time TIME, cc_time_range TIME," +
-                    " cc_maxpassenger INT, cc_price INT, cc_passengerconfirmed INT, cc_passengeraboard INT, cc_status INT" +
+                    " cc_desti_lng DOUBLE, cc_desti_loc VARCHAR(32), cc_date DATE, cc_date_range DATE, cc_time TIME, cc_time_range TIME," +
+                    " cc_maxpassenger INT, cc_price INT, cc_passengerconfirmed INT, cc_passengeraboard INT, cc_status INT," +
                     " FOREIGN KEY (cc_drivername) REFERENCES user(u_name), PRIMARY KEY (cc_id));";
             System.out.println(sqlCreate);
             rs = stmt.executeUpdate(sqlCreate);
