@@ -291,7 +291,7 @@ public class Carpool {
         list.add(new Carpool(1, "Jin Xin",
                 "Huston", 11.11D, 22.22D,
                 "Dallas", 33.33D, 44.44D,
-                "2016/5/2", "3:00", "2016/5/8", "5:00",
+                "2016/5/2", "3:00", "2016/5/2", "3:00",
                 8, 90, 5, 0, 0));
         return list;
     }
