@@ -1,5 +1,9 @@
 package com.buf.carloop;
 
+import com.buf.database.AsyncSQLLongHaul;
+
+import java.util.concurrent.TimeUnit;
+
 /**
  * Created by zijin on 17/02/16.
  */
@@ -162,7 +166,7 @@ public class Carpool {
     NOTE: date and time are string, convert to sql.date and sql.time type if needed
     date format(yyyy/MM/dd), time format(kk:mm) (simpledateformat)
      */
-    public static boolean createCarpool(
+    public static int createCarpool(
             String user_name,
             String depart_loc,
             double depart_lat,
@@ -179,7 +183,21 @@ public class Carpool {
             int passengerconfirmed,
             int passengeraboard
     ) {
-        return true;
+        String sqlComm = String.format("insert into carpool_created (cc_drivername, cc_depart_lat, cc_depart_lng, cc_depart_loc, " +
+                "cc_desti_lat, cc_desti_lng, cc_desti_loc, cc_date, cc_date_range, cc_time, cc_time_range, cc_maxpassenger, " +
+                "cc_price, cc_passengerconfirmed, cc_passengeraboard, cc_status) values ('%s', %f, %f, '%s', '%f, '%f, '%s', " +
+                "'%s', '%s', '%s', '%s', '%s', %d, %d, %d, %d);", user_name, depart_lat, depart_lng, depart_loc, desti_lat, desti_lng,
+                desti_loc, date, date_range, time, time_range, maxpassenger, price, passengerconfirmed, passengeraboard);
+        // Sql create user operation
+        AsyncSQLLongHaul task = new AsyncSQLLongHaul();
+        task.execute(sqlComm);
+        try {
+            return task.get(10000, TimeUnit.MILLISECONDS);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
     }
 
     /*
@@ -187,7 +205,7 @@ public class Carpool {
     NOTE: date and time are string, convert to sql.date and sql.time type if needed
     date format(yyyy/MM/dd), time format(kk:mm) (simpledateformat)
      */
-    public static boolean updateCarpool(
+    public static int updateCarpool(
             int carpoolid,
             String depart_loc,
             double depart_lat,
@@ -202,6 +220,20 @@ public class Carpool {
             int maxpassenger,
             int price
     ) {
-        return true;
+        String sqlComm = String.format("update carpool_created set cc_drivername=%d, cc_depart_lat, cc_depart_lng, cc_depart_loc, " +
+                        "cc_desti_lat, cc_desti_lng, cc_desti_loc, cc_date, cc_date_range, cc_time, cc_time_range, cc_maxpassenger, " +
+                        "cc_price, cc_passengerconfirmed, cc_passengeraboard, cc_status) values ('%s', '%f', '%f', '%s', '%f', '%f', '%s', " +
+                        "'%s', '%s', '%s', '%s', '%s', '%d', '%d', '%d', '%d');", user_name, depart_lat, depart_lng, depart_loc, desti_lat, desti_lng,
+                desti_loc, date, date_range, time, time_range, maxpassenger, price, passengerconfirmed, passengeraboard);
+        // Sql create user operation
+        AsyncSQLLongHaul task = new AsyncSQLLongHaul();
+        task.execute(sqlComm);
+        try {
+            return task.get(10000, TimeUnit.MILLISECONDS);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
     }
 }
