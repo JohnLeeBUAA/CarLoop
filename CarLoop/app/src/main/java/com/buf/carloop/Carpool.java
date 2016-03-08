@@ -24,6 +24,7 @@ public class Carpool {
     private int price;
     private int passengerconfirmed;
     private int passengeraboard;
+    private int status;
 
     public int getCarpoolid() {
         return carpoolid;
@@ -187,8 +188,8 @@ public class Carpool {
         String sqlComm = String.format("insert into carpool_created (cc_drivername, cc_depart_lat, cc_depart_lng, cc_depart_loc, " +
                 "cc_desti_lat, cc_desti_lng, cc_desti_loc, cc_date, cc_date_range, cc_time, cc_time_range, cc_maxpassenger, " +
                 "cc_price, cc_passengerconfirmed, cc_passengeraboard, cc_status) values ('%s', %f, %f, '%s', '%f, '%f, '%s', " +
-                "'%s', '%s', '%s', '%s', '%s', %d, %d, %d, %d);", user_name, depart_lat, depart_lng, depart_loc, desti_lat, desti_lng,
-                desti_loc, date, date_range, time, time_range, maxpassenger, price, passengerconfirmed, passengeraboard);
+                "'%s', '%s', '%s', '%s', '%s', %d, %d, %d, %d, %d);", user_name, depart_lat, depart_lng, depart_loc, desti_lat, desti_lng,
+                desti_loc, date, date_range, time, time_range, maxpassenger, price, passengerconfirmed, passengeraboard, status);
         // Sql create user operation
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
         task.execute(sqlComm);
