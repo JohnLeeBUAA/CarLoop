@@ -106,7 +106,6 @@ public class CarpoolList extends Footer {
                 tip.setVisibility(View.GONE);
             }
         }
-
         populateListView();
         registerClickCallback();
     }
@@ -125,7 +124,25 @@ public class CarpoolList extends Footer {
                 int clickedCarpoolid = list.get(position).getCarpoolid();
                 if (type.equals("Message")) {
                     Intent intent = new Intent(CarpoolList.this, Message.class);
-                    intent.putExtra("type", "Add");
+                    intent.putExtra("carpoolid", clickedCarpoolid);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(CarpoolList.this, CarpoolSingle.class);
+                    intent.putExtra("carpoolid", clickedCarpoolid);
+                    intent.putExtra("depart_loc", list.get(position).getDepart_loc());
+                    intent.putExtra("desti_loc", list.get(position).getDesti_loc());
+                    intent.putExtra("date", list.get(position).getDate());
+                    intent.putExtra("time", list.get(position).getTime());
+                    intent.putExtra("date_range", list.get(position).getDate_range());
+                    intent.putExtra("time_range", list.get(position).getTime_range());
+                    intent.putExtra("price", list.get(position).getPrice());
+                    intent.putExtra("maxpassenger", list.get(position).getMaxpassenger());
+                    intent.putExtra("passengerconfirmed", list.get(position).getPassengerconfirmed());
+                    if (list.get(position).getStatus() == 0) {
+                        intent.putExtra("type", type);
+                    } else {
+                        intent.putExtra("type", "Trip");
+                    }
                     startActivity(intent);
                 }
             }

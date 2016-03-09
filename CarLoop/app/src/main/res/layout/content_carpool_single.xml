@@ -50,9 +50,10 @@
                         android:layout_gravity="bottom"/>
                 </LinearLayout>
                 <TextView
+                    android:id="@+id/depart_loc_carpoolsingle"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="Waterloo"
+                    android:text="Depart"
                     android:textSize="25dp"
                     android:textStyle="bold"
                     android:layout_marginTop="10dp"/>
@@ -95,9 +96,10 @@
                         android:layout_gravity="bottom"/>
                 </LinearLayout>
                 <TextView
+                    android:id="@+id/desti_loc_carpoolsingle"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="Toronto"
+                    android:text="Desti"
                     android:textSize="25dp"
                     android:textStyle="bold"
                     android:layout_marginTop="10dp"/>

@@ -193,9 +193,9 @@ public class Carpool {
     }
 
     /*
-        search in created carpool with given id
-        return a Carpool instance
-         */
+    search in created carpool with given id
+    return a Carpool instance
+     */
     public static Carpool getCarpool(int carpoolid) {
         return new Carpool();
     }
@@ -296,22 +296,49 @@ public class Carpool {
         return list;
     }
 
+    public static List<Carpool> generateFakeList2() {
+        List<Carpool> list = new ArrayList<Carpool>();
+        list.add(new Carpool(1, "John Lee",
+                "Waterloo", 11.11D, 22.22D,
+                "Toronto", 33.33D, 44.44D,
+                "2016/3/2", "12:00", "2016/3/8", "22:00",
+                4, 40, 3, 0, 0));
+        return list;
+    }
+
+    public static List<Carpool> generateFakeList3() {
+        List<Carpool> list = new ArrayList<Carpool>();
+        list.add(new Carpool(1, "Jin Xin",
+                "Huston", 11.11D, 22.22D,
+                "Dallas", 33.33D, 44.44D,
+                "2016/5/2", "3:00", "2016/5/2", "3:00",
+                8, 90, 5, 0, 0));
+        return list;
+    }
+
     public static List<Carpool> getCreatedList(String user_name) {
         return generateFakeList();
     }
 
+    /*
+    search carpools in passenger_interented table but not in passenger_notinterested table
+    and carpool status == 1
+     */
     public static List<Carpool> getInterestedList(String user_name) {
-        return generateFakeList();
+        return generateFakeList2();
     }
 
     public static List<Carpool> getConfirmedList(String user_name) {
-        return generateFakeList();
+        return generateFakeList3();
     }
 
     public static List<Carpool> getMessageList(String user_name) {
         return generateFakeList();
     }
 
+    /*
+    search carpool with valid date and time and status == 0
+     */
     public static List<Carpool> getSearchList(
             double depart_lat_val,
             double depart_lng_val,
@@ -323,5 +350,21 @@ public class Carpool {
             String time_range
     ) {
         return generateFakeList();
+    }
+
+    /*
+    delete carpool in carpool_created table
+
+     */
+    public static int deleteCarpool(int carpoolid) {
+        return 0;
+    }
+
+    /*
+    change status to 1
+    also delete all records in interested and notinterested table with carpoolid
+     */
+    public static int changeCarpoolStatus(int carpoolid) {
+        return 0;
     }
 }
