@@ -118,18 +118,6 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="From"
-                    android:textSize="15dp"
-                    android:layout_marginTop="10dp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="To"
-                    android:textSize="15dp"
-                    android:layout_marginTop="10dp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:text="Date"
                     android:textSize="15dp"
                     android:layout_marginTop="10dp"/>
@@ -139,6 +127,35 @@
                     android:text="Time"
                     android:textSize="15dp"
                     android:layout_marginTop="10dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_weight="3"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/date_carpoolsingle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2015/10/21 - 2015/10/22"
+                    android:textStyle="bold"
+                    android:textSize="15dp"
+                    android:layout_marginTop="10dp"/>
+                <TextView
+                    android:id="@+id/time_carpoolsingle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="12:00 - 13:00"
+                    android:textSize="15dp"
+                    android:layout_marginTop="10dp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_weight="1"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:orientation="vertical">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -165,39 +182,7 @@
                 android:layout_height="fill_parent"
                 android:orientation="vertical">
                 <TextView
-                    android:id="@+id/item_depart_loc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Waterloo"
-                    android:textSize="15dp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="10dp"/>
-                <TextView
-                    android:id="@+id/item_desti_loc"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Toronto"
-                    android:textStyle="bold"
-                    android:textSize="15dp"
-                    android:layout_marginTop="10dp"/>
-                <TextView
-                    android:id="@+id/item_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="2015/10/21 - 2015/10/22"
-                    android:textStyle="bold"
-                    android:textSize="15dp"
-                    android:layout_marginTop="10dp"/>
-                <TextView
-                    android:id="@+id/item_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:text="12:00 - 13:00"
-                    android:textSize="15dp"
-                    android:layout_marginTop="10dp"/>
-                <TextView
-                    android:id="@+id/item_price"
+                    android:id="@+id/price_carpoolsingle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
@@ -205,7 +190,7 @@
                     android:textSize="15dp"
                     android:layout_marginTop="10dp"/>
                 <TextView
-                    android:id="@+id/item_maxpassenger"
+                    android:id="@+id/maxpassenger_carpoolsingle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
@@ -213,7 +198,7 @@
                     android:textSize="15dp"
                     android:layout_marginTop="10dp"/>
                 <TextView
-                    android:id="@+id/item_passengerconfirmed"
+                    android:id="@+id/passengerconfirmed_carpoolsingle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
@@ -221,72 +206,7 @@
                     android:textSize="15dp"
                     android:layout_marginTop="10dp"/>
             </LinearLayout>
-            <LinearLayout
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Date"
-                    android:textSize="15dp"
-                    android:layout_marginTop="10dp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Time"
-                    android:textSize="15dp"
-                    android:layout_marginTop="10dp"/>
-            </LinearLayout>
 
-            <LinearLayout
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginLeft="10dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="2016.03.01"
-                    android:textSize="15dp"
-                    android:layout_marginTop="10dp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="12:00"
-                    android:textSize="15dp"
-                    android:layout_marginTop="10dp"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginLeft="20dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Price"
-                    android:textSize="15dp"
-                    android:layout_marginTop="10dp"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginLeft="20dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="20 CAD"
-                    android:textSize="15dp"
-                    android:layout_marginTop="10dp"/>
-            </LinearLayout>
 
         </LinearLayout>
 
@@ -397,81 +317,132 @@
 
         </LinearLayout>
 
-        <View android:layout_marginTop="10dp" style="@style/bg_line"/>
+
 
         <LinearLayout
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:orientation="vertical">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <RatingBar
-                        style="?android:attr/ratingBarStyleSmall"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:isIndicator="true"
-                        android:numStars="5"
-                        android:rating="4"
-                        android:stepSize="0.1"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Eric"
-                        android:textSize="17dp"
-                        android:textStyle="bold|italic"
-                        android:layout_marginLeft="10dp"/>
-                </LinearLayout>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Experience was good but price was a bit high."/>
-
-            </LinearLayout>
-
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:background="@drawable/avatar1"
-                android:layout_gravity="center_vertical"/>
-
-        </LinearLayout>
-
-        <LinearLayout
+            android:id="@+id/message_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp">
-            <ImageView
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/accept"
-                android:backgroundTint="#636363"/>
-            <ImageView
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:background="@drawable/interest"
-                android:backgroundTint="#636363"/>
-            <ImageView
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/decline"
-                android:backgroundTint="#636363"
-                android:layout_marginLeft="20dp"/>
+            android:layout_gravity="center">
+            <Button
+                android:id="@+id/btn_message"
+                android:text="Message"
+                android:onClick="jumpMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/created_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+
+            <Button
+                android:id="@+id/btn_deletecreated"
+                android:text="Delete"
+                android:onClick="deleteCreated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/btn_editcreated"
+                android:text="Edit"
+                android:onClick="editCreated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/btn_trip"
+                android:text="Start Trip"
+                android:onClick="startTrip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/search_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+            <Button
+                android:id="@+id/btn_declinesearch"
+                android:text="Decline"
+                android:onClick="declineSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/btn_interestedsearch"
+                android:text="Interested"
+                android:onClick="interestedSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/btn_confirmsearch"
+                android:text="Confirm"
+                android:onClick="confirmSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/interested_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+            <Button
+                android:id="@+id/btn_deleteinterested"
+                android:text="Delete"
+                android:onClick="deleteInterested"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/btn_confirminterested"
+                android:text="Confirm"
+                android:onClick="confirmInterested"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/trip_passenger_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+            <Button
+                android:id="@+id/btn_aboardtrip"
+                android:text="Aboard"
+                android:onClick="aboardTrip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/btn_reviewtrip"
+                android:text="Review Driver"
+                android:onClick="reviewTrip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/trip_driver_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+            <Button
+                android:id="@+id/btn_navitrip"
+                android:text="Navigation"
+                android:onClick="naviTrip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/btn_confirmpaymenttrip"
+                android:text="Confirm Payment"
+                android:onClick="confirmPaymentTrip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
     </LinearLayout>

@@ -7,8 +7,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 public class CarpoolSingle extends Footer {
+
+    private Button btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +22,7 @@ public class CarpoolSingle extends Footer {
         setSupportActionBar(toolbar);
 
         this.setTitle("Carpool Detail");
+
     }
 
 }
