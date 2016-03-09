@@ -27,6 +27,7 @@ public class Carpool {
     private int passengerconfirmed;
     private int passengeraboard;
     private int status;
+    private byte[] driveravatar;
 
     public Carpool() {
 
@@ -36,7 +37,8 @@ public class Carpool {
                    String depart_loc, double depart_lat, double depart_lng,
                    String desti_loc, double desti_lat, double desti_lng,
                    String date, String time, String date_range, String time_range,
-                   int maxpassenger, int price, int passengerconfirmed, int passengeraboard, int status) {
+                   int maxpassenger, int price, int passengerconfirmed, int passengeraboard, int status,
+                   byte[] driveravatar) {
         this.carpoolid = carpoolid;
         this.drivername = drivername;
         this.depart_loc = depart_loc;
@@ -54,6 +56,7 @@ public class Carpool {
         this.passengerconfirmed = passengerconfirmed;
         this.passengeraboard = passengeraboard;
         this.status = status;
+        this.driveravatar = driveravatar;
     }
 
     public int getCarpoolid() {
@@ -192,10 +195,18 @@ public class Carpool {
         this.status = status;
     }
 
+    public byte[] getDriveravatar() {
+        return driveravatar;
+    }
+
+    public void setDriveravatar(byte[] driveravatar) {
+        this.driveravatar = driveravatar;
+    }
+
     /*
-    search in created carpool with given id
-    return a Carpool instance
-     */
+        search in created carpool with given id
+        return a Carpool instance
+         */
     public static Carpool getCarpool(int carpoolid) {
         return new Carpool();
     }
@@ -282,17 +293,20 @@ public class Carpool {
                 "Waterloo", 11.11D, 22.22D,
                 "Toronto", 33.33D, 44.44D,
                 "2016/3/2", "12:00", "2016/3/8", "22:00",
-                4, 40, 3, 0, 0));
+                4, 40, 3, 0, 0,
+                null));
         list.add(new Carpool(2, "Luke",
                 "Beijing", 11.11D, 22.22D,
                 "Tianjin", 33.33D, 44.44D,
                 "2016/4/3", "8:00", "2016/4/4", "10:00",
-                3, 55, 3, 0, 0));
+                3, 55, 3, 0, 0,
+                null));
         list.add(new Carpool(1, "Jin Xin",
                 "Huston", 11.11D, 22.22D,
                 "Dallas", 33.33D, 44.44D,
                 "2016/5/2", "3:00", "2016/5/2", "3:00",
-                8, 90, 5, 0, 0));
+                8, 90, 5, 0, 0,
+                null));
         return list;
     }
 
@@ -302,7 +316,8 @@ public class Carpool {
                 "Waterloo", 11.11D, 22.22D,
                 "Toronto", 33.33D, 44.44D,
                 "2016/3/2", "12:00", "2016/3/8", "22:00",
-                4, 40, 3, 0, 0));
+                4, 40, 3, 0, 0,
+                null));
         return list;
     }
 
@@ -312,34 +327,54 @@ public class Carpool {
                 "Huston", 11.11D, 22.22D,
                 "Dallas", 33.33D, 44.44D,
                 "2016/5/2", "3:00", "2016/5/2", "3:00",
-                8, 90, 5, 0, 0));
+                8, 90, 5, 0, 0,
+                null));
         return list;
     }
 
+    /*
+    select * from carpool_created where cc_drivername = user_name
+    join user to get avatar
+    on pc_datetime descending order
+     */
     public static List<Carpool> getCreatedList(String user_name) {
         return generateFakeList();
     }
 
     /*
-    search carpools in passenger_interented table but not in passenger_notinterested table
-    and carpool status == 1
+    search * in passenger_carpool where pc_passengername = user_name and pc_status = 1
+    join user to get avatar
+    on pc_datetime descending order
      */
     public static List<Carpool> getInterestedList(String user_name) {
         return generateFakeList2();
     }
 
+    /*
+    search * in passenger_carpool where pc_passengername = user_name and pc_status = 2
+    join user to get avatar
+    on pc_datetime descending order
+    */
     public static List<Carpool> getConfirmedList(String user_name) {
         return generateFakeList3();
     }
 
+    /*
+    search * in passenger_carpool where pc_passengername = user_name and pc_message = 1
+    join user to get avatar
+    on pc_datetime descending order
+    */
     public static List<Carpool> getMessageList(String user_name) {
         return generateFakeList();
     }
 
     /*
-    search carpool with valid date and time and status == 0
+    search carpools with valid date and time and cc_status == 0
+    and carpoolid not in (select carpoolid from passenger_carpool where pc_passengername = user_name)
+    on walking distance ascending order
      */
     public static List<Carpool> getSearchList(
+            String user_name,
             double depart_lat_val,
             double depart_lng_val,
             double desti_lat_val,

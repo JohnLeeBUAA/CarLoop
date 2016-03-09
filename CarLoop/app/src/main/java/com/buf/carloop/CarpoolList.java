@@ -1,6 +1,8 @@
 package com.buf.carloop;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -45,6 +47,7 @@ public class CarpoolList extends Footer {
             buttonlist.setVisibility(View.GONE);
 
             list = Carpool.getSearchList(
+                    GlobalVariables.user_name,
                     getIntent().getDoubleExtra("depart_lat_val", 0D),
                     getIntent().getDoubleExtra("depart_lng_val", 0D),
                     getIntent().getDoubleExtra("desti_lat_val", 0D),
@@ -129,16 +132,10 @@ public class CarpoolList extends Footer {
                 } else {
                     Intent intent = new Intent(CarpoolList.this, CarpoolSingle.class);
                     intent.putExtra("carpoolid", clickedCarpoolid);
-                    intent.putExtra("depart_loc", list.get(position).getDepart_loc());
-                    intent.putExtra("desti_loc", list.get(position).getDesti_loc());
-                    intent.putExtra("date", list.get(position).getDate());
-                    intent.putExtra("time", list.get(position).getTime());
-                    intent.putExtra("date_range", list.get(position).getDate_range());
-                    intent.putExtra("time_range", list.get(position).getTime_range());
-                    intent.putExtra("price", list.get(position).getPrice());
-                    intent.putExtra("maxpassenger", list.get(position).getMaxpassenger());
-                    intent.putExtra("passengerconfirmed", list.get(position).getPassengerconfirmed());
                     if (list.get(position).getStatus() == 0) {
+                        /*
+                        Created, Interested, Confirmed, Search
+                         */
                         intent.putExtra("type", type);
                     } else {
                         intent.putExtra("type", "Trip");
@@ -164,7 +161,14 @@ public class CarpoolList extends Footer {
             Carpool carpool = list.get(position);
 
             ImageView driveravatar = (ImageView)itemView.findViewById(R.id.item_driveravatar);
-            driveravatar.setImageResource(R.drawable.default_avatar);
+            byte[] avatarimage = list.get(position).getDriveravatar();
+            if (avatarimage != null) {
+                Bitmap bm = BitmapFactory.decodeByteArray(avatarimage, 0, avatarimage.length);
+                if(!bm.equals(null)) driveravatar.setImageBitmap(bm);
+            }
+            else {
+                driveravatar.setImageResource(R.drawable.default_avatar);
+            }
 
             TextView drivername = (TextView) itemView.findViewById(R.id.item_drivername);
             drivername.setText(carpool.getDrivername());

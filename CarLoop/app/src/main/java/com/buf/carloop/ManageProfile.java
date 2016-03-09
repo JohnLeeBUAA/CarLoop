@@ -81,14 +81,11 @@ public class ManageProfile extends Footer {
                 if(user.getU_gender().equals("male")) male.setChecked(true);
                 else if(user.getU_gender().equals("female")) female.setChecked(true);
             }
-            avatarimage = null;
-            /*
-            if(user.getU_avatar() == null) avatarimage = null;
-            else {
+            avatarimage = user.getU_avatar();
+            if (avatarimage != null) {
                 Bitmap bm = BitmapFactory.decodeByteArray(avatarimage, 0, avatarimage.length);
                 if(!bm.equals(null)) avatar.setImageBitmap(bm);
             }
-            */
         }
     }
 
