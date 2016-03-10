@@ -15,7 +15,7 @@ public class EntryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_entry);
         // read stored record
-        /*SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
         String user_name = sharedPref.getString("user_name", "");
         int user_identity = sharedPref.getInt("user_identity", -1);
 
@@ -28,14 +28,14 @@ public class EntryActivity extends AppCompatActivity {
             GlobalVariables.user_identity = user_identity;
             Intent intent = new Intent(this, CarpoolList.class);
             startActivity(intent);
-        }*/
+        }
 
-        GlobalVariables.user_name = "jjj";
+        /*GlobalVariables.user_name = "jjj";
         GlobalVariables.user_identity = 2;
 
         Intent intent = new Intent(this, CarpoolList.class);
         intent.putExtra("type", "Confirmed");
-        startActivity(intent);
+        startActivity(intent);*/
 
     }
 }

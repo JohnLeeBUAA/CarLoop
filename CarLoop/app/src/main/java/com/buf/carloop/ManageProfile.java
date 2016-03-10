@@ -116,6 +116,10 @@ public class ManageProfile extends Footer {
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     bm.compress(Bitmap.CompressFormat.PNG, 100, stream);
                     avatarimage = stream.toByteArray();
+                    if(avatarimage.length > 512*1024) {
+                        Toast.makeText(this, "Image is too large", Toast.LENGTH_LONG).show();
+                        avatarimage = null;
+                    }
                 } catch (FileNotFoundException e) {
 
                 }
