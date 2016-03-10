@@ -406,27 +406,27 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/trip_passenger_layout"
+            android:id="@+id/confirmed_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_gravity="center">
             <Button
-                android:id="@+id/btn_aboardtrip"
+                android:id="@+id/btn_aboardconfirmed"
                 android:text="Aboard"
-                android:onClick="aboardTrip"
+                android:onClick="aboardConfirmed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <Button
-                android:id="@+id/btn_reviewtrip"
+                android:id="@+id/btn_reviewconfirmed"
                 android:text="Review Driver"
-                android:onClick="reviewTrip"
+                android:onClick="reviewConfirmed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/trip_driver_layout"
+            android:id="@+id/trip_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"

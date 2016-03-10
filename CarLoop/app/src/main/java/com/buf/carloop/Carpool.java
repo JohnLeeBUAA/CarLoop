@@ -370,7 +370,8 @@ public class Carpool {
 
     /*
     search carpools with valid date and time and cc_status == 0
-    and carpoolid not in (select carpoolid from passenger_carpool where pc_passengername = user_name)
+    and carpoolid not in (select pc_carpoolid from passenger_carpool where pc_passengername = user_name)
+    and passengerconfirmed < maxpassenger
     on walking distance ascending order
      */
     public static List<Carpool> getSearchList(
@@ -388,18 +389,93 @@ public class Carpool {
     }
 
     /*
-    delete carpool in carpool_created table
+    update passenger_carpool set pc_message = 1 where pc_passengername = user_name and pc_carpoolid = carpoolid
+     */
+    public static int updateMessage(String user_name, int carpoolid) {
+        return 0;
+    }
 
+    /*
+    delete carpool in carpool_created table
+    note records in other table that has FK on carpoolid and is set delete on cascade
      */
     public static int deleteCarpool(int carpoolid) {
         return 0;
     }
 
     /*
-    change status to 1
-    also delete all records in interested and notinterested table with carpoolid
+    in created_carpool with cc_id = carpoolid
+    if cc_passengeraboard == cc_passengerconfirmed   return true;
+    else   return false;
      */
-    public static int changeCarpoolStatus(int carpoolid) {
+    public static boolean startTripCheck(int carpoolid) {
+        return true;
+    }
+
+    /*
+    update created_carpool set cc_status = 1 where cc_id = carpoolid
+     */
+    public static int startTrip(int carpoolid) {
         return 0;
+    }
+
+    /*
+    insert into passenger_carpool
+    pc_passengername = user_name, pc_carpoolid = carpoolid, pc_status = 0
+    need to set pc_datetime as well
+     */
+    public static int declineSearch(String user_name, int carpoolid) {
+        return 0;
+    }
+
+    /*
+    insert into passenger_carpool
+    pc_passengername = user_name, pc_carpoolid = carpoolid, pc_status = 1
+    need to set pc_datetime as well
+     */
+    public static int interestedSearch(String user_name, int carpoolid) {
+        return 0;
+    }
+
+    /*
+    insert into passenger_carpool
+    pc_passengername = user_name, pc_carpoolid = carpoolid, pc_status = 2
+    need to set pc_datetime as well
+    !!!IMPORTANT: ALSO update created_carpool set cc_passengerconfirmed = cc_passengerconfirmed + 1 where cc_id = carpoolid
+     */
+    public static int confirmSearch(String user_name, int carpoolid) {
+        return 0;
+    }
+
+    /*
+    delete record in passenger_carpool where pc_passengername = user_name and pc_carpoolid = carpoolid and pc_status = 1
+     */
+    public static int deleteInterested(String user_name, int carpoolid) {
+        return 0;
+    }
+
+    /*
+    update passenger_carpool set pc_aboard = 1 where pc_passengername = user_name and pc_carpoolid = carpoolid
+    !!!IMPORTANT: ALSO update created_carpool set cc_passengeraboard = cc_passengeraboard + 1 where cc_id = carpoolid
+     */
+    public static int confirmInterested(String user_name, int carpoolid) {
+        return 0;
+    }
+
+    /*
+    update passenger_carpool set pc_status = 2 where pc_passengername = user_name and pc_carpoolid = carpoolid
+    !!!IMPORTANT: ALSO update created_carpool set cc_passengerconfirmed = cc_passengerconfirmed + 1 where cc_id = carpoolid
+     */
+    public static int aboardConfirmed(String user_name, int carpoolid) {
+        return 0;
+    }
+
+    /*
+    in passenger_carpool with pc_passengername = user_name and pc_carpoolid = carpoolid
+    if pc_paid = 1  return true;
+    else   return false;
+     */
+    public static boolean reviewCheck(String user_name, int carpoolid) {
+        return true;
     }
 }

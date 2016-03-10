@@ -132,13 +132,16 @@ public class CarpoolList extends Footer {
                 } else {
                     Intent intent = new Intent(CarpoolList.this, CarpoolSingle.class);
                     intent.putExtra("carpoolid", clickedCarpoolid);
-                    if (list.get(position).getStatus() == 0) {
+                    if (list.get(position).getStatus() == 1 && type.equals("Created")) {
+                        /*
+                        carpool trip for drivers
+                         */
+                        intent.putExtra("type", "Trip");
+                    } else {
                         /*
                         Created, Interested, Confirmed, Search
                          */
                         intent.putExtra("type", type);
-                    } else {
-                        intent.putExtra("type", "Trip");
                     }
                     startActivity(intent);
                 }

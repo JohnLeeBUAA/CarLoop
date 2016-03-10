@@ -113,7 +113,7 @@ public class CarpoolNew extends Footer {
             this.setTitle("Edit Carpool");
             add_btn.setText("Update");
 
-            carpoolid = getIntent().getIntExtra("carpoolid", 0);
+            carpoolid = getIntent().getIntExtra("carpoolid", -1);
             Carpool carpool = Carpool.getCarpool(carpoolid);
 
             depart_loc_val = carpool.getDepart_loc();
@@ -257,8 +257,9 @@ public class CarpoolNew extends Footer {
                 );
                 if(status == 0) {
                     Toast.makeText(this, "Carpool updated", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(this, CarpoolList.class);
+                    Intent intent = new Intent(this, CarpoolSingle.class);
                     intent.putExtra("type", "Created");
+                    intent.putExtra("carpoolid", carpoolid);
                     startActivity(intent);
                 }
                 else {
