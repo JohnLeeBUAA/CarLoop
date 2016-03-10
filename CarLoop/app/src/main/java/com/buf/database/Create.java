@@ -17,7 +17,7 @@ public class Create {
             Statement stmt = conn.createStatement();
             String sqlCreate = "create table " + "user" +
                     " (u_id INT NOT NULL AUTO_INCREMENT, u_name VARCHAR(32), u_password CHAR(32)," +
-                    " u_email VARCHAR(32), u_identity ENUM('0', '1'), u_avatar BLOB," +
+                    " u_email VARCHAR(32), u_identity ENUM('0', '1'), u_avatar MEDIUMBLOB," +
                     " u_rate DOUBLE, u_gender ENUM('male', 'female'), u_phone VARCHAR(32), u_description TEXT," +
                     " KEY (u_id), UNIQUE (u_email), UNIQUE (u_name), PRIMARY KEY (u_name));";
             System.out.println(sqlCreate);

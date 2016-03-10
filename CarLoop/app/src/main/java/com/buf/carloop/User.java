@@ -2,6 +2,7 @@ package com.buf.carloop;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Base64;
 import android.util.Log;
 import android.widget.Button;
 
@@ -14,6 +15,7 @@ import com.buf.database.AsyncSelectOnlyValue;
 import com.buf.database.SqlCommond;
 import com.buf.database.testAsyncTask;
 
+import java.nio.charset.Charset;
 import java.util.Objects;
 import java.util.Vector;
 import java.util.concurrent.TimeUnit;
@@ -251,8 +253,8 @@ public class User {
             e.printStackTrace();
             return -1;
         }
+        insertSQLBlob(user_name, avatar);
         return value;
-        //&& insertSQLBlob(user_name, avatar);
     }
 
 
@@ -262,7 +264,7 @@ public class User {
         AsyncSelectBlob task = new AsyncSelectBlob();
         task.execute(sqlComm);
         try {
-            byte[] value = task.get(5000, TimeUnit.MILLISECONDS);
+            byte[] value = task.get(10000, TimeUnit.MILLISECONDS);
             return value;
         } catch (Exception e) {
             e.printStackTrace();
@@ -271,13 +273,12 @@ public class User {
     }
 
     private static boolean insertSQLBlob(String user_name, byte[] avatar) {
-        String sqlComm = "update user set" +
-                "u_avatar='" + avatar + "' " +
-                "where u_name='" + user_name + "';";
+        String sqlComm = "update user set u_avatar= ? where u_name= '" + user_name + "';";
         AsyncInsertBlob task = new AsyncInsertBlob();
-        task.execute(sqlComm);
+
+        task.execute(sqlComm, avatar);
         try {
-            boolean value = task.get(10000, TimeUnit.MILLISECONDS);
+            boolean value = task.get(100000, TimeUnit.MILLISECONDS);
             return value;
         } catch (Exception e) {
             e.printStackTrace();
@@ -373,7 +374,7 @@ public class User {
             e.printStackTrace();
             return null;
         }
-        //user.setU_avatar(selectSQLBlob(user_name));
+        user.setU_avatar(selectSQLBlob(user_name));
         user.setU_avatar(null);
         return user;
     }
