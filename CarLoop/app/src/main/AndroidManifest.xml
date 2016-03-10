@@ -8,7 +8,6 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -69,6 +68,10 @@
         <activity
             android:name=".Message"
             android:label="@string/title_activity_message"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Review"
+            android:label="@string/title_activity_review"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

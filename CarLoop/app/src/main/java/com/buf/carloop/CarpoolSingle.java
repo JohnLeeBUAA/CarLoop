@@ -269,10 +269,12 @@ public class CarpoolSingle extends Footer {
     public void reviewConfirmed (View view) {
         boolean valid = Carpool.reviewCheck(GlobalVariables.user_name, carpoolid);
         if(valid) {
-
+            Intent intent = new Intent(this, Review.class);
+            intent.putExtra("drivername", carpool.getDrivername());
+            startActivity(intent);
         }
         else {
-            Toast.makeText(this, "Can not write review. Wait till the driver confirm your payment.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Can not write review. Wait till the driver confirms your payment.", Toast.LENGTH_LONG).show();
         }
     }
 
