@@ -66,27 +66,25 @@ public class CarpoolSingle extends Footer {
         trip_layout.setVisibility(View.GONE);
 
         type = getIntent().getStringExtra("type");
-        carpoolid = getIntent().getIntExtra("carpoolid", -1);
-        carpool = Carpool.getCarpool(carpoolid);
-        if(carpool != null) {
-            depart_loc.setText(carpool.getDepart_loc());
-            desti_loc.setText(carpool.getDesti_loc());
-            if(carpool.getDate_range().equals(carpool.getDate())) {
-                date.setText(carpool.getDate());
-            }
-            else {
-                date.setText(carpool.getDate() + " - " + carpool.getDate_range());
-            }
-            if(carpool.getTime_range().equals(carpool.getTime())) {
-                time.setText(carpool.getTime());
-            }
-            else {
-                time.setText(carpool.getTime() + " - " + carpool.getTime_range());
-            }
-            price.setText("$" + Integer.toString(carpool.getPrice()));
-            capacity.setText(Integer.toString(carpool.getMaxpassenger()));
-            confirmed.setText(Integer.toString(carpool.getPassengerconfirmed()));
+        carpool = (Carpool) getIntent().getParcelableExtra("carpool");
+        carpoolid = carpool.getCarpoolid();
+        depart_loc.setText(carpool.getDepart_loc());
+        desti_loc.setText(carpool.getDesti_loc());
+        if(carpool.getDate_range().equals(carpool.getDate())) {
+            date.setText(carpool.getDate());
         }
+        else {
+            date.setText(carpool.getDate() + " - " + carpool.getDate_range());
+        }
+        if(carpool.getTime_range().equals(carpool.getTime())) {
+            time.setText(carpool.getTime());
+        }
+        else {
+            time.setText(carpool.getTime() + " - " + carpool.getTime_range());
+        }
+        price.setText("$" + Integer.toString(carpool.getPrice()));
+        capacity.setText(Integer.toString(carpool.getMaxpassenger()));
+        confirmed.setText(Integer.toString(carpool.getPassengerconfirmed()));
 
         if(type.equals("Search")) {
             this.setTitle("Search Result");
@@ -185,10 +183,6 @@ public class CarpoolSingle extends Footer {
         int status = Carpool.declineSearch(GlobalVariables.user_name, carpoolid);
         if(status == 0) {
             Toast.makeText(this, "Carpool declined", Toast.LENGTH_SHORT).show();
-
-            /*
-            need a better method here
-             */
             finish();
         }
         else {
@@ -200,10 +194,6 @@ public class CarpoolSingle extends Footer {
         int status = Carpool.interestedSearch(GlobalVariables.user_name, carpoolid);
         if(status == 0) {
             Toast.makeText(this, "Added to interested list", Toast.LENGTH_SHORT).show();
-
-            /*
-            need a better method here
-             */
             finish();
         }
         else {
@@ -215,10 +205,6 @@ public class CarpoolSingle extends Footer {
         int status = Carpool.confirmSearch(GlobalVariables.user_name, carpoolid);
         if(status == 0) {
             Toast.makeText(this, "Carpool confirmed", Toast.LENGTH_SHORT).show();
-
-            /*
-            need a better method here
-             */
             finish();
         }
         else {
@@ -284,6 +270,8 @@ public class CarpoolSingle extends Footer {
     }
 
     public void confirmPaymentTrip (View view) {
-
+        Intent intent = new Intent(this, Payment.class);
+        intent.putExtra("carpoolid", carpoolid);
+        startActivity(intent);
     }
 }

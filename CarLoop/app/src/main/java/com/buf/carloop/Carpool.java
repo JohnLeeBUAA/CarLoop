@@ -1,5 +1,8 @@
 package com.buf.carloop;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.buf.database.AsyncSQLLongHaul;
 
 import java.util.ArrayList;
@@ -9,7 +12,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by zijin on 17/02/16.
  */
-public class Carpool {
+public class Carpool implements Parcelable{
     private int carpoolid;
     private String drivername;
     private String depart_loc;
@@ -44,8 +47,8 @@ public class Carpool {
         this.depart_loc = depart_loc;
         this.depart_lat = depart_lat;
         this.depart_lng = depart_lng;
-        this.desti_lat = desti_lat;
         this.desti_loc = desti_loc;
+        this.desti_lat = desti_lat;
         this.desti_lng = desti_lng;
         this.date = date;
         this.time = time;
@@ -202,6 +205,66 @@ public class Carpool {
     public void setDriveravatar(byte[] driveravatar) {
         this.driveravatar = driveravatar;
     }
+
+    // Parcelling part
+    public Carpool(Parcel in){
+        this.carpoolid = in.readInt();
+        this.drivername = in.readString();
+        this.depart_loc = in.readString();
+        this.depart_lat = in.readDouble();
+        this.depart_lng = in.readDouble();
+        this.desti_loc = in.readString();
+        this.desti_lat = in.readDouble();
+        this.desti_lng = in.readDouble();
+        this.date = in.readString();
+        this.time = in.readString();
+        this.date_range = in.readString();
+        this.time_range = in.readString();
+        this.maxpassenger = in.readInt();
+        this.price = in.readInt();
+        this.passengerconfirmed = in.readInt();
+        this.passengeraboard = in.readInt();
+        this.status = in.readInt();
+        this.driveravatar = new byte[in.readInt()];
+        in.readByteArray(this.driveravatar);
+    }
+
+    @Override
+    public int describeContents(){
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.carpoolid);
+        dest.writeString(this.drivername);
+        dest.writeString(this.depart_loc);
+        dest.writeDouble(this.depart_lat);
+        dest.writeDouble(this.depart_lng);
+        dest.writeString(this.desti_loc);
+        dest.writeDouble(this.desti_lat);
+        dest.writeDouble(this.desti_lng);
+        dest.writeString(this.date);
+        dest.writeString(this.time);
+        dest.writeString(this.date_range);
+        dest.writeString(this.time_range);
+        dest.writeInt(this.maxpassenger);
+        dest.writeInt(this.price);
+        dest.writeInt(this.passengerconfirmed);
+        dest.writeInt(this.passengeraboard);
+        dest.writeInt(this.status);
+        dest.writeInt(this.driveravatar.length);
+        dest.writeByteArray(this.driveravatar);
+    }
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+        public Carpool createFromParcel(Parcel in) {
+            return new Carpool(in);
+        }
+
+        public Carpool[] newArray(int size) {
+            return new Carpool[size];
+        }
+    };
 
     /*
         search in created carpool with given id

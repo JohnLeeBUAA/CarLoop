@@ -129,8 +129,12 @@ public class CarpoolList extends Footer {
                     intent.putExtra("carpoolid", clickedCarpoolid);
                     startActivity(intent);
                 } else {
+                    if (type.equals("Search")) {
+                        TextView status = (TextView) viewClicked.findViewById(R.id.item_status);
+                        status.setText("This carpool is checked");
+                    }
                     Intent intent = new Intent(CarpoolList.this, CarpoolSingle.class);
-                    intent.putExtra("carpoolid", clickedCarpoolid);
+                    intent.putExtra("carpool", list.get(position));
                     if (list.get(position).getStatus() == 1 && type.equals("Created")) {
                         /*
                         carpool trip for drivers

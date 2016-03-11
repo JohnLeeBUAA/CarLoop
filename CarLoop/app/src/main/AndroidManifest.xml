@@ -72,6 +72,10 @@
         <activity
             android:name=".Review"
             android:label="@string/title_activity_review"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Payment"
+            android:label="@string/title_activity_payment"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

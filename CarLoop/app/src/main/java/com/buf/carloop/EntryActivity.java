@@ -33,9 +33,8 @@ public class EntryActivity extends AppCompatActivity {
         GlobalVariables.user_name = "lee";
         GlobalVariables.user_identity = 2;
         byte[] image = null;
-        Intent intent = new Intent(this, Review.class);
-        intent.putExtra("drivername", "John Lee");
-        intent.putExtra("driveravatar", image);
+        Intent intent = new Intent(this, Payment.class);
+        intent.putExtra("carpoolid", 1);
         startActivity(intent);
     }
 }
