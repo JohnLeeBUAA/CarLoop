@@ -375,7 +375,6 @@ public class User {
             return null;
         }
         user.setU_avatar(selectSQLBlob(user_name));
-        user.setU_avatar(null);
         return user;
     }
 
