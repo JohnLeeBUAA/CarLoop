@@ -19,7 +19,7 @@ public class EntryActivity extends AppCompatActivity {
         String user_name = sharedPref.getString("user_name", "");
         int user_identity = sharedPref.getInt("user_identity", -1);
 
-        /*if(user_name.equals("") || user_identity == -1) {
+        if(user_name.equals("") || user_identity == -1) {
             Intent intent = new Intent(this, SignIn.class);
             startActivity(intent);
         }
@@ -28,13 +28,6 @@ public class EntryActivity extends AppCompatActivity {
             GlobalVariables.user_identity = user_identity;
             Intent intent = new Intent(this, CarpoolList.class);
             startActivity(intent);
-        }*/
-
-        GlobalVariables.user_name = "lee";
-        GlobalVariables.user_identity = 2;
-        byte[] image = null;
-        Intent intent = new Intent(this, Payment.class);
-        intent.putExtra("carpoolid", 1);
-        startActivity(intent);
+        }
     }
 }

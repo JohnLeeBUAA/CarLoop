@@ -117,6 +117,7 @@ public class CarpoolSingle extends Footer {
         if(status == 0) {
             Intent intent = new Intent(this, Message.class);
             intent.putExtra("carpoolid", carpoolid);
+            intent.putExtra("drivername", carpool.getDrivername());
             startActivity(intent);
         }
         else {
