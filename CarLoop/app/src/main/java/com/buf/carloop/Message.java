@@ -25,6 +25,7 @@ public class Message extends Footer {
     private EditText content;
     private ListView listview;
     private List<MessageClass> list;
+    private TextView tip;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,14 @@ public class Message extends Footer {
         content = (EditText) findViewById(R.id.content_message);
         listview = (ListView) findViewById(R.id.list_message);
         list = MessageClass.getMessageList(carpoolid);
+        tip = (TextView) findViewById(R.id.tip_message);
+
+        if(list == null || list.size() == 0) {
+            tip.setText("No message yet");
+        }
+        else {
+            tip.setVisibility(View.GONE);
+        }
 
         populateListView();
     }
@@ -81,13 +90,13 @@ public class Message extends Footer {
             TextView datetime = (TextView) itemView.findViewById(R.id.item_datetime);
             datetime.setText(mc.getDatetime());
 
-            TextView tip = (TextView) itemView.findViewById(R.id.item_isdriver);
+            TextView tip_item = (TextView) itemView.findViewById(R.id.item_isdriver);
             if(mc.getName().equals(drivername)) {
-                tip.setText("Driver");
-                tip.setTextColor(Color.RED);
+                tip_item.setText("Driver");
+                tip_item.setTextColor(Color.RED);
             }
             else {
-                tip.setVisibility(View.GONE);
+                tip_item.setVisibility(View.GONE);
             }
 
             return itemView;
