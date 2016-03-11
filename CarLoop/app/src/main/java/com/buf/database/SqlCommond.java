@@ -1,8 +1,18 @@
 package com.buf.database;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
+import com.sun.mail.iap.ByteArray;
+
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,6 +21,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Objects;
@@ -163,7 +174,7 @@ public class SqlCommond {
 
     // get the image blob from database
     public byte[] selectBlob(String sql) {
-        byte[] value = new byte[]{(byte) 0xe0};;
+        byte[] value = null;
         //get the connection of the database
         Connection conn = JDBC.getConnection();
         try {
@@ -189,10 +200,37 @@ public class SqlCommond {
             //set it as hand commitment设置为手动提交
             conn.setAutoCommit(false);
             //create the connection to mysql创建连接状态
+
+            System.out.println(blobData.length);
+            for (int i = 0; i < blobData.length; i ++)
+            {
+                System.out.format("%02X ", blobData[i]);
+            }
+    ;       System.out.println();
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setBinaryStream(1, new ByteArrayInputStream(blobData), blobData.length);
+            ByteArrayInputStream bis = new ByteArrayInputStream(blobData);
+            stmt.setBinaryStream(1, bis, bis.available());
             stmt.executeUpdate();
             stmt.close();
+            /*
+            File image = new File("E:\\lone.jpg");
+            PreparedStatement psmnt = conn.prepareStatement
+                    ("update user set u_avatar= ? " + "where u_name='kjinxin';");
+            FileInputStream fis = new FileInputStream(image);
+            psmnt.setBinaryStream(1, (InputStream) fis, (int) (image.length()));
+            psmnt.executeUpdate();
+            psmnt.close();
+            */
+            /*
+            File f1=new File("E:\\lone.jpg");
+            FileInputStream fin=new FileInputStream(f1);
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ByteArrayInputStream bis = new ByteArrayInputStream(blobData);
+            stmt.setBinaryStream(1, fin, fin.available());
+            stmt.executeUpdate();
+
+            stmt.close();
+            */
             //commit the long lasting result 提交持久化
             conn.commit();
         } catch (SQLException e) {
@@ -229,7 +267,7 @@ public class SqlCommond {
         return list;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         String username = "test1";
         String password = "1234";
         String email = "liu1@gmail.com";
@@ -240,28 +278,52 @@ public class SqlCommond {
                 " u_phone='" + "1234" + "', " +
                 " u_description='" + "ewe" + "' " +
                 " where u_name='" + "1" + "';";
-        /*
+
         String sqlComm = "insert into user (u_name, u_password, u_email, u_identity) values ('" + username + "', '"
                 + password + "', '" + email + "', " + 0 + ");";
-
 */
-/*
-        String sqlComm = String.format("insert into carpool_created (cc_drivername, cc_depart_lat, cc_depart_lng, cc_depart_loc, " +
-                        "cc_desti_lat, cc_desti_lng, cc_desti_loc, cc_date, cc_date_range, cc_time, cc_time_range, cc_maxpassenger, " +
-                        "cc_price, cc_passengerconfirmed, cc_passengeraboard, cc_status) values ('%s', %f, %f, '%s', %f, %f, '%s', " +
-                        "'%s', '%s', '%s', '%s', %d, %d, %d, %d, %d);", "xinjin", 15.0, 16.0, "nanjing", 15.0, 16.0,
-                "Toronto", "2015/10/10", "2015/5/10", "10:10", "11:00", 5, 10, 15, 1, 1);
-                */
+        /*
         String sqlComm = String.format("update carpool_created set cc_depart_lat=%f, cc_depart_lng=%f, cc_depart_loc='%s', " +
                         "cc_desti_lat=%f, cc_desti_lng=%f, cc_desti_loc='%s', cc_date='%s', cc_date_range='%s', cc_time='%s', " +
                         "cc_time_range='%s', cc_maxpassenger=%d, cc_price=%d where cc_id=%d;",
                 11.0, 12.0, "Toronto", 2.0, 3.0, "Nanjing", "2015/05/04", "2015/05/04", "11:11", "11:59", 10, 44, 1, 1);
         // Sql create user operation
+*/
 
+        byte[] avatar;
+        File f1=new File("E:\\lone.jpg");
+        FileInputStream fin=new FileInputStream(f1);
+        byte [] b1=new byte[(int)f1.length()];
+        fin.read(b1);
+        for (int i = 0; i < b1.length; i ++)
+        {
+            System.out.format("%02X ", b1[i]);
+        }
+        System.out.println();
+        System.out.println(b1.length);
+
+        /*
+        System.out.println();
+        System.out.println();
+        String st = Arrays.toString(b1);
+        System.out.println(st);
+        Object[] a = new Object[2];
+        a[0] = "jaoijga";
+        a[1] = b1;
+        avatar = st.getBytes();
+        byte [] c1 =( byte[]) a[1];
+        for (int i = 0; i < avatar.length; i ++)
+        {
+            System.out.format("%02X ", c1[i]);
+        }
+        */
+
+
+        String sqlComm = "update user set u_avatar= ? " + "where u_name='john';";
+        System.out.print(sqlComm);
         SqlCommond sqlCommond = new SqlCommond();
-       int value = sqlCommond.longHaul(sqlComm);
+        boolean value = sqlCommond.insertBlob(sqlComm, b1);
         System.out.println(value);
-
 
     }
 }
