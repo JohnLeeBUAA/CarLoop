@@ -208,7 +208,12 @@ public class Carpool {
         return a Carpool instance
          */
     public static Carpool getCarpool(int carpoolid) {
-        return new Carpool();
+        return new Carpool(1, "John Lee",
+                "Waterloo", 11.11D, 22.22D,
+                "Toronto", 33.33D, 44.44D,
+                "2016/3/2", "12:00", "2016/3/8", "22:00",
+                4, 40, 3, 0, 0,
+                null);
     }
 
     /*

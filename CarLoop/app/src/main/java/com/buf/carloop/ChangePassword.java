@@ -50,8 +50,7 @@ public class ChangePassword extends Footer {
             int status = User.updatePassword(GlobalVariables.user_name, new_val, old_val);
             if(status == 0) {
                 Toast.makeText(this, "Password updated", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(this, Settings.class);
-                startActivity(intent);
+                finish();
             }
             else if(status == 4) {
                 Toast.makeText(this, "Old password is not correct", Toast.LENGTH_SHORT).show();

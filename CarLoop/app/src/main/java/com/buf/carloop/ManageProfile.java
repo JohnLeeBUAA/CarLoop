@@ -84,7 +84,7 @@ public class ManageProfile extends Footer {
             avatarimage = user.getU_avatar();
             if (avatarimage != null) {
                 Bitmap bm = BitmapFactory.decodeByteArray(avatarimage, 0, avatarimage.length);
-                if(!bm.equals(null)) avatar.setImageBitmap(bm);
+                avatar.setImageBitmap(bm);
             }
         }
     }
@@ -121,7 +121,7 @@ public class ManageProfile extends Footer {
                         avatarimage = null;
                     }
                 } catch (FileNotFoundException e) {
-
+                    Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();
                 }
             }
         }
@@ -136,8 +136,7 @@ public class ManageProfile extends Footer {
         int status = User.updateUser(GlobalVariables.user_name, avatarimage, gender, phone.getText().toString(), description.getText().toString());
         if(status == 0) {
             Toast.makeText(this, "Profile updated", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, Settings.class);
-            startActivity(intent);
+            finish();
         }
         else if(status == 1) {
             Toast.makeText(this, "Update profile failed", Toast.LENGTH_SHORT).show();

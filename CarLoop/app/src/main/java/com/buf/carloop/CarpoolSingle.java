@@ -199,7 +199,7 @@ public class CarpoolSingle extends Footer {
     public void interestedSearch (View view) {
         int status = Carpool.interestedSearch(GlobalVariables.user_name, carpoolid);
         if(status == 0) {
-            Toast.makeText(this, "Carpool declined", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Added to interested list", Toast.LENGTH_SHORT).show();
 
             /*
             need a better method here
@@ -214,7 +214,7 @@ public class CarpoolSingle extends Footer {
     public void confirmSearch (View view) {
         int status = Carpool.confirmSearch(GlobalVariables.user_name, carpoolid);
         if(status == 0) {
-            Toast.makeText(this, "Carpool declined", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Carpool confirmed", Toast.LENGTH_SHORT).show();
 
             /*
             need a better method here
@@ -271,6 +271,7 @@ public class CarpoolSingle extends Footer {
         if(valid) {
             Intent intent = new Intent(this, Review.class);
             intent.putExtra("drivername", carpool.getDrivername());
+            intent.putExtra("driveravatar", carpool.getDriveravatar());
             startActivity(intent);
         }
         else {

@@ -123,7 +123,6 @@ public class CarpoolList extends Footer {
             @Override
             public void onItemClick(AdapterView<?> parent, View viewClicked,
                                     int position, long id) {
-
                 int clickedCarpoolid = list.get(position).getCarpoolid();
                 if (type.equals("Message")) {
                     Intent intent = new Intent(CarpoolList.this, Message.class);
@@ -167,7 +166,7 @@ public class CarpoolList extends Footer {
             byte[] avatarimage = list.get(position).getDriveravatar();
             if (avatarimage != null) {
                 Bitmap bm = BitmapFactory.decodeByteArray(avatarimage, 0, avatarimage.length);
-                if(!bm.equals(null)) driveravatar.setImageBitmap(bm);
+                driveravatar.setImageBitmap(bm);
             }
             else {
                 driveravatar.setImageResource(R.drawable.default_avatar);
