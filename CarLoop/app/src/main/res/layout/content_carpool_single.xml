@@ -219,9 +219,10 @@
             android:layout_height="wrap_content">
 
             <ImageView
+                android:id="@+id/driveravatar_carpoolsingle"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:background="@drawable/t1"/>
+                android:background="@drawable/default_avatar"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -249,18 +250,20 @@
                 android:layout_gravity="center_vertical"
                 android:orientation="vertical">
                 <TextView
+                    android:id="@+id/drivername_carpoolsingle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Nate Bill"
+                    android:text="Drivername"
                     android:textSize="17dp"
                     android:textStyle="bold|italic"/>
                 <RatingBar
+                    android:id="@+id/ratingbar_capoolsingle"
                     style="?android:attr/ratingBarStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:isIndicator="true"
                     android:numStars="5"
-                    android:rating="4.5"
+                    android:rating="0"
                     android:stepSize="0.1"
                     android:layout_marginTop="10dp"/>
             </LinearLayout>
@@ -269,55 +272,16 @@
 
         <View android:layout_marginTop="10dp" style="@style/bg_line"/>
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp"
+        <TextView
+            android:id="@+id/tip_review"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tip"/>
+        <ListView
+            android:id="@+id/list_review"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:orientation="vertical">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <RatingBar
-                        style="?android:attr/ratingBarStyleSmall"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:isIndicator="true"
-                        android:numStars="5"
-                        android:rating="5"
-                        android:stepSize="0.1"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Kate"
-                        android:textSize="17dp"
-                        android:textStyle="bold|italic"
-                        android:layout_marginLeft="10dp"/>
-                </LinearLayout>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="He picked me up at my desired place so I didn't have to walk. Very good service so strongly recommend!"/>
-
-
-            </LinearLayout>
-
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:background="@drawable/avatar2"
-                android:layout_gravity="center_vertical"/>
-
-        </LinearLayout>
-
-
+        </ListView>
 
         <LinearLayout
             android:id="@+id/message_layout"

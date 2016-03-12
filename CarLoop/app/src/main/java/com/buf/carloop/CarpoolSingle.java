@@ -3,6 +3,9 @@ package com.buf.carloop;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -10,12 +13,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.w3c.dom.Text;
+
+import java.util.List;
 
 public class CarpoolSingle extends Footer {
 
@@ -26,12 +35,21 @@ public class CarpoolSingle extends Footer {
     private TextView price;
     private TextView capacity;
     private TextView confirmed;
+
+    private ImageView driveravatar;
+    private TextView drivername;
+    private RatingBar driverrate;
+    private TextView tip;
+    private ListView listview;
+    private List<ReviewClass> list;
+
     private LinearLayout message_layout;
     private LinearLayout created_layout;
     private LinearLayout search_layout;
     private LinearLayout interested_layout;
     private LinearLayout confirmed_layout;
     private LinearLayout trip_layout;
+
     private Carpool carpool;
     private int carpoolid;
     private String type;
@@ -51,6 +69,12 @@ public class CarpoolSingle extends Footer {
         price = (TextView) findViewById(R.id.price_carpoolsingle);
         capacity = (TextView) findViewById(R.id.maxpassenger_carpoolsingle);
         confirmed = (TextView) findViewById(R.id.passengerconfirmed_carpoolsingle);
+
+        driveravatar = (ImageView) findViewById(R.id.driveravatar_carpoolsingle);
+        drivername = (TextView) findViewById(R.id.drivername_carpoolsingle);
+        driverrate = (RatingBar) findViewById(R.id.ratingbar_capoolsingle);
+        tip = (TextView) findViewById(R.id.tip_review);
+        listview = (ListView) findViewById(R.id.list_review);
 
         message_layout = (LinearLayout) findViewById(R.id.message_layout);
         message_layout.setVisibility(View.GONE);
@@ -86,6 +110,28 @@ public class CarpoolSingle extends Footer {
         capacity.setText(Integer.toString(carpool.getMaxpassenger()));
         confirmed.setText(Integer.toString(carpool.getPassengerconfirmed()));
 
+        byte[] avatarimage = carpool.getDriveravatar();
+        if (avatarimage != null) {
+            Bitmap bm = BitmapFactory.decodeByteArray(avatarimage, 0, avatarimage.length);
+            driveravatar.setImageBitmap(bm);
+        }
+        drivername.setText(carpool.getDrivername());
+        list = ReviewClass.getReviewList(carpool.getDrivername());
+        if(list == null || list.size() == 0) {
+            tip.setText("No review yet");
+        }
+        else {
+            tip.setVisibility(View.GONE);
+            double rate = 0D;
+            for(int i = 0; i < list.size(); i++) {
+                rate += list.get(i).getRate();
+            }
+            rate = rate / list.size();
+            driverrate.setNumStars(5);
+            driverrate.setRating((float)rate);
+            populateListView();
+        }
+
         if(type.equals("Search")) {
             this.setTitle("Search Result");
             search_layout.setVisibility(View.VISIBLE);
@@ -109,6 +155,49 @@ public class CarpoolSingle extends Footer {
             this.setTitle("Ongoing Carpool Trip");
             message_layout.setVisibility(View.VISIBLE);
             trip_layout.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void populateListView() {
+        ArrayAdapter<ReviewClass> adapter = new MyListAdapter();
+        listview.setAdapter(adapter);
+    }
+
+    private class MyListAdapter extends ArrayAdapter<ReviewClass> {
+        public MyListAdapter() {
+            super(CarpoolSingle.this, R.layout.item_review, list);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            View itemView = convertView;
+            if (itemView == null) {
+                itemView = getLayoutInflater().inflate(R.layout.item_review, parent, false);
+            }
+
+            ReviewClass rc = list.get(position);
+
+            ImageView avatar = (ImageView)itemView.findViewById(R.id.item_revieweravatar);
+            byte[] avatarimage = rc.getReviewavatar();
+            if (avatarimage != null) {
+                Bitmap bm = BitmapFactory.decodeByteArray(avatarimage, 0, avatarimage.length);
+                avatar.setImageBitmap(bm);
+            }
+            else {
+                avatar.setImageResource(R.drawable.default_avatar);
+            }
+
+            TextView name = (TextView) itemView.findViewById(R.id.item_reviewername);
+            name.setText(rc.getReviewername());
+
+            TextView content = (TextView) itemView.findViewById(R.id.item_reviewcontent);
+            content.setText(rc.getReview());
+
+            RatingBar rb = (RatingBar) itemView.findViewById(R.id.item_ratingbar);
+            rb.setNumStars(5);
+            rb.setRating((float)(rc.getRate()));
+
+            return itemView;
         }
     }
 
