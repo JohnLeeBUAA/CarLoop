@@ -18,7 +18,7 @@ public class Create {
             String sqlCreate = "create table " + "user" +
                     " (u_id INT NOT NULL AUTO_INCREMENT, u_name VARCHAR(32), u_password CHAR(32)," +
                     " u_email VARCHAR(32), u_identity ENUM('0', '1'), u_avatar MEDIUMBLOB," +
-                    " u_rate DOUBLE, u_gender ENUM('male', 'female'), u_phone VARCHAR(32), u_description TEXT," +
+                    " u_rate DOUBLE DEFAULT 0.0, u_gender ENUM('male', 'female'), u_phone VARCHAR(32), u_description TEXT," +
                     " KEY (u_id), UNIQUE (u_email), UNIQUE (u_name), PRIMARY KEY (u_name));";
             System.out.println(sqlCreate);
             rs = stmt.executeUpdate(sqlCreate);
@@ -39,8 +39,8 @@ public class Create {
             String sqlCreate = "create table " + "vehicle" +
                     " (v_id INT NOT NULL AUTO_INCREMENT, v_drivername VARCHAR(32), v_driverlicense VARCHAR(32)," +
                     " v_manufacturer VARCHAR(32), v_model VARCHAR(32), v_plate VARCHAR(32)," +
-                    " v_mileage INT, v_capacity INT, " +
-                    " UNIQUE (v_driverlicense), UNIQUE (v_plate), FOREIGN KEY (v_drivername) REFERENCES user(u_name), PRIMARY KEY (v_id));";
+                    " v_mileage INT DEFAULT 0, v_capacity INT DEFAULT 0, " +
+                    " UNIQUE (v_driverlicense), UNIQUE (v_plate), FOREIGN KEY (v_drivername) REFERENCES user(u_name) on delete cascade, PRIMARY KEY (v_id));";
             System.out.println(sqlCreate);
             rs = stmt.executeUpdate(sqlCreate);
             stmt.close();
@@ -58,11 +58,11 @@ public class Create {
         try {
             Statement stmt = conn.createStatement();
             String sqlCreate = "create table " + "carpool_created" +
-                    " (cc_id INT NOT NULL AUTO_INCREMENT, cc_drivername VARCHAR(32), cc_depart_lat DOUBLE," +
-                    " cc_depart_lng DOUBLE, cc_depart_loc VARCHAR(32), cc_desti_lat DOUBLE," +
-                    " cc_desti_lng DOUBLE, cc_desti_loc VARCHAR(32), cc_date DATE, cc_date_range DATE, cc_time TIME, cc_time_range TIME," +
-                    " cc_maxpassenger INT, cc_price INT, cc_passengerconfirmed INT, cc_passengeraboard INT, cc_status INT," +
-                    " FOREIGN KEY (cc_drivername) REFERENCES user(u_name), PRIMARY KEY (cc_id));";
+                    " (cc_id INT NOT NULL AUTO_INCREMENT, cc_drivername VARCHAR(32), cc_depart_lat DOUBLE DEFAULT 0.0," +
+                    " cc_depart_lng DOUBLE DEFAULT 0.0, cc_depart_loc VARCHAR(32), cc_desti_lat DOUBLE DEFAULT 0.0," +
+                    " cc_desti_lng DOUBLE DEFAULT 0.0, cc_desti_loc VARCHAR(32), cc_date DATE, cc_date_range DATE, cc_time TIME, cc_time_range TIME," +
+                    " cc_maxpassenger INT DEFAULT 0, cc_price INT DEFAULT 0, cc_passengerconfirmed INT DEFAULT 0, cc_passengeraboard INT DEFAULT 0, cc_status INT DEFAULT 0," +
+                    " FOREIGN KEY (cc_drivername) REFERENCES user(u_name) on delete cascade, PRIMARY KEY (cc_id));";
             System.out.println(sqlCreate);
             rs = stmt.executeUpdate(sqlCreate);
             stmt.close();
@@ -94,6 +94,7 @@ public class Create {
     }
     public static void main(String[] args) {
 
+        Create.createTableVehicle();
         Create.createTalbeCarpool_created();
     }
 }

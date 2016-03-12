@@ -1,9 +1,12 @@
 package com.buf.carloop;
 
 import com.buf.database.AsyncSQLLongHaul;
+import com.buf.database.AsyncSelectOnlyNote;
+import com.buf.database.AsyncSelectSomeNote;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -208,6 +211,38 @@ public class Carpool {
         return a Carpool instance
          */
     public static Carpool getCarpool(int carpoolid) {
+        Carpool carpool = new Carpool();
+        String sqlComm = "select * from carpool_created where cc_id = " + carpoolid + ";";
+        AsyncSelectOnlyNote task = new AsyncSelectOnlyNote();
+        task.execute(sqlComm);
+        try {
+            Vector value = task.get(10000, TimeUnit.MILLISECONDS);
+            if (value == null) {
+                return null;
+            }
+            else {
+                carpool.setCarpoolid((int) value.elementAt(0));
+                carpool.setDrivername((String) value.elementAt(1));
+                carpool.setDepart_lat((Double) value.elementAt(2));
+                carpool.setDepart_lng((Double) value.elementAt(3));
+                carpool.setDepart_loc((String) value.elementAt(4));
+                carpool.setDesti_lat((Double) value.elementAt(5));
+                carpool.setDesti_lng((Double) value.elementAt(6));
+                carpool.setDesti_loc((String) value.elementAt(7));
+                carpool.setDate((String) value.elementAt(8));
+                carpool.setDate_range((String) value.elementAt(9));
+                carpool.setTime((String) value.elementAt(10));
+                carpool.setTime_range((String) value.elementAt(11));
+                carpool.setMaxpassenger((int) value.elementAt(12));
+                carpool.setPrice((int) value.elementAt(13));
+                carpool.setPassengerconfirmed((int) value.elementAt(14));
+                carpool.setPassengeraboard((int) value.elementAt(15));
+                carpool.setStatus((int) value.elementAt(16));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return new Carpool();
     }
 
@@ -338,6 +373,16 @@ public class Carpool {
     on pc_datetime descending order
      */
     public static List<Carpool> getCreatedList(String user_name) {
+        byte[] avatar = User.selectSQLBlob(user_name);
+        String sqlComm = "select * from carpool_created where u_name = '" + user_name + "';";
+        AsyncSelectSomeNote task = new AsyncSelectSomeNote();
+        task.execute(sqlComm);
+        try {
+            Vector value = task.get(10000, TimeUnit.MILLISECONDS);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return generateFakeList();
     }
 
