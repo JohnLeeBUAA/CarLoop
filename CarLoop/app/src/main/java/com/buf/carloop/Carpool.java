@@ -4,10 +4,14 @@ import com.buf.database.AsyncSQLLongHaul;
 import com.buf.database.AsyncSelectOnlyNote;
 import com.buf.database.AsyncSelectSomeNote;
 
+import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 import java.util.concurrent.TimeUnit;
+
+import static com.buf.carloop.User.selectSQLBlob;
 
 /**
  * Created by zijin on 17/02/16.
@@ -238,6 +242,7 @@ public class Carpool {
                 carpool.setPassengerconfirmed((int) value.elementAt(14));
                 carpool.setPassengeraboard((int) value.elementAt(15));
                 carpool.setStatus((int) value.elementAt(16));
+                carpool.setDriveravatar(selectSQLBlob(carpool.getDrivername()));
             }
 
         } catch (Exception e) {
@@ -373,34 +378,40 @@ public class Carpool {
     on pc_datetime descending order
      */
     public static List<Carpool> getCreatedList(String user_name) {
-        byte[] avatar = User.selectSQLBlob(user_name);
-        String sqlComm = "select * from carpool_created where u_name = '" + user_name + "';";
+        byte[] avatar = selectSQLBlob(user_name);
+        String sqlComm = "select * from carpool_created where cc_drivername = '" + user_name + "';";
         List<Carpool> list = new ArrayList<Carpool>();
         AsyncSelectSomeNote task = new AsyncSelectSomeNote();
         task.execute(sqlComm);
         try {
             Vector value = task.get(10000, TimeUnit.MILLISECONDS);
-            for (int i = 0; i < value.size() / 17; i ++);
-            {
-                Carpool carpool = new Carpool();
-                carpool.setCarpoolid((int) value.elementAt(0));
-                carpool.setDrivername((String) value.elementAt(1));
-                carpool.setDepart_lat((Double) value.elementAt(2));
-                carpool.setDepart_lng((Double) value.elementAt(3));
-                carpool.setDepart_loc((String) value.elementAt(4));
-                carpool.setDesti_lat((Double) value.elementAt(5));
-                carpool.setDesti_lng((Double) value.elementAt(6));
-                carpool.setDesti_loc((String) value.elementAt(7));
-                carpool.setDate((String) value.elementAt(8));
-                carpool.setDate_range((String) value.elementAt(9));
-                carpool.setTime((String) value.elementAt(10));
-                carpool.setTime_range((String) value.elementAt(11));
-                carpool.setMaxpassenger((int) value.elementAt(12));
-                carpool.setPrice((int) value.elementAt(13));
-                carpool.setPassengerconfirmed((int) value.elementAt(14));
-                carpool.setPassengeraboard((int) value.elementAt(15));
-                carpool.setStatus((int) value.elementAt(16));
-                list.add(carpool);
+            if (value != null) {
+                for (int i = 0; i < value.size() / 17; i++) ;
+                {
+                    Carpool carpool = new Carpool();
+                    carpool.setCarpoolid((int) value.elementAt(0));
+                    carpool.setDrivername((String) value.elementAt(1));
+                    carpool.setDepart_lat((Double) value.elementAt(2));
+                    carpool.setDepart_lng((Double) value.elementAt(3));
+                    carpool.setDepart_loc((String) value.elementAt(4));
+                    carpool.setDesti_lat((Double) value.elementAt(5));
+                    carpool.setDesti_lng((Double) value.elementAt(6));
+                    carpool.setDesti_loc((String) value.elementAt(7));
+                    carpool.setDate(((Date) value.elementAt(8)).toString());
+                    carpool.setDate_range(((Date) value.elementAt(9)).toString());
+                    carpool.setTime(((Time) value.elementAt(10)).toString());
+                    carpool.setTime_range(((Time) value.elementAt(11)).toString());
+                    carpool.setMaxpassenger((int) value.elementAt(12));
+                    carpool.setPrice((int) value.elementAt(13));
+                    carpool.setPassengerconfirmed((int) value.elementAt(14));
+                    carpool.setPassengeraboard((int) value.elementAt(15));
+                    carpool.setStatus((int) value.elementAt(16));
+                    carpool.setDriveravatar(selectSQLBlob(carpool.getDrivername()));
+                    list.add(carpool);
+                }
+            }
+            else {
+                return null;
             }
 
         } catch (Exception e) {
