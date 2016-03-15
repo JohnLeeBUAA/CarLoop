@@ -55,7 +55,8 @@
                     android:layout_height="wrap_content"
                     android:text="Set Location"
                     android:textColor="#737373"
-                    android:background="@drawable/sign_in_border"/>
+                    android:background="@drawable/sign_in_border"
+                    android:layout_marginTop="5dp"/>
             </LinearLayout>
 
             <LinearLayout
@@ -63,9 +64,10 @@
                 android:layout_height="fill_parent">
                 <ImageView
                     android:layout_width="fill_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:src="@drawable/towards"
-                    android:tint="#7d7d7d" />
+                    android:tint="#7d7d7d"
+                    android:layout_gravity="center_vertical"/>
             </LinearLayout>
 
             <LinearLayout
@@ -98,7 +100,8 @@
                     android:layout_height="wrap_content"
                     android:text="Set Location"
                     android:textColor="#737373"
-                    android:background="@drawable/sign_in_border"/>
+                    android:background="@drawable/sign_in_border"
+                    android:layout_marginTop="5dp"/>
             </LinearLayout>
         </LinearLayout>
 
@@ -117,7 +120,8 @@
                     android:layout_weight="1"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginRight="10dp">
                     <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content">
@@ -155,7 +159,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_marginLeft="5dp">
+                    android:layout_marginLeft="10dp">
                     <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content">
@@ -205,7 +209,8 @@
                     android:layout_weight="1"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:layout_marginRight="10dp">
                     <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content">
@@ -243,7 +248,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_marginLeft="5dp">
+                    android:layout_marginLeft="10dp">
                     <LinearLayout
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content">
@@ -289,7 +294,8 @@
                 android:layout_weight="1"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginRight="10dp">
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content">
@@ -320,7 +326,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginLeft="5dp">
+                android:layout_marginLeft="10dp">
                 <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content">

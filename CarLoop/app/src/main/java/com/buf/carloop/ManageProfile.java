@@ -63,7 +63,7 @@ public class ManageProfile extends Footer {
 
         bar.setVisibility(View.GONE);
 
-        avatar = (ImageView) findViewById(R.id.avatar_manage_profile);
+        avatar = (CircleView) findViewById(R.id.avatar_manage_profile);
         username = (TextView) findViewById(R.id.username_manage_profile);
         email = (TextView) findViewById(R.id.email_manage_profile);
         phone = (EditText) findViewById(R.id.phone_manage_profile);
