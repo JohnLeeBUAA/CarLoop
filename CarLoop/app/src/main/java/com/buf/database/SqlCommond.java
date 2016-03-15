@@ -273,16 +273,11 @@ public class SqlCommond {
         String email = "liu1@gmail.com";
 
 
-        String sqlComm = "select t1.* from carpool_created as t1 inner join passenger_carpool as t2 " +
-                "on t1.cc_id = t2.pc_carpoolid and t2.pc_status = 1 and t2.pc_passengername= '" + "1" + "';";
+        String sqlComm = "update passenger_carpool set pc_message=1 where pc_passengername= '" + 1 + "' and pc_carpoolid=" + 2 + ";";
 
         SqlCommond sqlCommond = new SqlCommond();
-        Vector value = sqlCommond.selectSomeNote(sqlComm);
-        if (value == null) return;
-        Vector value1 = (Vector) value.elementAt(0);
-        for (int i = 0; i < 17; i ++) {
-            System.out.println(value1.elementAt(i));
-        }
+        int value = sqlCommond.longHaul(sqlComm);
+        System.out.print(value);
 
 
 
