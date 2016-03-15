@@ -82,7 +82,7 @@ public class Create {
             String sqlCreate = "create table " + "passenger_carpool" +
                     " (pc_id INT NOT NULL AUTO_INCREMENT, pc_passengername VARCHAR(32), pc_carpoolid INT," +
                     " pc_status INT DEFAULT 0, pc_message INT DEFAULT 0, pc_paid INT DEFAULT 0," +
-                    " pc_aboard INT DEFAULT 0, pc_datetime DATETIME, " +
+                    " pc_aboard INT DEFAULT 0, pc_datetime DATETIME DEFAULT CURRENT_TIMESTAMP, " +
                     " FOREIGN KEY (pc_passengername) REFERENCES user(u_name) on delete cascade," +
                     " FOREIGN KEY (pc_carpoolid) REFERENCES carpool_created(cc_id) on delete cascade, PRIMARY KEY (pc_id));";
             System.out.println(sqlCreate);
@@ -124,7 +124,7 @@ public class Create {
             Statement stmt = conn.createStatement();
             String sqlCreate = "create table " + "message" +
                     " (m_id INT NOT NULL AUTO_INCREMENT, m_username VARCHAR(32), m_carpoolid INT," +
-                    " m_content TEXT, m_datetime DATETIME," +
+                    " m_content TEXT, m_datetime DATETIME DEFAULT CURRENT_TIMESTAMP," +
                     " FOREIGN KEY (m_username) REFERENCES user(u_name) on delete set null," +
                     " FOREIGN KEY (m_carpoolid) REFERENCES carpool_created(cc_id) on delete cascade, PRIMARY KEY (m_id));";
             System.out.println(sqlCreate);
@@ -139,5 +139,6 @@ public class Create {
     public static void main(String[] args) {
 
         Create.createTableMessage();
+        Create.createTablePassenger_carpool();
     }
 }
