@@ -41,7 +41,8 @@
             android:id="@+id/content_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Input your message here"/>
+            android:hint="Input your message here"
+            android:layout_gravity="bottom"/>
         <Button
             android:layout_weight="4"
             android:onClick="sendMessage"
