@@ -73,28 +73,71 @@ public class Create {
         return rs;
     }
 
-    public static int createTableCarpoo_demanded(String name) {
-        return 0;
+    public static int createTablePassenger_carpool() {
+        int rs;
+        //set up connection to the database
+        Connection conn = JDBC.getConnection();
+        try {
+            Statement stmt = conn.createStatement();
+            String sqlCreate = "create table " + "passenger_carpool" +
+                    " (pc_id INT NOT NULL AUTO_INCREMENT, pc_passengername VARCHAR(32), pc_carpoolid INT," +
+                    " pc_status INT DEFAULT 0, pc_message INT DEFAULT 0, pc_paid INT DEFAULT 0," +
+                    " pc_aboard INT DEFAULT 0, pc_datetime DATETIME, " +
+                    " FOREIGN KEY (pc_passengername) REFERENCES user(u_name) on delete cascade," +
+                    " FOREIGN KEY (pc_carpoolid) REFERENCES carpool_created(cc_id) on delete cascade, PRIMARY KEY (pc_id));";
+            System.out.println(sqlCreate);
+            rs = stmt.executeUpdate(sqlCreate);
+            stmt.close();
+        } catch(SQLException e) {
+            e.printStackTrace();
+            rs = -1;
+        }
+        return rs;
     }
 
-    public static int createTableDriver_interested(String name) {
-        return 0;
+    public static int createTableReview() {
+        int rs;
+        //set up connection to the database
+        Connection conn = JDBC.getConnection();
+        try {
+            Statement stmt = conn.createStatement();
+            String sqlCreate = "create table " + "review" +
+                    " (r_id INT NOT NULL AUTO_INCREMENT, r_passengername VARCHAR(32), r_drivername VARCHAR(32)," +
+                    " r_rate Double DEFAULT 0.0, r_review TEXT," +
+                    " FOREIGN KEY (r_passengername) REFERENCES user(u_name) on delete set null," +
+                    " FOREIGN KEY (r_drivername) REFERENCES user(u_name) on delete cascade, PRIMARY KEY (r_id));";
+            System.out.println(sqlCreate);
+            rs = stmt.executeUpdate(sqlCreate);
+            stmt.close();
+        } catch(SQLException e) {
+            e.printStackTrace();
+            rs = -1;
+        }
+        return rs;
     }
 
-    public static int createTablePassenger_interested(String name) {
-        return 0;
-    }
-
-    public static int createTablePassenger_confirmed(String name) {
-        return 0;
-    }
-
-    public static int createTableReview(String name) {
-        return 0;
+    public static int createTableMessage() {
+        int rs;
+        //set up connection to the database
+        Connection conn = JDBC.getConnection();
+        try {
+            Statement stmt = conn.createStatement();
+            String sqlCreate = "create table " + "message" +
+                    " (m_id INT NOT NULL AUTO_INCREMENT, m_username VARCHAR(32), m_carpoolid INT," +
+                    " m_content TEXT, m_datetime DATETIME," +
+                    " FOREIGN KEY (m_username) REFERENCES user(u_name) on delete set null," +
+                    " FOREIGN KEY (m_carpoolid) REFERENCES carpool_created(cc_id) on delete cascade, PRIMARY KEY (m_id));";
+            System.out.println(sqlCreate);
+            rs = stmt.executeUpdate(sqlCreate);
+            stmt.close();
+        } catch(SQLException e) {
+            e.printStackTrace();
+            rs = -1;
+        }
+        return rs;
     }
     public static void main(String[] args) {
 
-        Create.createTableVehicle();
-        Create.createTalbeCarpool_created();
+        Create.createTableMessage();
     }
 }
