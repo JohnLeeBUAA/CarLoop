@@ -225,8 +225,14 @@ public class Carpool implements Parcelable{
         this.passengerconfirmed = in.readInt();
         this.passengeraboard = in.readInt();
         this.status = in.readInt();
-        this.driveravatar = new byte[in.readInt()];
-        in.readByteArray(this.driveravatar);
+        int avatarlength = in.readInt();
+        if(avatarlength == 0) {
+            this.driveravatar = null;
+        }
+        else {
+            this.driveravatar = new byte[avatarlength];
+            in.readByteArray(this.driveravatar);
+        }
     }
 
     @Override
@@ -253,8 +259,13 @@ public class Carpool implements Parcelable{
         dest.writeInt(this.passengerconfirmed);
         dest.writeInt(this.passengeraboard);
         dest.writeInt(this.status);
-        dest.writeInt(this.driveravatar.length);
-        dest.writeByteArray(this.driveravatar);
+        if(driveravatar == null) {
+            dest.writeInt(0);
+        }
+        else {
+            dest.writeInt(this.driveravatar.length);
+            dest.writeByteArray(this.driveravatar);
+        }
     }
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
         public Carpool createFromParcel(Parcel in) {
@@ -476,8 +487,8 @@ public class Carpool implements Parcelable{
     if cc_passengeraboard == cc_passengerconfirmed   return true;
     else   return false;
      */
-    public static boolean startTripCheck(int carpoolid) {
-        return true;
+    public static int startTripCheck(int carpoolid) {
+        return 0;
     }
 
     /*
@@ -543,7 +554,7 @@ public class Carpool implements Parcelable{
     if pc_paid = 1  return true;
     else   return false;
      */
-    public static boolean reviewCheck(String user_name, int carpoolid) {
-        return true;
+    public static int reviewCheck(String user_name, int carpoolid) {
+        return 0;
     }
 }
