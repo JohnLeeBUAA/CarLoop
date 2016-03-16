@@ -118,8 +118,7 @@ public class DriverVehicleInfo extends Footer {
                         model_val, plate_val, mileage_int, capacity_int);
                 if(status == 0) {
                     Toast.makeText(this, "Driver and vehicle info updated", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(this, Settings.class);
-                    startActivity(intent);
+                    finish();
                 }
                 else if(status == 3) {
                     Toast.makeText(this, "License: " + license_val + " already exist", Toast.LENGTH_SHORT).show();

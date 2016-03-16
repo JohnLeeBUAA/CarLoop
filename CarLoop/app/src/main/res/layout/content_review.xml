@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/sign_in_backcolor"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -12,4 +14,57 @@
     tools:context="com.buf.carloop.Review"
     tools:showIn="@layout/activity_review">
 
-</RelativeLayout>
+    <com.buf.carloop.CircleView
+        android:id="@+id/driveravatar_review"
+        android:src="@drawable/default_avatar"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_gravity="center_horizontal"/>
+    <TextView
+        android:id="@+id/drivername_review"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Driver Name"
+        android:textStyle="bold|italic"
+        android:textSize="17dp"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center_horizontal"/>
+    <RatingBar
+        android:id="@+id/rate_review"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal"/>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dip"
+        android:layout_margin="10dip"
+        android:orientation="vertical"
+        android:gravity="center_vertical|center_horizontal|center">
+        <EditText
+            android:id="@+id/review_review"
+            android:inputType="textMultiLine"
+            android:lines="4"
+            android:minLines="1"
+            android:maxLines="4"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:scrollbars="vertical"
+            android:hint="Write Your Review Here." />
+        <Button
+            android:id="@+id/btn_review"
+            android:onClick="submitReview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="\tSubmit\t"
+            android:background="@drawable/green_button"
+            android:layout_marginTop="15dp"/>
+        <ProgressBar
+            android:id="@+id/bar_review"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</LinearLayout>

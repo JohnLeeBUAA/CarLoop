@@ -63,7 +63,7 @@ public class ManageProfile extends Footer {
 
         bar.setVisibility(View.GONE);
 
-        avatar = (ImageView) findViewById(R.id.avatar_manage_profile);
+        avatar = (CircleView) findViewById(R.id.avatar_manage_profile);
         username = (TextView) findViewById(R.id.username_manage_profile);
         email = (TextView) findViewById(R.id.email_manage_profile);
         phone = (EditText) findViewById(R.id.phone_manage_profile);
@@ -84,7 +84,7 @@ public class ManageProfile extends Footer {
             avatarimage = user.getU_avatar();
             if (avatarimage != null) {
                 Bitmap bm = BitmapFactory.decodeByteArray(avatarimage, 0, avatarimage.length);
-                if(!bm.equals(null)) avatar.setImageBitmap(bm);
+                avatar.setImageBitmap(bm);
             }
         }
     }
@@ -112,7 +112,6 @@ public class ManageProfile extends Footer {
                     Uri selectedImage = data.getData();
                     InputStream imageStream = getContentResolver().openInputStream(selectedImage);
                     Bitmap bm = BitmapFactory.decodeStream(imageStream);
-                    avatar.setImageBitmap(bm);
                     ByteArrayOutputStream stream = new ByteArrayOutputStream();
                     bm.compress(Bitmap.CompressFormat.PNG, 100, stream);
                     avatarimage = stream.toByteArray();
@@ -120,8 +119,11 @@ public class ManageProfile extends Footer {
                         Toast.makeText(this, "Image is too large", Toast.LENGTH_LONG).show();
                         avatarimage = null;
                     }
+                    else {
+                        avatar.setImageBitmap(bm);
+                    }
                 } catch (FileNotFoundException e) {
-
+                    Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();
                 }
             }
         }
@@ -136,8 +138,7 @@ public class ManageProfile extends Footer {
         int status = User.updateUser(GlobalVariables.user_name, avatarimage, gender, phone.getText().toString(), description.getText().toString());
         if(status == 0) {
             Toast.makeText(this, "Profile updated", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(this, Settings.class);
-            startActivity(intent);
+            finish();
         }
         else if(status == 1) {
             Toast.makeText(this, "Update profile failed", Toast.LENGTH_SHORT).show();

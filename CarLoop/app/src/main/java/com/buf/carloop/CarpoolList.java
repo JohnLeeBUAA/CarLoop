@@ -123,15 +123,18 @@ public class CarpoolList extends Footer {
             @Override
             public void onItemClick(AdapterView<?> parent, View viewClicked,
                                     int position, long id) {
-
                 int clickedCarpoolid = list.get(position).getCarpoolid();
                 if (type.equals("Message")) {
                     Intent intent = new Intent(CarpoolList.this, Message.class);
                     intent.putExtra("carpoolid", clickedCarpoolid);
                     startActivity(intent);
                 } else {
+                    if (type.equals("Search")) {
+                        TextView status = (TextView) viewClicked.findViewById(R.id.item_status);
+                        status.setText("This carpool is checked");
+                    }
                     Intent intent = new Intent(CarpoolList.this, CarpoolSingle.class);
-                    intent.putExtra("carpoolid", clickedCarpoolid);
+                    intent.putExtra("carpool", list.get(position));
                     if (list.get(position).getStatus() == 1 && type.equals("Created")) {
                         /*
                         carpool trip for drivers
@@ -167,7 +170,7 @@ public class CarpoolList extends Footer {
             byte[] avatarimage = list.get(position).getDriveravatar();
             if (avatarimage != null) {
                 Bitmap bm = BitmapFactory.decodeByteArray(avatarimage, 0, avatarimage.length);
-                if(!bm.equals(null)) driveravatar.setImageBitmap(bm);
+                driveravatar.setImageBitmap(bm);
             }
             else {
                 driveravatar.setImageResource(R.drawable.default_avatar);
