@@ -91,7 +91,7 @@ public class ReviewClass {
 
         task.execute(sqlComm);
         try {
-            int value = task.get(100000, TimeUnit.MILLISECONDS);
+            int value = (int) task.get(100000, TimeUnit.MILLISECONDS);
             return value;
         } catch (Exception e) {
             e.printStackTrace();
