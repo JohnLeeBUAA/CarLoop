@@ -246,7 +246,7 @@ public class CarpoolSingle extends Footer {
 
     public void editCreated(View view) {
         Intent intent = new Intent(this, CarpoolNew.class);
-        intent.putExtra("carpoolid", carpoolid);
+        intent.putExtra("carpool", carpool);
         intent.putExtra("type", "Edit");
         startActivity(intent);
     }

@@ -224,6 +224,7 @@ public class CarpoolList extends Footer {
     }
 
     public void jumpInterestedList(View view) {
+        this.setTitle("Interested List");
         list = Carpool.getInterestedList(GlobalVariables.user_name);
         if(list == null || list.size() == 0) {
             tip.setText("No Interested Carpool");
@@ -239,6 +240,7 @@ public class CarpoolList extends Footer {
     }
 
     public void jumpConfirmedList(View view) {
+        this.setTitle("Confirmed List");
         list = Carpool.getConfirmedList(GlobalVariables.user_name);
         if(list == null || list.size() == 0) {
             tip.setText("No Confirmed Carpool");
