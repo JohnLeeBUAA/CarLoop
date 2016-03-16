@@ -234,8 +234,14 @@ public class Carpool implements Parcelable{
         this.passengerconfirmed = in.readInt();
         this.passengeraboard = in.readInt();
         this.status = in.readInt();
-        this.driveravatar = new byte[in.readInt()];
-        in.readByteArray(this.driveravatar);
+        int avatarlength = in.readInt();
+        if(avatarlength == 0) {
+            this.driveravatar = null;
+        }
+        else {
+            this.driveravatar = new byte[avatarlength];
+            in.readByteArray(this.driveravatar);
+        }
     }
 
     @Override
@@ -262,8 +268,13 @@ public class Carpool implements Parcelable{
         dest.writeInt(this.passengerconfirmed);
         dest.writeInt(this.passengeraboard);
         dest.writeInt(this.status);
-        dest.writeInt(this.driveravatar.length);
-        dest.writeByteArray(this.driveravatar);
+        if(driveravatar == null) {
+            dest.writeInt(0);
+        }
+        else {
+            dest.writeInt(this.driveravatar.length);
+            dest.writeByteArray(this.driveravatar);
+        }
     }
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
         public Carpool createFromParcel(Parcel in) {

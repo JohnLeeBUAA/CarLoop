@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -50,6 +51,27 @@ public class Message extends Footer {
         }
 
         populateListView();
+
+        Thread t = new Thread() {
+            @Override
+            public void run() {
+                try {
+                    while (!isInterrupted()) {
+                        Thread.sleep(1000);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                list = MessageClass.getMessageList(carpoolid);
+                                populateListView();
+                            }
+                        });
+                    }
+                } catch (InterruptedException e) {
+                    Toast.makeText(Message.this, "Network error", Toast.LENGTH_SHORT).show();
+                }
+            }
+        };
+        t.start();
     }
 
     private void populateListView() {
@@ -109,6 +131,10 @@ public class Message extends Footer {
         }
         list = MessageClass.getMessageList(carpoolid);
         populateListView();
+    }
+
+    public void finishActivity(View view) {
+        finish();
     }
 
 }

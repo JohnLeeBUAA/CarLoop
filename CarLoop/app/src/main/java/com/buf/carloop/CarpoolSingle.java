@@ -264,8 +264,11 @@ public class CarpoolSingle extends Footer {
                 Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();
             }
         }
-        else {
+        else if(valid == 1){
             Toast.makeText(this, "Can not start carpool trip. Wait till all confirmed passengers are aboard.", Toast.LENGTH_LONG).show();
+        }
+        else {
+            Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -350,8 +353,11 @@ public class CarpoolSingle extends Footer {
             intent.putExtra("driveravatar", carpool.getDriveravatar());
             startActivity(intent);
         }
-        else {
+        else if(valid == 1){
             Toast.makeText(this, "Can not write review. Wait till the driver confirms your payment.", Toast.LENGTH_LONG).show();
+        }
+        else {
+            Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();
         }
     }
 
