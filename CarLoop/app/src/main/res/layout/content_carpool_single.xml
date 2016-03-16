@@ -43,7 +43,7 @@
                     <TextView
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="17dp"
+                        android:textSize="15dp"
                         android:text="From"
                         android:layout_marginLeft="5dp"
                         android:layout_gravity="bottom"/>
@@ -90,7 +90,7 @@
                     <TextView
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="17dp"
+                        android:textSize="15dp"
                         android:text="To"
                         android:layout_marginLeft="5dp"
                         android:layout_gravity="bottom"/>
@@ -119,14 +119,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Date"
-                    android:textSize="15dp"
                     android:layout_marginTop="10dp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Time"
-                    android:textSize="15dp"
-                    android:layout_marginTop="10dp"/>
+                    android:layout_marginTop="5dp"/>
             </LinearLayout>
 
             <LinearLayout
@@ -140,7 +138,6 @@
                     android:layout_height="wrap_content"
                     android:text="2015/10/21 - 2015/10/22"
                     android:textStyle="bold"
-                    android:textSize="15dp"
                     android:layout_marginTop="10dp"/>
                 <TextView
                     android:id="@+id/time_carpoolsingle"
@@ -148,8 +145,7 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:text="12:00 - 13:00"
-                    android:textSize="15dp"
-                    android:layout_marginTop="10dp"/>
+                    android:layout_marginTop="5dp"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_weight="1"
@@ -161,14 +157,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Price"
-                    android:textSize="15dp"
                     android:layout_marginTop="10dp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Confirmed"
-                    android:textSize="15dp"
-                    android:layout_marginTop="10dp"/>
+                    android:layout_marginTop="5dp"/>
             </LinearLayout>
 
             <LinearLayout
@@ -183,7 +177,6 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold"
                     android:text="$40"
-                    android:textSize="15dp"
                     android:layout_marginTop="10dp"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -195,23 +188,20 @@
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
                         android:text="3"
-                        android:textSize="15dp"
-                        android:layout_marginTop="10dp"/>
+                        android:layout_marginTop="5dp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
                         android:text=" / "
-                        android:textSize="15dp"
-                        android:layout_marginTop="10dp"/>
+                        android:layout_marginTop="5dp"/>
                     <TextView
                         android:id="@+id/maxpassenger_carpoolsingle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
                         android:text="4"
-                        android:textSize="15dp"
-                        android:layout_marginTop="10dp"/>
+                        android:layout_marginTop="5dp"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -228,13 +218,13 @@
 
             <com.buf.carloop.CircleView
                 android:id="@+id/driveravatar_carpoolsingle"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="55dp"
+                android:layout_height="55dp"
                 android:src="@drawable/default_avatar"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="40dp"
+                android:layout_marginLeft="20dp"
                 android:layout_gravity="center_vertical"
                 android:orientation="vertical">
                 <TextView
@@ -245,14 +235,14 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Overall Rate"
+                    android:text="Rate"
                     android:textSize="15dp"
-                    android:layout_marginTop="10dp"/>
+                    android:layout_marginTop="5dp"/>
 
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_gravity="center_vertical"
@@ -262,7 +252,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Drivername"
-                    android:textSize="17dp"
+                    android:textSize="15dp"
                     android:textStyle="bold|italic"/>
                 <RatingBar
                     android:id="@+id/ratingbar_capoolsingle"
@@ -273,8 +263,24 @@
                     android:numStars="5"
                     android:rating="0"
                     android:stepSize="0.1"
-                    android:layout_marginTop="10dp"/>
+                    android:layout_marginTop="5dp"/>
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/message_layout"
+                android:gravity="bottom|right">
+                <ImageView
+                    android:id="@+id/btn_message"
+                    android:onClick="jumpMessage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/chat"
+                    android:backgroundTint="#9e9e9e"
+                    android:layout_gravity="bottom"/>
+            </LinearLayout>
+
 
         </LinearLayout>
 
@@ -289,136 +295,143 @@
         <ListView
             android:id="@+id/list_review"
             android:layout_width="match_parent"
-            android:layout_height="15dp"
+            android:layout_height="200dp"
             android:divider="#00000000"
-            android:dividerHeight="5dip">
+            android:dividerHeight="5dip"
+            android:layout_marginTop="5dp">
         </ListView>
+    </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/message_layout"
+    <LinearLayout
+        android:id="@+id/created_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center|bottom">
+
+        <Button
+            android:id="@+id/btn_deletecreated"
+            android:text="\tDelete\t"
+            android:onClick="deleteCreated"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center">
-            <Button
-                android:id="@+id/btn_message"
-                android:text="Message"
-                android:onClick="jumpMessage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/created_layout"
+            android:background="@drawable/single_border"/>
+        <Button
+            android:id="@+id/btn_editcreated"
+            android:text="\tEdit\t"
+            android:onClick="editCreated"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center">
-
-            <Button
-                android:id="@+id/btn_deletecreated"
-                android:text="Delete"
-                android:onClick="deleteCreated"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <Button
-                android:id="@+id/btn_editcreated"
-                android:text="Edit"
-                android:onClick="editCreated"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <Button
-                android:id="@+id/btn_trip"
-                android:text="Start Trip"
-                android:onClick="startTrip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/search_layout"
+            android:background="@drawable/single_border"
+            android:layout_marginLeft="10dp"/>
+        <Button
+            android:id="@+id/btn_trip"
+            android:text="\tStart Trip\t"
+            android:onClick="startTrip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center">
-            <Button
-                android:id="@+id/btn_declinesearch"
-                android:text="Decline"
-                android:onClick="declineSearch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <Button
-                android:id="@+id/btn_interestedsearch"
-                android:text="Interested"
-                android:onClick="interestedSearch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <Button
-                android:id="@+id/btn_confirmsearch"
-                android:text="Confirm"
-                android:onClick="confirmSearch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/interested_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center">
-            <Button
-                android:id="@+id/btn_deleteinterested"
-                android:text="Delete"
-                android:onClick="deleteInterested"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <Button
-                android:id="@+id/btn_confirminterested"
-                android:text="Confirm"
-                android:onClick="confirmInterested"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/confirmed_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center">
-            <Button
-                android:id="@+id/btn_aboardconfirmed"
-                android:text="Aboard"
-                android:onClick="aboardConfirmed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <Button
-                android:id="@+id/btn_reviewconfirmed"
-                android:text="Review Driver"
-                android:onClick="reviewConfirmed"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/trip_layout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center">
-            <Button
-                android:id="@+id/btn_navitrip"
-                android:text="Navigation"
-                android:onClick="naviTrip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <Button
-                android:id="@+id/btn_confirmpaymenttrip"
-                android:text="Confirm Payment"
-                android:onClick="confirmPaymentTrip"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
+            android:background="@drawable/single_border"
+            android:layout_marginLeft="10dp"/>
 
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/search_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center|bottom">
+        <Button
+            android:id="@+id/btn_declinesearch"
+            android:text="\tDecline\t"
+            android:onClick="declineSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/single_border"/>
+        <Button
+            android:id="@+id/btn_interestedsearch"
+            android:text="\tInterested\t"
+            android:onClick="interestedSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/single_border"
+            android:layout_marginLeft="10dp"/>
+        <Button
+            android:id="@+id/btn_confirmsearch"
+            android:text="\tConfirm\t"
+            android:onClick="confirmSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/single_border"
+            android:layout_marginLeft="10dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/interested_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center|bottom">
+        <Button
+            android:id="@+id/btn_deleteinterested"
+            android:text="\tDelete\t"
+            android:onClick="deleteInterested"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/single_border"/>
+        <Button
+            android:id="@+id/btn_confirminterested"
+            android:text="\tConfirm\t"
+            android:onClick="confirmInterested"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/single_border"
+            android:layout_marginLeft="10dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/confirmed_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center|bottom">
+        <Button
+            android:id="@+id/btn_aboardconfirmed"
+            android:text="\tAboard\t"
+            android:onClick="aboardConfirmed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/single_border"/>
+        <Button
+            android:id="@+id/btn_reviewconfirmed"
+            android:text="\tReview Driver\t"
+            android:onClick="reviewConfirmed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/single_border"
+            android:layout_marginLeft="10dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/trip_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center|bottom">
+        <Button
+            android:id="@+id/btn_navitrip"
+            android:text="\tNavigation\t"
+            android:onClick="naviTrip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/single_border"/>
+        <Button
+            android:id="@+id/btn_confirmpaymenttrip"
+            android:text="\tConfirm Payment\t"
+            android:onClick="confirmPaymentTrip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/single_border"
+            android:layout_marginLeft="10dp"/>
+    </LinearLayout>
+
 </RelativeLayout>

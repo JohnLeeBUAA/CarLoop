@@ -12,7 +12,7 @@
         android:padding="2dp">
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="90dp"
+            android:layout_width="80dp"
             android:layout_height="fill_parent">
             <com.buf.carloop.CircleView
                 android:id="@+id/item_driveravatar"
