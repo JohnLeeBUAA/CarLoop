@@ -200,13 +200,11 @@ public class SqlCommond {
             //set it as hand commitment设置为手动提交
             conn.setAutoCommit(false);
             //create the connection to mysql创建连接状态
-
             PreparedStatement stmt = conn.prepareStatement(sql);
             ByteArrayInputStream bis = new ByteArrayInputStream(blobData);
             stmt.setBinaryStream(1, bis, bis.available());
             stmt.executeUpdate();
             stmt.close();
-
             //commit the long lasting result 提交持久化
             conn.commit();
         } catch (SQLException e) {
