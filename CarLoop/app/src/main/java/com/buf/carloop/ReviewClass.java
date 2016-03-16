@@ -1,10 +1,14 @@
 package com.buf.carloop;
 
 import com.buf.database.AsyncSQLLongHaul;
+import com.buf.database.AsyncSelectSomeNote;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 import java.util.concurrent.TimeUnit;
+
+import static com.buf.carloop.User.selectSQLBlob;
 
 /**
  * Created by zijin on 10/03/16.
@@ -12,9 +16,27 @@ import java.util.concurrent.TimeUnit;
 public class ReviewClass {
 
     private String reviewername;
+    private String drivername;
     private byte[] reviewavatar;
     private double rate;
     private String review;
+    private int review_id;
+
+    public int getReview_id() {
+        return review_id;
+    }
+
+    public void setReview_id(int review_id) {
+        this.review_id = review_id;
+    }
+
+    public String getDrivername() {
+        return drivername;
+    }
+
+    public void setDrivername(String drivername) {
+        this.drivername = drivername;
+    }
 
     public String getReviewername() {
         return reviewername;
@@ -81,7 +103,37 @@ public class ReviewClass {
     select all review records on the given driver
      */
     public static List<ReviewClass> getReviewList(String drivername) {
-        return generatefakelist();
+        String sqlComm =  "select * from review where r_drivername = '" + drivername + "';";
+        List<ReviewClass> list = new ArrayList<ReviewClass>();
+        ReviewClass review;
+        AsyncSelectSomeNote task = new AsyncSelectSomeNote();
+
+        task.execute(sqlComm);
+        try {
+            Vector value_original = task.get(10000, TimeUnit.MILLISECONDS);
+            Vector value;
+            int i;
+            if (value_original.size() > 0) {
+                for (i = 0; i < value_original.size(); i++) {
+                    value = (Vector) value_original.elementAt(i);
+                    review= new ReviewClass();
+                    review.setReview_id((int) value.elementAt(0));
+                    review.setReviewername((String) value.elementAt(1));
+                    review.setDrivername((String) value.elementAt(2));
+                    review.setRate((Double) value.elementAt(3));
+                    review.setReview(value.elementAt(4).toString());
+                    review.setReviewavatar(selectSQLBlob(review.getReviewername()));
+                    list.add(review);
+                }
+            }
+            else {
+                return null;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        return list;
     }
 
     public static List<ReviewClass> generatefakelist() {
