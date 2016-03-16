@@ -9,7 +9,6 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    android:background="@drawable/sign_in_backcolor"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.buf.carloop.CarpoolSingle"
     tools:showIn="@layout/activity_carpool_single">
@@ -30,7 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:background="@drawable/sign_in_border"
+                android:background="@drawable/single_border"
                 android:padding="5dp">
                 <LinearLayout
                     android:layout_width="fill_parent"
@@ -77,7 +76,7 @@
                 android:orientation="vertical"
                 android:layout_marginLeft="20dp"
                 android:layout_weight="1"
-                android:background="@drawable/sign_in_border"
+                android:background="@drawable/single_border"
                 android:padding="5dp">
                 <LinearLayout
                     android:layout_width="fill_parent"
