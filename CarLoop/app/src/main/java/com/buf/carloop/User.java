@@ -1,15 +1,21 @@
 package com.buf.carloop;
 
+import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Base64;
+import android.util.Log;
+import android.widget.Button;
 
 import com.buf.database.AsyncInsertBlob;
 import com.buf.database.AsyncSQLLongHaul;
 import com.buf.database.AsyncSelectBlob;
 import com.buf.database.AsyncSelectOnlyNote;
+import com.buf.database.AsyncSelectOnlyNote;
 import com.buf.database.AsyncSelectOnlyValue;
 import com.buf.database.SqlCommond;
 import com.buf.database.testAsyncTask;
 
+import java.nio.charset.Charset;
 import java.util.Objects;
 import java.util.Vector;
 import java.util.concurrent.TimeUnit;
@@ -118,45 +124,43 @@ public class User {
      */
     public static int signIn(String username, String password) {
         String sqlComm = "select * from user where u_name = '" + username + "';";
-
         AsyncSelectOnlyNote task = new AsyncSelectOnlyNote();
         task.execute(sqlComm);
         try {
-            Vector<Object> value = task.get(5000, TimeUnit.MILLISECONDS);
+            Vector<Object> value = task.get(10000, TimeUnit.MILLISECONDS);
             if (value == null) {
-                return 0;
-            } else if (!value.elementAt(2).equals(password)) {
                 return 1;
-            } else {
-                GlobalVariables.user_id = (int) value.elementAt(0);
-                GlobalVariables.user_identity = Integer.parseInt((String)value.elementAt(4));
+            } else if (!value.elementAt(2).equals(password)) {
                 return 2;
+            } else {
+                GlobalVariables.user_identity = Integer.parseInt((String)value.elementAt(4));
+                GlobalVariables.user_name = username;
+                return 0;
             }
         } catch (Exception e) {
             e.printStackTrace();
+            return -1;
         }
-
-        return 0;
     }
 
     /*
     search username only
      */
-    public static boolean existUsername(String username) {
+    public static int existUsername(String username) {
         String sqlComm = "select u_name from user where u_name = '" + username + "';";
         AsyncSelectOnlyValue task = new AsyncSelectOnlyValue();
         task.execute(sqlComm);
         try {
-            Object value = task.get(5000, TimeUnit.MILLISECONDS);
+            Object value = task.get(10000, TimeUnit.MILLISECONDS);
             if(value == null) {
-                return false;
+                return 0; // username does not exit
             }
             else {
-                return true;
+                return 1; // username exits
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return true;
+            return -1;
         }
 
     }
@@ -164,21 +168,21 @@ public class User {
     /*
     search email only
      */
-    public static boolean existEmail(String email) {
+    public static int existEmail(String email) {
         String sqlComm = "select u_email from user where u_email = '" + email + "';";
         AsyncSelectOnlyValue task = new AsyncSelectOnlyValue();
         task.execute(sqlComm);
         try {
-            Object value = task.get(5000, TimeUnit.MILLISECONDS);
+            Object value = task.get(10000, TimeUnit.MILLISECONDS);
             if(value == null) {
-                return false;
+                return 0;  // it is legal
             }
             else {
-                return true;
+                return 1;   // email exists
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return true;
+            return -1;
         }
     }
 
@@ -194,92 +198,73 @@ public class User {
         AsyncSelectOnlyValue task = new AsyncSelectOnlyValue();
         task.execute(sqlComm);
         try {
-            Object value = task.get(5000, TimeUnit.MILLISECONDS);
+            Object value = task.get(10000, TimeUnit.MILLISECONDS);
             if (value == null) {
-                return 0;
+                return 2; // no record
             } else if (!value.equals(email)) {
-                return 1;
+                return 1;  // email does not match
             } else {
-                return 2;
+                return 0;  // match the email
             }
         } catch (Exception e) {
             e.printStackTrace();
+            return -1;
         }
-        return 2;
     }
 
     /*
     create new user
     MD5 encrypt password before store to DB
     u_rate = 0
-    after insert, MUST SET GlobalVariables.user_id = last inserted id, GlobalVariables.user_identity = 0
+    after insert, MUST SET GlobalVariables.user_name = username, GlobalVariables.user_identity = 0
      */
-    public static boolean signUp(String username, String password, String email) {
-        GlobalVariables.user_id = 1;
-        GlobalVariables.user_identity = 0;
-        Object value = true;
+    public static int signUp(String username, String password, String email) {
         String sqlComm = "insert into user (u_name, u_password, u_email, u_identity) values ('" + username + "', '"
                 + password + "', '" + email + "', '0');";
         // Sql create user operation
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
         task.execute(sqlComm);
         try {
-            value = task.get(5000, TimeUnit.MILLISECONDS);
-            if (!value.getClass().equals(Boolean.class)) {
-                throw new Exception((String) value);
-            }
+            GlobalVariables.user_identity = 0;
+            GlobalVariables.user_name = username;
+            return task.get(10000, TimeUnit.MILLISECONDS);
 
         } catch (Exception e) {
             e.printStackTrace();
-            value = false;
+            return -1;
         }
-        GlobalVariables.user_id = getUserID(username);
-        return (boolean)value;
     }
 
-    public static int getUserID(String username) {
-        String sqlComm = "select u_id from user where u_name = '" + username + "';";
-        AsyncSelectOnlyValue task = new AsyncSelectOnlyValue();
-        task.execute(sqlComm);
-        try {
-            Object value = task.get(5000, TimeUnit.MILLISECONDS);
-            return (int) value;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return 0;
-    }
     /*
-    update user on u_id == user_id
+    update user on u_name == user_name
      */
-    public static boolean updateUser(int user_id, byte[] avatar, String gender, String phone, String description) {
-        String sqlComm = "update user set" + 
+    public static int updateUser(String user_name, byte[] avatar, String gender, String phone, String description) {
+        String sqlComm = "update user set " +
                 "u_gender='" + gender + "', " +
                 "u_phone='" + phone + "', " +
                 "u_description='" + description + "' " +
-                "where u_id=" + user_id + ";";
-        Object value = false;
+                "where u_name='" + user_name + "';";
+        int value = 0;
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
         task.execute(sqlComm);
         try {
-            value = task.get(5000, TimeUnit.MILLISECONDS);
-            if (!value.getClass().equals(Boolean.class)) {
-                throw new Exception((String) value);
-            }
+            value = task.get(10000, TimeUnit.MILLISECONDS);
         } catch (Exception e) {
             e.printStackTrace();
+            return -1;
         }
-        return (boolean)value && insertSQLBlob(user_id, avatar);
+        insertSQLBlob(user_name, avatar);
+        return value;
     }
 
 
 
-    private static byte[] selectSQLBlob(int user_id) {
-        String sqlComm = "select u_avatar from user_id where u_id = '" + user_id + "';";
+    public static byte[] selectSQLBlob(String user_name) {
+        String sqlComm = "select u_avatar from user where u_name = '" + user_name + "';";
         AsyncSelectBlob task = new AsyncSelectBlob();
         task.execute(sqlComm);
         try {
-            byte[] value = task.get(5000, TimeUnit.MILLISECONDS);
+            byte[] value = task.get(10000, TimeUnit.MILLISECONDS);
             return value;
         } catch (Exception e) {
             e.printStackTrace();
@@ -287,14 +272,13 @@ public class User {
         }
     }
 
-    private static boolean insertSQLBlob(int user_id, byte[] avatar) {
-        String sqlComm = "update user set" +
-                "u_avatar='" + avatar + "', " +
-                "where u_id=" + user_id + ";";
+    public static boolean insertSQLBlob(String user_name, byte[] avatar) {
+        String sqlComm = "update user set u_avatar= ? where u_name= '" + user_name + "';";
         AsyncInsertBlob task = new AsyncInsertBlob();
-        task.execute(sqlComm);
+
+        task.execute(sqlComm, avatar);
         try {
-            boolean value = task.get(5000, TimeUnit.MILLISECONDS);
+            boolean value = task.get(100000, TimeUnit.MILLISECONDS);
             return value;
         } catch (Exception e) {
             e.printStackTrace();
@@ -304,51 +288,45 @@ public class User {
 
 
     /*
-    check if password is correct with user_id
+    check if password is correct with user_name
     MD5 encrypt password before compare with u_password in DB
     return true if match, false if not
      */
-    public static boolean checkPassword(int user_id, String password) {
-        String sqlComm = "select u_password from user where u_id = '" + user_id + "';";
-
+    public static int checkPassword(String user_name, String password) {
+        String sqlComm = "select u_password from user where u_name = '" + user_name + "';";
         AsyncSelectOnlyValue task = new AsyncSelectOnlyValue();
         task.execute(sqlComm);
         try {
-            Object value = task.get(5000, TimeUnit.MILLISECONDS);
+            Object value = task.get(10000, TimeUnit.MILLISECONDS);
             if (value == null) {
-                return false;
+                return 2;   // no record
             } else if (value.equals(password)) {
-                return true;
+                return 0;   // match
             }
             else {
-                return false;
+                return 1;  // not match
             }
         } catch (Exception e) {
             e.printStackTrace();
+            return -1;
         }
-        return true;
     }
 
     /*
-    update password with u_id == user_id
+    update password with u_name == user_name
     MD5 encrypt new_password before update in DB
      */
-    public static boolean updatePassword(int user_id, String new_password) {
-        String sqlComm = "update user set  u_password= '" + new_password + "'," +
-                "where u_id=" + user_id + ";";
+    public static int updatePassword(String user_name, String new_password, String old_password) {
+        String sqlComm = "update user set  u_password= '" + new_password + "' " +
+                "where u_name='" + user_name + "' and u_password='" + old_password + "';";
+        Log.v("****", sqlComm);
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
         task.execute(sqlComm);
         try {
-            Object value = task.get(5000, TimeUnit.MILLISECONDS);
-            if (value.getClass().equals(Boolean.class)) {
-                return (boolean)value;
-            }
-            else {
-                throw new Exception((String) value);
-            }
+            return task.get(10000, TimeUnit.MILLISECONDS);
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return -1;
         }
     }
 
@@ -356,99 +334,112 @@ public class User {
     update password with u_name == username
     MD5 encrypt temp_password before update in DB
      */
-    public static boolean retrievePassword(String username, String temp_password) {
+    public static int retrievePassword(String username, String email, String temp_password) {
 
-        String sqlComm = "update user set  u_password= '" + temp_password + "'," +
-                "where u_name=" + username + ";";
+        String sqlComm = "update user set  u_password= '" + temp_password + "' " +
+                "where u_name='" + username + "' and u_email='" + email + "';";
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
         task.execute(sqlComm);
         try {
-            Object value = task.get(5000, TimeUnit.MILLISECONDS);
-            if (value.getClass().equals(Boolean.class)) {
-                return (boolean)value;
-            }
-            else {
-                throw new Exception((String) value);
-            }
+            return task.get(10000, TimeUnit.MILLISECONDS);
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return -1;
         }
     }
 
     /*
-    search user with u_id == user_id
+    search user with u_name == user_name
      */
-    public static User getUser(int user_id) {
+
+    public static User getUser(String user_name) {
         User user = new User();
-        String sqlComm = "select u_name, u_email, u_gender, u_phone, u_description from user where u_id = '" + user_id + "';";
+        String sqlComm = "select * from user where u_name = '" + user_name + "';";
 
         AsyncSelectOnlyNote task = new AsyncSelectOnlyNote();
         task.execute(sqlComm);
         try {
-            Vector value = task.get(5000, TimeUnit.MILLISECONDS);
+            Vector value = task.get(10000, TimeUnit.MILLISECONDS);
+            if (value == null) {
+                return null;
+            }
+            else {
+                user.setU_id((int) value.elementAt(0));
+                user.setU_name((String) value.elementAt(1));
+                user.setU_password((String) value.elementAt(2));
+                user.setU_email((String) value.elementAt(3));
+                user.setU_identity(Integer.parseInt((String) value.elementAt(4)));
+                user.setU_avatar((byte[]) value.elementAt(5));
+                user.setU_gender((String) value.elementAt(7));
+                user.setU_phone((String) value.elementAt(8));
+                user.setU_description((String) value.elementAt(9));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        //user.setU_avatar(selectSQLBlob(user_name));
+        return user;
+    }
+    /*
+    public static User getUser(String user_name) {
+        User user = new User();
+        String sqlComm = "select u_name, u_email, u_gender, u_phone, u_description from user where u_name = '" + user_name + "';";
+
+        AsyncSelectOnlyNote task = new AsyncSelectOnlyNote();
+        task.execute(sqlComm);
+        try {
+            Vector value = task.get(10000, TimeUnit.MILLISECONDS);
             if (value == null) {
                 return null;
             }
             else {
                 user.setU_name((String) value.elementAt(0));
                 user.setU_email((String) value.elementAt(1));
-                user.setU_avatar(null);
+                user.setU_avatar(());
                 user.setU_gender((String) value.elementAt(2));
                 user.setU_phone((String) value.elementAt(3));
                 user.setU_description((String) value.elementAt(4));
             }
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
-        user.setU_avatar(selectSQLBlob(user_id));
+        user.setU_avatar(selectSQLBlob(user_name));
         return user;
     }
-
-
+*/
     /*
-    update u_identity = 1 on u_id == user_id
+    update u_identity = 1 on u_name == user_name
     MUST SET GlobalVariables.user_identity = 1;
      */
-    public static boolean setDriver(int user_id) {
+    public static int setDriver(String user_name) {
         GlobalVariables.user_identity = 1;
         String sqlComm = "update user set  u_identity='1'" +
-                " where u_id=" + user_id + ";";
+                " where u_name='" + user_name + "';";
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
         task.execute(sqlComm);
         try {
-            Object value = task.get(5000, TimeUnit.MILLISECONDS);
-            if (value.getClass().equals(Boolean.class)) {
-                return (boolean)value;
-            }
-            else {
-                throw new Exception((String) value);
-            }
+            return task.get(10000, TimeUnit.MILLISECONDS);
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return -1;
         }
     }
 
-    public static boolean updateUser(int user_id, String avatar, String gender, String phone, String description) {
+    public static int updateUser(String user_name, String avatar, String gender, String phone, String description) {
         String sqlComm = "update user set  u_avatar= '" + avatar + "'," +
                 "u_gender='" + gender + "', " +
                 "u_phone='" + phone + "', " +
                 "u_description='" + description + "' " +
-                "where u_id=" + user_id + ";";
+                "where u_name='" + user_name + "';";
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
         task.execute(sqlComm);
         try {
-            Object value = task.get(5000, TimeUnit.MILLISECONDS);
-            if (value.getClass().equals(Boolean.class)) {
-                return (boolean)value;
-            }
-            else {
-                throw new Exception((String) value);
-            }
+            return task.get(10000, TimeUnit.MILLISECONDS);
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return -1;
         }
     }
 }

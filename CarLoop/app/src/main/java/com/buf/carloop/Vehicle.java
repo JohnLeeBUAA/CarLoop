@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class Vehicle {
     private int v_id;
-    private int v_driverid;
+    private String v_drivername;
     private String v_driverlicense;
     private String v_manufacturer;
     private String v_model;
@@ -40,12 +40,12 @@ public class Vehicle {
         this.v_id = v_id;
     }
 
-    public int getV_driverid() {
-        return v_driverid;
+    public String getV_drivername() {
+        return v_drivername;
     }
 
-    public void setV_driverid(int v_driverid) {
-        this.v_driverid = v_driverid;
+    public void setV_drivername(String v_drivername) {
+        this.v_drivername = v_drivername;
     }
 
     public String getV_driverlicense() {
@@ -97,11 +97,11 @@ public class Vehicle {
     }
 
     /*
-    search vehicle with driverid
+    search vehicle with drivername
      */
-    public static Vehicle getVehicle(int driverid) {
+    public static Vehicle getVehicle(String drivername) {
         Vehicle vehicle = new Vehicle();
-        String sqlComm = "select * from vehicle where v_driverid=" + driverid + ";";
+        String sqlComm = "select * from vehicle where v_drivername='" + drivername + "';";
         AsyncSelectOnlyNote task = new AsyncSelectOnlyNote();
         task.execute(sqlComm);
         try {
@@ -121,72 +121,59 @@ public class Vehicle {
     /*
     search if license already exist
      */
-    public static boolean existLicense(String license) {
+    public static int existLicense(String license) {
         String sqlComm = "select v_driverlicense from user where v_driverlicense = '" + license + "';";
         AsyncSelectOnlyValue task = new AsyncSelectOnlyValue();
         task.execute(sqlComm);
         try {
-            Object value = task.get(5000, TimeUnit.MILLISECONDS);
+            Object value = task.get(10000, TimeUnit.MILLISECONDS);
             if(value == null) {
-                return false;
+                return 1;
             }
             else {
-                return true;
+                return 0;
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return true;
+            return -1;
         }
     }
 
     /*
     add a new vehicle record
      */
-    public static boolean addVehicle(int driverid, String driverlicense, String manufacturer, String model, String plate, int mileage, int capacity) {
-        String sqlComm = "insert into vehicle (v_driverid, v_driverlicense, v_manufacturer, v_model, v_plate, v_mileage, v_capacity) values (" +
-                driverid+ ", '" +driverlicense + "', '" + manufacturer + "', '" + model + "', '" + plate +
-                "', " +mileage + ", " + capacity + ");";
+    public static int addVehicle(String drivername, String driverlicense, String manufacturer, String model, String plate, int mileage, int capacity) {
+        String sqlComm = "insert into vehicle (v_drivername, v_driverlicense, v_manufacturer, v_model, v_plate, v_mileage, v_capacity) values ('" +
+                drivername+ "', '" + driverlicense + "', '" + manufacturer + "', '" + model + "', '" + plate +
+                "', " + mileage + ", " + capacity + ");";
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
-        System.out.println("****************************************************************");
         task.execute(sqlComm);
         try {
-            Object value = task.get(5000, TimeUnit.MILLISECONDS);
-            if (value.getClass().equals(Boolean.class)) {
-                return (boolean)value;
-            }
-            else {
-                throw new Exception((String) value);
-            }
+            return task.get(10000, TimeUnit.MILLISECONDS);
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return -1;
         }
     }
 
     /*
-    update vehicle on v_driverid == driverid
+    update vehicle on v_drivername == drivername
      */
-    public static boolean updateVehicle(int driverid, String driverlicense, String manufacturer, String model, String plate, int mileage, int capacity) {
+    public static int updateVehicle(String drivername, String driverlicense, String manufacturer, String model, String plate, int mileage, int capacity) {
         String sqlComm = "update vehicle set  v_driverlicense= '" + driverlicense + "'," +
                 "v_manufacturer='" + manufacturer + "', " +
                 "v_model='" + model + "', " +
                 "v_plate='" + plate + "', " +
                 "v_mileage=" + mileage + ", " +
                 "v_capacity=" + capacity + " " +
-                "where v_driverid=" + driverid + ";";
+                "where v_drivername='" + drivername + "';";
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
         task.execute(sqlComm);
         try {
-            Object value = task.get(5000, TimeUnit.MILLISECONDS);
-            if (value.getClass().equals(Boolean.class)) {
-                return (boolean)value;
-            }
-            else {
-                throw new Exception((String) value);
-            }
+            return task.get(10000, TimeUnit.MILLISECONDS);
         } catch (Exception e) {
             e.printStackTrace();
-            return false;
+            return -1;
         }
     }
 }

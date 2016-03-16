@@ -50,15 +50,17 @@
                         android:layout_gravity="bottom"/>
                 </LinearLayout>
                 <TextView
+                    android:id="@+id/depart_loc_carpoolsingle"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="Waterloo"
+                    android:text="Departure"
                     android:textSize="25dp"
                     android:textStyle="bold"
                     android:layout_marginTop="10dp"/>
             </LinearLayout>
 
             <LinearLayout
+                android:layout_weight="1"
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent">
                 <ImageView
@@ -95,9 +97,10 @@
                         android:layout_gravity="bottom"/>
                 </LinearLayout>
                 <TextView
+                    android:id="@+id/desti_loc_carpoolsingle"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="Toronto"
+                    android:text="Destination"
                     android:textSize="25dp"
                     android:textStyle="bold"
                     android:layout_marginTop="10dp"/>
@@ -111,7 +114,7 @@
             <LinearLayout
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="wrap_content"
@@ -128,52 +131,91 @@
             </LinearLayout>
 
             <LinearLayout
-                android:layout_weight="1"
+                android:layout_weight="3"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginLeft="10dp">
+                android:layout_height="fill_parent"
+                android:orientation="vertical">
                 <TextView
+                    android:id="@+id/date_carpoolsingle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2016.03.01"
+                    android:text="2015/10/21 - 2015/10/22"
+                    android:textStyle="bold"
                     android:textSize="15dp"
                     android:layout_marginTop="10dp"/>
                 <TextView
+                    android:id="@+id/time_carpoolsingle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="12:00"
+                    android:textStyle="bold"
+                    android:text="12:00 - 13:00"
                     android:textSize="15dp"
                     android:layout_marginTop="10dp"/>
             </LinearLayout>
-
             <LinearLayout
                 android:layout_weight="1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
                 android:orientation="vertical"
-                android:layout_marginLeft="20dp">
+                android:layout_marginLeft="5dp">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Price"
                     android:textSize="15dp"
                     android:layout_marginTop="10dp"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginLeft="20dp">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="20 CAD"
+                    android:text="Confirmed"
                     android:textSize="15dp"
                     android:layout_marginTop="10dp"/>
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_weight="3"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:orientation="vertical"
+                android:layout_marginLeft="5dp">
+                <TextView
+                    android:id="@+id/price_carpoolsingle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="$40"
+                    android:textSize="15dp"
+                    android:layout_marginTop="10dp"/>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:id="@+id/passengerconfirmed_carpoolsingle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:text="3"
+                        android:textSize="15dp"
+                        android:layout_marginTop="10dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:text=" / "
+                        android:textSize="15dp"
+                        android:layout_marginTop="10dp"/>
+                    <TextView
+                        android:id="@+id/maxpassenger_carpoolsingle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:text="4"
+                        android:textSize="15dp"
+                        android:layout_marginTop="10dp"/>
+                </LinearLayout>
+            </LinearLayout>
+
 
         </LinearLayout>
 
@@ -185,10 +227,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
+            <com.buf.carloop.CircleView
+                android:id="@+id/driveravatar_carpoolsingle"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:background="@drawable/t1"/>
+                android:src="@drawable/default_avatar"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -216,18 +259,20 @@
                 android:layout_gravity="center_vertical"
                 android:orientation="vertical">
                 <TextView
+                    android:id="@+id/drivername_carpoolsingle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Nate Bill"
+                    android:text="Drivername"
                     android:textSize="17dp"
                     android:textStyle="bold|italic"/>
                 <RatingBar
+                    android:id="@+id/ratingbar_capoolsingle"
                     style="?android:attr/ratingBarStyleSmall"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:isIndicator="true"
                     android:numStars="5"
-                    android:rating="4.5"
+                    android:rating="0"
                     android:stepSize="0.1"
                     android:layout_marginTop="10dp"/>
             </LinearLayout>
@@ -236,129 +281,144 @@
 
         <View android:layout_marginTop="10dp" style="@style/bg_line"/>
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp"
+        <TextView
+            android:id="@+id/tip_review"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Tip"/>
+        <ListView
+            android:id="@+id/list_review"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:orientation="vertical">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <RatingBar
-                        style="?android:attr/ratingBarStyleSmall"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:isIndicator="true"
-                        android:numStars="5"
-                        android:rating="5"
-                        android:stepSize="0.1"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Kate"
-                        android:textSize="17dp"
-                        android:textStyle="bold|italic"
-                        android:layout_marginLeft="10dp"/>
-                </LinearLayout>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="He picked me up at my desired place so I didn't have to walk. Very good service so strongly recommend!"/>
-
-
-            </LinearLayout>
-
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:background="@drawable/avatar2"
-                android:layout_gravity="center_vertical"/>
-
-        </LinearLayout>
-
-        <View android:layout_marginTop="10dp" style="@style/bg_line"/>
+            android:layout_height="15dp"
+            android:divider="#00000000"
+            android:dividerHeight="5dip">
+        </ListView>
 
         <LinearLayout
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:orientation="vertical">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-                    <RatingBar
-                        style="?android:attr/ratingBarStyleSmall"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:isIndicator="true"
-                        android:numStars="5"
-                        android:rating="4"
-                        android:stepSize="0.1"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Eric"
-                        android:textSize="17dp"
-                        android:textStyle="bold|italic"
-                        android:layout_marginLeft="10dp"/>
-                </LinearLayout>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Experience was good but price was a bit high."/>
-
-            </LinearLayout>
-
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:background="@drawable/avatar1"
-                android:layout_gravity="center_vertical"/>
-
-        </LinearLayout>
-
-        <LinearLayout
+            android:id="@+id/message_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp">
-            <ImageView
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/accept"
-                android:backgroundTint="#636363"/>
-            <ImageView
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:background="@drawable/interest"
-                android:backgroundTint="#636363"/>
-            <ImageView
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/decline"
-                android:backgroundTint="#636363"
-                android:layout_marginLeft="20dp"/>
+            android:layout_gravity="center">
+            <Button
+                android:id="@+id/btn_message"
+                android:text="Message"
+                android:onClick="jumpMessage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/created_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+
+            <Button
+                android:id="@+id/btn_deletecreated"
+                android:text="Delete"
+                android:onClick="deleteCreated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/btn_editcreated"
+                android:text="Edit"
+                android:onClick="editCreated"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/btn_trip"
+                android:text="Start Trip"
+                android:onClick="startTrip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/search_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+            <Button
+                android:id="@+id/btn_declinesearch"
+                android:text="Decline"
+                android:onClick="declineSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/btn_interestedsearch"
+                android:text="Interested"
+                android:onClick="interestedSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/btn_confirmsearch"
+                android:text="Confirm"
+                android:onClick="confirmSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/interested_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+            <Button
+                android:id="@+id/btn_deleteinterested"
+                android:text="Delete"
+                android:onClick="deleteInterested"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/btn_confirminterested"
+                android:text="Confirm"
+                android:onClick="confirmInterested"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/confirmed_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+            <Button
+                android:id="@+id/btn_aboardconfirmed"
+                android:text="Aboard"
+                android:onClick="aboardConfirmed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/btn_reviewconfirmed"
+                android:text="Review Driver"
+                android:onClick="reviewConfirmed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/trip_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center">
+            <Button
+                android:id="@+id/btn_navitrip"
+                android:text="Navigation"
+                android:onClick="naviTrip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <Button
+                android:id="@+id/btn_confirmpaymenttrip"
+                android:text="Confirm Payment"
+                android:onClick="confirmPaymentTrip"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
         </LinearLayout>
 
     </LinearLayout>

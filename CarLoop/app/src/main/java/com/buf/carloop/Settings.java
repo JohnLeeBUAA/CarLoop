@@ -70,10 +70,12 @@ public class Settings extends Footer {
                 if (checked)
                     GlobalVariables.user_identity = 1;
                     Toast.makeText(this, "Identity changed to: Driver", Toast.LENGTH_SHORT).show();
+                    identity_label.setText("You are using this app as: Driver");
                     break;
             case R.id.passenger_settings:
                 if (checked)
                     Toast.makeText(this, "Identity changed to: Passenger", Toast.LENGTH_SHORT).show();
+                    identity_label.setText("You are using this app as: Passenger");
                     GlobalVariables.user_identity = 2;
                     break;
         }
@@ -109,23 +111,10 @@ public class Settings extends Footer {
     public void logOut(View view) {
         SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putInt("user_id", -1);
+        editor.putString("user_name", "");
         editor.putInt("user_identity", -1);
         editor.commit();
         Intent intent = new Intent(this, SignIn.class);
         startActivity(intent);
     }
-
-    public void test(View view) {
-        if(GlobalVariables.user_identity == 0) {
-            GlobalVariables.user_identity = 1;
-        }
-        else if(GlobalVariables.user_identity == 1) {
-            GlobalVariables.user_identity = 2;
-        }
-        else if(GlobalVariables.user_identity == 2) {
-            GlobalVariables.user_identity = 0;
-        }
-    }
-
 }

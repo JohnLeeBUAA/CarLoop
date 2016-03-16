@@ -1,6 +1,18 @@
 package com.buf.database;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Log;
+
+import com.sun.mail.iap.ByteArray;
+
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,12 +21,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.Vector;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by xin on 2016/2/20.
@@ -38,7 +52,7 @@ public class SqlCommond {
                 //create the row vector 创建行向量
                 Vector<Object> rowV = new Vector<Object>();
                 //add the column number添加行序号
-                rowV.add(new Integer(row++));
+                //rowV.add(new Integer(row++));
                 for (int column = 1; column <= columnCount; column ++) {
                     rowV.add(rs.getObject(column));
                 }
@@ -116,7 +130,7 @@ public class SqlCommond {
     }
 
     // insert, modify, delete the record 插入、修改、删除记录
-    public boolean longHaul(String sql) throws Exception {
+    public int longHaul(String sql) {
         boolean isLongHaul = true; // long lasting 持久化
         //get the connection of the database 获取数据库连接
         Connection conn = JDBC.getConnection();
@@ -125,13 +139,14 @@ public class SqlCommond {
             conn.setAutoCommit(false);
             //create the connection to mysql创建连接状态
             Statement stmt = conn.createStatement();
-            stmt.executeUpdate(sql);
+            int status = stmt.executeUpdate(sql);
             stmt.close();
             //commit the long lasting result 提交持久化
             conn.commit();
+            if (status == 0) return 4; // password not match
+            else return 0;
         } catch (SQLException e) {
             //the long lasting fails持久化失败
-            isLongHaul = false;
             try {
                 //rollback 回滚
                 conn.rollback();
@@ -139,22 +154,27 @@ public class SqlCommond {
                 e1.printStackTrace();
             }
             e.printStackTrace();
-            if (e.getMessage().contains("u_email")) {
-                throw new Exception("Email Exists");
+            if (e.getMessage().contains("u_name") || e.getMessage().contains("PRIMARY")) {
+                return 1;
             }
-            else if (e.getMessage().contains("u_name")) {
-                throw new Exception("Username Exists");
+            else if (e.getMessage().contains("u_email")) {
+                return 2;
+            }
+            else if (e.getMessage().contains("v_driverlicense")) {
+                return 3;
+            }
+            else if (e.getMessage().contains("v_plate")) {
+                return 5;
             }
             else {
-                throw new Exception(e);
+                return -1;
             }
         }
-        return isLongHaul;
     }
 
     // get the image blob from database
     public byte[] selectBlob(String sql) {
-        byte[] value = new byte[]{(byte) 0xe0};;
+        byte[] value = null;
         //get the connection of the database
         Connection conn = JDBC.getConnection();
         try {
@@ -180,10 +200,37 @@ public class SqlCommond {
             //set it as hand commitment设置为手动提交
             conn.setAutoCommit(false);
             //create the connection to mysql创建连接状态
+
+            System.out.println(blobData.length);
+            for (int i = 0; i < blobData.length; i ++)
+            {
+                System.out.format("%02X ", blobData[i]);
+            }
+    ;       System.out.println();
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setBinaryStream(1, new ByteArrayInputStream(blobData), blobData.length);
+            ByteArrayInputStream bis = new ByteArrayInputStream(blobData);
+            stmt.setBinaryStream(1, bis, bis.available());
             stmt.executeUpdate();
             stmt.close();
+            /*
+            File image = new File("E:\\lone.jpg");
+            PreparedStatement psmnt = conn.prepareStatement
+                    ("update user set u_avatar= ? " + "where u_name='kjinxin';");
+            FileInputStream fis = new FileInputStream(image);
+            psmnt.setBinaryStream(1, (InputStream) fis, (int) (image.length()));
+            psmnt.executeUpdate();
+            psmnt.close();
+            */
+            /*
+            File f1=new File("E:\\lone.jpg");
+            FileInputStream fin=new FileInputStream(f1);
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            ByteArrayInputStream bis = new ByteArrayInputStream(blobData);
+            stmt.setBinaryStream(1, fin, fin.available());
+            stmt.executeUpdate();
+
+            stmt.close();
+            */
             //commit the long lasting result 提交持久化
             conn.commit();
         } catch (SQLException e) {
@@ -220,22 +267,69 @@ public class SqlCommond {
         return list;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         String username = "test1";
         String password = "1234";
         String email = "liu1@gmail.com";
 
-        String sqlComm = "insert into user (u_name, u_password, u_email, u_identity) values ('" + username + "', '"
-                + password + "', '" + email + "', " + 0 + ");";
-
+/*
+        String sqlComm = "select * from carpool_created " +
+                "where (cc_date <= '"+ "2016-03-05" + "' and cc_date_range <= '"  + "2016-03-05" + "' or cc_date <= '"+ "2016-03-06" + "' and cc_date_range >= '" + "2016-03-06" + "') and " +
+                "(cc_time <= '"+ "03:00:00" + "' and cc_time_range <= '"  + "03:00:00" + "' or cc_time <= '"+ "03:00:00" + "' and cc_time_range >= '" + "03:00:00" + "') and " +
+                "cc_status = 0 and cc_passengerconfirmed < cc_maxpassenger " +
+                "and cc_id not in (select pc_carpoolid from passenger_carpool where pc_passengername = '" + "1" + "');";*/
+        String sqlComm = "insert into review (r_passengername, r_drivername, r_rate, r_review) values ('" +
+                "john" + "', '" + "john" + "', " + 10.0 + ", '" + "good driver" + "');";
 
         SqlCommond sqlCommond = new SqlCommond();
-        boolean value = true;
-        try {
-            value = sqlCommond.longHaul(sqlComm);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        int value1 = sqlCommond.longHaul(sqlComm);
+        System.out.println(value1);
+
+
+
+        /*
+        String sqlComm = String.format("update carpool_created set cc_depart_lat=%f, cc_depart_lng=%f, cc_depart_loc='%s', " +
+                        "cc_desti_lat=%f, cc_desti_lng=%f, cc_desti_loc='%s', cc_date='%s', cc_date_range='%s', cc_time='%s', " +
+                        "cc_time_range='%s', cc_maxpassenger=%d, cc_price=%d where cc_id=%d;",
+                11.0, 12.0, "Toronto", 2.0, 3.0, "Nanjing", "2015/05/04", "2015/05/04", "11:11", "11:59", 10, 44, 1, 1);
+        // Sql create user operation
+*/
+/*
+        byte[] avatar;
+        File f1=new File("E:\\lone.jpg");
+        FileInputStream fin=new FileInputStream(f1);
+        byte [] b1=new byte[(int)f1.length()];
+        fin.read(b1);
+        for (int i = 0; i < b1.length; i ++)
+        {
+            System.out.format("%02X ", b1[i]);
         }
+        System.out.println();
+        System.out.println(b1.length);
+*/
+        /*
+        System.out.println();
+        System.out.println();
+        String st = Arrays.toString(b1);
+        System.out.println(st);
+        Object[] a = new Object[2];
+        a[0] = "jaoijga";
+        a[1] = b1;
+        avatar = st.getBytes();
+        byte [] c1 =( byte[]) a[1];
+        for (int i = 0; i < avatar.length; i ++)
+        {
+            System.out.format("%02X ", c1[i]);
+        }
+        */
+
+        /*
+        String sqlComm = "update user set u_avatar= ? " + "where u_name='john';";
+        System.out.print(sqlComm);
+        SqlCommond sqlCommond = new SqlCommond();
+        boolean value = sqlCommond.insertBlob(sqlComm, b1);
         System.out.println(value);
+        */
+
     }
 }

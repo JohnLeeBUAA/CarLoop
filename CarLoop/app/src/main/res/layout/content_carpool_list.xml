@@ -27,11 +27,11 @@
             android:orientation="horizontal"
             android:layout_gravity="center">
             <Button
-                android:id="@+id/addlist_carpool_list"
+                android:text="Interested"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:onClick="jumpAddList"
+                android:onClick="jumpInterestedList"
                 android:background="@drawable/list_border"/>
             <Button
                 android:text="Confirmed"
@@ -40,135 +40,21 @@
                 android:layout_height="wrap_content"
                 android:onClick="jumpConfirmedList"
                 android:background="@drawable/list_border"/>
-            <Button
-                android:text="Interested"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:onClick="jumpInterestedList"
-                android:background="@drawable/list_border"/>
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="15dp"
-            android:padding="10dp"
-            android:background="@drawable/sign_in_border">
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <ImageView
-                    android:layout_width="85dp"
-                    android:layout_height="85dp"
-                    android:background="@drawable/t1"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="10dp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Nate Bill"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="5dp"/>
-                <RatingBar
-                    style="?android:attr/ratingBarStyleSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:isIndicator="true"
-                    android:numStars="5"
-                    android:rating="4.5"
-                    android:stepSize="0.1" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="From"
-                    android:textSize="15dp"
-                    android:layout_marginTop="10dp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="To"
-                    android:textSize="15dp"
-                    android:layout_marginTop="10dp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Date"
-                    android:textSize="15dp"
-                    android:layout_marginTop="10dp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Time"
-                    android:textSize="15dp"
-                    android:layout_marginTop="10dp"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Waterloo"
-                    android:textSize="17dp"
-                    android:textStyle="bold"
-                    android:layout_marginTop="5dp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Toronto"
-                    android:textStyle="bold"
-                    android:textSize="17dp"
-                    android:layout_marginTop="10dp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="2016.03.01"
-                    android:textSize="15dp"
-                    android:layout_marginTop="10dp"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="12:00"
-                    android:textSize="15dp"
-                    android:layout_marginTop="10dp"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent">
-                <ImageView
-                    android:background="@drawable/info"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="checkCarpool"
-                    android:backgroundTint="#7d7d7d" />
-                <ImageView
-                    android:background="@drawable/chat"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:backgroundTint="#7d7d7d"
-                    android:layout_marginTop="10dp"/>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
     </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tip_carpoollist"
+        android:layout_gravity="center_horizontal" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="#00000000"
+        android:dividerHeight="5dip"
+        android:id="@+id/list_carpoollist"
+        android:layout_gravity="center_horizontal" />
 
 </LinearLayout>
