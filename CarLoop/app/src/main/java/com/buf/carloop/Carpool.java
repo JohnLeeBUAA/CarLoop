@@ -4,6 +4,10 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.buf.database.AsyncSQLLongHaul;
+import com.buf.database.AsyncSelectOnlyNote;
+import com.buf.database.AsyncSelectOnlyValue;
+import com.buf.database.AsyncSelectSomeNote;
+import com.buf.database.AsyncSelectSomeValue;
 
 import java.sql.Time;
 import java.util.ArrayList;
@@ -442,17 +446,16 @@ public class Carpool implements Parcelable{
         byte[] avatar = selectSQLBlob(user_name);
         String sqlComm = "select * from carpool_created where cc_drivername = '" + user_name + "';";
         List<Carpool> list = new ArrayList<Carpool>();
+        Carpool carpool = null;
         AsyncSelectSomeNote task = new AsyncSelectSomeNote();
         task.execute(sqlComm);
         try {
             Vector value_original = task.get(10000, TimeUnit.MILLISECONDS);
             Vector value;
-            int i;
-            if (value_original != null) {
-                for (i = 0; i < value_original.size(); i++) ;
-                {
+            if (value_original.size() > 0) {
+                for (int i = 0; i < value_original.size(); i++) {
                     value = (Vector) value_original.elementAt(i);
-                    Carpool carpool = new Carpool();
+                    carpool = new Carpool();
                     carpool.setCarpoolid((int) value.elementAt(0));
                     carpool.setDrivername((String) value.elementAt(1));
                     carpool.setDepart_lat((Double) value.elementAt(2));
@@ -493,17 +496,16 @@ public class Carpool implements Parcelable{
         String sqlComm = "select t1.* from carpool_created as t1 inner join passenger_carpool as t2 " +
                 "on t1.cc_id = t2.pc_carpoolid and t2.pc_status = 1 and t2.pc_passengername= '" + user_name + "' order by t2.pc_datetime desc;";
         List<Carpool> list = new ArrayList<Carpool>();
+        Carpool carpool = null;
         AsyncSelectSomeNote task = new AsyncSelectSomeNote();
         task.execute(sqlComm);
         try {
             Vector value_original = task.get(10000, TimeUnit.MILLISECONDS);
             Vector value;
-            int i;
-            if (value_original != null) {
-                for (i = 0; i < value_original.size(); i++) ;
-                {
+            if (value_original.size() > 0) {
+                for (int i = 0; i < value_original.size(); i++) {
                     value = (Vector) value_original.elementAt(i);
-                    Carpool carpool = new Carpool();
+                    carpool = new Carpool();
                     carpool.setCarpoolid((int) value.elementAt(0));
                     carpool.setDrivername((String) value.elementAt(1));
                     carpool.setDepart_lat((Double) value.elementAt(2));
@@ -545,17 +547,17 @@ public class Carpool implements Parcelable{
         String sqlComm = "select t1.* from carpool_created as t1 inner join passenger_carpool as t2 " +
                 "on t1.cc_id = t2.pc_carpoolid and t2.pc_status = 2 and t2.pc_passengername= '" + user_name + "' order by t2.pc_datetime desc;";
         List<Carpool> list = new ArrayList<Carpool>();
+        Carpool carpool = null;
         AsyncSelectSomeNote task = new AsyncSelectSomeNote();
         task.execute(sqlComm);
         try {
             Vector value_original = task.get(10000, TimeUnit.MILLISECONDS);
             Vector value;
             int i;
-            if (value_original != null) {
-                for (i = 0; i < value_original.size(); i++) ;
-                {
+            if (value_original.size() > 0) {
+                for (i = 0; i < value_original.size(); i++) {
                     value = (Vector) value_original.elementAt(i);
-                    Carpool carpool = new Carpool();
+                    carpool = new Carpool();
                     carpool.setCarpoolid((int) value.elementAt(0));
                     carpool.setDrivername((String) value.elementAt(1));
                     carpool.setDepart_lat((Double) value.elementAt(2));
@@ -597,17 +599,17 @@ public class Carpool implements Parcelable{
         String sqlComm = "select t1.* from carpool_created as t1 inner join passenger_carpool as t2 " +
                 "on t1.cc_id = t2.pc_carpoolid and t2.pc_message = 1 and t2.pc_passengername= '" + user_name + "' order by t2.pc_datetime desc;";
         List<Carpool> list = new ArrayList<Carpool>();
+        Carpool carpool = null;
         AsyncSelectSomeNote task = new AsyncSelectSomeNote();
         task.execute(sqlComm);
         try {
             Vector value_original = task.get(10000, TimeUnit.MILLISECONDS);
             Vector value;
             int i;
-            if (value_original != null) {
-                for (i = 0; i < value_original.size(); i++) ;
-                {
+            if (value_original.size() > 0) {
+                for (i = 0; i < value_original.size(); i++) {
                     value = (Vector) value_original.elementAt(i);
-                    Carpool carpool = new Carpool();
+                    carpool = new Carpool();
                     carpool.setCarpoolid((int) value.elementAt(0));
                     carpool.setDrivername((String) value.elementAt(1));
                     carpool.setDepart_lat((Double) value.elementAt(2));
@@ -658,7 +660,53 @@ public class Carpool implements Parcelable{
             String date_range,
             String time_range
     ) {
-        return generateFakeList();
+        String sqlComm = "select * from carpool_created " +
+                "where (cc_date <= '"+ date + "' and cc_date_range <= '"  + date + "' or cc_date <= '"+ date_range + "' and cc_date_range >= '" + date_range + "') and " +
+                "(cc_time <= '"+ time + "' and cc_time_range <= '"  + time + "' or cc_time <= '"+ time_range + "' and cc_time_range >= '" + time_range + "') and " +
+                "cc_status = 0 and cc_passengerconfirmed < cc_maxpassenger " +
+                "and cc_id not in (select pc_carpoolid from passenger_carpool where pc_passengername = '" + user_name + "');";
+        List<Carpool> list = new ArrayList<Carpool>();
+        Carpool carpool = null;
+        AsyncSelectSomeNote task = new AsyncSelectSomeNote();
+        task.execute(sqlComm);
+        try {
+            Vector value_original = task.get(10000, TimeUnit.MILLISECONDS);
+            Vector value;
+            int i;
+            if (value_original.size() > 0) {
+                for (i = 0; i < value_original.size(); i++) {
+                    value = (Vector) value_original.elementAt(i);
+                    carpool = new Carpool();
+                    carpool.setCarpoolid((int) value.elementAt(0));
+                    carpool.setDrivername((String) value.elementAt(1));
+                    carpool.setDepart_lat((Double) value.elementAt(2));
+                    carpool.setDepart_lng((Double) value.elementAt(3));
+                    carpool.setDepart_loc((String) value.elementAt(4));
+                    carpool.setDesti_lat((Double) value.elementAt(5));
+                    carpool.setDesti_lng((Double) value.elementAt(6));
+                    carpool.setDesti_loc((String) value.elementAt(7));
+                    carpool.setDate(((Date) value.elementAt(8)).toString());
+                    carpool.setDate_range(((Date) value.elementAt(9)).toString());
+                    carpool.setTime(((Time) value.elementAt(10)).toString());
+                    carpool.setTime_range(((Time) value.elementAt(11)).toString());
+                    carpool.setMaxpassenger((int) value.elementAt(12));
+                    carpool.setPrice((int) value.elementAt(13));
+                    carpool.setPassengerconfirmed((int) value.elementAt(14));
+                    carpool.setPassengeraboard((int) value.elementAt(15));
+                    carpool.setStatus((int) value.elementAt(16));
+                    carpool.setDriveravatar(selectSQLBlob(carpool.getDrivername()));
+                    list.add(carpool);
+                    System.out.println(value.elementAt(1));
+                }
+            }
+            else {
+                return null;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 
     /*
@@ -683,7 +731,7 @@ public class Carpool implements Parcelable{
     note records in other table that has FK on carpoolid and is set delete on cascade
      */
     public static int deleteCarpool(int carpoolid) {
-        String sqlComm = "delete from carpool_created where cc_id==" + carpoolid + ";";
+        String sqlComm = "delete from carpool_created where cc_id=" + carpoolid + ";";
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
 
         task.execute(sqlComm);
@@ -701,15 +749,42 @@ public class Carpool implements Parcelable{
     if cc_passengeraboard == cc_passengerconfirmed   return true;
     else   return false;
      */
-    public static boolean startTripCheck(int carpoolid) {
-        return true;
+    public static int startTripCheck(int carpoolid) {
+        String sqlComm = "select cc_passengeraboard, cc_passengerconfirmed from carpool_created where cc_id=" + carpoolid + ";";
+        AsyncSelectOnlyNote task = new AsyncSelectOnlyNote();
+
+        task.execute(sqlComm);
+        try {
+            Vector value = task.get(100000, TimeUnit.MILLISECONDS);
+            if (value != null) {
+                if ((int)value.elementAt(0) == (int)value.elementAt(1)) {
+                    return 0;
+                }
+                else return 1;
+            } else {
+                return -1;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
     }
 
     /*
-    update created_carpool set cc_status = 1 where cc_id = carpoolid
+    update carpool_created set cc_status = 1 where cc_id = carpoolid
      */
     public static int startTrip(int carpoolid) {
-        return 0;
+        String sqlComm = "update carpool_created set cc_status=1 where cc_id=" + carpoolid + ";";
+        AsyncSQLLongHaul task = new AsyncSQLLongHaul();
+
+        task.execute(sqlComm);
+        try {
+            int value = task.get(100000, TimeUnit.MILLISECONDS);
+            return value;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
     }
 
     /*
@@ -718,7 +793,18 @@ public class Carpool implements Parcelable{
     need to set pc_datetime as well
      */
     public static int declineSearch(String user_name, int carpoolid) {
-        return 0;
+        String sqlComm =  "insert into passenger_carpool (pc_passengername, pc_carpoolid, pc_status) values ('" + user_name + "', "
+                + carpoolid + ", 0);";
+        AsyncSQLLongHaul task = new AsyncSQLLongHaul();
+
+        task.execute(sqlComm);
+        try {
+            int value = task.get(100000, TimeUnit.MILLISECONDS);
+            return value;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
     }
 
     /*
@@ -727,7 +813,18 @@ public class Carpool implements Parcelable{
     need to set pc_datetime as well
      */
     public static int interestedSearch(String user_name, int carpoolid) {
-        return 0;
+        String sqlComm =  "insert into passenger_carpool (pc_passengername, pc_carpoolid, pc_status) values ('" + user_name + "', "
+                + carpoolid + ", 1);";
+        AsyncSQLLongHaul task = new AsyncSQLLongHaul();
+
+        task.execute(sqlComm);
+        try {
+            int value = task.get(100000, TimeUnit.MILLISECONDS);
+            return value;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
     }
 
     /*
@@ -737,14 +834,50 @@ public class Carpool implements Parcelable{
     !!!IMPORTANT: ALSO update created_carpool set cc_passengerconfirmed = cc_passengerconfirmed + 1 where cc_id = carpoolid
      */
     public static int confirmSearch(String user_name, int carpoolid) {
-        return 0;
+        String sqlComm =  "insert into passenger_carpool (pc_passengername, pc_carpoolid, pc_status) values ('" + user_name + "', "
+                + carpoolid + ", 0);";
+        AsyncSQLLongHaul task = new AsyncSQLLongHaul();
+
+        task.execute(sqlComm);
+        try {
+            int value = task.get(100000, TimeUnit.MILLISECONDS);
+
+            confirmPassenger(carpoolid);
+            return value;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
     }
 
+    private static int confirmPassenger(int carpoolid) {
+        String sqlComm = "update carpool_created set cc_passengerconfirmed = cc_passengerconfirmed + 1 where cc_id=" + carpoolid + ";";
+        AsyncSQLLongHaul task = new AsyncSQLLongHaul();
+
+        task.execute(sqlComm);
+        try {
+            int value = task.get(100000, TimeUnit.MILLISECONDS);
+            return value;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
     /*
     delete record in passenger_carpool where pc_passengername = user_name and pc_carpoolid = carpoolid and pc_status = 1
      */
     public static int deleteInterested(String user_name, int carpoolid) {
-        return 0;
+        String sqlComm = "delete from passenger_carpool where pc_passengername = '"+ user_name + "' and pc_carpoolid =" + carpoolid + " and pc_status = 1;";
+        AsyncSQLLongHaul task = new AsyncSQLLongHaul();
+
+        task.execute(sqlComm);
+        try {
+            int value = task.get(100000, TimeUnit.MILLISECONDS);
+            return value;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
     }
 
     /*
@@ -752,15 +885,49 @@ public class Carpool implements Parcelable{
     !!!IMPORTANT: ALSO update created_carpool set cc_passengeraboard = cc_passengeraboard + 1 where cc_id = carpoolid
      */
     public static int confirmInterested(String user_name, int carpoolid) {
-        return 0;
-    }
+        String sqlComm = "update passenger_carpool set pc_aboard = 1 where pc_passengername = '" + user_name + "' and pc_carpoolid=" + carpoolid + ";";
+        AsyncSQLLongHaul task = new AsyncSQLLongHaul();
 
+        task.execute(sqlComm);
+        try {
+            int value = task.get(100000, TimeUnit.MILLISECONDS);
+            aboardPassenger(carpoolid);
+            return value;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+    private static int aboardPassenger(int carpoolid) {
+        String sqlComm = "update carpool_created set cc_passengeraboard = cc_passengeraboard + 1 where cc_id=" + carpoolid + ";";
+        AsyncSQLLongHaul task = new AsyncSQLLongHaul();
+
+        task.execute(sqlComm);
+        try {
+            int value = task.get(100000, TimeUnit.MILLISECONDS);
+            return value;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
     /*
     update passenger_carpool set pc_status = 2 where pc_passengername = user_name and pc_carpoolid = carpoolid
     !!!IMPORTANT: ALSO update created_carpool set cc_passengerconfirmed = cc_passengerconfirmed + 1 where cc_id = carpoolid
      */
     public static int aboardConfirmed(String user_name, int carpoolid) {
-        return 0;
+        String sqlComm = "update passenger_carpool set pc_status = 2 where pc_passengername = '" + user_name + "' and pc_carpoolid=" + carpoolid + ";";
+        AsyncSQLLongHaul task = new AsyncSQLLongHaul();
+
+        task.execute(sqlComm);
+        try {
+            int value = task.get(100000, TimeUnit.MILLISECONDS);
+            confirmPassenger(carpoolid);
+            return value;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
     }
 
     /*
@@ -768,8 +935,24 @@ public class Carpool implements Parcelable{
     if pc_paid = 1  return true;
     else   return false;
      */
-    public static boolean reviewCheck(String user_name, int carpoolid) {
-        return true;
+    public static int reviewCheck(String user_name, int carpoolid) {
+        String sqlComm = "select pc_paid from passenger_carpool where pc_passengername = '" + user_name + "' and pc_carpoolid = "  + carpoolid + ";";
+        AsyncSelectOnlyValue task = new AsyncSelectOnlyValue();
+        task.execute(sqlComm);
+        try {
+            Object value = task.get(100000, TimeUnit.MILLISECONDS);
+            if (value != null) {
+                if (value.equals(1)) {
+                    return 0;
+                }
+                else return 1;
+            } else {
+                return -1;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
     }
 
     public static void main(String[] args) {

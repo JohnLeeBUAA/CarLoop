@@ -13,7 +13,7 @@ public class AsyncSelectSomeNote extends AsyncTask<String, Void, Vector> {
     @Override
     protected Vector doInBackground(String... params) {
         SqlCommond sqlCommond = new SqlCommond();
-        Vector vector = sqlCommond.selectOnlyNote(params[0]);
+        Vector vector = sqlCommond.selectSomeNote(params[0]);
         if (vector == null) System.out.println("vector is null");
         return vector;
     }

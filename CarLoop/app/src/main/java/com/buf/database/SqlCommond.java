@@ -272,13 +272,18 @@ public class SqlCommond {
         String password = "1234";
         String email = "liu1@gmail.com";
 
-
-        String sqlComm = "update passenger_carpool set pc_message=1 where pc_passengername= '" + 1 + "' and pc_carpoolid=" + 2 + ";";
+/*
+        String sqlComm = "select * from carpool_created " +
+                "where (cc_date <= '"+ "2016-03-05" + "' and cc_date_range <= '"  + "2016-03-05" + "' or cc_date <= '"+ "2016-03-06" + "' and cc_date_range >= '" + "2016-03-06" + "') and " +
+                "(cc_time <= '"+ "03:00:00" + "' and cc_time_range <= '"  + "03:00:00" + "' or cc_time <= '"+ "03:00:00" + "' and cc_time_range >= '" + "03:00:00" + "') and " +
+                "cc_status = 0 and cc_passengerconfirmed < cc_maxpassenger " +
+                "and cc_id not in (select pc_carpoolid from passenger_carpool where pc_passengername = '" + "1" + "');";*/
+        String sqlComm = "insert into review (r_passengername, r_drivername, r_rate, r_review) values ('" +
+                "john" + "', '" + "john" + "', " + 10.0 + ", '" + "good driver" + "');";
 
         SqlCommond sqlCommond = new SqlCommond();
-        int value = sqlCommond.longHaul(sqlComm);
-        System.out.print(value);
-
+        int value1 = sqlCommond.longHaul(sqlComm);
+        System.out.println(value1);
 
 
 

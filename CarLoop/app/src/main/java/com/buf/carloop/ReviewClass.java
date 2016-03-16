@@ -1,7 +1,10 @@
 package com.buf.carloop;
 
+import com.buf.database.AsyncSQLLongHaul;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by zijin on 10/03/16.
@@ -59,7 +62,19 @@ public class ReviewClass {
     insert into review
      */
     public static int addReview(String reviewername, String drivername, double rate, String review) {
-        return 0;
+        String sqlComm = "insert into review (r_passengername, r_drivername, r_rate, r_review) values ('" +
+                reviewername + "', '" + drivername + "', " + rate + ", '" + review + "');";
+
+        AsyncSQLLongHaul task = new AsyncSQLLongHaul();
+
+        task.execute(sqlComm);
+        try {
+            int value = task.get(100000, TimeUnit.MILLISECONDS);
+            return value;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
     }
 
     /*
