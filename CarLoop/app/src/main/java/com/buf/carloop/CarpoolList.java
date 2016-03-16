@@ -225,7 +225,14 @@ public class CarpoolList extends Footer {
 
     public void jumpInterestedList(View view) {
         list = Carpool.getInterestedList(GlobalVariables.user_name);
-        populateListView();
+        if(list == null || list.size() == 0) {
+            tip.setText("No Interested Carpool");
+        }
+        else {
+            tip.setVisibility(View.GONE);
+            populateListView();
+            registerClickCallback();
+        }
         /*Intent intent = new Intent(this, CarpoolList.class);
         intent.putExtra("type", "Interested");
         startActivity(intent);*/
@@ -233,7 +240,14 @@ public class CarpoolList extends Footer {
 
     public void jumpConfirmedList(View view) {
         list = Carpool.getConfirmedList(GlobalVariables.user_name);
-        populateListView();
+        if(list == null || list.size() == 0) {
+            tip.setText("No Confirmed Carpool");
+        }
+        else {
+            tip.setVisibility(View.GONE);
+            populateListView();
+            registerClickCallback();
+        }
         /*Intent intent = new Intent(this, CarpoolList.class);
         intent.putExtra("type", "Confirmed");
         startActivity(intent);*/

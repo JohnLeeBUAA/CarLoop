@@ -201,36 +201,12 @@ public class SqlCommond {
             conn.setAutoCommit(false);
             //create the connection to mysql创建连接状态
 
-            System.out.println(blobData.length);
-            for (int i = 0; i < blobData.length; i ++)
-            {
-                System.out.format("%02X ", blobData[i]);
-            }
-    ;       System.out.println();
             PreparedStatement stmt = conn.prepareStatement(sql);
             ByteArrayInputStream bis = new ByteArrayInputStream(blobData);
             stmt.setBinaryStream(1, bis, bis.available());
             stmt.executeUpdate();
             stmt.close();
-            /*
-            File image = new File("E:\\lone.jpg");
-            PreparedStatement psmnt = conn.prepareStatement
-                    ("update user set u_avatar= ? " + "where u_name='kjinxin';");
-            FileInputStream fis = new FileInputStream(image);
-            psmnt.setBinaryStream(1, (InputStream) fis, (int) (image.length()));
-            psmnt.executeUpdate();
-            psmnt.close();
-            */
-            /*
-            File f1=new File("E:\\lone.jpg");
-            FileInputStream fin=new FileInputStream(f1);
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            ByteArrayInputStream bis = new ByteArrayInputStream(blobData);
-            stmt.setBinaryStream(1, fin, fin.available());
-            stmt.executeUpdate();
 
-            stmt.close();
-            */
             //commit the long lasting result 提交持久化
             conn.commit();
         } catch (SQLException e) {
@@ -278,8 +254,7 @@ public class SqlCommond {
                 "(cc_time <= '"+ "03:00:00" + "' and cc_time_range <= '"  + "03:00:00" + "' or cc_time <= '"+ "03:00:00" + "' and cc_time_range >= '" + "03:00:00" + "') and " +
                 "cc_status = 0 and cc_passengerconfirmed < cc_maxpassenger " +
                 "and cc_id not in (select pc_carpoolid from passenger_carpool where pc_passengername = '" + "1" + "');";*/
-        String sqlComm = "insert into review (r_passengername, r_drivername, r_rate, r_review) values ('" +
-                "john" + "', '" + "john" + "', " + 10.0 + ", '" + "good driver" + "');";
+        String sqlComm = "update passenger_carpool set pc_message=1 where pc_passengername= 'James May' and pc_carpoolid = '4'";
 
         SqlCommond sqlCommond = new SqlCommond();
         int value1 = sqlCommond.longHaul(sqlComm);
