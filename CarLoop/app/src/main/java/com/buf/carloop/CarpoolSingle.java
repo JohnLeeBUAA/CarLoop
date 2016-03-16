@@ -252,8 +252,8 @@ public class CarpoolSingle extends Footer {
     }
 
     public void startTrip (View view) {
-        boolean valid = Carpool.startTripCheck(carpoolid);
-        if(valid) {
+        int valid = Carpool.startTripCheck(carpoolid);
+        if(valid == 0) {
             int status = Carpool.startTrip(carpoolid);
             if(status == 0) {
                 Toast.makeText(this, "Carpool trip started", Toast.LENGTH_SHORT).show();
@@ -264,8 +264,11 @@ public class CarpoolSingle extends Footer {
                 Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();
             }
         }
-        else {
+        else if(valid == 1){
             Toast.makeText(this, "Can not start carpool trip. Wait till all confirmed passengers are aboard.", Toast.LENGTH_LONG).show();
+        }
+        else {
+            Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -343,15 +346,18 @@ public class CarpoolSingle extends Footer {
     }
 
     public void reviewConfirmed (View view) {
-        boolean valid = Carpool.reviewCheck(GlobalVariables.user_name, carpoolid);
-        if(valid) {
+        int valid = Carpool.reviewCheck(GlobalVariables.user_name, carpoolid);
+        if(valid == 0) {
             Intent intent = new Intent(this, Review.class);
             intent.putExtra("drivername", carpool.getDrivername());
             intent.putExtra("driveravatar", carpool.getDriveravatar());
             startActivity(intent);
         }
-        else {
+        else if(valid == 1){
             Toast.makeText(this, "Can not write review. Wait till the driver confirms your payment.", Toast.LENGTH_LONG).show();
+        }
+        else {
+            Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();
         }
     }
 

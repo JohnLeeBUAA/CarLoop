@@ -39,8 +39,10 @@ public class Payment extends Footer {
         listview = (ListView) findViewById(R.id.list_payment);
         list = PassengerCarpool.getPaymentList(carpoolid);
 
-        populateListView();
-        registerClickCallback();
+        if(list != null && list.size() > 0) {
+            populateListView();
+            registerClickCallback();
+        }
     }
 
     private void populateListView() {

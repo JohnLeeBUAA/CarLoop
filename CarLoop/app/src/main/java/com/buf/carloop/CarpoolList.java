@@ -61,6 +61,8 @@ public class CarpoolList extends Footer {
             }
             else {
                 tip.setVisibility(View.GONE);
+                populateListView();
+                registerClickCallback();
             }
         }
         else if(type.equals("Created")) {
@@ -73,6 +75,8 @@ public class CarpoolList extends Footer {
             }
             else {
                 tip.setVisibility(View.GONE);
+                populateListView();
+                registerClickCallback();
             }
         }
         else if(type.equals("Interested")) {
@@ -84,6 +88,8 @@ public class CarpoolList extends Footer {
             }
             else {
                 tip.setVisibility(View.GONE);
+                populateListView();
+                registerClickCallback();
             }
         }
         else if(type.equals("Confirmed")) {
@@ -95,6 +101,8 @@ public class CarpoolList extends Footer {
             }
             else {
                 tip.setVisibility(View.GONE);
+                populateListView();
+                registerClickCallback();
             }
         }
         else if(type.equals("Message")) {
@@ -107,10 +115,11 @@ public class CarpoolList extends Footer {
             }
             else {
                 tip.setVisibility(View.GONE);
+                populateListView();
+                registerClickCallback();
             }
         }
-        populateListView();
-        registerClickCallback();
+
     }
 
     private void populateListView() {

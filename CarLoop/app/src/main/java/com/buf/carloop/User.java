@@ -259,7 +259,7 @@ public class User {
 
 
 
-    private static byte[] selectSQLBlob(String user_name) {
+    public static byte[] selectSQLBlob(String user_name) {
         String sqlComm = "select u_avatar from user where u_name = '" + user_name + "';";
         AsyncSelectBlob task = new AsyncSelectBlob();
         task.execute(sqlComm);
@@ -272,7 +272,7 @@ public class User {
         }
     }
 
-    private static boolean insertSQLBlob(String user_name, byte[] avatar) {
+    public static boolean insertSQLBlob(String user_name, byte[] avatar) {
         String sqlComm = "update user set u_avatar= ? where u_name= '" + user_name + "';";
         AsyncInsertBlob task = new AsyncInsertBlob();
 
@@ -351,6 +351,37 @@ public class User {
     /*
     search user with u_name == user_name
      */
+
+    public static User getUser(String user_name) {
+        User user = new User();
+        String sqlComm = "select * from user where u_name = '" + user_name + "';";
+
+        AsyncSelectOnlyNote task = new AsyncSelectOnlyNote();
+        task.execute(sqlComm);
+        try {
+            Vector value = task.get(10000, TimeUnit.MILLISECONDS);
+            if (value == null) {
+                return null;
+            }
+            else {
+                user.setU_id((int) value.elementAt(0));
+                user.setU_name((String) value.elementAt(1));
+                user.setU_password((String) value.elementAt(2));
+                user.setU_email((String) value.elementAt(3));
+                user.setU_identity(Integer.parseInt((String) value.elementAt(4)));
+                user.setU_avatar((byte[]) value.elementAt(5));
+                user.setU_gender((String) value.elementAt(7));
+                user.setU_phone((String) value.elementAt(8));
+                user.setU_description((String) value.elementAt(9));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+        //user.setU_avatar(selectSQLBlob(user_name));
+        return user;
+    }
+    /*
     public static User getUser(String user_name) {
         User user = new User();
         String sqlComm = "select u_name, u_email, u_gender, u_phone, u_description from user where u_name = '" + user_name + "';";
@@ -365,7 +396,7 @@ public class User {
             else {
                 user.setU_name((String) value.elementAt(0));
                 user.setU_email((String) value.elementAt(1));
-                user.setU_avatar(null);
+                user.setU_avatar(());
                 user.setU_gender((String) value.elementAt(2));
                 user.setU_phone((String) value.elementAt(3));
                 user.setU_description((String) value.elementAt(4));
@@ -377,8 +408,7 @@ public class User {
         user.setU_avatar(selectSQLBlob(user_name));
         return user;
     }
-
-
+*/
     /*
     update u_identity = 1 on u_name == user_name
     MUST SET GlobalVariables.user_identity = 1;
