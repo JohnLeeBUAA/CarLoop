@@ -110,7 +110,7 @@ public class CarpoolList extends Footer {
         }
         else if(type.equals("Interested")) {
             this.setTitle("Interested List");
-            btn_interested.setBackgroundResource(R.drawable.green_button);
+            btn_interested.setBackgroundResource(R.drawable.select_border);
             list = Carpool.getInterestedList(GlobalVariables.user_name);
             if(list == null || list.size() == 0) {
                 tip.setText("No Interested Carpool");
@@ -123,7 +123,7 @@ public class CarpoolList extends Footer {
         }
         else if(type.equals("Confirmed")) {
             this.setTitle("Confirmed List");
-            btn_confirmed.setBackgroundResource(R.drawable.green_button);
+            btn_confirmed.setBackgroundResource(R.drawable.select_border);
             list = Carpool.getConfirmedList(GlobalVariables.user_name);
             if(list == null || list.size() == 0) {
                 tip.setText("No Confirmed Carpool");

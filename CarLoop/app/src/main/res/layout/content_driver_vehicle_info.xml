@@ -41,20 +41,39 @@
                 android:gravity="bottom"/>
         </LinearLayout>
 
-        <EditText android:id="@+id/license_addvehicleinfo"
-            android:layout_width="fill_parent"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="License Number" />
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:text="License:\t"
+                android:layout_gravity="center"/>
+            <EditText android:id="@+id/license_addvehicleinfo"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
 
-        <EditText android:id="@+id/paypal_addvehicleinfo"
-            android:layout_width="fill_parent"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Paypal Account" />
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:text="Paypal:\t"
+                android:layout_gravity="center"/>
+            <EditText android:id="@+id/paypal_addvehicleinfo"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginTop="5dp">
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
@@ -71,32 +90,77 @@
                 android:layout_marginLeft="10dp"/>
         </LinearLayout>
 
-        <EditText android:id="@+id/manufacture_addvehicleinfo"
-            android:layout_width="fill_parent"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Manufacture" />
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:text="Maker:\t"
+                android:layout_gravity="center"/>
+            <EditText android:id="@+id/manufacture_addvehicleinfo"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
 
-        <EditText android:id="@+id/model_addvehicleinfo"
-            android:layout_width="fill_parent"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Model" />
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:text="Model:\t"
+                android:layout_gravity="center"/>
+            <EditText android:id="@+id/model_addvehicleinfo"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
 
-        <EditText android:id="@+id/plate_addvehicleinfo"
-            android:layout_width="fill_parent"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Plate" />
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:text="Plate:\t"
+                android:layout_gravity="center"/>
+            <EditText android:id="@+id/plate_addvehicleinfo"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
 
-        <EditText android:id="@+id/mileage_addvehicleinfo"
-            android:layout_width="fill_parent"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"
-            android:hint="Mileage" />
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:text="Mileage:\t"
+                android:layout_gravity="center"/>
+            <EditText android:id="@+id/mileage_addvehicleinfo"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"/>
+        </LinearLayout>
 
-        <EditText android:id="@+id/capacity_addvehicleinfo"
-            android:layout_width="fill_parent"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="number"
-            android:hint="Capacity" />
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:text="Capacity:\t"
+                android:layout_gravity="center"/>
+            <EditText android:id="@+id/capacity_addvehicleinfo"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"/>
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
