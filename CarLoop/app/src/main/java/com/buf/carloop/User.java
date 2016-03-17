@@ -253,7 +253,7 @@ public class User {
             e.printStackTrace();
             return -1;
         }
-        insertSQLBlob(user_name, avatar);
+        if (avatar != null) insertSQLBlob(user_name, avatar);
         return value;
     }
 

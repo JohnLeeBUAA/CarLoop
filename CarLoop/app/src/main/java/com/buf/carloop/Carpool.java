@@ -309,10 +309,10 @@ public class Carpool implements Parcelable{
                 carpool.setDesti_lat((Double) value.elementAt(5));
                 carpool.setDesti_lng((Double) value.elementAt(6));
                 carpool.setDesti_loc((String) value.elementAt(7));
-                carpool.setDate((String) value.elementAt(8));
-                carpool.setDate_range((String) value.elementAt(9));
-                carpool.setTime((String) value.elementAt(10));
-                carpool.setTime_range((String) value.elementAt(11));
+                carpool.setDate(value.elementAt(8).toString());
+                carpool.setDate_range((String) value.elementAt(9).toString());
+                carpool.setTime(value.elementAt(10).toString());
+                carpool.setTime_range(value.elementAt(11).toString());
                 carpool.setMaxpassenger((int) value.elementAt(12));
                 carpool.setPrice((int) value.elementAt(13));
                 carpool.setPassengerconfirmed((int) value.elementAt(14));
@@ -359,7 +359,7 @@ public class Carpool implements Parcelable{
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
         task.execute(sqlComm);
         try {
-            return task.get(10000, TimeUnit.MILLISECONDS);
+            return (int) task.get(10000, TimeUnit.MILLISECONDS);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -672,8 +672,8 @@ public class Carpool implements Parcelable{
             String time_range
     ) {
         String sqlComm = "select * from carpool_created " +
-                "where (cc_date <= '"+ date + "' and cc_date_range <= '"  + date + "' or cc_date <= '"+ date_range + "' and cc_date_range >= '" + date_range + "') and " +
-                "(cc_time <= '"+ time + "' and cc_time_range <= '"  + time + "' or cc_time <= '"+ time_range + "' and cc_time_range >= '" + time_range + "') and " +
+                "where (cc_date <= '"+ date + "' and cc_date_range >= '"  + date + "' or cc_date <= '"+ date_range + "' and cc_date_range >= '" + date_range + "' or cc_date >= '" + date + "' and cc_date_range <='" + date_range + "') and " +
+                "(cc_time <= '"+ time + "' and cc_time_range >= '"  + time + "' or cc_time <= '"+ time_range + "' and cc_time_range >= '" + time_range + "' or cc_time >= '" + time + "' and cc_time_range <='" + time_range + "') and " +
                 "cc_status = 0 and cc_passengerconfirmed < cc_maxpassenger " +
                 "and cc_id not in (select pc_carpoolid from passenger_carpool where pc_passengername = '" + user_name + "');";
         List<Carpool> list = new ArrayList<Carpool>();

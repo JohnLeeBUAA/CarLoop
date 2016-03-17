@@ -9,7 +9,6 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    android:background="@drawable/sign_in_backcolor"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.buf.carloop.CarpoolNew"
     tools:showIn="@layout/activity_carpool_new">
@@ -55,7 +54,7 @@
                     android:layout_height="wrap_content"
                     android:text="Set Location"
                     android:textColor="#737373"
-                    android:background="@drawable/sign_in_border"
+                    android:background="@drawable/single_border"
                     android:layout_marginTop="5dp"/>
             </LinearLayout>
 
@@ -100,7 +99,7 @@
                     android:layout_height="wrap_content"
                     android:text="Set Location"
                     android:textColor="#737373"
-                    android:background="@drawable/sign_in_border"
+                    android:background="@drawable/single_border"
                     android:layout_marginTop="5dp"/>
             </LinearLayout>
         </LinearLayout>
@@ -151,7 +150,7 @@
                         android:layout_height="wrap_content"
                         android:text="Calender"
                         android:textColor="#737373"
-                        android:background="@drawable/sign_in_border"/>
+                        android:background="@drawable/single_border"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -189,7 +188,7 @@
                         android:layout_height="wrap_content"
                         android:text="Calender"
                         android:textColor="#737373"
-                        android:background="@drawable/sign_in_border"/>
+                        android:background="@drawable/single_border"/>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -240,7 +239,7 @@
                         android:layout_height="wrap_content"
                         android:text="Clock"
                         android:textColor="#737373"
-                        android:background="@drawable/sign_in_border"/>
+                        android:background="@drawable/single_border"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -278,7 +277,7 @@
                         android:layout_height="wrap_content"
                         android:text="Clock"
                         android:textColor="#737373"
-                        android:background="@drawable/sign_in_border"/>
+                        android:background="@drawable/single_border"/>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
