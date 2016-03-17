@@ -838,7 +838,7 @@ public class Carpool implements Parcelable{
     update passenger_carpool set pc_aboard = 1 where pc_passengername = user_name and pc_carpoolid = carpoolid
     !!!IMPORTANT: ALSO update created_carpool set cc_passengeraboard = cc_passengeraboard + 1 where cc_id = carpoolid
      */
-    public static int confirmInterested(String user_name, int carpoolid) {
+    public static int aboardConfirmed(String user_name, int carpoolid) {
         String sqlComm = "update passenger_carpool set pc_aboard = 1 where pc_passengername = '" + user_name + "' and pc_carpoolid=" + carpoolid + ";";
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
 
@@ -869,7 +869,7 @@ public class Carpool implements Parcelable{
     update passenger_carpool set pc_status = 2 where pc_passengername = user_name and pc_carpoolid = carpoolid
     !!!IMPORTANT: ALSO update created_carpool set cc_passengerconfirmed = cc_passengerconfirmed + 1 where cc_id = carpoolid
      */
-    public static int aboardConfirmed(String user_name, int carpoolid) {
+    public static int confirmInterested(String user_name, int carpoolid) {
         String sqlComm = "update passenger_carpool set pc_status = 2 where pc_passengername = '" + user_name + "' and pc_carpoolid=" + carpoolid + ";";
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
 
