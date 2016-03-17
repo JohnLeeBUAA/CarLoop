@@ -256,10 +256,10 @@ public class SqlCommond {
                 "(cc_time <= '"+ "03:00:00" + "' and cc_time_range <= '"  + "03:00:00" + "' or cc_time <= '"+ "03:00:00" + "' and cc_time_range >= '" + "03:00:00" + "') and " +
                 "cc_status = 0 and cc_passengerconfirmed < cc_maxpassenger " +
                 "and cc_id not in (select pc_carpoolid from passenger_carpool where pc_passengername = '" + "1" + "');";*/
-        String sqlComm = "update passenger_carpool set pc_message=1 where pc_passengername= 'James May' and pc_carpoolid = '4'";
+        String sqlComm = "select avg(r_rate) from review where r_drivername = '" + "xin" + "' and r_rate > " + 0.00001 + ";";
 
         SqlCommond sqlCommond = new SqlCommond();
-        int value1 = sqlCommond.longHaul(sqlComm);
+        Object value1 = sqlCommond.selectOnlyValue(sqlComm);
         System.out.println(value1);
 
 

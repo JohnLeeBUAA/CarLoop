@@ -332,6 +332,7 @@ public class Carpool implements Parcelable{
                 carpool.setPassengeraboard((int) value.elementAt(15));
                 carpool.setStatus((int) value.elementAt(16));
                 carpool.setDriveravatar(selectSQLBlob(carpool.getDrivername()));
+                carpool.setDriverrate(selectDriverrate(carpool.getDrivername()));
             }
 
         } catch (Exception e) {
@@ -340,6 +341,21 @@ public class Carpool implements Parcelable{
         return carpool;
     }
 
+    public static double selectDriverrate(String drivername) {
+        String sqlComm = "select avg(r_rate) from review where r_drivername = '" + drivername + "' and r_rate > " + 0.00001 + ";";
+        AsyncSelectOnlyValue task = new AsyncSelectOnlyValue();
+        task.execute(sqlComm);
+        try {
+            Object value  = (double) task.get(10000, TimeUnit.MILLISECONDS);
+            if (value != null)
+                return (double) value;
+            else
+                return 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
     /*
     create a new carpool in carpool_created
     NOTE: date and time are string, convert to sql.date and sql.time type if needed
