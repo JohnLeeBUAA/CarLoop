@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -230,6 +231,10 @@ public class CarpoolList extends Footer {
 
             TextView drivername = (TextView) itemView.findViewById(R.id.item_drivername);
             drivername.setText(carpool.getDrivername());
+
+            RatingBar rb = (RatingBar) itemView.findViewById(R.id.item_ratingbar_list);
+            rb.setNumStars(5);
+            rb.setRating((float) (carpool.getDriverrate()));
 
             TextView depart_loc = (TextView) itemView.findViewById(R.id.item_depart_loc);
             depart_loc.setText(carpool.getDepart_loc());
