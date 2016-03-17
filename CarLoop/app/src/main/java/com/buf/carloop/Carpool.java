@@ -616,7 +616,7 @@ public class Carpool implements Parcelable{
     ) {
         String sqlComm = "select * from carpool_created " +
                 "where ((cc_date <= '"+ date + "' and cc_date_range >= '"  + date + "') or (cc_date <= '"+ date_range + "' and cc_date_range >= '" + date_range + "') or (cc_date >= '" + date + "' and cc_date_range <='" + date_range + "')) and " +
-              //  "((cc_time <= '"+ time + "' and cc_time_range >= '"  + time + "') or (cc_time <= '"+ time_range + "' and cc_time_range >= '" + time_range + "') or (cc_time >= '" + time + "' and cc_time_range <='" + time_range + "')) and " +
+                "((cc_time <= '"+ time + "' and cc_time_range >= '"  + time + "') or (cc_time <= '"+ time_range + "' and cc_time_range >= '" + time_range + "') or (cc_time >= '" + time + "' and cc_time_range <='" + time_range + "')) and " +
                 "cc_status = 0 and cc_passengerconfirmed < cc_maxpassenger " +
                 "and cc_id not in (select pc_carpoolid from passenger_carpool where pc_passengername = '" + user_name + "');";
         List<Carpool> list = new ArrayList<Carpool>();
