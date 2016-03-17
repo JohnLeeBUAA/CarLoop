@@ -267,41 +267,45 @@ public class CarpoolList extends Footer {
     }
 
     public void jumpInterestedList(View view) {
-        this.setTitle("Interested List");
-        type = "Interested";
-        btn_interested.setBackgroundResource(R.drawable.green_button);
-        btn_confirmed.setBackgroundResource(R.drawable.single_border);
-        list = Carpool.getInterestedList(GlobalVariables.user_name);
-        if(list == null || list.size() == 0) {
-            tip.setText("No Interested Carpool");
-        }
-        else {
-            tip.setVisibility(View.GONE);
-            populateListView();
-            registerClickCallback();
-        }
-        /*Intent intent = new Intent(this, CarpoolList.class);
+//        this.setTitle("Interested List");
+//        type = "Interested";
+//        btn_interested.setBackgroundResource(R.drawable.green_button);
+//        btn_confirmed.setBackgroundResource(R.drawable.single_border);
+//        list = Carpool.getInterestedList(GlobalVariables.user_name);
+//        if(list == null || list.size() == 0) {
+//            tip.setText("No Interested Carpool");
+//        }
+//        else {
+//            tip.setVisibility(View.GONE);
+//            populateListView();
+//            registerClickCallback();
+//        }
+        finish();
+        Intent intent = new Intent(this, CarpoolList.class);
         intent.putExtra("type", "Interested");
-        startActivity(intent);*/
+        startActivity(intent);
     }
 
     public void jumpConfirmedList(View view) {
-        this.setTitle("Confirmed List");
+        /*this.setTitle("Confirmed List");
         type = "Confirmed";
         btn_confirmed.setBackgroundResource(R.drawable.green_button);
         btn_interested.setBackgroundResource(R.drawable.single_border);
-        list = Carpool.getConfirmedList(GlobalVariables.user_name);
+        list = null;
+        //list = Carpool.getConfirmedList(GlobalVariables.user_name);
         if(list == null || list.size() == 0) {
             tip.setText("No Confirmed Carpool");
+            tip.setVisibility(View.VISIBLE);
         }
         else {
             tip.setVisibility(View.GONE);
             populateListView();
             registerClickCallback();
-        }
-        /*Intent intent = new Intent(this, CarpoolList.class);
+        }*/
+        finish();
+        Intent intent = new Intent(this, CarpoolList.class);
         intent.putExtra("type", "Confirmed");
-        startActivity(intent);*/
+        startActivity(intent);
     }
 
     public void sortSearchList(View view) {
@@ -365,6 +369,7 @@ public class CarpoolList extends Footer {
                 }
             });
             populateListView();
+            registerClickCallback();
         }
     }
 
@@ -393,6 +398,7 @@ public class CarpoolList extends Footer {
                 }
             });
             populateListView();
+            registerClickCallback();
         }
     }
 
@@ -411,6 +417,7 @@ public class CarpoolList extends Footer {
                 }
             });
             populateListView();
+            registerClickCallback();
         }
     }
 
@@ -423,6 +430,7 @@ public class CarpoolList extends Footer {
                 }
             });
             populateListView();
+            registerClickCallback();
         }
     }
 
@@ -435,6 +443,7 @@ public class CarpoolList extends Footer {
                 }
             });
             populateListView();
+            registerClickCallback();
         }
     }
 
