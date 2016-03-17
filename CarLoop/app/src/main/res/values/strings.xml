@@ -30,4 +30,5 @@
     <string name="title_activity_review">Review</string>
     <string name="string">UTF-8</string>
     <string name="title_activity_payment">Payment</string>
+    <string name="title_activity_make_payment">Make Payment</string>
 </resources>

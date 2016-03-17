@@ -442,4 +442,11 @@ public class User {
             return -1;
         }
     }
+
+    /*
+    select v_driverpaypal from vehicle where v_drivername = drivername
+     */
+    public static String getDriverPaypal(String drivername) {
+        return "samplne.account@paypal.com";
+    }
 }
