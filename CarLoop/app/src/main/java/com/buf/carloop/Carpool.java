@@ -324,7 +324,7 @@ public class Carpool implements Parcelable{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new Carpool();
+        return carpool;
     }
 
     /*
@@ -401,51 +401,6 @@ public class Carpool implements Parcelable{
             e.printStackTrace();
             return -1;
         }
-    }
-
-    public static List<Carpool> generateFakeList() {
-        List<Carpool> list = new ArrayList<Carpool>();
-        list.add(new Carpool(1, "John Lee",
-                "Waterloo", 11.11D, 22.22D,
-                "Toronto", 33.33D, 44.44D,
-                "2016/3/2", "12:00", "2016/3/8", "22:00",
-                4, 40, 3, 0, 0,
-                null));
-        list.add(new Carpool(2, "Luke",
-                "Beijing", 11.11D, 22.22D,
-                "Tianjin", 33.33D, 44.44D,
-                "2016/4/3", "8:00", "2016/4/4", "10:00",
-                3, 55, 3, 0, 0,
-                null));
-        list.add(new Carpool(1, "Jin Xin",
-                "Huston", 11.11D, 22.22D,
-                "Dallas", 33.33D, 44.44D,
-                "2016/5/2", "3:00", "2016/5/2", "3:00",
-                8, 90, 5, 0, 0,
-                null));
-        return list;
-    }
-
-    public static List<Carpool> generateFakeList2() {
-        List<Carpool> list = new ArrayList<Carpool>();
-        list.add(new Carpool(1, "John Lee",
-                "Waterloo", 11.11D, 22.22D,
-                "Toronto", 33.33D, 44.44D,
-                "2016/3/2", "12:00", "2016/3/8", "22:00",
-                4, 40, 3, 0, 0,
-                null));
-        return list;
-    }
-
-    public static List<Carpool> generateFakeList3() {
-        List<Carpool> list = new ArrayList<Carpool>();
-        list.add(new Carpool(1, "Jin Xin",
-                "Huston", 11.11D, 22.22D,
-                "Dallas", 33.33D, 44.44D,
-                "2016/5/2", "3:00", "2016/5/2", "3:00",
-                8, 90, 5, 0, 0,
-                null));
-        return list;
     }
 
     /*
