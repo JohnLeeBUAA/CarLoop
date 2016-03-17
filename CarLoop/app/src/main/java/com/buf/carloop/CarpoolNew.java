@@ -25,6 +25,7 @@ import android.view.View.OnClickListener;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import android.content.DialogInterface.*;
 import android.app.DatePickerDialog;
@@ -66,6 +67,8 @@ public class CarpoolNew extends Footer {
 
     private Button add_btn;
     private ProgressBar bar;
+
+    private Carpool carpool;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,8 +116,8 @@ public class CarpoolNew extends Footer {
             this.setTitle("Edit Carpool");
             add_btn.setText("Update");
 
-            carpoolid = getIntent().getIntExtra("carpoolid", -1);
-            Carpool carpool = Carpool.getCarpool(carpoolid);
+            carpool = (Carpool) getIntent().getParcelableExtra("carpool");
+            carpoolid = carpool.getCarpoolid();
 
             depart_loc_val = carpool.getDepart_loc();
             depart_lat_val = carpool.getDepart_lat();
@@ -142,8 +145,8 @@ public class CarpoolNew extends Footer {
                 new DatePickerDialog(CarpoolNew.this,
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
-                            public void onDateSet(DatePicker dp, int year, int mounth, int day) {
-                                tip.setText(year + "/" + (mounth+1) + "/" + day);
+                            public void onDateSet(DatePicker dp, int year, int month, int day) {
+                                tip.setText(String.format("%04d-%02d-%02d", year, month + 1, day));
                             }
                         },
                         c.get(Calendar.YEAR),
@@ -159,8 +162,8 @@ public class CarpoolNew extends Footer {
                 new DatePickerDialog(CarpoolNew.this,
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
-                            public void onDateSet(DatePicker dp, int year, int mounth, int day) {
-                                tip2.setText(year + "/" + (mounth+1) + "/" + day);
+                            public void onDateSet(DatePicker dp, int year, int month, int day) {
+                                tip2.setText(String.format("%04d-%02d-%02d", year, month + 1, day));
                             }
                         },
                         c.get(Calendar.YEAR),
@@ -177,7 +180,7 @@ public class CarpoolNew extends Footer {
                         new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker tp, int hour, int min) {
-                                tip3.setText(hour + ":" + min);
+                                tip3.setText(String.format("%02d:%02d:%02d", hour, min, 0));
                             }
                         },
                         c.get(Calendar.HOUR_OF_DAY),
@@ -194,7 +197,7 @@ public class CarpoolNew extends Footer {
                         new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker tp, int hour, int min) {
-                                tip4.setText(hour + ":" + min);
+                                tip4.setText(String.format("%02d:%02d:%02d", hour, min, 0));
                             }
                         },
                         c.get(Calendar.HOUR_OF_DAY),
@@ -240,26 +243,25 @@ public class CarpoolNew extends Footer {
                 }
             }
             else if(type.equals("Edit")) {
-                int status = Carpool.updateCarpool(
-                        carpoolid,
-                        depart_loc_val,
-                        depart_lat_val,
-                        depart_lng_val,
-                        desti_loc_val,
-                        desti_lat_val,
-                        desti_lng_val,
-                        date,
-                        time,
-                        date_range,
-                        time_range,
-                        Integer.parseInt(maxpassenger_val),
-                        Integer.parseInt(price_val)
-                );
+                carpool.setDepart_loc(depart_loc_val);
+                carpool.setDepart_lat(depart_lat_val);
+                carpool.setDepart_lng(depart_lng_val);
+                carpool.setDesti_loc(desti_loc_val);
+                carpool.setDesti_lat(desti_lat_val);
+                carpool.setDesti_lng(desti_lng_val);
+                carpool.setDate(date);
+                carpool.setTime(time);
+                carpool.setDate_range(date_range);
+                carpool.setTime_range(time_range);
+                carpool.setMaxpassenger(Integer.parseInt(maxpassenger_val));
+                carpool.setPrice(Integer.parseInt(price_val));
+
+                int status = Carpool.updateCarpool(carpool);
                 if(status == 0) {
                     Toast.makeText(this, "Carpool updated", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(this, CarpoolSingle.class);
+                    intent.putExtra("carpool", carpool);
                     intent.putExtra("type", "Created");
-                    intent.putExtra("carpoolid", carpoolid);
                     startActivity(intent);
                 }
                 else {

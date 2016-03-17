@@ -1,11 +1,14 @@
 package com.buf.carloop;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -19,6 +22,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class CarpoolList extends Footer {
@@ -28,6 +33,17 @@ public class CarpoolList extends Footer {
     private TextView tip;
     private ListView listview;
     private List<Carpool> list;
+    private Button btn_interested;
+    private Button btn_confirmed;
+    private LinearLayout sortlist;
+    private Button btn_sort;
+    private int sortmethod;
+    private int tempsortmethod;
+
+    private double search_depart_lat;
+    private double search_depart_lng;
+    private double search_desti_lat;
+    private double search_desti_lng;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,14 +54,24 @@ public class CarpoolList extends Footer {
         setSupportActionBar(toolbar);
 
         buttonlist = (LinearLayout) findViewById(R.id.buttonlist_carpool_list);
+        sortlist = (LinearLayout) findViewById(R.id.sortlist_carpool_list);
+        sortlist.setVisibility(View.GONE);
+        btn_sort = (Button) findViewById(R.id.btn_sort_carpoollist);
         listview = (ListView) findViewById(R.id.list_carpoollist);
         tip = (TextView) findViewById(R.id.tip_carpoollist);
+        btn_interested = (Button) findViewById(R.id.btn_interested_carpoollist);
+        btn_confirmed = (Button) findViewById(R.id.btn_confirmed_carpoollist);
+
+        search_depart_lat = getIntent().getDoubleExtra("depart_lat_val", 0D);
+        search_depart_lng = getIntent().getDoubleExtra("depart_lng_val", 0D);
+        search_desti_lat = getIntent().getDoubleExtra("desti_lat_val", 0D);
+        search_desti_lng = getIntent().getDoubleExtra("desti_lng_val", 0D);
         
         type = getIntent().getStringExtra("type");
         if(type.equals("Search")) {
             this.setTitle("Search Result");
             buttonlist.setVisibility(View.GONE);
-
+            sortlist.setVisibility(View.VISIBLE);
             list = Carpool.getSearchList(
                     GlobalVariables.user_name,
                     getIntent().getDoubleExtra("depart_lat_val", 0D),
@@ -56,6 +82,9 @@ public class CarpoolList extends Footer {
                     getIntent().getStringExtra("time"),
                     getIntent().getStringExtra("date_range"),
                     getIntent().getStringExtra("time_range"));
+            btn_sort.setText("Advanced Sort");
+            sortmethod = 1;
+            sortAdvacedSort();
             if(list == null || list.size() == 0) {
                 tip.setText("No Matched Carpool");
             }
@@ -81,7 +110,7 @@ public class CarpoolList extends Footer {
         }
         else if(type.equals("Interested")) {
             this.setTitle("Interested List");
-
+            btn_interested.setBackgroundResource(R.drawable.green_button);
             list = Carpool.getInterestedList(GlobalVariables.user_name);
             if(list == null || list.size() == 0) {
                 tip.setText("No Interested Carpool");
@@ -94,7 +123,7 @@ public class CarpoolList extends Footer {
         }
         else if(type.equals("Confirmed")) {
             this.setTitle("Confirmed List");
-
+            btn_confirmed.setBackgroundResource(R.drawable.green_button);
             list = Carpool.getConfirmedList(GlobalVariables.user_name);
             if(list == null || list.size() == 0) {
                 tip.setText("No Confirmed Carpool");
@@ -108,8 +137,19 @@ public class CarpoolList extends Footer {
         else if(type.equals("Message")) {
             this.setTitle("Message List");
             buttonlist.setVisibility(View.GONE);
-
-            list = Carpool.getMessageList(GlobalVariables.user_name);
+            if(GlobalVariables.user_identity == 1) {
+                list = Carpool.getCreatedList(GlobalVariables.user_name);
+            }
+            else {
+                List<Carpool> interestedlist = Carpool.getInterestedList(GlobalVariables.user_name);
+                List<Carpool> confirmedlist = Carpool.getConfirmedList(GlobalVariables.user_name);
+                if(interestedlist != null && interestedlist.size() != 0) {
+                    list.addAll(interestedlist);
+                }
+                if(confirmedlist != null && confirmedlist.size() != 0) {
+                    list.addAll(confirmedlist);
+                }
+            }
             if(list == null || list.size() == 0) {
                 tip.setText("Message List Is Empty");
             }
@@ -136,12 +176,9 @@ public class CarpoolList extends Footer {
                 if (type.equals("Message")) {
                     Intent intent = new Intent(CarpoolList.this, Message.class);
                     intent.putExtra("carpoolid", clickedCarpoolid);
+                    intent.putExtra("drivername", list.get(position).getDrivername());
                     startActivity(intent);
                 } else {
-                    if (type.equals("Search")) {
-                        TextView status = (TextView) viewClicked.findViewById(R.id.item_status);
-                        status.setText("This carpool is checked");
-                    }
                     Intent intent = new Intent(CarpoolList.this, CarpoolSingle.class);
                     intent.putExtra("carpool", list.get(position));
                     if (list.get(position).getStatus() == 1 && type.equals("Created")) {
@@ -156,6 +193,12 @@ public class CarpoolList extends Footer {
                         intent.putExtra("type", type);
                     }
                     startActivity(intent);
+                    if (type.equals("Search")) {
+                        list.remove(position);
+                        populateListView();
+                        /*TextView status = (TextView) viewClicked.findViewById(R.id.item_checked);
+                        status.setText("This carpool is checked");*/
+                    }
                 }
             }
         });
@@ -224,19 +267,184 @@ public class CarpoolList extends Footer {
     }
 
     public void jumpInterestedList(View view) {
-        list = Carpool.getInterestedList(GlobalVariables.user_name);
-        populateListView();
-        /*Intent intent = new Intent(this, CarpoolList.class);
+//        this.setTitle("Interested List");
+//        type = "Interested";
+//        btn_interested.setBackgroundResource(R.drawable.green_button);
+//        btn_confirmed.setBackgroundResource(R.drawable.single_border);
+//        list = Carpool.getInterestedList(GlobalVariables.user_name);
+//        if(list == null || list.size() == 0) {
+//            tip.setText("No Interested Carpool");
+//        }
+//        else {
+//            tip.setVisibility(View.GONE);
+//            populateListView();
+//            registerClickCallback();
+//        }
+        finish();
+        Intent intent = new Intent(this, CarpoolList.class);
         intent.putExtra("type", "Interested");
-        startActivity(intent);*/
+        startActivity(intent);
     }
 
     public void jumpConfirmedList(View view) {
-        list = Carpool.getConfirmedList(GlobalVariables.user_name);
-        populateListView();
-        /*Intent intent = new Intent(this, CarpoolList.class);
+        /*this.setTitle("Confirmed List");
+        type = "Confirmed";
+        btn_confirmed.setBackgroundResource(R.drawable.green_button);
+        btn_interested.setBackgroundResource(R.drawable.single_border);
+        list = null;
+        //list = Carpool.getConfirmedList(GlobalVariables.user_name);
+        if(list == null || list.size() == 0) {
+            tip.setText("No Confirmed Carpool");
+            tip.setVisibility(View.VISIBLE);
+        }
+        else {
+            tip.setVisibility(View.GONE);
+            populateListView();
+            registerClickCallback();
+        }*/
+        finish();
+        Intent intent = new Intent(this, CarpoolList.class);
         intent.putExtra("type", "Confirmed");
-        startActivity(intent);*/
+        startActivity(intent);
+    }
+
+    public void sortSearchList(View view) {
+        final CharSequence[] choice = {"Advanced Sort", "Walking Distance", "Departure Time", "Driver Rating", "Carpool Price"};
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(CarpoolList.this);
+        alert.setTitle("Sort List By");
+        alert.setSingleChoiceItems(choice, sortmethod - 1, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (choice[which] == "Advanced Sort") {
+                    tempsortmethod = 1;
+                } else if (choice[which] == "Walking Distance") {
+                    tempsortmethod = 2;
+                } else if (choice[which] == "Departure Time") {
+                    tempsortmethod = 3;
+                } else if (choice[which] == "Driver Rating") {
+                    tempsortmethod = 4;
+                } else if (choice[which] == "Carpool Price") {
+                    tempsortmethod = 5;
+                }
+            }
+        });
+        alert.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                sortmethod = tempsortmethod;
+                if (sortmethod == 1) {
+                    btn_sort.setText("Advanced Sort");
+                    sortAdvacedSort();
+                } else if (sortmethod == 2) {
+                    btn_sort.setText("Walking Distance");
+                    sortWalkingDistance();
+                } else if (sortmethod == 3) {
+                    btn_sort.setText("Departure Time");
+                    sortDepartureTime();
+                } else if (sortmethod == 4) {
+                    btn_sort.setText("Driver Rating");
+                    sortDriverRating();
+                } else if (sortmethod == 5) {
+                    btn_sort.setText("Carpool Price");
+                    sortCarpoolPrice();
+                }
+            }
+        });
+        alert.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        alert.show();
+    }
+
+    private void sortAdvacedSort() {
+        if(list != null && list.size() != 0) {
+            Collections.sort(list, new Comparator<Carpool>() {
+                @Override
+                public int compare(Carpool lhs, Carpool rhs) {
+                    return 0;
+                }
+            });
+            populateListView();
+            registerClickCallback();
+        }
+    }
+
+    private void sortWalkingDistance() {
+        if(list != null && list.size() != 0) {
+            Collections.sort(list, new Comparator<Carpool>() {
+                @Override
+                public int compare(Carpool lhs, Carpool rhs) {
+                    double ldis = Math.pow(Math.abs(lhs.getDepart_lat() - search_depart_lat), 2) +
+                            Math.pow(Math.abs(lhs.getDepart_lng() - search_depart_lng), 2) +
+                            Math.pow(Math.abs(lhs.getDesti_lat() - search_desti_lat), 2) +
+                            Math.pow(Math.abs(lhs.getDesti_lng() - search_desti_lng), 2);
+                    double rdis = Math.pow(Math.abs(rhs.getDepart_lat() - search_depart_lat), 2) +
+                            Math.pow(Math.abs(rhs.getDepart_lng() - search_depart_lng), 2) +
+                            Math.pow(Math.abs(rhs.getDesti_lat() - search_desti_lat), 2) +
+                            Math.pow(Math.abs(rhs.getDesti_lng() - search_desti_lng), 2);
+                    if(ldis > rdis) {
+                        return 1;
+                    }
+                    else if(ldis < rdis) {
+                        return -1;
+                    }
+                    else {
+                        return 0;
+                    }
+                }
+            });
+            populateListView();
+            registerClickCallback();
+        }
+    }
+
+    private void sortDepartureTime() {
+        if(list != null && list.size() != 0) {
+            Collections.sort(list, new Comparator<Carpool>() {
+                @Override
+                public int compare(Carpool lhs, Carpool rhs) {
+                    int comparedate = lhs.getDate().compareTo(rhs.getDate());
+                    if(comparedate == 0) {
+                        return lhs.getTime().compareTo(rhs.getTime());
+                    }
+                    else {
+                        return comparedate;
+                    }
+                }
+            });
+            populateListView();
+            registerClickCallback();
+        }
+    }
+
+    private void sortDriverRating() {
+        if(list != null && list.size() != 0) {
+            Collections.sort(list, new Comparator<Carpool>() {
+                @Override
+                public int compare(Carpool lhs, Carpool rhs) {
+                    return 0;
+                }
+            });
+            populateListView();
+            registerClickCallback();
+        }
+    }
+
+    private void sortCarpoolPrice() {
+        if(list != null && list.size() != 0) {
+            Collections.sort(list, new Comparator<Carpool>() {
+                @Override
+                public int compare(Carpool lhs, Carpool rhs) {
+                    return lhs.getPrice() - rhs.getPrice();
+                }
+            });
+            populateListView();
+            registerClickCallback();
+        }
     }
 
 }

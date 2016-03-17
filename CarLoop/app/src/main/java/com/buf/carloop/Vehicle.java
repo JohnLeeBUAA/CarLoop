@@ -16,6 +16,7 @@ import java.util.concurrent.TimeUnit;
 public class Vehicle {
     private int v_id;
     private String v_drivername;
+    private String v_driverpaypal;
     private String v_driverlicense;
     private String v_manufacturer;
     private String v_model;
@@ -54,6 +55,14 @@ public class Vehicle {
 
     public void setV_driverlicense(String v_driverlicense) {
         this.v_driverlicense = v_driverlicense;
+    }
+
+    public String getV_driverpaypal() {
+        return v_driverpaypal;
+    }
+
+    public void setV_driverpaypal(String v_driverpaypal) {
+        this.v_driverpaypal = v_driverpaypal;
     }
 
     public String getV_manufacturer() {
@@ -106,12 +115,15 @@ public class Vehicle {
         task.execute(sqlComm);
         try {
             Vector<Object> vector = task.get(5000, TimeUnit.MILLISECONDS);
-            vehicle.v_driverlicense = (String) vector.elementAt(2);
-            vehicle.v_manufacturer = (String) vector.elementAt(3);
-            vehicle.v_model = (String) vector.elementAt(4);
-            vehicle.v_plate = (String) vector.elementAt(5);
-            vehicle.v_mileage = (int) vector.elementAt(6);
-            vehicle.v_capacity = (int) vector.elementAt(7);
+            vehicle.setV_id((int) vector.elementAt(0));
+            vehicle.setV_drivername((String) vector.elementAt(1));
+            vehicle.setV_driverpaypal((String) vector.elementAt(2));
+            vehicle.setV_driverlicense((String) vector.elementAt(3));
+            vehicle.setV_manufacturer((String) vector.elementAt(4));
+            vehicle.setV_model((String) vector.elementAt(5));
+            vehicle.setV_plate((String) vector.elementAt(6));
+            vehicle.setV_mileage((int) vector.elementAt(7));
+            vehicle.setV_capacity((int) vector.elementAt(7));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -142,9 +154,9 @@ public class Vehicle {
     /*
     add a new vehicle record
      */
-    public static int addVehicle(String drivername, String driverlicense, String manufacturer, String model, String plate, int mileage, int capacity) {
-        String sqlComm = "insert into vehicle (v_drivername, v_driverlicense, v_manufacturer, v_model, v_plate, v_mileage, v_capacity) values ('" +
-                drivername+ "', '" + driverlicense + "', '" + manufacturer + "', '" + model + "', '" + plate +
+    public static int addVehicle(String drivername, String driverpaypal, String driverlicense, String manufacturer, String model, String plate, int mileage, int capacity) {
+        String sqlComm = "insert into vehicle (v_drivername, v_driverpaypal, v_driverlicense, v_manufacturer, v_model, v_plate, v_mileage, v_capacity) values ('" +
+                drivername+ "', '" + driverpaypal + "', '" + driverlicense + "', '" + manufacturer + "', '" + model + "', '" + plate +
                 "', " + mileage + ", " + capacity + ");";
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
         task.execute(sqlComm);
@@ -159,8 +171,10 @@ public class Vehicle {
     /*
     update vehicle on v_drivername == drivername
      */
-    public static int updateVehicle(String drivername, String driverlicense, String manufacturer, String model, String plate, int mileage, int capacity) {
-        String sqlComm = "update vehicle set  v_driverlicense= '" + driverlicense + "'," +
+    public static int updateVehicle(String drivername, String driverpaypal, String driverlicense, String manufacturer, String model, String plate, int mileage, int capacity) {
+        String sqlComm = "update vehicle set  " +
+                "v_driverpaypal='" + driverpaypal + "', " +
+                "v_driverlicense= '" + driverlicense + "'," +
                 "v_manufacturer='" + manufacturer + "', " +
                 "v_model='" + model + "', " +
                 "v_plate='" + plate + "', " +

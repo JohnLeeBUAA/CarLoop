@@ -1,6 +1,6 @@
 package com.buf.carloop;
 
-import android.app.AlertDialog;
+import android.support.v7.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -202,16 +202,10 @@ public class CarpoolSingle extends Footer {
     }
 
     public void jumpMessage(View view) {
-        int status = Carpool.updateMessage(GlobalVariables.user_name, carpoolid);
-        if(status == 0) {
-            Intent intent = new Intent(this, Message.class);
-            intent.putExtra("carpoolid", carpoolid);
-            intent.putExtra("drivername", carpool.getDrivername());
-            startActivity(intent);
-        }
-        else {
-            Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();
-        }
+        Intent intent = new Intent(this, Message.class);
+        intent.putExtra("carpoolid", carpool.getCarpoolid());
+        intent.putExtra("drivername", carpool.getDrivername());
+        startActivity(intent);
     }
 
     public void deleteCreated(View view) {
@@ -246,7 +240,7 @@ public class CarpoolSingle extends Footer {
 
     public void editCreated(View view) {
         Intent intent = new Intent(this, CarpoolNew.class);
-        intent.putExtra("carpoolid", carpoolid);
+        intent.putExtra("carpool", carpool);
         intent.putExtra("type", "Edit");
         startActivity(intent);
     }

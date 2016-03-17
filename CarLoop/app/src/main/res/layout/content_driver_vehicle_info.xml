@@ -46,6 +46,11 @@
             android:layout_height="wrap_content"
             android:hint="License Number" />
 
+        <EditText android:id="@+id/paypal_addvehicleinfo"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Paypal Account" />
+
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

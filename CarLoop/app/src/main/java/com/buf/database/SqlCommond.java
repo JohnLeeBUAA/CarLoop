@@ -166,6 +166,9 @@ public class SqlCommond {
             else if (e.getMessage().contains("v_plate")) {
                 return 5;
             }
+            else if (e.getMessage().contains("v_driverpaypal")) {
+                return 6;
+            }
             else {
                 return -1;
             }
@@ -205,6 +208,7 @@ public class SqlCommond {
             stmt.setBinaryStream(1, bis, bis.available());
             stmt.executeUpdate();
             stmt.close();
+
             //commit the long lasting result 提交持久化
             conn.commit();
         } catch (SQLException e) {
@@ -252,8 +256,7 @@ public class SqlCommond {
                 "(cc_time <= '"+ "03:00:00" + "' and cc_time_range <= '"  + "03:00:00" + "' or cc_time <= '"+ "03:00:00" + "' and cc_time_range >= '" + "03:00:00" + "') and " +
                 "cc_status = 0 and cc_passengerconfirmed < cc_maxpassenger " +
                 "and cc_id not in (select pc_carpoolid from passenger_carpool where pc_passengername = '" + "1" + "');";*/
-        String sqlComm = "insert into review (r_passengername, r_drivername, r_rate, r_review) values ('" +
-                "john" + "', '" + "john" + "', " + 10.0 + ", '" + "good driver" + "');";
+        String sqlComm = "update passenger_carpool set pc_message=1 where pc_passengername= 'James May' and pc_carpoolid = '4'";
 
         SqlCommond sqlCommond = new SqlCommond();
         int value1 = sqlCommond.longHaul(sqlComm);
