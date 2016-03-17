@@ -26,6 +26,7 @@
             android:orientation="horizontal"
             android:layout_gravity="center">
             <Button
+                android:id="@+id/btn_interested_carpoollist"
                 android:text="\tInterested\t"
                 android:layout_weight="1"
                 android:layout_width="0dp"
@@ -33,6 +34,7 @@
                 android:onClick="jumpInterestedList"
                 android:background="@drawable/single_border"/>
             <Button
+                android:id="@+id/btn_confirmed_carpoollist"
                 android:text="\tConfirmed\t"
                 android:layout_weight="1"
                 android:layout_width="0dp"

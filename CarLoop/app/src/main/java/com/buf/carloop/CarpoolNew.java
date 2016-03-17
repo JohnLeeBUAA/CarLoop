@@ -136,7 +136,7 @@ public class CarpoolNew extends Footer {
             maxpassenger.setText(Integer.toString(carpool.getMaxpassenger()));
             price.setText(Integer.toString(carpool.getPrice()));
         }
-
+        
         btn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -3,6 +3,7 @@ package com.buf.carloop;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -28,6 +29,8 @@ public class CarpoolList extends Footer {
     private TextView tip;
     private ListView listview;
     private List<Carpool> list;
+    private Button btn_interested;
+    private Button btn_confirmed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,8 @@ public class CarpoolList extends Footer {
         buttonlist = (LinearLayout) findViewById(R.id.buttonlist_carpool_list);
         listview = (ListView) findViewById(R.id.list_carpoollist);
         tip = (TextView) findViewById(R.id.tip_carpoollist);
+        btn_interested = (Button) findViewById(R.id.btn_interested_carpoollist);
+        btn_confirmed = (Button) findViewById(R.id.btn_confirmed_carpoollist);
         
         type = getIntent().getStringExtra("type");
         if(type.equals("Search")) {
@@ -81,7 +86,7 @@ public class CarpoolList extends Footer {
         }
         else if(type.equals("Interested")) {
             this.setTitle("Interested List");
-
+            btn_interested.setBackgroundResource(R.drawable.green_button);
             list = Carpool.getInterestedList(GlobalVariables.user_name);
             if(list == null || list.size() == 0) {
                 tip.setText("No Interested Carpool");
@@ -94,7 +99,7 @@ public class CarpoolList extends Footer {
         }
         else if(type.equals("Confirmed")) {
             this.setTitle("Confirmed List");
-
+            btn_confirmed.setBackgroundResource(R.drawable.green_button);
             list = Carpool.getConfirmedList(GlobalVariables.user_name);
             if(list == null || list.size() == 0) {
                 tip.setText("No Confirmed Carpool");
@@ -108,8 +113,19 @@ public class CarpoolList extends Footer {
         else if(type.equals("Message")) {
             this.setTitle("Message List");
             buttonlist.setVisibility(View.GONE);
-
-            list = Carpool.getMessageList(GlobalVariables.user_name);
+            if(GlobalVariables.user_identity == 1) {
+                list = Carpool.getCreatedList(GlobalVariables.user_name);
+            }
+            else {
+                List<Carpool> interestedlist = Carpool.getInterestedList(GlobalVariables.user_name);
+                List<Carpool> confirmedlist = Carpool.getConfirmedList(GlobalVariables.user_name);
+                if(interestedlist != null && interestedlist.size() != 0) {
+                    list.addAll(interestedlist);
+                }
+                if(confirmedlist != null && confirmedlist.size() != 0) {
+                    list.addAll(confirmedlist);
+                }
+            }
             if(list == null || list.size() == 0) {
                 tip.setText("Message List Is Empty");
             }
@@ -136,6 +152,7 @@ public class CarpoolList extends Footer {
                 if (type.equals("Message")) {
                     Intent intent = new Intent(CarpoolList.this, Message.class);
                     intent.putExtra("carpoolid", clickedCarpoolid);
+                    intent.putExtra("drivername", list.get(position).getDrivername());
                     startActivity(intent);
                 } else {
                     if (type.equals("Search")) {
@@ -225,6 +242,8 @@ public class CarpoolList extends Footer {
 
     public void jumpInterestedList(View view) {
         this.setTitle("Interested List");
+        btn_interested.setBackgroundResource(R.drawable.green_button);
+        btn_confirmed.setBackgroundResource(R.drawable.single_border);
         list = Carpool.getInterestedList(GlobalVariables.user_name);
         if(list == null || list.size() == 0) {
             tip.setText("No Interested Carpool");
@@ -241,6 +260,8 @@ public class CarpoolList extends Footer {
 
     public void jumpConfirmedList(View view) {
         this.setTitle("Confirmed List");
+        btn_confirmed.setBackgroundResource(R.drawable.green_button);
+        btn_interested.setBackgroundResource(R.drawable.single_border);
         list = Carpool.getConfirmedList(GlobalVariables.user_name);
         if(list == null || list.size() == 0) {
             tip.setText("No Confirmed Carpool");
