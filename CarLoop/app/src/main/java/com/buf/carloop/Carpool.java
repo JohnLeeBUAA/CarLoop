@@ -373,24 +373,12 @@ public class Carpool implements Parcelable{
     date format(yyyy/MM/dd), time format(kk:mm) (simpledateformat)
      */
     public static int updateCarpool(
-            int carpoolid,
-            String depart_loc,
-            double depart_lat,
-            double depart_lng,
-            String desti_loc,
-            double desti_lat,
-            double desti_lng,
-            String date,
-            String time,
-            String date_range,
-            String time_range,
-            int maxpassenger,
-            int price
+            Carpool carpool
     ) {
         String sqlComm = String.format("update carpool_created set cc_depart_lat=%f, cc_depart_lng=%f, cc_depart_loc='%s', " +
                         "cc_desti_lat=%f, cc_desti_lng=%f, cc_desti_loc='%s', cc_date='%s', cc_date_range='%s', cc_time='%s', " +
                         "cc_time_range='%s', cc_maxpassenger=%d, cc_price=%d where cc_id=%d;",
-                        depart_lat, depart_lng, depart_loc, desti_lat, desti_lng, desti_loc, date, date_range, time, time_range, maxpassenger, price, carpoolid);
+                        carpool.getDepart_lat(), carpool.getDepart_lng(), carpool.getDepart_loc(), carpool.getDesti_lat(), carpool.getDesti_lng(), carpool.getDesti_loc(), carpool.getDate(), carpool.getDate_range(), carpool.getTime(), carpool.getTime_range(), carpool.getMaxpassenger(), carpool.getPrice(), carpool.getCarpoolid());
         // Sql create user operation
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
         task.execute(sqlComm);

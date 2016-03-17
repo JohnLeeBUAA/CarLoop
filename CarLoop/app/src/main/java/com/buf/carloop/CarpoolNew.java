@@ -67,6 +67,8 @@ public class CarpoolNew extends Footer {
     private Button add_btn;
     private ProgressBar bar;
 
+    private Carpool carpool;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,8 +115,8 @@ public class CarpoolNew extends Footer {
             this.setTitle("Edit Carpool");
             add_btn.setText("Update");
 
-            carpoolid = getIntent().getIntExtra("carpoolid", -1);
-            Carpool carpool = Carpool.getCarpool(carpoolid);
+            carpool = (Carpool) getIntent().getParcelableExtra("carpool");
+            carpoolid = carpool.getCarpoolid();
 
             depart_loc_val = carpool.getDepart_loc();
             depart_lat_val = carpool.getDepart_lat();
@@ -134,7 +136,7 @@ public class CarpoolNew extends Footer {
             maxpassenger.setText(Integer.toString(carpool.getMaxpassenger()));
             price.setText(Integer.toString(carpool.getPrice()));
         }
-
+        
         btn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -240,26 +242,25 @@ public class CarpoolNew extends Footer {
                 }
             }
             else if(type.equals("Edit")) {
-                int status = Carpool.updateCarpool(
-                        carpoolid,
-                        depart_loc_val,
-                        depart_lat_val,
-                        depart_lng_val,
-                        desti_loc_val,
-                        desti_lat_val,
-                        desti_lng_val,
-                        date,
-                        time,
-                        date_range,
-                        time_range,
-                        Integer.parseInt(maxpassenger_val),
-                        Integer.parseInt(price_val)
-                );
+                carpool.setDepart_loc(depart_loc_val);
+                carpool.setDepart_lat(depart_lat_val);
+                carpool.setDepart_lng(depart_lng_val);
+                carpool.setDesti_loc(desti_loc_val);
+                carpool.setDesti_lat(desti_lat_val);
+                carpool.setDesti_lng(desti_lng_val);
+                carpool.setDate(date);
+                carpool.setTime(time);
+                carpool.setDate_range(date_range);
+                carpool.setTime_range(time_range);
+                carpool.setMaxpassenger(Integer.parseInt(maxpassenger_val));
+                carpool.setPrice(Integer.parseInt(price_val));
+
+                int status = Carpool.updateCarpool(carpool);
                 if(status == 0) {
                     Toast.makeText(this, "Carpool updated", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(this, CarpoolSingle.class);
+                    intent.putExtra("carpool", carpool);
                     intent.putExtra("type", "Created");
-                    intent.putExtra("carpoolid", carpoolid);
                     startActivity(intent);
                 }
                 else {
