@@ -60,7 +60,9 @@ public class Message extends Footer {
                                 @Override
                                 public void run() {
                                     list = MessageClass.getMessageList(carpoolid);
-                                    populateListView();
+                                    if(list != null && list.size() > 0) {
+                                        populateListView();
+                                    }
                                 }
                             });
                         }
@@ -130,8 +132,11 @@ public class Message extends Footer {
         if(!content.getText().toString().equals("")) {
             MessageClass.addMessage(GlobalVariables.user_name, content.getText().toString(), carpoolid);
         }
+        content.setText("");
         list = MessageClass.getMessageList(carpoolid);
-        populateListView();
+        if(list != null && list.size() > 0) {
+            populateListView();
+        }
     }
 
     public void finishActivity(View view) {

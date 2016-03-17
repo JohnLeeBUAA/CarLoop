@@ -25,6 +25,7 @@ import android.view.View.OnClickListener;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import android.content.DialogInterface.*;
 import android.app.DatePickerDialog;
@@ -136,7 +137,7 @@ public class CarpoolNew extends Footer {
             maxpassenger.setText(Integer.toString(carpool.getMaxpassenger()));
             price.setText(Integer.toString(carpool.getPrice()));
         }
-        
+
         btn.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,8 +145,8 @@ public class CarpoolNew extends Footer {
                 new DatePickerDialog(CarpoolNew.this,
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
-                            public void onDateSet(DatePicker dp, int year, int mounth, int day) {
-                                tip.setText(year + "/" + (mounth+1) + "/" + day);
+                            public void onDateSet(DatePicker dp, int year, int month, int day) {
+                                tip.setText(String.format("%04d-%02d-%02d", year, month + 1, day));
                             }
                         },
                         c.get(Calendar.YEAR),
@@ -161,8 +162,8 @@ public class CarpoolNew extends Footer {
                 new DatePickerDialog(CarpoolNew.this,
                         new DatePickerDialog.OnDateSetListener() {
                             @Override
-                            public void onDateSet(DatePicker dp, int year, int mounth, int day) {
-                                tip2.setText(year + "/" + (mounth+1) + "/" + day);
+                            public void onDateSet(DatePicker dp, int year, int month, int day) {
+                                tip2.setText(String.format("%04d-%02d-%02d", year, month + 1, day));
                             }
                         },
                         c.get(Calendar.YEAR),
@@ -179,7 +180,7 @@ public class CarpoolNew extends Footer {
                         new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker tp, int hour, int min) {
-                                tip3.setText(hour + ":" + min);
+                                tip3.setText(String.format("%02d:%02d:%02d", hour, min, 0));
                             }
                         },
                         c.get(Calendar.HOUR_OF_DAY),
@@ -196,7 +197,7 @@ public class CarpoolNew extends Footer {
                         new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker tp, int hour, int min) {
-                                tip4.setText(hour + ":" + min);
+                                tip4.setText(String.format("%02d:%02d:%02d", hour, min, 0));
                             }
                         },
                         c.get(Calendar.HOUR_OF_DAY),
