@@ -340,7 +340,12 @@ public class CarpoolSingle extends Footer {
     }
 
     public void payConfirmed (View view) {
-
+        Intent intent = new Intent(this, MakePayment.class);
+        intent.putExtra("carpoolid", carpoolid);
+        intent.putExtra("drivername", carpool.getDrivername());
+        intent.putExtra("driveravatar", carpool.getDriveravatar());
+        intent.putExtra("price", carpool.getPrice());
+        startActivity(intent);
     }
 
     public void reviewConfirmed (View view) {
@@ -360,12 +365,7 @@ public class CarpoolSingle extends Footer {
     }
 
     public void naviTrip (View view) {
-        Intent intent = new Intent(this, MakePayment.class);
-        intent.putExtra("carpoolid", carpoolid);
-        intent.putExtra("drivername", carpool.getDrivername());
-        intent.putExtra("driveravatar", carpool.getDriveravatar());
-        intent.putExtra("price", carpool.getPrice());
-        startActivity(intent);
+
     }
 
     public void confirmPaymentTrip (View view) {

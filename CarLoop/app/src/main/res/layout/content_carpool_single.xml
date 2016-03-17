@@ -407,7 +407,8 @@
             android:onClick="payConfirmed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/single_border"/>
+            android:background="@drawable/single_border"
+            android:layout_marginLeft="10dp"/>
         <Button
             android:id="@+id/btn_reviewconfirmed"
             android:text="\tReview Driver\t"

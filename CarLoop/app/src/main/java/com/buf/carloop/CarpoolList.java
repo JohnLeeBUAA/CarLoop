@@ -23,6 +23,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -147,6 +148,7 @@ public class CarpoolList extends Footer {
                 list = Carpool.getCreatedList(GlobalVariables.user_name);
             }
             else {
+                list = new ArrayList<>();
                 List<Carpool> interestedlist = Carpool.getInterestedList(GlobalVariables.user_name);
                 List<Carpool> confirmedlist = Carpool.getConfirmedList(GlobalVariables.user_name);
                 if(interestedlist != null && interestedlist.size() != 0) {
