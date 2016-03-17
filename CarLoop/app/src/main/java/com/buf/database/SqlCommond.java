@@ -166,6 +166,9 @@ public class SqlCommond {
             else if (e.getMessage().contains("v_plate")) {
                 return 5;
             }
+            else if (e.getMessage().contains("v_driverpaypal")) {
+                return 6;
+            }
             else {
                 return -1;
             }
