@@ -339,6 +339,10 @@ public class CarpoolSingle extends Footer {
         }
     }
 
+    public void payConfirmed (View view) {
+
+    }
+
     public void reviewConfirmed (View view) {
         int valid = Carpool.reviewCheck(GlobalVariables.user_name, carpoolid);
         if(valid == 0) {
@@ -348,7 +352,7 @@ public class CarpoolSingle extends Footer {
             startActivity(intent);
         }
         else if(valid == 1){
-            Toast.makeText(this, "Can not write review. Wait till the driver confirms your payment.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Can not write review. Please make your payment first.", Toast.LENGTH_LONG).show();
         }
         else {
             Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();
@@ -356,7 +360,12 @@ public class CarpoolSingle extends Footer {
     }
 
     public void naviTrip (View view) {
-
+        Intent intent = new Intent(this, MakePayment.class);
+        intent.putExtra("carpoolid", carpoolid);
+        intent.putExtra("drivername", carpool.getDrivername());
+        intent.putExtra("driveravatar", carpool.getDriveravatar());
+        intent.putExtra("price", carpool.getPrice());
+        startActivity(intent);
     }
 
     public void confirmPaymentTrip (View view) {

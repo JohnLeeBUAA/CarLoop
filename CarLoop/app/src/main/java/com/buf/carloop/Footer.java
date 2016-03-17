@@ -24,9 +24,10 @@ public class Footer extends AppCompatActivity {
             startActivity(intent);
         }
         else {
-            Intent intent = new Intent(this, CarpoolNew.class);
+            /*Intent intent = new Intent(this, CarpoolNew.class);
             intent.putExtra("type", "Demand");
-            startActivity(intent);
+            startActivity(intent);*/
+            Toast.makeText(this, "You need to be a driver to create carpool", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -34,7 +35,8 @@ public class Footer extends AppCompatActivity {
         Intent intent = new Intent(this, CarpoolNew.class);
         if(GlobalVariables.user_identity == 1) {
             //driver search demanded carpools
-            intent.putExtra("type", "SearchDemand");
+            //intent.putExtra("type", "SearchDemand");
+            Toast.makeText(this, "You need to be a passenger to search carpool", Toast.LENGTH_SHORT).show();
         }
         else {
             //passenger search created carpools

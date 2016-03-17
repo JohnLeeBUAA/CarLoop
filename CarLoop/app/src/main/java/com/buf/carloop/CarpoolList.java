@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,6 +45,11 @@ public class CarpoolList extends Footer {
     private double search_depart_lng;
     private double search_desti_lat;
     private double search_desti_lng;
+
+    private final double sort_weight_walking_distance = 0.4D;
+    private final double sort_weight_departure_time = 0.2D;
+    private final double sort_weight_driver_rating = 0.2D;
+    private final double sort_weight_carpool_price = 0.2D;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -231,6 +237,10 @@ public class CarpoolList extends Footer {
             TextView drivername = (TextView) itemView.findViewById(R.id.item_drivername);
             drivername.setText(carpool.getDrivername());
 
+            RatingBar rb = (RatingBar) itemView.findViewById(R.id.item_ratingbar_list);
+            rb.setNumStars(5);
+            rb.setRating((float) (carpool.getDriverrate()));
+
             TextView depart_loc = (TextView) itemView.findViewById(R.id.item_depart_loc);
             depart_loc.setText(carpool.getDepart_loc());
 
@@ -360,12 +370,58 @@ public class CarpoolList extends Footer {
         alert.show();
     }
 
+    private double getWalkDistance(double p1_lat, double p1_lng, double p2_lat, double p2_lng) {
+        return Math.pow(Math.abs(p1_lat - p2_lat), 2) + Math.pow(Math.abs(p1_lng - p2_lng), 2);
+    }
+
+    private int compareWalkingDistance(Carpool lhs, Carpool rhs) {
+        double ldist = getWalkDistance(search_depart_lat, search_depart_lng, lhs.getDepart_lat(), lhs.getDepart_lng()) +
+                getWalkDistance(search_desti_lat, search_desti_lng, lhs.getDesti_lat(), lhs.getDesti_lng());
+        double rdist = getWalkDistance(search_depart_lat, search_depart_lng, rhs.getDepart_lat(), rhs.getDepart_lng()) +
+                getWalkDistance(search_desti_lat, search_desti_lng, rhs.getDesti_lat(), rhs.getDesti_lng());
+        if(ldist > rdist) return 1;
+        else if(ldist < rdist) return -1;
+        else return 0;
+    }
+
+    private int compareDepartureTime(Carpool lhs, Carpool rhs) {
+        int compare = lhs.getDate().compareTo(rhs.getDate());
+        if(compare == 0) {
+            compare = lhs.getTime().compareTo(rhs.getTime());
+        }
+        if(compare > 0) return 1;
+        else if(compare < 0) return -1;
+        else return 0;
+    }
+
+    private int compareDriverRating(Carpool lhs, Carpool rhs) {
+        if(lhs.getDriverrate() > rhs.getDriverrate()) return 1;
+        else if(lhs.getDriverrate() < rhs.getDriverrate()) return -1;
+        else return 0;
+    }
+
+    private int compareCarpoolPrice(Carpool lhs, Carpool rhs) {
+        if(lhs.getPrice() > rhs.getPrice()) return 1;
+        else if(lhs.getPrice() < rhs.getPrice()) return -1;
+        else return 0;
+    }
+
+    private int compareAdvancedSort(Carpool lhs, Carpool rhs) {
+        double compare = compareWalkingDistance(lhs, rhs) * sort_weight_walking_distance +
+                compareDepartureTime(lhs, rhs) * sort_weight_departure_time +
+                compareDriverRating(lhs, rhs) * sort_weight_driver_rating +
+                compareCarpoolPrice(lhs, rhs) * sort_weight_carpool_price;
+        if(compare > 0) return 1;
+        else if(compare < 0) return -1;
+        else return 0;
+    }
+
     private void sortAdvacedSort() {
         if(list != null && list.size() != 0) {
             Collections.sort(list, new Comparator<Carpool>() {
                 @Override
                 public int compare(Carpool lhs, Carpool rhs) {
-                    return 0;
+                    return compareAdvancedSort(lhs, rhs);
                 }
             });
             populateListView();
@@ -378,23 +434,7 @@ public class CarpoolList extends Footer {
             Collections.sort(list, new Comparator<Carpool>() {
                 @Override
                 public int compare(Carpool lhs, Carpool rhs) {
-                    double ldis = Math.pow(Math.abs(lhs.getDepart_lat() - search_depart_lat), 2) +
-                            Math.pow(Math.abs(lhs.getDepart_lng() - search_depart_lng), 2) +
-                            Math.pow(Math.abs(lhs.getDesti_lat() - search_desti_lat), 2) +
-                            Math.pow(Math.abs(lhs.getDesti_lng() - search_desti_lng), 2);
-                    double rdis = Math.pow(Math.abs(rhs.getDepart_lat() - search_depart_lat), 2) +
-                            Math.pow(Math.abs(rhs.getDepart_lng() - search_depart_lng), 2) +
-                            Math.pow(Math.abs(rhs.getDesti_lat() - search_desti_lat), 2) +
-                            Math.pow(Math.abs(rhs.getDesti_lng() - search_desti_lng), 2);
-                    if(ldis > rdis) {
-                        return 1;
-                    }
-                    else if(ldis < rdis) {
-                        return -1;
-                    }
-                    else {
-                        return 0;
-                    }
+                    return compareWalkingDistance(lhs, rhs);
                 }
             });
             populateListView();
@@ -407,13 +447,7 @@ public class CarpoolList extends Footer {
             Collections.sort(list, new Comparator<Carpool>() {
                 @Override
                 public int compare(Carpool lhs, Carpool rhs) {
-                    int comparedate = lhs.getDate().compareTo(rhs.getDate());
-                    if(comparedate == 0) {
-                        return lhs.getTime().compareTo(rhs.getTime());
-                    }
-                    else {
-                        return comparedate;
-                    }
+                    return compareDepartureTime(lhs, rhs);
                 }
             });
             populateListView();
@@ -426,7 +460,7 @@ public class CarpoolList extends Footer {
             Collections.sort(list, new Comparator<Carpool>() {
                 @Override
                 public int compare(Carpool lhs, Carpool rhs) {
-                    return 0;
+                    return compareDriverRating(lhs, rhs);
                 }
             });
             populateListView();
@@ -439,7 +473,7 @@ public class CarpoolList extends Footer {
             Collections.sort(list, new Comparator<Carpool>() {
                 @Override
                 public int compare(Carpool lhs, Carpool rhs) {
-                    return lhs.getPrice() - rhs.getPrice();
+                    return compareCarpoolPrice(lhs, rhs);
                 }
             });
             populateListView();

@@ -70,6 +70,7 @@ public class Carpool implements Parcelable{
         this.passengeraboard = passengeraboard;
         this.status = status;
         this.driveravatar = driveravatar;
+        this.driverrate = driverrate;
 
     }
 
@@ -244,6 +245,7 @@ public class Carpool implements Parcelable{
         this.passengerconfirmed = in.readInt();
         this.passengeraboard = in.readInt();
         this.status = in.readInt();
+        this.driverrate = in.readDouble();
         int avatarlength = in.readInt();
         if(avatarlength == 0) {
             this.driveravatar = null;
@@ -278,6 +280,7 @@ public class Carpool implements Parcelable{
         dest.writeInt(this.passengerconfirmed);
         dest.writeInt(this.passengeraboard);
         dest.writeInt(this.status);
+        dest.writeDouble(this.driverrate);
         if(driveravatar == null) {
             dest.writeInt(0);
         }
