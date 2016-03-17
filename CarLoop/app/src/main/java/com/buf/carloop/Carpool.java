@@ -309,10 +309,10 @@ public class Carpool implements Parcelable{
                 carpool.setDesti_lat((Double) value.elementAt(5));
                 carpool.setDesti_lng((Double) value.elementAt(6));
                 carpool.setDesti_loc((String) value.elementAt(7));
-                carpool.setDate((String) value.elementAt(8));
-                carpool.setDate_range((String) value.elementAt(9));
-                carpool.setTime((String) value.elementAt(10));
-                carpool.setTime_range((String) value.elementAt(11));
+                carpool.setDate(value.elementAt(8).toString());
+                carpool.setDate_range((String) value.elementAt(9).toString());
+                carpool.setTime(value.elementAt(10).toString());
+                carpool.setTime_range(value.elementAt(11).toString());
                 carpool.setMaxpassenger((int) value.elementAt(12));
                 carpool.setPrice((int) value.elementAt(13));
                 carpool.setPassengerconfirmed((int) value.elementAt(14));
