@@ -49,30 +49,6 @@ public class Message extends Footer {
         else {
             tip.setVisibility(View.GONE);
             populateListView();
-
-            Thread t = new Thread() {
-                @Override
-                public void run() {
-                    try {
-                        while (!isInterrupted()) {
-                            Thread.sleep(1000);
-                            runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    list = MessageClass.getMessageList(carpoolid);
-                                    if(list != null && list.size() > 0) {
-                                        populateListView();
-                                        tip.setVisibility(View.GONE);
-                                    }
-                                }
-                            });
-                        }
-                    } catch (InterruptedException e) {
-                        Toast.makeText(Message.this, "Network error", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            };
-            t.start();
         }
 
 

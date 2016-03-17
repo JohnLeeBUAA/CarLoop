@@ -40,6 +40,7 @@ public class Carpool implements Parcelable{
     private int passengeraboard;
     private int status;
     private byte[] driveravatar;
+    private double driverrate;
 
     public Carpool() {
 
@@ -50,7 +51,7 @@ public class Carpool implements Parcelable{
                    String desti_loc, double desti_lat, double desti_lng,
                    String date, String time, String date_range, String time_range,
                    int maxpassenger, int price, int passengerconfirmed, int passengeraboard, int status,
-                   byte[] driveravatar) {
+                   byte[] driveravatar, double driverrate) {
         this.carpoolid = carpoolid;
         this.drivername = drivername;
         this.depart_loc = depart_loc;
@@ -69,6 +70,7 @@ public class Carpool implements Parcelable{
         this.passengeraboard = passengeraboard;
         this.status = status;
         this.driveravatar = driveravatar;
+
     }
 
     public int getCarpoolid() {
@@ -213,6 +215,14 @@ public class Carpool implements Parcelable{
 
     public void setDriveravatar(byte[] driveravatar) {
         this.driveravatar = driveravatar;
+    }
+
+    public double getDriverrate() {
+        return driverrate;
+    }
+
+    public void setDriverrate(double driverrate) {
+        this.driverrate = driverrate;
     }
 
     // Parcelling part
