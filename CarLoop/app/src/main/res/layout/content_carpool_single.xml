@@ -402,6 +402,13 @@
             android:layout_height="wrap_content"
             android:background="@drawable/single_border"/>
         <Button
+            android:id="@+id/btn_payconfirmed"
+            android:text="\tPay\t"
+            android:onClick="payConfirmed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/single_border"/>
+        <Button
             android:id="@+id/btn_reviewconfirmed"
             android:text="\tReview Driver\t"
             android:onClick="reviewConfirmed"
@@ -426,7 +433,7 @@
             android:background="@drawable/single_border"/>
         <Button
             android:id="@+id/btn_confirmpaymenttrip"
-            android:text="\tConfirm Payment\t"
+            android:text="\tPayment Info\t"
             android:onClick="confirmPaymentTrip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

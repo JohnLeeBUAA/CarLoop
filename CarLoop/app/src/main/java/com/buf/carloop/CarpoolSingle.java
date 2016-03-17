@@ -339,6 +339,10 @@ public class CarpoolSingle extends Footer {
         }
     }
 
+    public void payConfirmed (View view) {
+        
+    }
+
     public void reviewConfirmed (View view) {
         int valid = Carpool.reviewCheck(GlobalVariables.user_name, carpoolid);
         if(valid == 0) {
