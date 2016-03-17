@@ -127,6 +127,11 @@ public class DriverVehicleInfo extends Footer {
                     btn.setVisibility(View.VISIBLE);
                     bar.setVisibility(View.GONE);
                 }
+                else if(status == 6) {
+                    Toast.makeText(this, "Paypal: " + paypal_val + " already exist", Toast.LENGTH_SHORT).show();
+                    btn.setVisibility(View.VISIBLE);
+                    bar.setVisibility(View.GONE);
+                }
                 else {
                     Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();
                     btn.setVisibility(View.VISIBLE);
@@ -141,14 +146,14 @@ public class DriverVehicleInfo extends Footer {
     }
 
     private boolean validate() {
-        paypal_val = paypal_val.getText().toString();
+        paypal_val = paypal.getText().toString();
         license_val = license.getText().toString();
         manufacturer_val = manufacturer.getText().toString();
         model_val = model.getText().toString();
         plate_val = plate.getText().toString();
         mileage_val = mileage.getText().toString();
         capacity_val = capacity.getText().toString();
-        if(license_val.equals("") || manufacturer_val.equals("") || model_val.equals("") ||
+        if(paypal_val.equals("") || license_val.equals("") || manufacturer_val.equals("") || model_val.equals("") ||
                 plate_val.equals("") || mileage_val.equals("") || capacity_val.equals("")) {
             Toast.makeText(this, "Input cannot be empty", Toast.LENGTH_SHORT).show();
             return false;
