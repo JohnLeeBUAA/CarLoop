@@ -19,6 +19,7 @@ public class DriverVehicleInfo extends Footer {
 
     private String type;
     private Vehicle vehicle;
+    private EditText paypal;
     private EditText license;
     private EditText manufacturer;
     private EditText model;
@@ -28,7 +29,7 @@ public class DriverVehicleInfo extends Footer {
 
     private Button btn;
     private ProgressBar bar;
-
+    private String paypal_val;
     private String license_val;
     private String manufacturer_val;
     private String model_val;
@@ -49,6 +50,7 @@ public class DriverVehicleInfo extends Footer {
 
         type = getIntent().getStringExtra("type");
 
+        paypal = (EditText) findViewById(R.id.paypal_addvehicleinfo);
         license = (EditText) findViewById(R.id.license_addvehicleinfo);
         manufacturer = (EditText) findViewById(R.id.manufacture_addvehicleinfo);
         model = (EditText) findViewById(R.id.model_addvehicleinfo);
@@ -84,7 +86,7 @@ public class DriverVehicleInfo extends Footer {
         bar.setVisibility(View.VISIBLE);
         if(validate()) {
             if(type.equals("Add")) {
-                int status = Vehicle.addVehicle(GlobalVariables.user_name, license_val, manufacturer_val,
+                int status = Vehicle.addVehicle(GlobalVariables.user_name, paypal_val, license_val, manufacturer_val,
                         model_val, plate_val, mileage_int, capacity_int);
                 if (status == 0) {
                     User.setDriver(GlobalVariables.user_name);
@@ -114,7 +116,7 @@ public class DriverVehicleInfo extends Footer {
                 }
             }
             else if(type.equals("Edit")) {
-                int status = Vehicle.updateVehicle(GlobalVariables.user_name, license_val, manufacturer_val,
+                int status = Vehicle.updateVehicle(GlobalVariables.user_name, paypal_val, license_val, manufacturer_val,
                         model_val, plate_val, mileage_int, capacity_int);
                 if(status == 0) {
                     Toast.makeText(this, "Driver and vehicle info updated", Toast.LENGTH_SHORT).show();
@@ -139,6 +141,7 @@ public class DriverVehicleInfo extends Footer {
     }
 
     private boolean validate() {
+        paypal_val = paypal_val.getText().toString();
         license_val = license.getText().toString();
         manufacturer_val = manufacturer.getText().toString();
         model_val = model.getText().toString();
