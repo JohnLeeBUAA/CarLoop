@@ -62,6 +62,7 @@ public class Message extends Footer {
                                     list = MessageClass.getMessageList(carpoolid);
                                     if(list != null && list.size() > 0) {
                                         populateListView();
+                                        tip.setVisibility(View.GONE);
                                     }
                                 }
                             });
@@ -136,6 +137,7 @@ public class Message extends Footer {
         list = MessageClass.getMessageList(carpoolid);
         if(list != null && list.size() > 0) {
             populateListView();
+            tip.setVisibility(View.GONE);
         }
     }
 
