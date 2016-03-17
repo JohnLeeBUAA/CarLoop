@@ -37,10 +37,10 @@ public class Create {
         try {
             Statement stmt = conn.createStatement();
             String sqlCreate = "create table " + "vehicle" +
-                    " (v_id INT NOT NULL AUTO_INCREMENT, v_drivername VARCHAR(32), v_driverlicense VARCHAR(32)," +
+                    " (v_id INT NOT NULL AUTO_INCREMENT, v_drivername VARCHAR(32), v_driverpaypal VARCHAR(32), v_driverlicense VARCHAR(32)," +
                     " v_manufacturer VARCHAR(32), v_model VARCHAR(32), v_plate VARCHAR(32)," +
                     " v_mileage INT DEFAULT 0, v_capacity INT DEFAULT 0, " +
-                    " UNIQUE (v_driverlicense), UNIQUE (v_plate), FOREIGN KEY (v_drivername) REFERENCES user(u_name) on delete cascade, PRIMARY KEY (v_id));";
+                    " UNIQUE (v_driverlicense), UNIQUE(v_driverpaypal), UNIQUE (v_plate), FOREIGN KEY (v_drivername) REFERENCES user(u_name) on delete cascade, PRIMARY KEY (v_id));";
             System.out.println(sqlCreate);
             rs = stmt.executeUpdate(sqlCreate);
             stmt.close();
@@ -137,8 +137,6 @@ public class Create {
         return rs;
     }
     public static void main(String[] args) {
-
-        Create.createTableMessage();
-        Create.createTablePassenger_carpool();
+        createTableVehicle();
     }
 }
