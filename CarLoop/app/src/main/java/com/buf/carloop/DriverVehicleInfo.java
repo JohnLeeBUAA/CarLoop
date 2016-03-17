@@ -109,6 +109,11 @@ public class DriverVehicleInfo extends Footer {
                     btn.setVisibility(View.VISIBLE);
                     bar.setVisibility(View.GONE);
                 }
+                else if(status == 6) {
+                    Toast.makeText(this, "Paypal: " + paypal_val + " already exist", Toast.LENGTH_SHORT).show();
+                    btn.setVisibility(View.VISIBLE);
+                    bar.setVisibility(View.GONE);
+                }
                 else {
                     Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();
                     btn.setVisibility(View.VISIBLE);
@@ -124,6 +129,11 @@ public class DriverVehicleInfo extends Footer {
                 }
                 else if(status == 3) {
                     Toast.makeText(this, "License: " + license_val + " already exist", Toast.LENGTH_SHORT).show();
+                    btn.setVisibility(View.VISIBLE);
+                    bar.setVisibility(View.GONE);
+                }
+                else if (status == 5) {
+                    Toast.makeText(this, "Plate: " + plate_val + " already exist", Toast.LENGTH_SHORT).show();
                     btn.setVisibility(View.VISIBLE);
                     bar.setVisibility(View.GONE);
                 }
