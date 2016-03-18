@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.Toast;
@@ -23,7 +24,7 @@ public class SignUp extends AppCompatActivity {
     private EditText email;
     private RadioButton driver;
     private RadioButton passenger;
-    private Button btn;
+    private LinearLayout btn;
     private ProgressBar bar;
     private String username_val;
     private String password_val;
@@ -44,7 +45,7 @@ public class SignUp extends AppCompatActivity {
         driver = (RadioButton)findViewById(R.id.driver_signup);
         passenger = (RadioButton)findViewById(R.id.passenger_signup);
 
-        btn = (Button) findViewById(R.id.btn_signup);
+        btn = (LinearLayout) findViewById(R.id.btn_layout_signup);
         bar = (ProgressBar) findViewById(R.id.bar_signup);
 
         bar.setVisibility(View.GONE);

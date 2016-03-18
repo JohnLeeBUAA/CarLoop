@@ -75,6 +75,11 @@
                 android:id="@+id/btn_signin"
                 android:onClick="signIn"
                 android:background="@drawable/green_button"/>
+            <ProgressBar
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/bar_signin"
+                android:layout_gravity="top|center"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -94,12 +99,6 @@
             android:onClick="signUp"
             android:gravity="center_horizontal"
             android:layout_marginTop="5dp"/>
-        <ProgressBar
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/bar_signin"
-            android:layout_gravity="top|center"/>
-
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
