@@ -15,7 +15,7 @@
             android:layout_height="wrap_content"
             android:gravity="right">
             <com.buf.carloop.CircleView
-                android:id="@+id/item_listavatar"
+                android:id="@+id/item_avatar_messagelist"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:src="@drawable/default_avatar"/>
@@ -27,14 +27,14 @@
             android:layout_gravity="center_vertical"
             android:orientation="horizontal">
             <TextView
-                android:id="@+id/item_listname"
+                android:id="@+id/item_drivername_messagelist"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:text="Nate Bill"
                 android:textStyle="bold|italic"
                 android:layout_marginLeft="10dp"/>
             <TextView
-                android:id="@+id/item_listorigin"
+                android:id="@+id/item_depart_loc_messagelist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"
@@ -47,7 +47,7 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="5dp"/>
             <TextView
-                android:id="@+id/item_listdestination"
+                android:id="@+id/item_desti_loc_messagelist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20dp"

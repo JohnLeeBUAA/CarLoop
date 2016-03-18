@@ -141,33 +141,6 @@ public class CarpoolList extends Footer {
                 registerClickCallback();
             }
         }
-        else if(type.equals("Message")) {
-            this.setTitle("Message List");
-            buttonlist.setVisibility(View.GONE);
-            if(GlobalVariables.user_identity == 1) {
-                list = Carpool.getCreatedList(GlobalVariables.user_name);
-            }
-            else {
-                list = new ArrayList<>();
-                List<Carpool> interestedlist = Carpool.getInterestedList(GlobalVariables.user_name);
-                List<Carpool> confirmedlist = Carpool.getConfirmedList(GlobalVariables.user_name);
-                if(interestedlist != null && interestedlist.size() != 0) {
-                    list.addAll(interestedlist);
-                }
-                if(confirmedlist != null && confirmedlist.size() != 0) {
-                    list.addAll(confirmedlist);
-                }
-            }
-            if(list == null || list.size() == 0) {
-                tip.setText("Message List Is Empty");
-            }
-            else {
-                tip.setVisibility(View.GONE);
-                populateListView();
-                registerClickCallback();
-            }
-        }
-
     }
 
     private void populateListView() {
@@ -180,33 +153,24 @@ public class CarpoolList extends Footer {
             @Override
             public void onItemClick(AdapterView<?> parent, View viewClicked,
                                     int position, long id) {
-                int clickedCarpoolid = list.get(position).getCarpoolid();
-                if (type.equals("Message")) {
-                    Intent intent = new Intent(CarpoolList.this, Message.class);
-                    intent.putExtra("carpoolid", clickedCarpoolid);
-                    intent.putExtra("drivername", list.get(position).getDrivername());
-                    startActivity(intent);
+                Intent intent = new Intent(CarpoolList.this, CarpoolSingle.class);
+                intent.putExtra("carpool", list.get(position));
+                if (list.get(position).getStatus() == 1 && type.equals("Created")) {
+                    /*
+                    carpool trip for drivers
+                     */
+                    intent.putExtra("type", "Trip");
                 } else {
-                    Intent intent = new Intent(CarpoolList.this, CarpoolSingle.class);
-                    intent.putExtra("carpool", list.get(position));
-                    if (list.get(position).getStatus() == 1 && type.equals("Created")) {
-                        /*
-                        carpool trip for drivers
-                         */
-                        intent.putExtra("type", "Trip");
-                    } else {
-                        /*
-                        Created, Interested, Confirmed, Search
-                         */
-                        intent.putExtra("type", type);
-                    }
-                    startActivity(intent);
-                    if (type.equals("Search")) {
-                        list.remove(position);
-                        populateListView();
-                        /*TextView status = (TextView) viewClicked.findViewById(R.id.item_checked);
-                        status.setText("This carpool is checked");*/
-                    }
+                    /*
+                    Created, Interested, Confirmed, Search
+                     */
+                    intent.putExtra("type", type);
+                }
+                startActivity(intent);
+                if (type.equals("Search")) {
+                    list.remove(position);
+                    populateListView();
+                    registerClickCallback();
                 }
             }
         });
@@ -279,19 +243,6 @@ public class CarpoolList extends Footer {
     }
 
     public void jumpInterestedList(View view) {
-//        this.setTitle("Interested List");
-//        type = "Interested";
-//        btn_interested.setBackgroundResource(R.drawable.green_button);
-//        btn_confirmed.setBackgroundResource(R.drawable.single_border);
-//        list = Carpool.getInterestedList(GlobalVariables.user_name);
-//        if(list == null || list.size() == 0) {
-//            tip.setText("No Interested Carpool");
-//        }
-//        else {
-//            tip.setVisibility(View.GONE);
-//            populateListView();
-//            registerClickCallback();
-//        }
         finish();
         Intent intent = new Intent(this, CarpoolList.class);
         intent.putExtra("type", "Interested");
@@ -299,21 +250,6 @@ public class CarpoolList extends Footer {
     }
 
     public void jumpConfirmedList(View view) {
-        /*this.setTitle("Confirmed List");
-        type = "Confirmed";
-        btn_confirmed.setBackgroundResource(R.drawable.green_button);
-        btn_interested.setBackgroundResource(R.drawable.single_border);
-        list = null;
-        //list = Carpool.getConfirmedList(GlobalVariables.user_name);
-        if(list == null || list.size() == 0) {
-            tip.setText("No Confirmed Carpool");
-            tip.setVisibility(View.VISIBLE);
-        }
-        else {
-            tip.setVisibility(View.GONE);
-            populateListView();
-            registerClickCallback();
-        }*/
         finish();
         Intent intent = new Intent(this, CarpoolList.class);
         intent.putExtra("type", "Confirmed");
