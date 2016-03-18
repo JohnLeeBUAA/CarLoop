@@ -89,7 +89,7 @@ public class CarpoolList extends Footer {
                     getIntent().getStringExtra("time"),
                     getIntent().getStringExtra("date_range"),
                     getIntent().getStringExtra("time_range"));
-            btn_sort.setText("Advanced Sort");
+            btn_sort.setText("\tAdvanced Sort\t");
             sortmethod = 1;
             sortAdvacedSort();
             if(list == null || list.size() == 0) {
@@ -346,19 +346,19 @@ public class CarpoolList extends Footer {
             public void onClick(DialogInterface dialog, int which) {
                 sortmethod = tempsortmethod;
                 if (sortmethod == 1) {
-                    btn_sort.setText("Advanced Sort");
+                    btn_sort.setText("\tAdvanced Sort\t");
                     sortAdvacedSort();
                 } else if (sortmethod == 2) {
-                    btn_sort.setText("Walking Distance");
+                    btn_sort.setText("\tWalking Distance\t");
                     sortWalkingDistance();
                 } else if (sortmethod == 3) {
-                    btn_sort.setText("Departure Time");
+                    btn_sort.setText("\tDeparture Time\t");
                     sortDepartureTime();
                 } else if (sortmethod == 4) {
-                    btn_sort.setText("Driver Rating");
+                    btn_sort.setText("\tDriver Rating\t");
                     sortDriverRating();
                 } else if (sortmethod == 5) {
-                    btn_sort.setText("Carpool Price");
+                    btn_sort.setText("\tCarpool Price\t");
                     sortCarpoolPrice();
                 }
             }
