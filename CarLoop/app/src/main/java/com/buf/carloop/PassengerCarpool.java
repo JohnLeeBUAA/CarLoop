@@ -1,5 +1,6 @@
 package com.buf.carloop;
 
+import com.buf.database.AsyncSQLLongHaul;
 import com.buf.database.AsyncSelectSomeNote;
 
 import java.util.ArrayList;
@@ -144,6 +145,16 @@ public class PassengerCarpool {
     update passenger_carpool set pc_paid = 1 where pc_passengername = passengername and pc_carpoolid = carpoolid
      */
     public static int addPayment(String passengername, int carpoolid) {
-        return 0;
+        String sqlComm = "update passenger_carpool set pc_paid = 1 where pc_passengername = '" + passengername + "' and pc_carpoolid = "  + carpoolid + ";";
+        AsyncSQLLongHaul task = new AsyncSQLLongHaul();
+
+        task.execute(sqlComm);
+        try {
+            int value = task.get(10000, TimeUnit.MILLISECONDS);
+            return value;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
     }
 }

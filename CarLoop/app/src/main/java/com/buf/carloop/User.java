@@ -278,7 +278,7 @@ public class User {
 
         task.execute(sqlComm, avatar);
         try {
-            boolean value = task.get(100000, TimeUnit.MILLISECONDS);
+            boolean value = task.get(10000, TimeUnit.MILLISECONDS);
             return value;
         } catch (Exception e) {
             e.printStackTrace();
