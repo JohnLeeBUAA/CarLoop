@@ -25,6 +25,7 @@ import com.paypal.android.sdk.payments.PaymentActivity;
 import java.math.BigDecimal;
 
 public class MakePayment extends Footer {
+    private ImageView passengeravatar;
     private ImageView driveravatar;
     private TextView drivername;
     private TextView account;
@@ -43,10 +44,20 @@ public class MakePayment extends Footer {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        passengeravatar = (ImageView) findViewById(R.id.passengeravatar_makepayment);
         driveravatar = (ImageView) findViewById(R.id.driveravatar_makepayment);
         drivername = (TextView) findViewById(R.id.drivername_makepayment);
         account = (TextView) findViewById(R.id.driveraccount_makepayment);
         price = (TextView) findViewById(R.id.price_makepayment);
+
+        byte[] avatarimage_p = User.selectSQLBlob(GlobalVariables.user_name);
+        if(avatarimage_p != null) {
+            Bitmap bm = BitmapFactory.decodeByteArray(avatarimage_p, 0, avatarimage_p.length);
+            passengeravatar.setImageBitmap(bm);
+        }
+        else {
+            passengeravatar.setImageResource(R.drawable.default_avatar);
+        }
 
         drivername_val = getIntent().getStringExtra("drivername");
         drivername.setText(drivername_val);
