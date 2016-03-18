@@ -3,6 +3,7 @@ package com.buf.carloop;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedOutputStream;
@@ -24,6 +26,7 @@ public class SignIn extends AppCompatActivity {
     private String password_val;
     private Button btn;
     private ProgressBar bar;
+    private TextView signup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,8 @@ public class SignIn extends AppCompatActivity {
         btn = (Button) findViewById(R.id.btn_signin);
         bar = (ProgressBar) findViewById(R.id.bar_signin);
         bar.setVisibility(View.GONE);
+        signup = (TextView) findViewById(R.id.signup);
+        signup.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
     }
 
     public void signIn(View view) {
