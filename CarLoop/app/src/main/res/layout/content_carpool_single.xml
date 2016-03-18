@@ -63,18 +63,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent">
                 <ImageView
-                    android:layout_width="fill_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:src="@drawable/towards"
                     android:tint="#7d7d7d"
-                    android:layout_marginLeft="20dp"/>
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center_vertical"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/single_border"
                 android:padding="5dp">
@@ -230,13 +231,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Driver"
-                    android:textSize="15dp"/>
+                    android:text="Driver"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Rate"
-                    android:textSize="15dp"
                     android:layout_marginTop="5dp"/>
 
             </LinearLayout>
@@ -252,7 +251,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Drivername"
-                    android:textSize="15dp"
                     android:textStyle="bold|italic"/>
                 <RatingBar
                     android:id="@+id/ratingbar_capoolsingle"
@@ -274,8 +272,8 @@
                 <ImageView
                     android:id="@+id/btn_message"
                     android:onClick="jumpMessage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:background="@drawable/chat"
                     android:backgroundTint="#9e9e9e"
                     android:layout_gravity="bottom"/>

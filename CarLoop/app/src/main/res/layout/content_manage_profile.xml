@@ -49,14 +49,12 @@
                 android:layout_height="wrap_content"
                 android:text="Username"
                 android:textStyle="bold|italic"
-                android:textSize="15dp"
                 android:layout_marginTop="10dp"
                 android:gravity="center"/>
             <TextView
                 android:id="@+id/email_manage_profile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="15dp"
                 android:text="sample.email@company.com"
                 android:textStyle="italic"
                 android:gravity="center"/>

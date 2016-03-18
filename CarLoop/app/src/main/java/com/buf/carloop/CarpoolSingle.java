@@ -331,7 +331,7 @@ public class CarpoolSingle extends Footer {
         if(status == 0) {
             Toast.makeText(this, "Status changed to: aboard", Toast.LENGTH_SHORT).show();
             Button btn = (Button) findViewById(R.id.btn_aboardconfirmed);
-            btn.setText("You are aboard");
+            btn.setText("\tYou are aboard\t");
             btn.setEnabled(false);
         }
         else {

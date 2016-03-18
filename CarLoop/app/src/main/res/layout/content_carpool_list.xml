@@ -55,8 +55,7 @@
             <Button
                 android:id="@+id/btn_sort_carpoollist"
                 android:text="\tSort Method\t"
-                android:layout_weight="1"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="sortSearchList"
                 android:background="@drawable/single_border"
@@ -72,8 +71,9 @@
 
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="500dp"
-        android:layout_marginTop="10dp"
+        android:layout_height="420dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:divider="#00000000"
         android:dividerHeight="5dip"
         android:id="@+id/list_carpoollist"

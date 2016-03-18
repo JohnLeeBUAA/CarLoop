@@ -13,45 +13,40 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <Button
+            <ImageView
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:background="#3F51B5"
-                android:drawableTop="@drawable/add"
-                android:paddingTop="9dp"
+                android:padding="10dp"
+                android:src="@drawable/add"
                 android:onClick="add"/>
-            <Button
+            <ImageView
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:drawableTop="@drawable/search"
-                android:paddingTop="9dp"
-                android:background="#3F51B5"
+                android:padding="10dp"
+                android:src="@drawable/search"
                 android:onClick="search"/>
-            <Button
+            <ImageView
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:drawableTop="@drawable/list"
-                android:paddingTop="9dp"
-                android:background="#3F51B5"
+                android:padding="10dp"
+                android:src="@drawable/list"
                 android:onClick="list"/>
-            <Button
+            <ImageView
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:drawableTop="@drawable/chatt"
-                android:paddingTop="9dp"
-                android:background="#3F51B5"
+                android:padding="10dp"
+                android:src="@drawable/chatt"
                 android:onClick="message"/>
-            <Button
+            <ImageView
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:drawableTop="@drawable/settings"
-                android:paddingTop="9dp"
-                android:background="#3F51B5"
+                android:padding="10dp"
+                android:src="@drawable/settings"
                 android:onClick="settings"/>
         </LinearLayout>
     </LinearLayout>
