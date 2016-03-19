@@ -1,35 +1,28 @@
 package com.buf.carloop;
 
-import android.content.DialogInterface;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.format.DateFormat;
-import android.text.format.Time;
-import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-import android.widget.DatePicker;
-import android.view.View.OnClickListener;
 
-import java.text.SimpleDateFormat;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
+
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
-
-import android.content.DialogInterface.*;
-import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
 
 public class CarpoolNew extends Footer {
 
@@ -291,15 +284,26 @@ public class CarpoolNew extends Footer {
         }
     }
 
+    private static final int DEPART_PICKER_ID = 1;
+    private static final int DEST_PICKER_ID = 2;
+
     /*
     interface for set departure location
     NOTE: need to update the text on the button "set_depart_btn" for display purpose
      */
     public void setDepart(View view) {
-        depart_loc_val = "Waterloo";
-        depart_lat_val = 11.11D;
-        depart_lng_val = 22.22D;
-        set_depart_btn.setText(depart_loc_val);
+        try {
+            PlacePicker.IntentBuilder intentBuilder =
+                    new PlacePicker.IntentBuilder();
+            Intent intent = intentBuilder.build(CarpoolNew.this);
+            // Start the intent by requesting a result,
+            // identified by a request code.
+            startActivityForResult(intent, DEPART_PICKER_ID);
+        } catch (GooglePlayServicesRepairableException e) {
+            // ...
+        } catch (GooglePlayServicesNotAvailableException e) {
+            // ...
+        }
     }
 
     /*
@@ -307,10 +311,40 @@ public class CarpoolNew extends Footer {
     NOTE: need to update the text on the button "set_desti_btn" for display purpose
      */
     public void setDesti(View view) {
-        desti_loc_val = "Toronto";
-        desti_lat_val = 33.33D;
-        desti_lng_val = 44.44D;
-        set_desti_btn.setText(desti_loc_val);
+        try {
+            PlacePicker.IntentBuilder intentBuilder =
+                    new PlacePicker.IntentBuilder();
+            Intent intent = intentBuilder.build(CarpoolNew.this);
+            // Start the intent by requesting a result,
+            // identified by a request code.
+            startActivityForResult(intent, DEST_PICKER_ID);
+        } catch (GooglePlayServicesRepairableException e) {
+            // ...
+        } catch (GooglePlayServicesNotAvailableException e) {
+            // ...
+        }
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == DEPART_PICKER_ID||requestCode == DEST_PICKER_ID) {
+            if (resultCode == RESULT_OK) {
+                Place place = PlacePicker.getPlace(this,data);
+                place.getName();
+
+                if(requestCode == DEPART_PICKER_ID){
+                    depart_loc_val = place.getName().toString();
+                    depart_lat_val = place.getLatLng().latitude;
+                    depart_lng_val = place.getLatLng().longitude;
+                    set_depart_btn.setText(depart_loc_val);
+                }
+                else{
+                    desti_loc_val = place.getName().toString();
+                    desti_lat_val = place.getLatLng().latitude;
+                    desti_lng_val = place.getLatLng().longitude;
+                    set_desti_btn.setText(desti_loc_val);
+                }
+            }
+        }
     }
 
     private boolean validate() {
