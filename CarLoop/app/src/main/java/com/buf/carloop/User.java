@@ -278,7 +278,7 @@ public class User {
 
         task.execute(sqlComm, avatar);
         try {
-            boolean value = task.get(100000, TimeUnit.MILLISECONDS);
+            boolean value = task.get(10000, TimeUnit.MILLISECONDS);
             return value;
         } catch (Exception e) {
             e.printStackTrace();
@@ -441,5 +441,12 @@ public class User {
             e.printStackTrace();
             return -1;
         }
+    }
+
+    /*
+    select v_driverpaypal from vehicle where v_drivername = drivername
+     */
+    public static String getDriverPaypal(String drivername) {
+        return "samplne.account@paypal.com";
     }
 }

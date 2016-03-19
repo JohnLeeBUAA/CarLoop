@@ -427,6 +427,7 @@ public class Carpool implements Parcelable{
      */
     public static List<Carpool> getCreatedList(String user_name) {
         byte[] avatar = selectSQLBlob(user_name);
+        double driverate = selectDriverrate(user_name);
         String sqlComm = "select * from carpool_created where cc_drivername = '" + user_name + "';";
         List<Carpool> list = new ArrayList<Carpool>();
         Carpool carpool = null;
@@ -457,6 +458,7 @@ public class Carpool implements Parcelable{
                     carpool.setPassengeraboard((int) value.elementAt(15));
                     carpool.setStatus((int) value.elementAt(16));
                     carpool.setDriveravatar(avatar);
+                    carpool.setDriverrate(driverate);
                     list.add(carpool);
                 }
             }
@@ -507,6 +509,7 @@ public class Carpool implements Parcelable{
                     carpool.setPassengeraboard((int) value.elementAt(15));
                     carpool.setStatus((int) value.elementAt(16));
                     carpool.setDriveravatar(selectSQLBlob(carpool.getDrivername()));
+                    carpool.setDriverrate(selectDriverrate(carpool.getDrivername()));
                     list.add(carpool);
                     System.out.println(value.elementAt(1));
                 }
@@ -559,6 +562,7 @@ public class Carpool implements Parcelable{
                     carpool.setPassengeraboard((int) value.elementAt(15));
                     carpool.setStatus((int) value.elementAt(16));
                     carpool.setDriveravatar(selectSQLBlob(carpool.getDrivername()));
+                    carpool.setDriverrate(selectDriverrate(carpool.getDrivername()));
                     list.add(carpool);
                     System.out.println(value.elementAt(1));
                 }
@@ -611,6 +615,7 @@ public class Carpool implements Parcelable{
                     carpool.setPassengeraboard((int) value.elementAt(15));
                     carpool.setStatus((int) value.elementAt(16));
                     carpool.setDriveravatar(selectSQLBlob(carpool.getDrivername()));
+                    carpool.setDriverrate(selectDriverrate(carpool.getDrivername()));
                     list.add(carpool);
                     System.out.println(value.elementAt(1));
                 }
@@ -678,6 +683,7 @@ public class Carpool implements Parcelable{
                     carpool.setPassengeraboard((int) value.elementAt(15));
                     carpool.setStatus((int) value.elementAt(16));
                     carpool.setDriveravatar(selectSQLBlob(carpool.getDrivername()));
+                    carpool.setDriverrate(selectDriverrate(carpool.getDrivername()));
                     list.add(carpool);
                     System.out.println(value.elementAt(1));
                 }
@@ -701,7 +707,7 @@ public class Carpool implements Parcelable{
 
         task.execute(sqlComm);
         try {
-            int value = task.get(100000, TimeUnit.MILLISECONDS);
+            int value = task.get(10000, TimeUnit.MILLISECONDS);
             return value;
         } catch (Exception e) {
             e.printStackTrace();
@@ -719,7 +725,7 @@ public class Carpool implements Parcelable{
 
         task.execute(sqlComm);
         try {
-            int value = task.get(100000, TimeUnit.MILLISECONDS);
+            int value = task.get(10000, TimeUnit.MILLISECONDS);
             return value;
         } catch (Exception e) {
             e.printStackTrace();
@@ -738,7 +744,7 @@ public class Carpool implements Parcelable{
 
         task.execute(sqlComm);
         try {
-            Vector value = task.get(100000, TimeUnit.MILLISECONDS);
+            Vector value = task.get(10000, TimeUnit.MILLISECONDS);
             if (value != null) {
                 if ((int)value.elementAt(0) == (int)value.elementAt(1)) {
                     return 0;
@@ -762,7 +768,7 @@ public class Carpool implements Parcelable{
 
         task.execute(sqlComm);
         try {
-            int value = task.get(100000, TimeUnit.MILLISECONDS);
+            int value = task.get(10000, TimeUnit.MILLISECONDS);
             return value;
         } catch (Exception e) {
             e.printStackTrace();
@@ -782,7 +788,7 @@ public class Carpool implements Parcelable{
 
         task.execute(sqlComm);
         try {
-            int value = task.get(100000, TimeUnit.MILLISECONDS);
+            int value = task.get(10000, TimeUnit.MILLISECONDS);
             return value;
         } catch (Exception e) {
             e.printStackTrace();
@@ -802,7 +808,7 @@ public class Carpool implements Parcelable{
 
         task.execute(sqlComm);
         try {
-            int value = task.get(100000, TimeUnit.MILLISECONDS);
+            int value = task.get(10000, TimeUnit.MILLISECONDS);
             return value;
         } catch (Exception e) {
             e.printStackTrace();
@@ -823,7 +829,7 @@ public class Carpool implements Parcelable{
 
         task.execute(sqlComm);
         try {
-            int value = task.get(100000, TimeUnit.MILLISECONDS);
+            int value = task.get(10000, TimeUnit.MILLISECONDS);
 
             confirmPassenger(carpoolid);
             return value;
@@ -839,7 +845,7 @@ public class Carpool implements Parcelable{
 
         task.execute(sqlComm);
         try {
-            int value = task.get(100000, TimeUnit.MILLISECONDS);
+            int value = task.get(10000, TimeUnit.MILLISECONDS);
             return value;
         } catch (Exception e) {
             e.printStackTrace();
@@ -855,7 +861,7 @@ public class Carpool implements Parcelable{
 
         task.execute(sqlComm);
         try {
-            int value = task.get(100000, TimeUnit.MILLISECONDS);
+            int value = task.get(10000, TimeUnit.MILLISECONDS);
             return value;
         } catch (Exception e) {
             e.printStackTrace();
@@ -873,7 +879,7 @@ public class Carpool implements Parcelable{
 
         task.execute(sqlComm);
         try {
-            int value = task.get(100000, TimeUnit.MILLISECONDS);
+            int value = task.get(10000, TimeUnit.MILLISECONDS);
             aboardPassenger(carpoolid);
             return value;
         } catch (Exception e) {
@@ -887,7 +893,7 @@ public class Carpool implements Parcelable{
 
         task.execute(sqlComm);
         try {
-            int value = task.get(100000, TimeUnit.MILLISECONDS);
+            int value = task.get(10000, TimeUnit.MILLISECONDS);
             return value;
         } catch (Exception e) {
             e.printStackTrace();
@@ -904,7 +910,7 @@ public class Carpool implements Parcelable{
 
         task.execute(sqlComm);
         try {
-            int value = task.get(100000, TimeUnit.MILLISECONDS);
+            int value = task.get(10000, TimeUnit.MILLISECONDS);
             confirmPassenger(carpoolid);
             return value;
         } catch (Exception e) {
@@ -923,7 +929,7 @@ public class Carpool implements Parcelable{
         AsyncSelectOnlyValue task = new AsyncSelectOnlyValue();
         task.execute(sqlComm);
         try {
-            Object value = task.get(100000, TimeUnit.MILLISECONDS);
+            Object value = task.get(10000, TimeUnit.MILLISECONDS);
             if (value != null) {
                 if (value.equals(1)) {
                     return 0;

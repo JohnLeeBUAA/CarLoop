@@ -66,49 +66,49 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="15dp">
-
-            <TextView
-                android:layout_weight="1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Forgot Password?"
-                android:id="@+id/forgotpassword"
-                android:onClick="forgotPassword"
-                android:textColor="@android:color/background_dark"
-                android:textColorLink="@android:color/background_dark"
-                android:layout_gravity="bottom"
-                android:textStyle="italic" />
+            android:layout_marginTop="15dp"
+            android:gravity="center_horizontal">
             <Button
                 android:layout_weight="1"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Sign In"
                 android:id="@+id/btn_signin"
                 android:onClick="signIn"
-                android:layout_gravity="right"
-                android:background="@drawable/blue_button" />
+                android:background="@drawable/green_button"/>
             <ProgressBar
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:id="@+id/bar_signin"
-                android:layout_marginTop="10dp"
-                android:layout_gravity="center_horizontal" />
+                android:layout_gravity="top|center"/>
         </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="15dip">
+        android:orientation="vertical"
+        android:layout_gravity="center">
 
-        <Button
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Sign Up For CarLoop"
+            android:id="@+id/signup"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            android:onClick="signUp"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="5dp"/>
+        <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Sign Up"
-            android:id="@+id/signup"
-            android:onClick="signUp"
-            android:background="@drawable/green_button"/>
+            android:text="Forgot Password?"
+            android:id="@+id/forgotpassword"
+            android:onClick="forgotPassword"
+            android:gravity="center_horizontal"
+            android:textStyle="italic"
+            android:layout_marginTop="40dp"/>
 
     </LinearLayout>
 

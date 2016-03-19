@@ -33,7 +33,7 @@ public class Payment extends Footer {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        this.setTitle("Confirm Payment");
+        this.setTitle("Payment Info");
 
         carpoolid = getIntent().getIntExtra("carpoolid", -1);
         listview = (ListView) findViewById(R.id.list_payment);
@@ -41,35 +41,12 @@ public class Payment extends Footer {
 
         if(list != null && list.size() > 0) {
             populateListView();
-            registerClickCallback();
         }
     }
 
     private void populateListView() {
         ArrayAdapter<PassengerCarpool> adapter = new MyListAdapter();
         listview.setAdapter(adapter);
-    }
-
-    private void registerClickCallback() {
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View viewClicked,
-                                    int position, long id) {
-                if (list.get(position).getPaid() == 1) {
-                    Toast.makeText(Payment.this, "Passenger: " + list.get(position).getPassengername() + " is already paid", Toast.LENGTH_LONG).show();
-                } else {
-                    int status = PassengerCarpool.addPayment(list.get(position).getPassengername(), carpoolid);
-                    if (status == 0) {
-                        Toast.makeText(Payment.this, "Payment confirmed: " + list.get(position).getPassengername(), Toast.LENGTH_LONG).show();
-                        TextView tip = (TextView) viewClicked.findViewById(R.id.item_tip);
-                        tip.setText("Paid");
-                        list.get(position).setPaid(1);
-                    } else {
-                        Toast.makeText(Payment.this, "Network error", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-        });
     }
 
     private class MyListAdapter extends ArrayAdapter<PassengerCarpool> {

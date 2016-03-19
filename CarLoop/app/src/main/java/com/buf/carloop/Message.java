@@ -1,5 +1,6 @@
 package com.buf.carloop;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -8,6 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -40,68 +42,148 @@ public class Message extends Footer {
         drivername = getIntent().getStringExtra("drivername");
         content = (EditText) findViewById(R.id.content_message);
         listview = (ListView) findViewById(R.id.list_message);
-        list = MessageClass.getMessageList(carpoolid);
         tip = (TextView) findViewById(R.id.tip_message);
 
+        populateListView();
+    }
+
+    private void populateListView() {
+        list = MessageClass.getMessageList(carpoolid);
         if(list == null || list.size() == 0) {
+            tip.setVisibility(View.VISIBLE);
             tip.setText("No message yet");
         }
         else {
             tip.setVisibility(View.GONE);
-            populateListView();
+            MyListAdapter adapter = new MyListAdapter(this, R.layout.item_message, list);
+            listview.setAdapter(adapter);
         }
-
-
-    }
-
-    private void populateListView() {
-        ArrayAdapter<MessageClass> adapter = new MyListAdapter();
-        listview.setAdapter(adapter);
     }
 
     private class MyListAdapter extends ArrayAdapter<MessageClass> {
-        public MyListAdapter() {
-            super(Message.this, R.layout.item_message, list);
+        public static final int TYPE_ME = 0;
+        public static final int TYPE_NOT_ME = 1;
+        private List<MessageClass> listviewitems;
+
+        public MyListAdapter(Context context, int resource, List<MessageClass> listviewitems) {
+            super(context, resource, listviewitems);
+            this.listviewitems = listviewitems;
+        }
+
+        @Override
+        public int getViewTypeCount() {
+            return 2;
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            if(listviewitems.get(position).getName().equals(GlobalVariables.user_name)) {
+                return TYPE_ME;
+            }
+            else {
+                return TYPE_NOT_ME;
+            }
         }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            View itemView = convertView;
-            if (itemView == null) {
-                itemView = getLayoutInflater().inflate(R.layout.item_message, parent, false);
+            ViewHolder viewHolder = null;
+            MessageClass mc = listviewitems.get(position);
+            int listViewItemType = getItemViewType(position);
+            if(convertView == null) {
+                if(listViewItemType == TYPE_ME) {
+                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_message_self, null);
+                }
+                else {
+                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_message, null);
+                }
+                ImageView avatar = (ImageView) convertView.findViewById(R.id.item_avatar);
+                TextView name = (TextView) convertView.findViewById(R.id.item_name);
+                TextView isdriver = (TextView) convertView.findViewById(R.id.item_isdriver);
+                TextView datetime = (TextView) convertView.findViewById(R.id.item_datetime);
+                TextView content = (TextView) convertView.findViewById(R.id.item_content);
+                viewHolder = new ViewHolder(avatar, name, isdriver, datetime, content);
+                convertView.setTag(viewHolder);
+            }
+            else {
+                viewHolder = (ViewHolder) convertView.getTag();
             }
 
-            MessageClass mc = list.get(position);
-
-            ImageView avatar = (ImageView)itemView.findViewById(R.id.item_avatar);
             byte[] avatarimage = mc.getAvatar();
             if (avatarimage != null) {
                 Bitmap bm = BitmapFactory.decodeByteArray(avatarimage, 0, avatarimage.length);
-                avatar.setImageBitmap(bm);
+                viewHolder.getAvatar().setImageBitmap(bm);
             }
             else {
-                avatar.setImageResource(R.drawable.default_avatar);
+                viewHolder.getAvatar().setImageResource(R.drawable.default_avatar);
             }
-
-            TextView name = (TextView) itemView.findViewById(R.id.item_name);
-            name.setText(mc.getName());
-
-            TextView content = (TextView) itemView.findViewById(R.id.item_content);
-            content.setText(mc.getContent());
-
-            TextView datetime = (TextView) itemView.findViewById(R.id.item_datetime);
-            datetime.setText(mc.getDatetime());
-
-            TextView tip_item = (TextView) itemView.findViewById(R.id.item_isdriver);
+            viewHolder.getName().setText(mc.getName());
+            viewHolder.getDatatime().setText(mc.getDatetime());
+            viewHolder.getContent().setText(mc.getContent());
             if(mc.getName().equals(drivername)) {
-                tip_item.setText("Driver");
-                tip_item.setTextColor(Color.RED);
+                viewHolder.getIsdriver().setText("Driver");
+                viewHolder.getIsdriver().setTextColor(Color.RED);
             }
             else {
-                tip_item.setVisibility(View.GONE);
+                viewHolder.getIsdriver().setVisibility(View.GONE);
             }
+            return convertView;
+        }
+    }
 
-            return itemView;
+    private class ViewHolder {
+        ImageView avatar;
+        TextView name;
+        TextView isdriver;
+        TextView datatime;
+        TextView content;
+
+        public ViewHolder(ImageView avatar, TextView name, TextView isdriver, TextView datatime, TextView content) {
+            this.avatar = avatar;
+            this.name = name;
+            this.isdriver = isdriver;
+            this.datatime = datatime;
+            this.content = content;
+        }
+
+        public ImageView getAvatar() {
+            return avatar;
+        }
+
+        public void setAvatar(ImageView avatar) {
+            this.avatar = avatar;
+        }
+
+        public TextView getName() {
+            return name;
+        }
+
+        public void setName(TextView name) {
+            this.name = name;
+        }
+
+        public TextView getIsdriver() {
+            return isdriver;
+        }
+
+        public void setIsdriver(TextView isdriver) {
+            this.isdriver = isdriver;
+        }
+
+        public TextView getDatatime() {
+            return datatime;
+        }
+
+        public void setDatatime(TextView datatime) {
+            this.datatime = datatime;
+        }
+
+        public TextView getContent() {
+            return content;
+        }
+
+        public void setContent(TextView content) {
+            this.content = content;
         }
     }
 
@@ -110,11 +192,7 @@ public class Message extends Footer {
             MessageClass.addMessage(GlobalVariables.user_name, content.getText().toString(), carpoolid);
         }
         content.setText("");
-        list = MessageClass.getMessageList(carpoolid);
-        if(list != null && list.size() > 0) {
-            populateListView();
-            tip.setVisibility(View.GONE);
-        }
+        populateListView();
     }
 
     public void finishActivity(View view) {

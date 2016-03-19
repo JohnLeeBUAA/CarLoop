@@ -331,12 +331,21 @@ public class CarpoolSingle extends Footer {
         if(status == 0) {
             Toast.makeText(this, "Status changed to: aboard", Toast.LENGTH_SHORT).show();
             Button btn = (Button) findViewById(R.id.btn_aboardconfirmed);
-            btn.setText("You are aboard");
+            btn.setText("\tYou are aboard\t");
             btn.setEnabled(false);
         }
         else {
             Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void payConfirmed (View view) {
+        Intent intent = new Intent(this, MakePayment.class);
+        intent.putExtra("carpoolid", carpoolid);
+        intent.putExtra("drivername", carpool.getDrivername());
+        intent.putExtra("driveravatar", carpool.getDriveravatar());
+        intent.putExtra("price", carpool.getPrice());
+        startActivity(intent);
     }
 
     public void reviewConfirmed (View view) {
@@ -348,7 +357,7 @@ public class CarpoolSingle extends Footer {
             startActivity(intent);
         }
         else if(valid == 1){
-            Toast.makeText(this, "Can not write review. Wait till the driver confirms your payment.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Can not write review. Please make your payment first.", Toast.LENGTH_LONG).show();
         }
         else {
             Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();

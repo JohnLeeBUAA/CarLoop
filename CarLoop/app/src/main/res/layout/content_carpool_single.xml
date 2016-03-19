@@ -22,10 +22,11 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
 
             <LinearLayout
-                android:layout_weight="1"
+                android:layout_weight="3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -63,19 +64,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent">
                 <ImageView
-                    android:layout_width="fill_parent"
-                    android:layout_height="match_parent"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
                     android:src="@drawable/towards"
                     android:tint="#7d7d7d"
-                    android:layout_marginLeft="20dp"/>
+                    android:layout_marginLeft="20dp"
+                    android:layout_gravity="center_vertical"/>
             </LinearLayout>
 
             <LinearLayout
+                android:layout_weight="3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginLeft="20dp"
-                android:layout_weight="1"
                 android:background="@drawable/single_border"
                 android:padding="5dp">
                 <LinearLayout
@@ -230,13 +232,11 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Driver"
-                    android:textSize="15dp"/>
+                    android:text="Driver"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Rate"
-                    android:textSize="15dp"
                     android:layout_marginTop="5dp"/>
 
             </LinearLayout>
@@ -252,7 +252,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Drivername"
-                    android:textSize="15dp"
                     android:textStyle="bold|italic"/>
                 <RatingBar
                     android:id="@+id/ratingbar_capoolsingle"
@@ -274,8 +273,8 @@
                 <ImageView
                     android:id="@+id/btn_message"
                     android:onClick="jumpMessage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:background="@drawable/chat"
                     android:backgroundTint="#9e9e9e"
                     android:layout_gravity="bottom"/>
@@ -402,6 +401,14 @@
             android:layout_height="wrap_content"
             android:background="@drawable/single_border"/>
         <Button
+            android:id="@+id/btn_payconfirmed"
+            android:text="\tPay\t"
+            android:onClick="payConfirmed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/single_border"
+            android:layout_marginLeft="10dp"/>
+        <Button
             android:id="@+id/btn_reviewconfirmed"
             android:text="\tReview Driver\t"
             android:onClick="reviewConfirmed"
@@ -426,7 +433,7 @@
             android:background="@drawable/single_border"/>
         <Button
             android:id="@+id/btn_confirmpaymenttrip"
-            android:text="\tConfirm Payment\t"
+            android:text="\tPayment Info\t"
             android:onClick="confirmPaymentTrip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

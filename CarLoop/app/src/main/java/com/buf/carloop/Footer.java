@@ -32,7 +32,6 @@ public class Footer extends AppCompatActivity {
     }
 
     public void search(View view) {
-        Intent intent = new Intent(this, CarpoolNew.class);
         if(GlobalVariables.user_identity == 1) {
             //driver search demanded carpools
             //intent.putExtra("type", "SearchDemand");
@@ -40,9 +39,10 @@ public class Footer extends AppCompatActivity {
         }
         else {
             //passenger search created carpools
+            Intent intent = new Intent(this, CarpoolNew.class);
             intent.putExtra("type", "Search");
+            startActivity(intent);
         }
-        startActivity(intent);
     }
 
     public void list(View view) {
@@ -59,8 +59,7 @@ public class Footer extends AppCompatActivity {
     }
 
     public void message(View view) {
-        Intent intent = new Intent(this, CarpoolList.class);
-        intent.putExtra("type", "Message");
+        Intent intent = new Intent(this, MessageList.class);
         startActivity(intent);
     }
 
