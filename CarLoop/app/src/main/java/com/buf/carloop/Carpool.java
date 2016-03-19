@@ -427,6 +427,7 @@ public class Carpool implements Parcelable{
      */
     public static List<Carpool> getCreatedList(String user_name) {
         byte[] avatar = selectSQLBlob(user_name);
+        double driverate = selectDriverrate(user_name);
         String sqlComm = "select * from carpool_created where cc_drivername = '" + user_name + "';";
         List<Carpool> list = new ArrayList<Carpool>();
         Carpool carpool = null;
@@ -457,6 +458,7 @@ public class Carpool implements Parcelable{
                     carpool.setPassengeraboard((int) value.elementAt(15));
                     carpool.setStatus((int) value.elementAt(16));
                     carpool.setDriveravatar(avatar);
+                    carpool.setDriverrate(driverate);
                     list.add(carpool);
                 }
             }
@@ -507,6 +509,7 @@ public class Carpool implements Parcelable{
                     carpool.setPassengeraboard((int) value.elementAt(15));
                     carpool.setStatus((int) value.elementAt(16));
                     carpool.setDriveravatar(selectSQLBlob(carpool.getDrivername()));
+                    carpool.setDriverrate(selectDriverrate(carpool.getDrivername()));
                     list.add(carpool);
                     System.out.println(value.elementAt(1));
                 }
@@ -559,6 +562,7 @@ public class Carpool implements Parcelable{
                     carpool.setPassengeraboard((int) value.elementAt(15));
                     carpool.setStatus((int) value.elementAt(16));
                     carpool.setDriveravatar(selectSQLBlob(carpool.getDrivername()));
+                    carpool.setDriverrate(selectDriverrate(carpool.getDrivername()));
                     list.add(carpool);
                     System.out.println(value.elementAt(1));
                 }
@@ -611,6 +615,7 @@ public class Carpool implements Parcelable{
                     carpool.setPassengeraboard((int) value.elementAt(15));
                     carpool.setStatus((int) value.elementAt(16));
                     carpool.setDriveravatar(selectSQLBlob(carpool.getDrivername()));
+                    carpool.setDriverrate(selectDriverrate(carpool.getDrivername()));
                     list.add(carpool);
                     System.out.println(value.elementAt(1));
                 }
@@ -678,6 +683,7 @@ public class Carpool implements Parcelable{
                     carpool.setPassengeraboard((int) value.elementAt(15));
                     carpool.setStatus((int) value.elementAt(16));
                     carpool.setDriveravatar(selectSQLBlob(carpool.getDrivername()));
+                    carpool.setDriverrate(selectDriverrate(carpool.getDrivername()));
                     list.add(carpool);
                     System.out.println(value.elementAt(1));
                 }
