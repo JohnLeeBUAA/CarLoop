@@ -98,10 +98,10 @@ public class Message extends Footer {
                     convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_message, null);
                 }
                 ImageView avatar = (ImageView) convertView.findViewById(R.id.item_avatar);
-                TextView name = (TextView) findViewById(R.id.item_name);
-                TextView isdriver = (TextView) findViewById(R.id.item_isdriver);
-                TextView datetime = (TextView) findViewById(R.id.item_datetime);
-                TextView content = (TextView) findViewById(R.id.item_content);
+                TextView name = (TextView) convertView.findViewById(R.id.item_name);
+                TextView isdriver = (TextView) convertView.findViewById(R.id.item_isdriver);
+                TextView datetime = (TextView) convertView.findViewById(R.id.item_datetime);
+                TextView content = (TextView) convertView.findViewById(R.id.item_content);
                 viewHolder = new ViewHolder(avatar, name, isdriver, datetime, content);
                 convertView.setTag(viewHolder);
             }
