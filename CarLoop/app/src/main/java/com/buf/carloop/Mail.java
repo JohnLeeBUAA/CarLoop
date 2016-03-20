@@ -1,11 +1,5 @@
 package com.buf.carloop;
 
-/**
- * Created by zijin on 19/02/16.
- */
-/**
- * Created by zijin on 19/02/16.
- */
 import java.util.Date;
 import java.util.Properties;
 import javax.activation.CommandMap;
@@ -23,7 +17,9 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
-
+/**
+ * Created by zijin on 19/02/16.
+ */
 public class Mail extends javax.mail.Authenticator {
     private String _user;
     private String _pass;
