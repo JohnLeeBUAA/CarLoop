@@ -51,10 +51,10 @@
                 </LinearLayout>
                 <TextView
                     android:id="@+id/depart_loc_carpoolsingle"
-                    android:layout_width="fill_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Departure"
-                    android:textSize="25dp"
+                    android:textSize="17dp"
                     android:textStyle="bold"
                     android:layout_marginTop="10dp"/>
             </LinearLayout>
@@ -102,7 +102,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:text="Destination"
-                    android:textSize="25dp"
+                    android:textSize="17dp"
                     android:textStyle="bold"
                     android:layout_marginTop="10dp"/>
             </LinearLayout>

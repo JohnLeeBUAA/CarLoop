@@ -13,53 +13,54 @@
     tools:context="com.buf.carloop.Message"
     tools:showIn="@layout/activity_message">
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/sendback_message"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-        <TextView
-            android:id="@+id/tip_message"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <ListView
-            android:stackFromBottom="true"
-            android:transcriptMode="alwaysScroll"
-            android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:divider="#00000000"
-            android:dividerHeight="5dip"
-            android:id="@+id/list_message"
-            android:layout_gravity="center_horizontal" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="bottom">
+        android:layout_alignParentBottom="true"
+        android:padding="5dp">
         <EditText
-            android:layout_weight="1"
             android:id="@+id/content_message"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:hint="Input your message here"
+            android:layout_toLeftOf="@+id/alignsend"
             android:layout_gravity="bottom"/>
         <Button
-            android:layout_weight="2"
+            android:id="@+id/alignsend"
             android:onClick="sendMessage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/alignback"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
             android:text="Send"
             android:background="@drawable/green_button"
             android:layout_marginLeft="5dp"/>
         <Button
-            android:layout_weight="2"
+            android:id="@id/alignback"
             android:onClick="finishActivity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
             android:text="Back"
             android:background="@drawable/blue_button"
             android:layout_marginLeft="5dp"/>
-    </LinearLayout>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tip_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <ListView
+        android:layout_marginTop="10dp"
+        android:stackFromBottom="true"
+        android:transcriptMode="alwaysScroll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/sendback_message"
+        android:divider="#00000000"
+        android:dividerHeight="5dip"
+        android:id="@+id/list_message"
+        android:layout_gravity="center_horizontal" />
 
 </RelativeLayout>
