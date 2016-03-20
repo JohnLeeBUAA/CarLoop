@@ -21,6 +21,7 @@ public class Footer extends AppCompatActivity {
         if(GlobalVariables.user_identity == 1) {
             Intent intent = new Intent(this, CarpoolNew.class);
             intent.putExtra("type", "Create");
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
         else {
@@ -41,6 +42,7 @@ public class Footer extends AppCompatActivity {
             //passenger search created carpools
             Intent intent = new Intent(this, CarpoolNew.class);
             intent.putExtra("type", "Search");
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
         }
     }
@@ -55,16 +57,19 @@ public class Footer extends AppCompatActivity {
             //display confirmed list for passenger
             intent.putExtra("type", "Confirmed");
         }
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
     public void message(View view) {
         Intent intent = new Intent(this, MessageList.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 
     public void settings(View view) {
         Intent intent = new Intent(this, Settings.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 }

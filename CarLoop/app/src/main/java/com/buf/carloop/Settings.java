@@ -115,6 +115,7 @@ public class Settings extends Footer {
         editor.putInt("user_identity", -1);
         editor.commit();
         Intent intent = new Intent(this, SignIn.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
 }

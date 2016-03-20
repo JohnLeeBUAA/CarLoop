@@ -157,4 +157,16 @@ public class PassengerCarpool {
             return -1;
         }
     }
+
+    public PassengerCarpool(int paid, int aboard) {
+        this.paid = paid;
+        this.aboard = aboard;
+    }
+
+    /*
+    select pc_paid, pc_aboard from passengercarpool where pc_passengername = passengername and pc_carpoolid = carpoolid
+     */
+    public static PassengerCarpool getInfo(String passengername, int carpoolid) {
+        return new PassengerCarpool(1, 0);
+    }
 }

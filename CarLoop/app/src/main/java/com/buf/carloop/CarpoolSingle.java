@@ -145,6 +145,30 @@ public class CarpoolSingle extends Footer {
             this.setTitle("Confirmed Carpool");
             message_layout.setVisibility(View.VISIBLE);
             confirmed_layout.setVisibility(View.VISIBLE);
+
+            PassengerCarpool pc = PassengerCarpool.getInfo(GlobalVariables.user_name, carpoolid);
+            Button btn_aboard = (Button) findViewById(R.id.btn_aboardconfirmed);
+            Button btn_pay = (Button) findViewById(R.id.btn_payconfirmed);
+            Button btn_review = (Button) findViewById(R.id.btn_reviewconfirmed);
+            if(pc.getAboard() == 0) {
+                //not aboard
+                btn_pay.setEnabled(false);
+                btn_review.setEnabled(false);
+            }
+            else {
+                //aboard
+                btn_aboard.setText("\tAlready aboard\t");
+                btn_aboard.setEnabled(false);
+                if(pc.getPaid() == 0) {
+                    //not paid
+                    btn_review.setEnabled(false);
+                }
+                else {
+                    //paid
+                    btn_pay.setText("\tAlready paid\t");
+                    btn_pay.setEnabled(false);
+                }
+            }
         }
         else if(type.equals("Trip")) {
             this.setTitle("Ongoing Carpool Trip");
@@ -308,13 +332,22 @@ public class CarpoolSingle extends Footer {
     }
 
     public void confirmInterested (View view) {
-        int status = Carpool.confirmInterested(GlobalVariables.user_name, carpoolid);
-        if(status == 0) {
-            Toast.makeText(this, "Carpool confirmed", Toast.LENGTH_SHORT).show();
-            this.setTitle("Confirmed Carpool");
-            interested_layout.setVisibility(View.GONE);
-            confirmed_layout.setVisibility(View.VISIBLE);
-            confirmed.setText(Integer.toString(carpool.getPassengerconfirmed() + 1));
+        int valid = Carpool.confirmInterestedCheck(carpoolid);
+        if(valid == 0) {
+            int status = Carpool.confirmInterested(GlobalVariables.user_name, carpoolid);
+            if(status == 0) {
+                Toast.makeText(this, "Carpool confirmed", Toast.LENGTH_SHORT).show();
+                this.setTitle("Confirmed Carpool");
+                interested_layout.setVisibility(View.GONE);
+                confirmed_layout.setVisibility(View.VISIBLE);
+                confirmed.setText(Integer.toString(carpool.getPassengerconfirmed() + 1));
+            }
+            else {
+                Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();
+            }
+        }
+        else if(valid == 1) {
+            Toast.makeText(this, "Can not confirm. This carpool has reached maximum passenger number", Toast.LENGTH_LONG).show();
         }
         else {
             Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();
@@ -326,8 +359,10 @@ public class CarpoolSingle extends Footer {
         if(status == 0) {
             Toast.makeText(this, "Status changed to: aboard", Toast.LENGTH_SHORT).show();
             Button btn = (Button) findViewById(R.id.btn_aboardconfirmed);
-            btn.setText("\tYou are aboard\t");
+            btn.setText("\tAlready aboard\t");
             btn.setEnabled(false);
+            Button btn_pay = (Button) findViewById(R.id.btn_payconfirmed);
+            btn_pay.setEnabled(true);
         }
         else {
             Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();

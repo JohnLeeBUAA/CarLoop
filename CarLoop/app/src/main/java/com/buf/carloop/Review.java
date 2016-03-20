@@ -1,5 +1,6 @@
 package com.buf.carloop;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -63,7 +64,10 @@ public class Review extends Footer {
         if(validate()) {
             int status = ReviewClass.addReview(GlobalVariables.user_name, getIntent().getStringExtra("drivername"), rate_val, review_val);
             if(status == 0) {
-                Toast.makeText(this, "Your review has been submitted", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Your review has been submitted. Carpool trip completed.", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(this, CarpoolList.class);
+                intent.putExtra("type", "Confirmed");
+                startActivity(intent);
                 finish();
             }
             else {

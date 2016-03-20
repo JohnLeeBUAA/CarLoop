@@ -115,11 +115,11 @@ public class MakePayment extends Footer {
                 Toast.makeText(getApplicationContext(), "Payment done succesfully", Toast.LENGTH_LONG).show();
                 int status = PassengerCarpool.addPayment(GlobalVariables.user_name, getIntent().getIntExtra("carpoolid", -1));
                 if(status == 0) {
-                    finish();
                     Intent intent = new Intent(this, Review.class);
                     intent.putExtra("drivername", drivername_val);
                     intent.putExtra("driveravatar", avatarimage);
                     startActivity(intent);
+                    finish();
                 }
                 else {
                     Toast.makeText(getApplicationContext(), "Network error", Toast.LENGTH_SHORT).show();

@@ -243,17 +243,17 @@ public class CarpoolList extends Footer {
     }
 
     public void jumpInterestedList(View view) {
-        finish();
         Intent intent = new Intent(this, CarpoolList.class);
         intent.putExtra("type", "Interested");
         startActivity(intent);
+        finish();
     }
 
     public void jumpConfirmedList(View view) {
-        finish();
         Intent intent = new Intent(this, CarpoolList.class);
         intent.putExtra("type", "Confirmed");
         startActivity(intent);
+        finish();
     }
 
     public void sortSearchList(View view) {

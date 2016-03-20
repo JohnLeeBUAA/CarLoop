@@ -944,6 +944,15 @@ public class Carpool implements Parcelable{
         }
     }
 
+    /*
+    check passengerconfirmed with maxpassenger of a carpool with given carpoolid
+    if passengerconfired < maxpassenger   return 0;
+    else return 1;
+     */
+    public static int confirmInterestedCheck(int carpoolid) {
+        return 0;
+    }
+
     public static void main(String[] args) {
     }
 }
