@@ -6,11 +6,12 @@ android {
 
     defaultConfig {
         applicationId "com.buf.carloop"
-        minSdkVersion 10
+        minSdkVersion 21
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
-        //multiDexEnabled true
+        multiDexEnabled true
+
     }
     buildTypes {
         release {
@@ -27,12 +28,11 @@ dependencies {
     compile files('libs/activation.jar')
     compile files('libs/additionnal.jar')
     compile files('libs/mail.jar')*/
+    compile 'com.android.support:multidex:1.0.0'
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
-    /*compile 'com.google.android.gms:play-services:8.4.0'
-    compile 'com.google.android.gms:play-services-ads:8.4.0'
-    compile 'com.google.android.gms:play-services-identity:8.4.0'
-    compile 'com.google.android.gms:play-services-gcm:8.4.0'*/
+    compile 'com.google.android.gms:play-services:8.4.0'
+    //compile 'com.google.android.gms:play-services-location:8.4.0'
     compile 'com.paypal.sdk:paypal-android-sdk:2.13.3'
 }
 

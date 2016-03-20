@@ -91,7 +91,7 @@ public class ReviewClass {
 
         task.execute(sqlComm);
         try {
-            int value = task.get(100000, TimeUnit.MILLISECONDS);
+            int value = (int) task.get(100000, TimeUnit.MILLISECONDS);
             return value;
         } catch (Exception e) {
             e.printStackTrace();
@@ -120,7 +120,7 @@ public class ReviewClass {
                     review.setReview_id((int) value.elementAt(0));
                     review.setReviewername((String) value.elementAt(1));
                     review.setDrivername((String) value.elementAt(2));
-                    review.setRate((Double) value.elementAt(3));
+                    review.setRate((double) value.elementAt(3));
                     review.setReview(value.elementAt(4).toString());
                     review.setReviewavatar(selectSQLBlob(review.getReviewername()));
                     list.add(review);

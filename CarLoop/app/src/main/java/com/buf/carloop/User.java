@@ -227,7 +227,7 @@ public class User {
         try {
             GlobalVariables.user_identity = 0;
             GlobalVariables.user_name = username;
-            return task.get(10000, TimeUnit.MILLISECONDS);
+            return (int) task.get(10000, TimeUnit.MILLISECONDS);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -248,7 +248,7 @@ public class User {
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
         task.execute(sqlComm);
         try {
-            value = task.get(10000, TimeUnit.MILLISECONDS);
+            value = (int) task.get(10000, TimeUnit.MILLISECONDS);
         } catch (Exception e) {
             e.printStackTrace();
             return -1;
@@ -323,7 +323,7 @@ public class User {
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
         task.execute(sqlComm);
         try {
-            return task.get(10000, TimeUnit.MILLISECONDS);
+            return (int) task.get(10000, TimeUnit.MILLISECONDS);
         } catch (Exception e) {
             e.printStackTrace();
             return -1;
@@ -341,7 +341,7 @@ public class User {
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
         task.execute(sqlComm);
         try {
-            return task.get(10000, TimeUnit.MILLISECONDS);
+            return (int) task.get(10000, TimeUnit.MILLISECONDS);
         } catch (Exception e) {
             e.printStackTrace();
             return -1;
@@ -420,7 +420,7 @@ public class User {
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
         task.execute(sqlComm);
         try {
-            return task.get(10000, TimeUnit.MILLISECONDS);
+            return (int) task.get(10000, TimeUnit.MILLISECONDS);
         } catch (Exception e) {
             e.printStackTrace();
             return -1;
@@ -436,7 +436,7 @@ public class User {
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
         task.execute(sqlComm);
         try {
-            return task.get(10000, TimeUnit.MILLISECONDS);
+            return (int) task.get(10000, TimeUnit.MILLISECONDS);
         } catch (Exception e) {
             e.printStackTrace();
             return -1;

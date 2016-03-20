@@ -1,15 +1,12 @@
 package com.buf.carloop;
 
-import android.support.v7.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,8 +18,6 @@ import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -365,7 +360,12 @@ public class CarpoolSingle extends Footer {
     }
 
     public void naviTrip (View view) {
-
+        //carpool.getDepart_loc();
+        Intent navigation = new Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("google.navigation:q="+String.valueOf(carpool.getDesti_lat())+","+String.valueOf(carpool.getDesti_lng())+"&mode=d"));
+        navigation.setPackage("com.google.android.apps.maps");
+        startActivity(navigation);
     }
 
     public void confirmPaymentTrip (View view) {
