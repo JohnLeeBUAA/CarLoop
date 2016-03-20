@@ -950,7 +950,24 @@ public class Carpool implements Parcelable{
     else return 1;
      */
     public static int confirmInterestedCheck(int carpoolid) {
-        return 0;
+        String sqlComm = "select cc_maxpassenger, cc_passengerconfirmed from carpool_created where cc_id=" + carpoolid + ";";
+        AsyncSelectOnlyNote task = new AsyncSelectOnlyNote();
+
+        task.execute(sqlComm);
+        try {
+            Vector value = task.get(10000, TimeUnit.MILLISECONDS);
+            if (value != null) {
+                if ((int)value.elementAt(0) > (int)value.elementAt(1)) {
+                    return 0;
+                }
+                else return 1;
+            } else {
+                return -1;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return -1;
+        }
     }
 
     public static void main(String[] args) {

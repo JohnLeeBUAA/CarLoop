@@ -1,6 +1,7 @@
 package com.buf.carloop;
 
 import com.buf.database.AsyncSQLLongHaul;
+import com.buf.database.AsyncSelectOnlyNote;
 import com.buf.database.AsyncSelectSomeNote;
 
 import java.util.ArrayList;
@@ -167,6 +168,29 @@ public class PassengerCarpool {
     select pc_paid, pc_aboard from passengercarpool where pc_passengername = passengername and pc_carpoolid = carpoolid
      */
     public static PassengerCarpool getInfo(String passengername, int carpoolid) {
-        return new PassengerCarpool(1, 0);
+        String sqlComm = "select * from passenger_carpool where pc_passengername = '" + passengername + "' and pc_carpoolid = " + carpoolid + ";";
+        PassengerCarpool carpool = null;
+        AsyncSelectOnlyNote task = new AsyncSelectOnlyNote();
+        task.execute(sqlComm);
+        try {
+            Vector value = task.get(10000, TimeUnit.MILLISECONDS);
+            if (value != null) {
+                    carpool = new PassengerCarpool();
+                    carpool.setPc_id((int) value.elementAt(0));
+                    carpool.setPassengername((String) value.elementAt(1));
+                    carpool.setCarpoolid((int) value.elementAt(2));
+                    carpool.setStatus((int) value.elementAt(3));
+                    carpool.setMessage((int) value.elementAt(4));
+                    carpool.setPaid((int) value.elementAt(5));
+                    carpool.setAboard((int) value.elementAt(6));
+            }
+            else {
+                return null;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return carpool;
     }
 }
