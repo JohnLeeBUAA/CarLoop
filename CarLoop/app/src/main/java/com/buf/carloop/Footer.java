@@ -28,7 +28,10 @@ public class Footer extends AppCompatActivity {
             /*Intent intent = new Intent(this, CarpoolNew.class);
             intent.putExtra("type", "Demand");
             startActivity(intent);*/
-            Toast.makeText(this, "You need to be a driver to create carpool", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, CarpoolNew.class);
+            intent.putExtra("type", "Demand");
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         }
     }
 

@@ -31,6 +31,7 @@ public class CarpoolSingle extends Footer {
     private TextView capacity;
     private TextView confirmed;
 
+    private LinearLayout driverinfo_layout;
     private ImageView driveravatar;
     private TextView drivername;
     private RatingBar driverrate;
@@ -41,6 +42,7 @@ public class CarpoolSingle extends Footer {
     private LinearLayout message_layout;
     private LinearLayout created_layout;
     private LinearLayout search_layout;
+    private LinearLayout demanded_layout;
     private LinearLayout interested_layout;
     private LinearLayout confirmed_layout;
     private LinearLayout trip_layout;
@@ -65,6 +67,7 @@ public class CarpoolSingle extends Footer {
         capacity = (TextView) findViewById(R.id.maxpassenger_carpoolsingle);
         confirmed = (TextView) findViewById(R.id.passengerconfirmed_carpoolsingle);
 
+        driverinfo_layout = (LinearLayout) findViewById(R.id.driverinfo_layout);
         driveravatar = (ImageView) findViewById(R.id.driveravatar_carpoolsingle);
         drivername = (TextView) findViewById(R.id.drivername_carpoolsingle);
         driverrate = (RatingBar) findViewById(R.id.ratingbar_capoolsingle);
@@ -77,6 +80,8 @@ public class CarpoolSingle extends Footer {
         created_layout.setVisibility(View.GONE);
         search_layout = (LinearLayout) findViewById(R.id.search_layout);
         search_layout.setVisibility(View.GONE);
+        demanded_layout = (LinearLayout) findViewById(R.id.demanded_layout);
+        demanded_layout.setVisibility(View.GONE);
         interested_layout = (LinearLayout) findViewById(R.id.interested_layout);
         interested_layout.setVisibility(View.GONE);
         confirmed_layout = (LinearLayout) findViewById(R.id.confirmed_layout);
@@ -105,27 +110,36 @@ public class CarpoolSingle extends Footer {
         capacity.setText(Integer.toString(carpool.getMaxpassenger()));
         confirmed.setText(Integer.toString(carpool.getPassengerconfirmed()));
 
-        byte[] avatarimage = carpool.getDriveravatar();
-        if (avatarimage != null) {
-            Bitmap bm = BitmapFactory.decodeByteArray(avatarimage, 0, avatarimage.length);
-            driveravatar.setImageBitmap(bm);
-        }
-        drivername.setText(carpool.getDrivername());
-        list = ReviewClass.getReviewList(carpool.getDrivername());
-        if(list == null || list.size() == 0) {
-            tip.setText("No review yet");
+        if(type.equals("Demanded")) {
+            driverinfo_layout.setVisibility(View.GONE);
+            tip.setVisibility(View.GONE);
+            listview.setVisibility(View.GONE);
         }
         else {
-            tip.setVisibility(View.GONE);
-            double rate = 0D;
-            for(int i = 0; i < list.size(); i++) {
-                rate += list.get(i).getRate();
+            byte[] avatarimage = carpool.getDriveravatar();
+            if (avatarimage != null) {
+                Bitmap bm = BitmapFactory.decodeByteArray(avatarimage, 0, avatarimage.length);
+                driveravatar.setImageBitmap(bm);
             }
-            rate = rate / list.size();
-            driverrate.setNumStars(5);
-            driverrate.setRating((float)rate);
-            populateListView();
+
+            drivername.setText(carpool.getDrivername());
+            list = ReviewClass.getReviewList(carpool.getDrivername());
+            if(list == null || list.size() == 0) {
+                tip.setText("No review yet");
+            }
+            else {
+                tip.setVisibility(View.GONE);
+                double rate = 0D;
+                for(int i = 0; i < list.size(); i++) {
+                    rate += list.get(i).getRate();
+                }
+                rate = rate / list.size();
+                driverrate.setNumStars(5);
+                driverrate.setRating((float)rate);
+                populateListView();
+            }
         }
+
 
         if(type.equals("Search")) {
             this.setTitle("Search Result");
@@ -135,6 +149,10 @@ public class CarpoolSingle extends Footer {
             this.setTitle("Created Carpool");
             message_layout.setVisibility(View.VISIBLE);
             created_layout.setVisibility(View.VISIBLE);
+        }
+        else if(type.equals("Demanded")) {
+            this.setTitle("Demanded Carpool");
+            demanded_layout.setVisibility(View.VISIBLE);
         }
         else if(type.equals("Interested")) {
             this.setTitle("Interested Carpool");
@@ -241,6 +259,7 @@ public class CarpoolSingle extends Footer {
                         Intent intent = new Intent(CarpoolSingle.this, CarpoolList.class);
                         intent.putExtra("type", "Created");
                         startActivity(intent);
+                        finish();
                     } else {
                         Toast.makeText(CarpoolSingle.this, "Network error", Toast.LENGTH_SHORT).show();
                     }
@@ -262,6 +281,7 @@ public class CarpoolSingle extends Footer {
         intent.putExtra("carpool", carpool);
         intent.putExtra("type", "Edit");
         startActivity(intent);
+        finish();
     }
 
     public void startTrip (View view) {
@@ -318,6 +338,28 @@ public class CarpoolSingle extends Footer {
         }
     }
 
+    public void deleteDemanded (View view) {
+        int status = Carpool.deleteDemanded(carpoolid);
+        if(status == 0) {
+            Toast.makeText(this, "Record deleted", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, CarpoolList.class);
+            intent.putExtra("type", "Demanded");
+            startActivity(intent);
+            finish();
+        }
+        else {
+            Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void editDemanded (View view) {
+        Intent intent = new Intent(this, CarpoolNew.class);
+        intent.putExtra("carpool", carpool);
+        intent.putExtra("type", "EditDemand");
+        startActivity(intent);
+        finish();
+    }
+
     public void deleteInterested (View view) {
         int status = Carpool.deleteInterested(GlobalVariables.user_name, carpoolid);
         if(status == 0) {
@@ -325,6 +367,7 @@ public class CarpoolSingle extends Footer {
             Intent intent = new Intent(this, CarpoolList.class);
             intent.putExtra("type", "Interested");
             startActivity(intent);
+            finish();
         }
         else {
             Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();

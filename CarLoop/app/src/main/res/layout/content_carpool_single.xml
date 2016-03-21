@@ -213,6 +213,7 @@
         <View android:layout_marginTop="10dp" style="@style/bg_line"/>
 
         <LinearLayout
+            android:id="@+id/driverinfo_layout"
             android:orientation="horizontal"
             android:layout_marginTop="10dp"
             android:layout_width="match_parent"
@@ -358,6 +359,29 @@
             android:id="@+id/btn_confirmsearch"
             android:text="\tConfirm\t"
             android:onClick="confirmSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/single_border"
+            android:layout_marginLeft="10dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/demanded_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center|bottom">
+        <Button
+            android:id="@+id/btn_deletedemanded"
+            android:text="\tDelete\t"
+            android:onClick="deleteDemanded"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/single_border"/>
+        <Button
+            android:id="@+id/btn_editdemanded"
+            android:text="\tEdit\t"
+            android:onClick="editDemanded"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/single_border"
