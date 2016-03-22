@@ -99,12 +99,41 @@ public class CarpoolNew extends Footer {
             this.setTitle("Create Carpool");
             add_btn.setText("Create");
         }
+        else if(type.equals("CreateOnDemand")) {
+            this.setTitle("Create Carpool On Demand");
+            add_btn.setText("Create");
+
+            carpool = (Carpool) getIntent().getParcelableExtra("carpool");
+
+            depart_loc_val = carpool.getDepart_loc();
+            depart_lat_val = carpool.getDepart_lat();
+            depart_lng_val = carpool.getDepart_lng();
+            desti_loc_val = carpool.getDesti_loc();
+            desti_lat_val = carpool.getDesti_lat();
+            desti_lng_val = carpool.getDesti_lng();
+
+            set_depart_btn.setText(depart_loc_val);
+            set_desti_btn.setText(desti_loc_val);
+
+            tip.setText(carpool.getDate());
+            tip2.setText(carpool.getDate_range());
+            tip3.setText(carpool.getTime());
+            tip4.setText(carpool.getTime_range());
+        }
         else if(type.equals("Demand")) {
             this.setTitle("Demand Carpool");
             add_btn.setText("Demand");
+            maxpassengerarea.setVisibility(View.GONE);
+            pricearea.setVisibility(View.GONE);
         }
         else if(type.equals("Search")) {
             this.setTitle("Search Carpool");
+            add_btn.setText("Search");
+            maxpassengerarea.setVisibility(View.GONE);
+            pricearea.setVisibility(View.GONE);
+        }
+        else if(type.equals("SearchDemand")) {
+            this.setTitle("Search Demanded Carpool");
             add_btn.setText("Search");
             maxpassengerarea.setVisibility(View.GONE);
             pricearea.setVisibility(View.GONE);
@@ -266,6 +295,33 @@ public class CarpoolNew extends Footer {
                     bar.setVisibility(View.GONE);
                 }
             }
+            else if(type.equals("CreateOnDemand")) {
+                int status = Carpool.createCarpoolOnDemand(
+                        GlobalVariables.user_name,
+                        depart_loc_val,
+                        depart_lat_val,
+                        depart_lng_val,
+                        desti_loc_val,
+                        desti_lat_val,
+                        desti_lng_val,
+                        date,
+                        time,
+                        date_range,
+                        time_range,
+                        Integer.parseInt(maxpassenger_val),
+                        Integer.parseInt(price_val),
+                        carpool.getDrivername()
+                );
+                if(status == 0) {
+                    Toast.makeText(this, "Carpool created", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+                else {
+                    Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();
+                    add_btn.setVisibility(View.VISIBLE);
+                    bar.setVisibility(View.GONE);
+                }
+            }
             else if(type.equals("Demand")) {
                 int status = Carpool.demandCarpool(
                         GlobalVariables.user_name,
@@ -361,6 +417,21 @@ public class CarpoolNew extends Footer {
                 intent.putExtra("date_range", date_range);
                 intent.putExtra("time_range", time_range);
                 intent.putExtra("type", "Search");
+                startActivity(intent);
+                finish();
+            }
+            else if(type.equals("SearchDemanded")) {
+                Toast.makeText(this, "Searching demanded carpools", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, CarpoolList.class);
+                intent.putExtra("depart_lat_val", depart_lat_val);
+                intent.putExtra("depart_lng_val", depart_lng_val);
+                intent.putExtra("desti_lat_val", desti_lat_val);
+                intent.putExtra("desti_lng_val", desti_lng_val);
+                intent.putExtra("date", date);
+                intent.putExtra("time", time);
+                intent.putExtra("date_range", date_range);
+                intent.putExtra("time_range", time_range);
+                intent.putExtra("type", "SearchDemanded");
                 startActivity(intent);
                 finish();
             }

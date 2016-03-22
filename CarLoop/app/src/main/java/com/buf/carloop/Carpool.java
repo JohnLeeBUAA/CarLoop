@@ -995,7 +995,7 @@ public class Carpool implements Parcelable{
     for carpools in the returned list
         carpool = new Carpool();
         carpool.setCarpoolid(cd_id);
-        carpool.setDrivername(cd_demander);
+        carpool.setDrivername(cd_demander); ---!!!
         carpool.setDepart_lat();
         carpool.setDepart_lng();
         carpool.setDepart_loc();
@@ -1030,6 +1030,44 @@ public class Carpool implements Parcelable{
     carpool.getCarpoolid() is cd_id
      */
     public static int updateDemandedCarpool(Carpool carpool) {
+        return 0;
+    }
+
+    /*
+    search in carpool_demanded
+    same logical with search created carpool
+    same setting method with getDemandedList
+     */
+    public static List<Carpool> getSearchDemandedList(
+            String user_name,
+            double depart_lat_val,
+            double depart_lng_val,
+            double desti_lat_val,
+            double desti_lng_val,
+            String date,
+            String time,
+            String date_range,
+            String time_range
+    ) {
+        return null;
+    }
+
+    public static int createCarpoolOnDemand(
+            String creator_name,
+            String depart_loc,
+            double depart_lat,
+            double depart_lng,
+            String desti_loc,
+            double desti_lat,
+            double desti_lng,
+            String date,
+            String time,
+            String date_range,
+            String time_range,
+            int maxpassenger,
+            int price,
+            String demander_name
+    ) {
         return 0;
     }
 }
