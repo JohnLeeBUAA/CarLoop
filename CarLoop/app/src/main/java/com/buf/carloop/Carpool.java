@@ -1037,6 +1037,7 @@ public class Carpool implements Parcelable{
     search in carpool_demanded
     same logical with search created carpool
     same setting method with getDemandedList
+    add cd_demander != user_name in sqlcommand
      */
     public static List<Carpool> getSearchDemandedList(
             String user_name,
