@@ -1030,7 +1030,7 @@ public class Carpool implements Parcelable{
      */
     public static List<Carpool> getDemandedList(String user_name) {
         byte[] avatar = selectSQLBlob(user_name);
-        String sqlComm = "select * from carpool_demander where cd_demander = '" + user_name + "';";
+        String sqlComm = "select * from carpool_demanded where cd_demander = '" + user_name + "';";
         List<Carpool> list = new ArrayList<Carpool>();
         Carpool carpool = null;
         AsyncSelectSomeNote task = new AsyncSelectSomeNote();
