@@ -256,6 +256,7 @@ public class SqlCommond {
                 "(cc_time <= '"+ "03:00:00" + "' and cc_time_range <= '"  + "03:00:00" + "' or cc_time <= '"+ "03:00:00" + "' and cc_time_range >= '" + "03:00:00" + "') and " +
                 "cc_status = 0 and cc_passengerconfirmed < cc_maxpassenger " +
                 "and cc_id not in (select pc_carpoolid from passenger_carpool where pc_passengername = '" + "1" + "');";*/
+        /*
         String sqlComm = "insert into review (r_passengername, r_drivername, r_rate, r_review) values ('" +
                 "xin" + "', '" + "an" + "', " + 3.8 + ", '" + "good driver" + "');";
 
@@ -263,7 +264,7 @@ public class SqlCommond {
         int value1 = sqlCommond.longHaul(sqlComm);
         System.out.println(value1);
 
-
+*/
 
         /*
         String sqlComm = String.format("update carpool_created set cc_depart_lat=%f, cc_depart_lng=%f, cc_depart_loc='%s', " +
@@ -272,19 +273,19 @@ public class SqlCommond {
                 11.0, 12.0, "Toronto", 2.0, 3.0, "Nanjing", "2015/05/04", "2015/05/04", "11:11", "11:59", 10, 44, 1, 1);
         // Sql create user operation
 */
-/*
+
         byte[] avatar;
         File f1=new File("E:\\lone.jpg");
         FileInputStream fin=new FileInputStream(f1);
         byte [] b1=new byte[(int)f1.length()];
         fin.read(b1);
-        for (int i = 0; i < b1.length; i ++)
-        {
-            System.out.format("%02X ", b1[i]);
-        }
-        System.out.println();
-        System.out.println(b1.length);
-*/
+
+        String sqlComm = "insert into voice (v_name, v_gender) values ('Lily', 'female');";
+        System.out.print(sqlComm);
+        SqlCommond sqlCommond = new SqlCommond();
+        int value = sqlCommond.longHaul(sqlComm);
+        System.out.println(value);
+
         /*
         System.out.println();
         System.out.println();

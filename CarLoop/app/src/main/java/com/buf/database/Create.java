@@ -136,7 +136,26 @@ public class Create {
         }
         return rs;
     }
+    public static int createTableVoice() {
+        int rs;
+        //set up connection to the database
+        Connection conn = JDBC.getConnection();
+        try {
+            Statement stmt = conn.createStatement();
+            String sqlCreate = "create table " + "voice" +
+                    " (v_id INT NOT NULL AUTO_INCREMENT, v_name VARCHAR(32), v_gender ENUM('male', 'female')," +
+                    " v_voice MEDIUMBLOB, v_avatar MEDIUMBLOB," +
+                    " UNIQUE(v_name), PRIMARY KEY (v_id));";
+            System.out.println(sqlCreate);
+            rs = stmt.executeUpdate(sqlCreate);
+            stmt.close();
+        } catch(SQLException e) {
+            e.printStackTrace();
+            rs = -1;
+        }
+        return rs;
+    }
     public static void main(String[] args) {
-        createTableVehicle();
+        createTableVoice();
     }
 }
