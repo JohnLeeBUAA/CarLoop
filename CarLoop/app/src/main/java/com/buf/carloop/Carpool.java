@@ -1131,7 +1131,7 @@ public class Carpool implements Parcelable{
         String sqlComm = "select * from carpool_demanded " +
                 "where ((cd_date <= '"+ date + "' and cd_date_range >= '"  + date + "') or (cd_date <= '"+ date_range + "' and cd_date_range >= '" + date_range + "') or (cd_date >= '" + date + "' and cd_date_range <='" + date_range + "')) and " +
                 "((cd_time <= '"+ time + "' and cd_time_range >= '"  + time + "') or (cd_time <= '"+ time_range + "' and cd_time_range >= '" + time_range + "') or (cd_time >= '" + time + "' and cd_time_range <='" + time_range + "')) and " +
-                "and cd_demander != '" + user_name + "';";
+                "cd_demander != '" + user_name + "';";
         List<Carpool> list = new ArrayList<Carpool>();
         Carpool carpool = null;
         AsyncSelectSomeNote task = new AsyncSelectSomeNote();
