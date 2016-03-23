@@ -132,7 +132,7 @@ public class CarpoolNew extends Footer {
             maxpassengerarea.setVisibility(View.GONE);
             pricearea.setVisibility(View.GONE);
         }
-        else if(type.equals("SearchDemand")) {
+        else if(type.equals("SearchDemanded")) {
             this.setTitle("Search Demanded Carpool");
             add_btn.setText("Search");
             maxpassengerarea.setVisibility(View.GONE);
