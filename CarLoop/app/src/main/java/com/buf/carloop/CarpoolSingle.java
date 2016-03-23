@@ -157,7 +157,7 @@ public class CarpoolSingle extends Footer {
             }
             else {
                 //aboard
-                btn_aboard.setText("\tAlready aboard\t");
+                btn_aboard.setText("\tOn board\t");
                 btn_aboard.setEnabled(false);
                 if(pc.getPaid() == 0) {
                     //not paid
@@ -165,7 +165,7 @@ public class CarpoolSingle extends Footer {
                 }
                 else {
                     //paid
-                    btn_pay.setText("\tAlready paid\t");
+                    btn_pay.setText("\tPaid\t");
                     btn_pay.setEnabled(false);
                 }
             }
@@ -359,7 +359,7 @@ public class CarpoolSingle extends Footer {
         if(status == 0) {
             Toast.makeText(this, "Status changed to: aboard", Toast.LENGTH_SHORT).show();
             Button btn = (Button) findViewById(R.id.btn_aboardconfirmed);
-            btn.setText("\tAlready aboard\t");
+            btn.setText("\tOn board\t");
             btn.setEnabled(false);
             Button btn_pay = (Button) findViewById(R.id.btn_payconfirmed);
             btn_pay.setEnabled(true);
