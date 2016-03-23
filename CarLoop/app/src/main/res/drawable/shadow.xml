@@ -8,6 +8,6 @@
         android:right="1dp" android:bottom="1dp" />
     <stroke
         android:dashGap="0dp"
-        android:width="5dp"
+        android:width="3dp"
         android:color="@android:color/white" />
 </shape>
