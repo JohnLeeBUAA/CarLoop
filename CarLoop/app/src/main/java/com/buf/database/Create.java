@@ -51,7 +51,7 @@ public class Create {
         return rs;
     }
 
-    public static int createTalbeCarpool_created() {
+    public static int createTableCarpool_created() {
         int rs;
         //set up connection to the database
         Connection conn = JDBC.getConnection();
@@ -62,6 +62,7 @@ public class Create {
                     " cc_depart_lng DOUBLE DEFAULT 0.0, cc_depart_loc VARCHAR(32), cc_desti_lat DOUBLE DEFAULT 0.0," +
                     " cc_desti_lng DOUBLE DEFAULT 0.0, cc_desti_loc VARCHAR(32), cc_date DATE, cc_date_range DATE, cc_time TIME, cc_time_range TIME," +
                     " cc_maxpassenger INT DEFAULT 0, cc_price INT DEFAULT 0, cc_passengerconfirmed INT DEFAULT 0, cc_passengeraboard INT DEFAULT 0, cc_status INT DEFAULT 0," +
+                    " cc_demander VARCHAR(32)," +
                     " FOREIGN KEY (cc_drivername) REFERENCES user(u_name) on delete cascade, PRIMARY KEY (cc_id));";
             System.out.println(sqlCreate);
             rs = stmt.executeUpdate(sqlCreate);
@@ -155,7 +156,29 @@ public class Create {
         }
         return rs;
     }
+
+    public static int createTableCarpool_demanded() {
+        int rs;
+        //set up connection to the database
+        Connection conn = JDBC.getConnection();
+        try {
+            Statement stmt = conn.createStatement();
+            String sqlCreate = "create table " + "carpool_demanded" +
+                    " (cd_id INT NOT NULL AUTO_INCREMENT, cd_demander VARCHAR(32), cd_depart_lat DOUBLE DEFAULT 0.0," +
+                    " cd_depart_lng DOUBLE DEFAULT 0.0, cd_depart_loc VARCHAR(32), cd_desti_lat DOUBLE DEFAULT 0.0," +
+                    " cd_desti_lng DOUBLE DEFAULT 0.0, cd_desti_loc VARCHAR(32), cd_date DATE, cd_date_range DATE, cd_time TIME, cd_time_range TIME," +
+                    " FOREIGN KEY (cd_demander) REFERENCES user(u_name) on delete cascade, PRIMARY KEY (cd_id));";
+            System.out.println(sqlCreate);
+            rs = stmt.executeUpdate(sqlCreate);
+            stmt.close();
+        } catch(SQLException e) {
+            e.printStackTrace();
+            rs = -1;
+        }
+        return rs;
+    }
     public static void main(String[] args) {
-        createTableVoice();
+        createTableMessage();
+        createTablePassenger_carpool();
     }
 }
