@@ -1194,9 +1194,9 @@ public class Carpool implements Parcelable{
     ) {
         String sqlComm = String.format("insert into carpool_created (cc_drivername, cc_depart_lat, cc_depart_lng, cc_depart_loc, " +
                         "cc_desti_lat, cc_desti_lng, cc_desti_loc, cc_date, cc_date_range, cc_time, cc_time_range, cc_maxpassenger, " +
-                        "cc_price) values ('%s', %f, %f, '%s', %f, %f, '%s', " +
-                        "'%s', '%s', '%s', '%s', %d, %d);", creator_name, depart_lat, depart_lng, depart_loc, desti_lat, desti_lng,
-                desti_loc, date, date_range, time, time_range, maxpassenger, price);
+                        "cc_price, cc_demander) values ('%s', %f, %f, '%s', %f, %f, '%s', " +
+                        "'%s', '%s', '%s', '%s', %d, %d, %s);", creator_name, depart_lat, depart_lng, depart_loc, desti_lat, desti_lng,
+                desti_loc, date, date_range, time, time_range, maxpassenger, price, demander_name);
         // Sql create user operation
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
         task.execute(sqlComm);
