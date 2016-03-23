@@ -35,6 +35,7 @@ public class CarpoolList extends Footer {
     private TextView tip;
     private ListView listview;
     private List<Carpool> list;
+    private Button btn_demanded;
     private Button btn_interested;
     private Button btn_confirmed;
     private LinearLayout sortlist;
@@ -66,6 +67,7 @@ public class CarpoolList extends Footer {
         btn_sort = (Button) findViewById(R.id.btn_sort_carpoollist);
         listview = (ListView) findViewById(R.id.list_carpoollist);
         tip = (TextView) findViewById(R.id.tip_carpoollist);
+        btn_demanded = (Button) findViewById(R.id.btn_demanded_carpoollist);
         btn_interested = (Button) findViewById(R.id.btn_interested_carpoollist);
         btn_confirmed = (Button) findViewById(R.id.btn_confirmed_carpoollist);
 
@@ -101,6 +103,29 @@ public class CarpoolList extends Footer {
                 registerClickCallback();
             }
         }
+        else if(type.equals("SearchDemanded")) {
+            this.setTitle("Search Demanded Result");
+            buttonlist.setVisibility(View.GONE);
+            sortlist.setVisibility(View.GONE);
+            list = Carpool.getSearchDemandedList(
+                    GlobalVariables.user_name,
+                    getIntent().getDoubleExtra("depart_lat_val", 0D),
+                    getIntent().getDoubleExtra("depart_lng_val", 0D),
+                    getIntent().getDoubleExtra("desti_lat_val", 0D),
+                    getIntent().getDoubleExtra("desti_lng_val", 0D),
+                    getIntent().getStringExtra("date"),
+                    getIntent().getStringExtra("time"),
+                    getIntent().getStringExtra("date_range"),
+                    getIntent().getStringExtra("time_range"));
+            if(list == null || list.size() == 0) {
+                tip.setText("No Matched Carpool");
+            }
+            else {
+                tip.setVisibility(View.GONE);
+                populateListView();
+                registerClickCallback();
+            }
+        }
         else if(type.equals("Created")) {
             this.setTitle("Created List");
             buttonlist.setVisibility(View.GONE);
@@ -108,6 +133,19 @@ public class CarpoolList extends Footer {
             list = Carpool.getCreatedList(GlobalVariables.user_name);
             if(list == null || list.size() == 0) {
                 tip.setText("No Created Carpool");
+            }
+            else {
+                tip.setVisibility(View.GONE);
+                populateListView();
+                registerClickCallback();
+            }
+        }
+        else if(type.equals("Demanded")) {
+            this.setTitle("Demanded List");
+            btn_demanded.setBackgroundResource(R.drawable.select_border);
+            list = Carpool.getDemandedList(GlobalVariables.user_name);
+            if(list == null || list.size() == 0) {
+                tip.setText("No Demanded Carpool");
             }
             else {
                 tip.setVisibility(View.GONE);
@@ -153,24 +191,35 @@ public class CarpoolList extends Footer {
             @Override
             public void onItemClick(AdapterView<?> parent, View viewClicked,
                                     int position, long id) {
-                Intent intent = new Intent(CarpoolList.this, CarpoolSingle.class);
-                intent.putExtra("carpool", list.get(position));
-                if (list.get(position).getStatus() == 1 && type.equals("Created")) {
-                    /*
-                    carpool trip for drivers
-                     */
-                    intent.putExtra("type", "Trip");
-                } else {
-                    /*
-                    Created, Interested, Confirmed, Search
-                     */
-                    intent.putExtra("type", type);
-                }
-                startActivity(intent);
-                if (type.equals("Search")) {
+                if (type.equals("SearchDemanded")) {
+                    Intent intent = new Intent(CarpoolList.this, CarpoolNew.class);
+                    intent.putExtra("carpool", list.get(position));
+                    intent.putExtra("type", "CreateOnDemand");
+                    startActivity(intent);
                     list.remove(position);
                     populateListView();
                     registerClickCallback();
+                }
+                else {
+                    Intent intent = new Intent(CarpoolList.this, CarpoolSingle.class);
+                    intent.putExtra("carpool", list.get(position));
+                    if (type.equals("Created") && list.get(position).getStatus() == 1) {
+                    /*
+                    carpool trip for drivers
+                     */
+                        intent.putExtra("type", "Trip");
+                    } else {
+                    /*
+                    Created, Interested, Confirmed, Search, Demanded
+                     */
+                        intent.putExtra("type", type);
+                    }
+                    startActivity(intent);
+                    if (type.equals("Search")) {
+                        list.remove(position);
+                        populateListView();
+                        registerClickCallback();
+                    }
                 }
             }
         });
@@ -204,8 +253,13 @@ public class CarpoolList extends Footer {
             drivername.setText(carpool.getDrivername());
 
             RatingBar rb = (RatingBar) itemView.findViewById(R.id.item_ratingbar_list);
-            rb.setNumStars(5);
-            rb.setRating((float) (carpool.getDriverrate()));
+            if(type.equals("Demanded") || type.equals("SearchDemanded")) {
+                rb.setVisibility(View.GONE);
+            }
+            else {
+                rb.setNumStars(5);
+                rb.setRating((float) (carpool.getDriverrate()));
+            }
 
             TextView depart_loc = (TextView) itemView.findViewById(R.id.item_depart_loc);
             depart_loc.setText(carpool.getDepart_loc());
@@ -240,6 +294,13 @@ public class CarpoolList extends Footer {
 
             return itemView;
         }
+    }
+
+    public void jumpDemandedList(View view) {
+        Intent intent = new Intent(this, CarpoolList.class);
+        intent.putExtra("type", "Demanded");
+        startActivity(intent);
+        finish();
     }
 
     public void jumpInterestedList(View view) {

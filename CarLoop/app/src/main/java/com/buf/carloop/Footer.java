@@ -25,18 +25,20 @@ public class Footer extends AppCompatActivity {
             startActivity(intent);
         }
         else {
-            /*Intent intent = new Intent(this, CarpoolNew.class);
+            Intent intent = new Intent(this, CarpoolNew.class);
             intent.putExtra("type", "Demand");
-            startActivity(intent);*/
-            Toast.makeText(this, "You need to be a driver to create carpool", Toast.LENGTH_SHORT).show();
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         }
     }
 
     public void search(View view) {
         if(GlobalVariables.user_identity == 1) {
             //driver search demanded carpools
-            //intent.putExtra("type", "SearchDemand");
-            Toast.makeText(this, "You need to be a passenger to search carpool", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, CarpoolNew.class);
+            intent.putExtra("type", "SearchDemanded");
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
         }
         else {
             //passenger search created carpools
