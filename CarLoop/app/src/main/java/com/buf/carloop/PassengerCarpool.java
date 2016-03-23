@@ -198,7 +198,37 @@ public class PassengerCarpool {
     select * from passenger_carpool where pc_status = 2 and pc_carpoolid in (select cc_id from carpool_created where cc_drivername = user_name)
      */
     public static List<PassengerCarpool> getDriversNotifications(String user_name) {
-        return null;
+        String sqlComm = "select * from passenger_carpool where pc_status = 2 and pc_carpoolid in (select cc_id from carpool_created where cc_drivername = '" + user_name + "');";
+        List<PassengerCarpool> list = new ArrayList<PassengerCarpool>();
+        PassengerCarpool carpool = null;
+        AsyncSelectSomeNote task = new AsyncSelectSomeNote();
+        task.execute(sqlComm);
+        try {
+            Vector value_original = task.get(10000, TimeUnit.MILLISECONDS);
+            Vector value;
+            if (value_original.size() > 0) {
+                for (int i = 0; i < value_original.size(); i++) {
+                    value = (Vector) value_original.elementAt(i);
+                    carpool = new PassengerCarpool();
+                    carpool.setPc_id((int) value.elementAt(0));
+                    carpool.setPassengername((String) value.elementAt(1));
+                    carpool.setCarpoolid((int) value.elementAt(2));
+                    carpool.setStatus((int) value.elementAt(3));
+                    carpool.setMessage((int) value.elementAt(4));
+                    carpool.setPaid((int) value.elementAt(5));
+                    carpool.setAboard((int) value.elementAt(6));
+                    carpool.setPassengeravatar(selectSQLBlob(carpool.getPassengername()));
+                    list.add(carpool);
+                }
+            }
+            else {
+                return null;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 
     /*
@@ -213,6 +243,31 @@ public class PassengerCarpool {
     order: the opposite order of insertion
      */
     public static List<PassengerCarpool> getPassengersNotifications(String user_name) {
-        return null;
+        String sqlComm = "select cc_id, cc_drivername from carpool_created where cc_demander = '" + user_name + "';";
+        List<PassengerCarpool> list = new ArrayList<PassengerCarpool>();
+        PassengerCarpool carpool = null;
+        AsyncSelectSomeNote task = new AsyncSelectSomeNote();
+        task.execute(sqlComm);
+        try {
+            Vector value_original = task.get(10000, TimeUnit.MILLISECONDS);
+            Vector value;
+            if (value_original.size() > 0) {
+                for (int i = 0; i < value_original.size(); i++) {
+                    value = (Vector) value_original.elementAt(i);
+                    carpool = new PassengerCarpool();
+                    carpool.setPassengername((String) value.elementAt(1));
+                    carpool.setCarpoolid((int) value.elementAt(0));
+                    carpool.setPassengeravatar(selectSQLBlob(carpool.getPassengername()));
+                    list.add(carpool);
+                }
+            }
+            else {
+                return null;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
     }
 }
