@@ -107,14 +107,15 @@
             android:onClick="cancelPayment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/single_border"/>
+            android:background="@drawable/single_border"
+            android:textColor="#a9a9a9"/>
         <Button
             android:text="\tPay With Paypal\t"
             android:onClick="makePayment"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:background="@drawable/select_border"/>
+            android:background="@drawable/single_border"/>
     </LinearLayout>
 
 </LinearLayout>

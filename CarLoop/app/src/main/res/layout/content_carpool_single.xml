@@ -26,7 +26,7 @@
             android:gravity="center_horizontal">
 
             <LinearLayout
-                android:layout_weight="3"
+                android:layout_weight="4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -68,16 +68,16 @@
                     android:layout_height="30dp"
                     android:src="@drawable/towards"
                     android:tint="#7d7d7d"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginLeft="5dp"
                     android:layout_gravity="center_vertical"/>
             </LinearLayout>
 
             <LinearLayout
-                android:layout_weight="3"
+                android:layout_weight="4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:layout_marginLeft="20dp"
+                android:layout_marginLeft="0dp"
                 android:background="@drawable/single_border"
                 android:padding="5dp">
                 <LinearLayout
