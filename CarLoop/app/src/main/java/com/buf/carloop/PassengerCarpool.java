@@ -193,4 +193,26 @@ public class PassengerCarpool {
         }
         return carpool;
     }
+
+    /*
+    select * from passenger_carpool where pc_status = 2 and pc_carpoolid in (select cc_id from carpool_created where cc_drivername = user_name)
+     */
+    public static List<PassengerCarpool> getDriversNotifications(String user_name) {
+        return null;
+    }
+
+    /*
+    return a list of carpools in carpool_created where cc_demander = user_name
+
+    return in PassengerCarpool type:
+    pc.setPassengername(cc_drivername)
+    pc.setPassengeravatar(cc_drivername's avatar)
+    pc.setCarpoolid(cc_id)
+    other fields are non-important
+
+    order: the opposite order of insertion
+     */
+    public static List<PassengerCarpool> getPassengersNotifications(String user_name) {
+        return null;
+    }
 }

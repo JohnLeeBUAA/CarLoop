@@ -300,6 +300,9 @@ public class CarpoolSingle extends Footer {
         else if(valid == 1){
             Toast.makeText(this, "Can not start carpool trip. Wait till all confirmed passengers are aboard.", Toast.LENGTH_LONG).show();
         }
+        else if(valid == 2){
+            Toast.makeText(this, "Can not start carpool trip. No confirmed passenger.", Toast.LENGTH_LONG).show();
+        }
         else {
             Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();
         }

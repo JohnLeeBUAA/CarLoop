@@ -103,6 +103,11 @@ public class Settings extends Footer {
         startActivity(intent);
     }
 
+    public void jumpNotifications(View view) {
+        Intent intent = new Intent(this, Notifications.class);
+        startActivity(intent);
+    }
+
     public void changePassword(View view) {
         Intent intent = new Intent(this, ChangePassword.class);
         startActivity(intent);

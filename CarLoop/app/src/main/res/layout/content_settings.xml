@@ -102,6 +102,15 @@
 
             <View style="@style/bg_line"/>
 
+            <LinearLayout style="@style/mid_layout"
+                android:onClick="jumpNotifications">
+                <TextView style="@style/usertext"
+                    android:text="Notifications" />
+                <ImageView style="@style/img_arrow"/>
+            </LinearLayout>
+
+            <View style="@style/bg_line"/>
+
             <LinearLayout style="@style/bottom_layout"
                 android:onClick="changePassword">
                 <TextView style="@style/usertext"

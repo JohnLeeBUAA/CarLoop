@@ -746,7 +746,10 @@ public class Carpool implements Parcelable{
         try {
             Vector value = task.get(10000, TimeUnit.MILLISECONDS);
             if (value != null) {
-                if ((int)value.elementAt(0) == (int)value.elementAt(1)) {
+                if ((int)value.elementAt(1) == 0) {
+                    return 2;
+                }
+                else if ((int)value.elementAt(0) == (int)value.elementAt(1)) {
                     return 0;
                 }
                 else return 1;
