@@ -49,7 +49,12 @@ public class Message extends Footer {
 
     private void populateListView() {
         list = MessageClass.getMessageList(carpoolid);
-        if(list == null || list.size() == 0) {
+        if(list == null) {
+            tip.setVisibility(View.VISIBLE);
+            tip.setText("Network error");
+            Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();
+        }
+        else if(list.size() == 0) {
             tip.setVisibility(View.VISIBLE);
             tip.setText("No message yet");
         }

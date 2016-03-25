@@ -124,7 +124,12 @@ public class CarpoolSingle extends Footer {
 
             drivername.setText(carpool.getDrivername());
             list = ReviewClass.getReviewList(carpool.getDrivername());
-            if(list == null || list.size() == 0) {
+
+            if(list == null) {
+                tip.setText("Network error");
+                Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();
+            }
+            else if(list.size() == 0) {
                 tip.setText("No review yet");
             }
             else {
@@ -165,26 +170,28 @@ public class CarpoolSingle extends Footer {
             confirmed_layout.setVisibility(View.VISIBLE);
 
             PassengerCarpool pc = PassengerCarpool.getInfo(GlobalVariables.user_name, carpoolid);
-            Button btn_aboard = (Button) findViewById(R.id.btn_aboardconfirmed);
-            Button btn_pay = (Button) findViewById(R.id.btn_payconfirmed);
-            Button btn_review = (Button) findViewById(R.id.btn_reviewconfirmed);
-            if(pc.getAboard() == 0) {
-                //not aboard
-                btn_pay.setEnabled(false);
-                btn_review.setEnabled(false);
-            }
-            else {
-                //aboard
-                btn_aboard.setText("\tOn board\t");
-                btn_aboard.setEnabled(false);
-                if(pc.getPaid() == 0) {
-                    //not paid
+            if(pc != null && pc.getPc_id() != -1) {
+                Button btn_aboard = (Button) findViewById(R.id.btn_aboardconfirmed);
+                Button btn_pay = (Button) findViewById(R.id.btn_payconfirmed);
+                Button btn_review = (Button) findViewById(R.id.btn_reviewconfirmed);
+                if(pc.getAboard() == 0) {
+                    //not aboard
+                    btn_pay.setEnabled(false);
                     btn_review.setEnabled(false);
                 }
                 else {
-                    //paid
-                    btn_pay.setText("\tPaid\t");
-                    btn_pay.setEnabled(false);
+                    //aboard
+                    btn_aboard.setText("\tOn board\t");
+                    btn_aboard.setEnabled(false);
+                    if(pc.getPaid() == 0) {
+                        //not paid
+                        btn_review.setEnabled(false);
+                    }
+                    else {
+                        //paid
+                        btn_pay.setText("\tPaid\t");
+                        btn_pay.setEnabled(false);
+                    }
                 }
             }
         }

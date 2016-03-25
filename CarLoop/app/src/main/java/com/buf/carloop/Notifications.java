@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -41,7 +42,11 @@ public class Notifications extends Footer {
             list = PassengerCarpool.getPassengersNotifications(GlobalVariables.user_name);
         }
 
-        if(list == null || list.size() == 0) {
+        if(list == null) {
+            tip.setText("Network error");
+            Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();
+        }
+        else if(list.size() == 0) {
             tip.setText("No Notification");
         }
         else {
@@ -62,19 +67,25 @@ public class Notifications extends Footer {
             public void onItemClick(AdapterView<?> parent, View viewClicked,
                                     int position, long id) {
 
-                Intent intent = new Intent(Notifications.this, CarpoolSingle.class);
                 Carpool tc = Carpool.getCarpool(list.get(position).getCarpoolid());
-                intent.putExtra("carpool", tc);
-                if (GlobalVariables.user_identity == 1) {
-                    if (list.get(position).getStatus() == 1) {
-                        intent.putExtra("type", "Trip");
-                    } else {
-                        intent.putExtra("type", "Created");
-                    }
+                if (tc == null) {
+                    Toast.makeText(Notifications.this, "Carpool does not exist", Toast.LENGTH_SHORT).show();
+                } else if (tc.getCarpoolid() == -1) {
+                    Toast.makeText(Notifications.this, "Network error", Toast.LENGTH_SHORT).show();
                 } else {
-                    intent.putExtra("type", "Search");
+                    Intent intent = new Intent(Notifications.this, CarpoolSingle.class);
+                    intent.putExtra("carpool", tc);
+                    if (GlobalVariables.user_identity == 1) {
+                        if (list.get(position).getStatus() == 1) {
+                            intent.putExtra("type", "Trip");
+                        } else {
+                            intent.putExtra("type", "Created");
+                        }
+                    } else {
+                        intent.putExtra("type", "Search");
+                    }
+                    startActivity(intent);
                 }
-                startActivity(intent);
             }
         });
     }

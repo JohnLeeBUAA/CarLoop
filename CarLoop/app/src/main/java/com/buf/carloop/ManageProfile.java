@@ -72,7 +72,13 @@ public class ManageProfile extends Footer {
         female = (RadioButton) findViewById(R.id.female_manage_profile);
 
         User user = User.getUser(GlobalVariables.user_name);
-        if(user != null) {
+        if(user == null) {
+            Toast.makeText(this, "User:" + GlobalVariables.user_name + " does not exist", Toast.LENGTH_SHORT).show();
+        }
+        else if(user.getU_id() == -1) {
+            Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();
+        }
+        else {
             username.setText(user.getU_name());
             email.setText(user.getU_email());
             if(user.getU_phone() != null) phone.setText(user.getU_phone());

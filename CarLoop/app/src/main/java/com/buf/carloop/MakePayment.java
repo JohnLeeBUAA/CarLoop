@@ -70,7 +70,13 @@ public class MakePayment extends Footer {
             driveravatar.setImageResource(R.drawable.default_avatar);
         }
 
-        account_val = User.getDriverPaypal(drivername_val);
+        account_val = Vehicle.getDriverPaypal(drivername_val);
+        if(account_val == null) {
+            Toast.makeText(this, "Can not make payment. Driver did not add account info", Toast.LENGTH_SHORT).show();
+        }
+        else if(account_val.equals("")) {
+            Toast.makeText(this, "Network error. Failed to get Driver's paypal account.", Toast.LENGTH_SHORT).show();
+        }
         price_val = getIntent().getIntExtra("price", 0);
         account.setText(account_val);
         price.setText("$" + Integer.toString(price_val));

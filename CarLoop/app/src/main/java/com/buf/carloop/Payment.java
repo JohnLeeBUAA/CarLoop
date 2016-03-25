@@ -39,7 +39,10 @@ public class Payment extends Footer {
         listview = (ListView) findViewById(R.id.list_payment);
         list = PassengerCarpool.getPaymentList(carpoolid);
 
-        if(list != null && list.size() > 0) {
+        if(list == null) {
+            Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();
+        }
+        else if(list != null && list.size() > 0) {
             populateListView();
         }
     }

@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +52,11 @@ public class MessageList extends Footer {
                 list.addAll(confirmedlist);
             }
         }
-        if(list == null || list.size() == 0) {
+        if(list == null) {
+            tip.setText("Network error");
+            Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();
+        }
+        else if(list.size() == 0) {
             tip.setText("Message List Is Empty");
         }
         else {
