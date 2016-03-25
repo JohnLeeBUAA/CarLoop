@@ -77,6 +77,7 @@ public class DriverVehicleInfo extends Footer {
                 Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();
             }
             else {
+                paypal.setText(vehicle.getV_driverpaypal());
                 license.setText(vehicle.getV_driverlicense());
                 manufacturer.setText(vehicle.getV_manufacturer());
                 model.setText(vehicle.getV_model());
