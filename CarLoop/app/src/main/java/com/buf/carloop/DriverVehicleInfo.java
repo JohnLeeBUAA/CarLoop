@@ -89,16 +89,28 @@ public class DriverVehicleInfo extends Footer {
                 int status = Vehicle.addVehicle(GlobalVariables.user_name, paypal_val, license_val, manufacturer_val,
                         model_val, plate_val, mileage_int, capacity_int);
                 if (status == 0) {
-                    User.setDriver(GlobalVariables.user_name);
-                    SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPref.edit();
-                    editor.putInt("user_identity", GlobalVariables.user_identity);
-                    editor.commit();
-                    Toast.makeText(this, "Add driver and vehicle info success", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(this, CarpoolNew.class);
-                    intent.putExtra("type", "Create");
-                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
+                    int statusSet = User.setDriver(GlobalVariables.user_name);
+                    if(statusSet == 0) {
+                        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPref.edit();
+                        editor.putInt("user_identity", GlobalVariables.user_identity);
+                        editor.commit();
+                        Toast.makeText(this, "Add driver and vehicle info success", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(this, CarpoolNew.class);
+                        intent.putExtra("type", "Create");
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                    }
+                    else if(statusSet == 4) {
+                        Toast.makeText(this, "Add driver info failed", Toast.LENGTH_SHORT).show();
+                        btn.setVisibility(View.VISIBLE);
+                        bar.setVisibility(View.GONE);
+                    }
+                    else {
+                        Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();
+                        btn.setVisibility(View.VISIBLE);
+                        bar.setVisibility(View.GONE);
+                    }
                 }
                 else if (status == 3) {
                     Toast.makeText(this, "License: " + license_val + " already exist", Toast.LENGTH_SHORT).show();
