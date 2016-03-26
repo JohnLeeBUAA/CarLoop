@@ -106,12 +106,12 @@ public class Vehicle {
         task.execute(sqlComm);
         try {
             Vector<Object> vector = task.get(5000, TimeUnit.MILLISECONDS);
-            if (vector.size() == 0) {
+            if (vector == null) {
+                return null;
+            } else if (vector.size() == 0) {
                 vehicle.setV_id(-1);
                 return vehicle;
-            }else if (vector == null) {
-                return null;
-            }
+            } 
             vehicle.setV_id((int) vector.elementAt(0));
             vehicle.setV_drivername((String) vector.elementAt(1));
             vehicle.setV_driverpaypal((String) vector.elementAt(2));
@@ -138,13 +138,11 @@ public class Vehicle {
         task.execute(sqlComm);
         try {
             Object value = task.get(10000, TimeUnit.MILLISECONDS);
-            if (value.equals("Exception!")){
-                return -1;
-            }
             if(value == null) {
                 return 1;
-            }
-            else {
+            } else if (value.equals("Exception!")){
+                return -1;
+            } else {
                 return 0;
             }
         } catch (Exception e) {

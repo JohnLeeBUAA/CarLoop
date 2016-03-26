@@ -94,7 +94,11 @@ public class CarpoolList extends Footer {
             btn_sort.setText("\tAdvanced Sort\t");
             sortmethod = 1;
             sortAdvacedSort();
-            if(list == null || list.size() == 0) {
+            if(list == null) {
+                tip.setText("Network error");
+                Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();
+            }
+            else if(list.size() == 0) {
                 tip.setText("No Matched Carpool");
             }
             else {
@@ -117,7 +121,11 @@ public class CarpoolList extends Footer {
                     getIntent().getStringExtra("time"),
                     getIntent().getStringExtra("date_range"),
                     getIntent().getStringExtra("time_range"));
-            if(list == null || list.size() == 0) {
+            if(list == null) {
+                tip.setText("Network error");
+                Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();
+            }
+            else if(list.size() == 0) {
                 tip.setText("No Matched Carpool");
             }
             else {
@@ -131,7 +139,11 @@ public class CarpoolList extends Footer {
             buttonlist.setVisibility(View.GONE);
 
             list = Carpool.getCreatedList(GlobalVariables.user_name);
-            if(list == null || list.size() == 0) {
+            if(list == null) {
+                tip.setText("Network error");
+                Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();
+            }
+            else if(list.size() == 0) {
                 tip.setText("No Created Carpool");
             }
             else {
@@ -144,7 +156,11 @@ public class CarpoolList extends Footer {
             this.setTitle("Demanded List");
             btn_demanded.setBackgroundResource(R.drawable.select_border);
             list = Carpool.getDemandedList(GlobalVariables.user_name);
-            if(list == null || list.size() == 0) {
+            if(list == null) {
+                tip.setText("Network error");
+                Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();
+            }
+            else if(list.size() == 0) {
                 tip.setText("No Demanded Carpool");
             }
             else {
@@ -157,7 +173,11 @@ public class CarpoolList extends Footer {
             this.setTitle("Interested List");
             btn_interested.setBackgroundResource(R.drawable.select_border);
             list = Carpool.getInterestedList(GlobalVariables.user_name);
-            if(list == null || list.size() == 0) {
+            if(list == null) {
+                tip.setText("Network error");
+                Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();
+            }
+            else if(list.size() == 0) {
                 tip.setText("No Interested Carpool");
             }
             else {
@@ -170,7 +190,11 @@ public class CarpoolList extends Footer {
             this.setTitle("Confirmed List");
             btn_confirmed.setBackgroundResource(R.drawable.select_border);
             list = Carpool.getConfirmedList(GlobalVariables.user_name);
-            if(list == null || list.size() == 0) {
+            if(list == null) {
+                tip.setText("Network error");
+                Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();
+            }
+            else if(list.size() == 0) {
                 tip.setText("No Confirmed Carpool");
             }
             else {

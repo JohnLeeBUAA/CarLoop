@@ -70,7 +70,13 @@ public class DriverVehicleInfo extends Footer {
             this.setTitle("Edit Driver And Vehicle Info");
             btn.setText("Update");
             vehicle = Vehicle.getVehicle(GlobalVariables.user_name);
-            if(vehicle != null) {
+            if(vehicle == null) {
+                Toast.makeText(this, "User:" + GlobalVariables.user_name + " did not add vehicle info", Toast.LENGTH_SHORT).show();
+            }
+            else if(vehicle.getV_id() == -1) {
+                Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();
+            }
+            else {
                 license.setText(vehicle.getV_driverlicense());
                 manufacturer.setText(vehicle.getV_manufacturer());
                 model.setText(vehicle.getV_model());
