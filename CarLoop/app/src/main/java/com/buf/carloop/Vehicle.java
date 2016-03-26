@@ -200,13 +200,11 @@ public class Vehicle {
         task.execute(sqlComm);
         try {
             Object value =  task.get(10000, TimeUnit.MILLISECONDS);
-            if (value.equals("Exception!")){
-                return "";
-            }
             if(value == null) {
                 return null;
-            }
-            else {
+            } else if (value.equals("Exception!")){
+                return "";
+            } else {
                 return (String) value;
             }
         } catch (Exception e) {

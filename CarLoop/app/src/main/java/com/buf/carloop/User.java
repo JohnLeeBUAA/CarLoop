@@ -128,11 +128,11 @@ public class User {
         task.execute(sqlComm);
         try {
             Vector<Object> value = task.get(10000, TimeUnit.MILLISECONDS);
-            if (value.size() == 0)
+            if (value == null) {
+                return 1;
+            }else if (value.size() == 0)
             {
                 return -1;
-            } else if (value == null) {
-                return 1;
             } else if (!value.elementAt(2).equals(password)) {
                 return 2;
             } else {
@@ -155,10 +155,10 @@ public class User {
         task.execute(sqlComm);
         try {
             Object value = task.get(10000, TimeUnit.MILLISECONDS);
-            if (value.equals("Exception!")){
-                return -1;
-            } else if(value == null) {
+            if(value == null) {
                 return 0; // username does not exit
+            } else if (value.equals("Exception!")){
+                return -1;
             }
             else {
                 return 1; // username exits
@@ -179,12 +179,11 @@ public class User {
         task.execute(sqlComm);
         try {
             Object value = task.get(10000, TimeUnit.MILLISECONDS);
-            if (value.equals("Exception!")) {
-                return -1;
-            } else if(value == null) {
+            if(value == null) {
                 return 0;  // it is legal
-            }
-            else {
+            } else if (value.equals("Exception!")) {
+                return -1;
+            } else {
                 return 1;   // email exists
             }
         } catch (Exception e) {
@@ -206,10 +205,10 @@ public class User {
         task.execute(sqlComm);
         try {
             Object value = task.get(10000, TimeUnit.MILLISECONDS);
-            if (value.equals("Exception!")) {
-                return -1;
-            } else if (value == null) {
+            if (value == null) {
                 return 2; // no record
+            }else if (value.equals("Exception!")) {
+                return -1;
             } else if (!value.equals(email)) {
                 return 1;  // email does not match
             } else {
@@ -307,10 +306,10 @@ public class User {
         task.execute(sqlComm);
         try {
             Object value = task.get(10000, TimeUnit.MILLISECONDS);
-            if (value.equals("Exception!")) {
-                return -1;
-            } else if (value == null) {
+            if (value == null) {
                 return 2;   // no record
+            } else if (value.equals("Exception!")) {
+                return -1;
             } else if (value.equals(password)) {
                 return 0;   // match
             }
@@ -371,13 +370,12 @@ public class User {
         task.execute(sqlComm);
         try {
             Vector value = task.get(10000, TimeUnit.MILLISECONDS);
-            if (value.equals("Exception!")) {
+            if (value == null) {
+                return null;
+            }else if (value.equals("Exception!")) {
                 user.setU_id(-1);
                 return user;
-            } else if (value == null) {
-                return null;
-            }
-            else {
+            } else {
                 user.setU_id((int) value.elementAt(0));
                 user.setU_name((String) value.elementAt(1));
                 user.setU_password((String) value.elementAt(2));

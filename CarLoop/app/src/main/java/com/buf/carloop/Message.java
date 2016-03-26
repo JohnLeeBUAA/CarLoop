@@ -46,7 +46,7 @@ public class Message extends Footer {
         tip = (TextView) findViewById(R.id.tip_message);
 
         list = new ArrayList<MessageClass>();
-        GlobalVariables.timestamp = "";
+        GlobalVariables.timestamp = "2000-03-25 19:58:19";
 
         populateListView();
     }

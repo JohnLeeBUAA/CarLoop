@@ -105,7 +105,7 @@ public class MessageClass {
     order by datetime ascending
      */
     public static List<MessageClass> getMessageList(int carpoolid) {
-        String sqlComm =  "select * from message where m_carpoolid = " + carpoolid + ";";
+        String sqlComm =  "select * from message where m_carpoolid = " + carpoolid + " and m_datetime > '"+ GlobalVariables.timestamp + "';";
         List<MessageClass> list = new ArrayList<MessageClass>();
         AsyncSelectSomeNote task = new AsyncSelectSomeNote();
 
@@ -113,12 +113,10 @@ public class MessageClass {
         try {
             Vector value_original = task.get(10000, TimeUnit.MILLISECONDS);
             Vector value;
-            int i;
             if (value_original == null) {
                 return null;
-            }
-            if (value_original.size() > 0) {
-                for (i = 0; i < value_original.size(); i++) {
+            } else if (value_original.size() > 0) {
+                for (int i = 0; i < value_original.size(); i++) {
                     value = (Vector) value_original.elementAt(i);
                     MessageClass message = new MessageClass();
                     message.setMessage_id((int) value.elementAt(0));
@@ -129,6 +127,7 @@ public class MessageClass {
                     message.setAvatar(selectSQLBlob(message.getName()));
                     list.add(message);
                 }
+                GlobalVariables.timestamp = list.get(list.size() - 1).getDatetime();
             }
         } catch (Exception e) {
             e.printStackTrace();
