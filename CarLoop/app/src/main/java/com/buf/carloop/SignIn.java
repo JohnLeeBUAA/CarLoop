@@ -59,11 +59,13 @@ public class SignIn extends AppCompatActivity {
                     Intent intent = new Intent(this, CarpoolNew.class);
                     intent.putExtra("type", "Create");
                     startActivity(intent);
+                    finish();
                 }
                 else {
                     Intent intent = new Intent(this, CarpoolNew.class);
                     intent.putExtra("type", "Search");
                     startActivity(intent);
+                    finish();
                 }
 
             }
