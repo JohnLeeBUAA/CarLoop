@@ -19,6 +19,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Message extends Footer {
@@ -44,17 +45,22 @@ public class Message extends Footer {
         listview = (ListView) findViewById(R.id.list_message);
         tip = (TextView) findViewById(R.id.tip_message);
 
+        list = new ArrayList<MessageClass>();
+        GlobalVariables.timestamp = "";
+
         populateListView();
     }
 
     private void populateListView() {
-        list = MessageClass.getMessageList(carpoolid);
-        if(list == null) {
-            tip.setVisibility(View.VISIBLE);
-            tip.setText("Network error");
+        List<MessageClass> templist = MessageClass.getMessageList(carpoolid);
+        if(templist == null) {
             Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();
         }
-        else if(list.size() == 0) {
+        else {
+            list.addAll(templist);
+        }
+
+        if(list.size() == 0) {
             tip.setVisibility(View.VISIBLE);
             tip.setText("No message yet");
         }
