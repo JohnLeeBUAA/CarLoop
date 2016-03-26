@@ -25,15 +25,6 @@ public class Vehicle {
     private int v_capacity;
 
     public int getV_id() {
-        String sqlComm = "";
-        AsyncSelectOnlyValue task = new AsyncSelectOnlyValue();
-        task.execute(sqlComm);
-        try {
-            int value = (int) task.get(5000, TimeUnit.MILLISECONDS);
-            return value;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         return v_id;
     }
 
@@ -115,6 +106,12 @@ public class Vehicle {
         task.execute(sqlComm);
         try {
             Vector<Object> vector = task.get(5000, TimeUnit.MILLISECONDS);
+            if (vector.size() == 0) {
+                vehicle.setV_id(-1);
+                return vehicle;
+            }else if (vector == null) {
+                return null;
+            }
             vehicle.setV_id((int) vector.elementAt(0));
             vehicle.setV_drivername((String) vector.elementAt(1));
             vehicle.setV_driverpaypal((String) vector.elementAt(2));
@@ -126,6 +123,8 @@ public class Vehicle {
             vehicle.setV_capacity((int) vector.elementAt(7));
         } catch (Exception e) {
             e.printStackTrace();
+            vehicle.setV_id(-1);
+            return vehicle;
         }
         return vehicle;
     }
@@ -134,11 +133,14 @@ public class Vehicle {
     search if license already exist
      */
     public static int existLicense(String license) {
-        String sqlComm = "select v_driverlicense from user where v_driverlicense = '" + license + "';";
+        String sqlComm = "select v_driverlicense from vehicle where v_driverlicense = '" + license + "';";
         AsyncSelectOnlyValue task = new AsyncSelectOnlyValue();
         task.execute(sqlComm);
         try {
             Object value = task.get(10000, TimeUnit.MILLISECONDS);
+            if (value.equals("Exception!")){
+                return -1;
+            }
             if(value == null) {
                 return 1;
             }
@@ -188,6 +190,30 @@ public class Vehicle {
         } catch (Exception e) {
             e.printStackTrace();
             return -1;
+        }
+    }
+
+    /*
+   select v_driverpaypal from vehicle where v_drivername = drivername
+    */
+    public static String getDriverPaypal(String drivername) {
+        String sqlComm = "select v_driverpaypal from vehicle where v_drivername = '" + drivername + "';";
+        AsyncSelectOnlyValue task = new AsyncSelectOnlyValue();
+        task.execute(sqlComm);
+        try {
+            Object value =  task.get(10000, TimeUnit.MILLISECONDS);
+            if (value.equals("Exception!")){
+                return "";
+            }
+            if(value == null) {
+                return null;
+            }
+            else {
+                return (String) value;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "";
         }
     }
 }

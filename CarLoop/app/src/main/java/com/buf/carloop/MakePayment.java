@@ -70,7 +70,7 @@ public class MakePayment extends Footer {
             driveravatar.setImageResource(R.drawable.default_avatar);
         }
 
-        account_val = User.getDriverPaypal(drivername_val);
+        account_val = Vehicle.getDriverPaypal(drivername_val);
         price_val = getIntent().getIntExtra("price", 0);
         account.setText(account_val);
         price.setText("$" + Integer.toString(price_val));

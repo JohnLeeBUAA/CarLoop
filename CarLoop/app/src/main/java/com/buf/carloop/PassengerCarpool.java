@@ -117,7 +117,9 @@ public class PassengerCarpool {
         try {
             Vector value_original = task.get(10000, TimeUnit.MILLISECONDS);
             Vector value;
-            if (value_original.size() > 0) {
+            if (value_original == null) {
+                return null;
+            } else if (value_original.size() > 0) {
                 for (int i = 0; i < value_original.size(); i++) {
                     value = (Vector) value_original.elementAt(i);
                     carpool = new PassengerCarpool();
@@ -132,12 +134,9 @@ public class PassengerCarpool {
                     list.add(carpool);
                 }
             }
-            else {
-                return null;
-            }
-
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
         return list;
     }
@@ -174,7 +173,10 @@ public class PassengerCarpool {
         task.execute(sqlComm);
         try {
             Vector value = task.get(10000, TimeUnit.MILLISECONDS);
-            if (value != null) {
+            if (value.size() == 0) {
+                carpool.setPc_id(-1);
+                return carpool;
+            } else if (value != null) {
                     carpool = new PassengerCarpool();
                     carpool.setPc_id((int) value.elementAt(0));
                     carpool.setPassengername((String) value.elementAt(1));
@@ -190,6 +192,8 @@ public class PassengerCarpool {
 
         } catch (Exception e) {
             e.printStackTrace();
+            carpool.setPc_id(-1);
+            return carpool;
         }
         return carpool;
     }
@@ -206,7 +210,9 @@ public class PassengerCarpool {
         try {
             Vector value_original = task.get(10000, TimeUnit.MILLISECONDS);
             Vector value;
-            if (value_original.size() > 0) {
+            if (value_original == null) {
+                return null;
+            } else if (value_original.size() > 0) {
                 for (int i = 0; i < value_original.size(); i++) {
                     value = (Vector) value_original.elementAt(i);
                     carpool = new PassengerCarpool();
@@ -221,12 +227,9 @@ public class PassengerCarpool {
                     list.add(carpool);
                 }
             }
-            else {
-                return null;
-            }
-
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
         return list;
     }
@@ -251,7 +254,9 @@ public class PassengerCarpool {
         try {
             Vector value_original = task.get(10000, TimeUnit.MILLISECONDS);
             Vector value;
-            if (value_original.size() > 0) {
+            if (value_original == null) {
+                return null;
+            } else if (value_original.size() > 0) {
                 for (int i = 0; i < value_original.size(); i++) {
                     value = (Vector) value_original.elementAt(i);
                     carpool = new PassengerCarpool();
@@ -261,10 +266,6 @@ public class PassengerCarpool {
                     list.add(carpool);
                 }
             }
-            else {
-                return null;
-            }
-
         } catch (Exception e) {
             e.printStackTrace();
         }

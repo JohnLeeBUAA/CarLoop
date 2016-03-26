@@ -310,7 +310,10 @@ public class Carpool implements Parcelable{
         task.execute(sqlComm);
         try {
             Vector value = task.get(10000, TimeUnit.MILLISECONDS);
-            if (value == null) {
+            if (value.size() == 0) {
+                carpool.setCarpoolid(-1);
+                return carpool;
+            } else if (value == null) {
                 return null;
             }
             else {
@@ -337,6 +340,8 @@ public class Carpool implements Parcelable{
 
         } catch (Exception e) {
             e.printStackTrace();
+            carpool.setCarpoolid(-1);
+            return carpool;
         }
         return carpool;
     }
@@ -347,7 +352,9 @@ public class Carpool implements Parcelable{
         task.execute(sqlComm);
         try {
             Object value  = (double) task.get(10000, TimeUnit.MILLISECONDS);
-            if (value != null)
+            if (value.equals("Exception!")) {
+                return -1;
+            }else if (value != null)
                 return (double) value;
             else
                 return 0;
@@ -436,7 +443,9 @@ public class Carpool implements Parcelable{
         try {
             Vector value_original = task.get(10000, TimeUnit.MILLISECONDS);
             Vector value;
-            if (value_original.size() > 0) {
+            if (value_original == null) {
+                return null;
+            } else if (value_original.size() > 0) {
                 for (int i = 0; i < value_original.size(); i++) {
                     value = (Vector) value_original.elementAt(i);
                     carpool = new Carpool();
@@ -462,12 +471,9 @@ public class Carpool implements Parcelable{
                     list.add(carpool);
                 }
             }
-            else {
-                return null;
-            }
-
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
         return list;
     }
@@ -487,7 +493,9 @@ public class Carpool implements Parcelable{
         try {
             Vector value_original = task.get(10000, TimeUnit.MILLISECONDS);
             Vector value;
-            if (value_original.size() > 0) {
+            if (value_original == null) {
+                return null;
+            } else if (value_original.size() > 0) {
                 for (int i = 0; i < value_original.size(); i++) {
                     value = (Vector) value_original.elementAt(i);
                     carpool = new Carpool();
@@ -514,12 +522,9 @@ public class Carpool implements Parcelable{
                     System.out.println(value.elementAt(1));
                 }
             }
-            else {
-                return null;
-            }
-
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
         return list;
     }
@@ -539,9 +544,10 @@ public class Carpool implements Parcelable{
         try {
             Vector value_original = task.get(10000, TimeUnit.MILLISECONDS);
             Vector value;
-            int i;
-            if (value_original.size() > 0) {
-                for (i = 0; i < value_original.size(); i++) {
+            if (value_original == null) {
+                return null;
+            } else if (value_original.size() > 0) {
+                for (int i = 0; i < value_original.size(); i++) {
                     value = (Vector) value_original.elementAt(i);
                     carpool = new Carpool();
                     carpool.setCarpoolid((int) value.elementAt(0));
@@ -567,12 +573,10 @@ public class Carpool implements Parcelable{
                     System.out.println(value.elementAt(1));
                 }
             }
-            else {
-                return null;
-            }
 
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
         return list;
     }
@@ -592,9 +596,10 @@ public class Carpool implements Parcelable{
         try {
             Vector value_original = task.get(10000, TimeUnit.MILLISECONDS);
             Vector value;
-            int i;
-            if (value_original.size() > 0) {
-                for (i = 0; i < value_original.size(); i++) {
+            if (value_original == null) {
+                return null;
+            } else if (value_original.size() > 0) {
+                for (int i = 0; i < value_original.size(); i++) {
                     value = (Vector) value_original.elementAt(i);
                     carpool = new Carpool();
                     carpool.setCarpoolid((int) value.elementAt(0));
@@ -620,12 +625,9 @@ public class Carpool implements Parcelable{
                     System.out.println(value.elementAt(1));
                 }
             }
-            else {
-                return null;
-            }
-
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
         return list;
 
@@ -649,8 +651,8 @@ public class Carpool implements Parcelable{
             String time_range
     ) {
         String sqlComm = "select * from carpool_created " +
-                "where ((cc_date <= '"+ date + "' and cc_date_range >= '"  + date + "') or (cc_date <= '"+ date_range + "' and cc_date_range >= '" + date_range + "') or (cc_date >= '" + date + "' and cc_date_range <='" + date_range + "')) and " +
-                "((cc_time <= '"+ time + "' and cc_time_range >= '"  + time + "') or (cc_time <= '"+ time_range + "' and cc_time_range >= '" + time_range + "') or (cc_time >= '" + time + "' and cc_time_range <='" + time_range + "')) and " +
+                "where not (cc_date_range < '"  + date + "' or cc_date > '"+ date_range + "') and " +
+                "not (cc_time_range < '"  + time + "' or cc_time > '"+ time_range + "') and " +
                 "cc_status = 0 and cc_passengerconfirmed < cc_maxpassenger and cc_drivername != '" + user_name + "' " +
                 "and cc_id not in (select pc_carpoolid from passenger_carpool where pc_passengername = '" + user_name + "');";
         List<Carpool> list = new ArrayList<Carpool>();
@@ -660,9 +662,10 @@ public class Carpool implements Parcelable{
         try {
             Vector value_original = task.get(10000, TimeUnit.MILLISECONDS);
             Vector value;
-            int i;
-            if (value_original.size() > 0) {
-                for (i = 0; i < value_original.size(); i++) {
+            if (value_original == null) {
+                return null;
+            } else if (value_original.size() > 0) {
+                for (int i = 0; i < value_original.size(); i++) {
                     value = (Vector) value_original.elementAt(i);
                     carpool = new Carpool();
                     carpool.setCarpoolid((int) value.elementAt(0));
@@ -688,12 +691,9 @@ public class Carpool implements Parcelable{
                     System.out.println(value.elementAt(1));
                 }
             }
-            else {
-                return null;
-            }
-
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
         return list;
     }
@@ -745,7 +745,9 @@ public class Carpool implements Parcelable{
         task.execute(sqlComm);
         try {
             Vector value = task.get(10000, TimeUnit.MILLISECONDS);
-            if (value != null) {
+            if (value.size() == 0) {
+                return -1;
+            } else if (value != null) {
                 if ((int)value.elementAt(1) == 0) {
                     return 2;
                 }
@@ -933,7 +935,9 @@ public class Carpool implements Parcelable{
         task.execute(sqlComm);
         try {
             Object value = task.get(10000, TimeUnit.MILLISECONDS);
-            if (value != null) {
+            if (value.equals("Exception!")) {
+                return -1;
+            } else if (value != null) {
                 if (value.equals(1)) {
                     return 0;
                 }
@@ -959,7 +963,9 @@ public class Carpool implements Parcelable{
         task.execute(sqlComm);
         try {
             Vector value = task.get(10000, TimeUnit.MILLISECONDS);
-            if (value != null) {
+            if (value.size() == 0) {
+                return -1;
+            } else if (value != null) {
                 if ((int)value.elementAt(0) > (int)value.elementAt(1)) {
                     return 0;
                 }
@@ -1041,7 +1047,9 @@ public class Carpool implements Parcelable{
         try {
             Vector value_original = task.get(10000, TimeUnit.MILLISECONDS);
             Vector value;
-            if (value_original.size() > 0) {
+            if (value_original == null) {
+                return null;
+            } else if (value_original.size() > 0) {
                 for (int i = 0; i < value_original.size(); i++) {
                     value = (Vector) value_original.elementAt(i);
                     carpool = new Carpool();
@@ -1066,12 +1074,9 @@ public class Carpool implements Parcelable{
                     list.add(carpool);
                 }
             }
-            else {
-                return null;
-            }
-
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
         return list;
     }
@@ -1132,8 +1137,8 @@ public class Carpool implements Parcelable{
             String time_range
     ) {
         String sqlComm = "select * from carpool_demanded " +
-                "where ((cd_date <= '"+ date + "' and cd_date_range >= '"  + date + "') or (cd_date <= '"+ date_range + "' and cd_date_range >= '" + date_range + "') or (cd_date >= '" + date + "' and cd_date_range <='" + date_range + "')) and " +
-                "((cd_time <= '"+ time + "' and cd_time_range >= '"  + time + "') or (cd_time <= '"+ time_range + "' and cd_time_range >= '" + time_range + "') or (cd_time >= '" + time + "' and cd_time_range <='" + time_range + "')) and " +
+                "where not (cc_date_range < '"  + date + "' or cc_date > '"+ date_range + "') and " +
+                "not (cc_time_range < '"  + time + "' or cc_time > '"+ time_range + "') and " +
                 "cd_demander != '" + user_name + "';";
         List<Carpool> list = new ArrayList<Carpool>();
         Carpool carpool = null;
@@ -1142,9 +1147,10 @@ public class Carpool implements Parcelable{
         try {
             Vector value_original = task.get(10000, TimeUnit.MILLISECONDS);
             Vector value;
-            int i;
-            if (value_original.size() > 0) {
-                for (i = 0; i < value_original.size(); i++) {
+            if (value_original == null) {
+                return null;
+            } else if (value_original.size() > 0) {
+                for (int i = 0; i < value_original.size(); i++) {
                     value = (Vector) value_original.elementAt(i);
                     carpool = new Carpool();
                     carpool.setCarpoolid((int) value.elementAt(0));
@@ -1169,12 +1175,9 @@ public class Carpool implements Parcelable{
                     list.add(carpool);
                 }
             }
-            else {
-                return null;
-            }
-
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
         return list;
     }

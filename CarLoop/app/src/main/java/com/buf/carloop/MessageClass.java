@@ -114,6 +114,9 @@ public class MessageClass {
             Vector value_original = task.get(10000, TimeUnit.MILLISECONDS);
             Vector value;
             int i;
+            if (value_original == null) {
+                return null;
+            }
             if (value_original.size() > 0) {
                 for (i = 0; i < value_original.size(); i++) {
                     value = (Vector) value_original.elementAt(i);
@@ -126,9 +129,6 @@ public class MessageClass {
                     message.setAvatar(selectSQLBlob(message.getName()));
                     list.add(message);
                 }
-            }
-            else {
-                return null;
             }
         } catch (Exception e) {
             e.printStackTrace();

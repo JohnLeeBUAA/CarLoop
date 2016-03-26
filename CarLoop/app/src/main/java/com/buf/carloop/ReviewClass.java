@@ -112,9 +112,10 @@ public class ReviewClass {
         try {
             Vector value_original = task.get(10000, TimeUnit.MILLISECONDS);
             Vector value;
-            int i;
-            if (value_original.size() > 0) {
-                for (i = 0; i < value_original.size(); i++) {
+            if (value_original == null) {
+                return null;
+            } else if (value_original.size() > 0) {
+                for (int i = 0; i < value_original.size(); i++) {
                     value = (Vector) value_original.elementAt(i);
                     review= new ReviewClass();
                     review.setReview_id((int) value.elementAt(0));
@@ -125,9 +126,6 @@ public class ReviewClass {
                     review.setReviewavatar(selectSQLBlob(review.getReviewername()));
                     list.add(review);
                 }
-            }
-            else {
-                return null;
             }
         } catch (Exception e) {
             e.printStackTrace();

@@ -65,6 +65,7 @@ public class SqlCommond {
             stmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
+            return null;
         }
         //return the result vector 返回结果集向量
         return vector;
@@ -88,6 +89,7 @@ public class SqlCommond {
             stmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
+            return new Vector<Object>();
         }
         return vector;
     }
@@ -106,6 +108,7 @@ public class SqlCommond {
             stmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
+            return null;
         }
         return vector;
     }
@@ -125,6 +128,7 @@ public class SqlCommond {
             stmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
+            return "Exception!";
         }
         return value;
     }
@@ -249,66 +253,9 @@ public class SqlCommond {
         String username = "test1";
         String password = "1234";
         String email = "liu1@gmail.com";
-
-/*
-        String sqlComm = "select * from carpool_created " +
-                "where (cc_date <= '"+ "2016-03-05" + "' and cc_date_range <= '"  + "2016-03-05" + "' or cc_date <= '"+ "2016-03-06" + "' and cc_date_range >= '" + "2016-03-06" + "') and " +
-                "(cc_time <= '"+ "03:00:00" + "' and cc_time_range <= '"  + "03:00:00" + "' or cc_time <= '"+ "03:00:00" + "' and cc_time_range >= '" + "03:00:00" + "') and " +
-                "cc_status = 0 and cc_passengerconfirmed < cc_maxpassenger " +
-                "and cc_id not in (select pc_carpoolid from passenger_carpool where pc_passengername = '" + "1" + "');";*/
-        /*
-        String sqlComm = "insert into review (r_passengername, r_drivername, r_rate, r_review) values ('" +
-                "xin" + "', '" + "an" + "', " + 3.8 + ", '" + "good driver" + "');";
-
-        SqlCommond sqlCommond = new SqlCommond();
-        int value1 = sqlCommond.longHaul(sqlComm);
-        System.out.println(value1);
-
-*/
-
-        /*
-        String sqlComm = String.format("update carpool_created set cc_depart_lat=%f, cc_depart_lng=%f, cc_depart_loc='%s', " +
-                        "cc_desti_lat=%f, cc_desti_lng=%f, cc_desti_loc='%s', cc_date='%s', cc_date_range='%s', cc_time='%s', " +
-                        "cc_time_range='%s', cc_maxpassenger=%d, cc_price=%d where cc_id=%d;",
-                11.0, 12.0, "Toronto", 2.0, 3.0, "Nanjing", "2015/05/04", "2015/05/04", "11:11", "11:59", 10, 44, 1, 1);
-        // Sql create user operation
-*/
-
-        byte[] avatar;
-        File f1=new File("E:\\lone.jpg");
-        FileInputStream fin=new FileInputStream(f1);
-        byte [] b1=new byte[(int)f1.length()];
-        fin.read(b1);
-
-        String sqlComm = "insert into voice (v_name, v_gender) values ('Lily', 'female');";
-        System.out.print(sqlComm);
-        SqlCommond sqlCommond = new SqlCommond();
-        int value = sqlCommond.longHaul(sqlComm);
-        System.out.println(value);
-
-        /*
-        System.out.println();
-        System.out.println();
-        String st = Arrays.toString(b1);
-        System.out.println(st);
-        Object[] a = new Object[2];
-        a[0] = "jaoijga";
-        a[1] = b1;
-        avatar = st.getBytes();
-        byte [] c1 =( byte[]) a[1];
-        for (int i = 0; i < avatar.length; i ++)
-        {
-            System.out.format("%02X ", c1[i]);
-        }
-        */
-
-        /*
-        String sqlComm = "update user set u_avatar= ? " + "where u_name='john';";
-        System.out.print(sqlComm);
-        SqlCommond sqlCommond = new SqlCommond();
-        boolean value = sqlCommond.insertBlob(sqlComm, b1);
-        System.out.println(value);
-        */
-
+        Vector<Object> vector ;
+        vector = new Vector<>();
+        System.out.println(vector.size());
+        System.out.println(vector);
     }
 }

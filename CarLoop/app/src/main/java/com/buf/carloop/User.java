@@ -128,7 +128,10 @@ public class User {
         task.execute(sqlComm);
         try {
             Vector<Object> value = task.get(10000, TimeUnit.MILLISECONDS);
-            if (value == null) {
+            if (value.size() == 0)
+            {
+                return -1;
+            } else if (value == null) {
                 return 1;
             } else if (!value.elementAt(2).equals(password)) {
                 return 2;
@@ -152,7 +155,9 @@ public class User {
         task.execute(sqlComm);
         try {
             Object value = task.get(10000, TimeUnit.MILLISECONDS);
-            if(value == null) {
+            if (value.equals("Exception!")){
+                return -1;
+            } else if(value == null) {
                 return 0; // username does not exit
             }
             else {
@@ -174,7 +179,9 @@ public class User {
         task.execute(sqlComm);
         try {
             Object value = task.get(10000, TimeUnit.MILLISECONDS);
-            if(value == null) {
+            if (value.equals("Exception!")) {
+                return -1;
+            } else if(value == null) {
                 return 0;  // it is legal
             }
             else {
@@ -199,7 +206,9 @@ public class User {
         task.execute(sqlComm);
         try {
             Object value = task.get(10000, TimeUnit.MILLISECONDS);
-            if (value == null) {
+            if (value.equals("Exception!")) {
+                return -1;
+            } else if (value == null) {
                 return 2; // no record
             } else if (!value.equals(email)) {
                 return 1;  // email does not match
@@ -298,7 +307,9 @@ public class User {
         task.execute(sqlComm);
         try {
             Object value = task.get(10000, TimeUnit.MILLISECONDS);
-            if (value == null) {
+            if (value.equals("Exception!")) {
+                return -1;
+            } else if (value == null) {
                 return 2;   // no record
             } else if (value.equals(password)) {
                 return 0;   // match
@@ -360,7 +371,10 @@ public class User {
         task.execute(sqlComm);
         try {
             Vector value = task.get(10000, TimeUnit.MILLISECONDS);
-            if (value == null) {
+            if (value.equals("Exception!")) {
+                user.setU_id(-1);
+                return user;
+            } else if (value == null) {
                 return null;
             }
             else {
@@ -376,7 +390,8 @@ public class User {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return null;
+            user.setU_id(-1);
+            return user;
         }
         //user.setU_avatar(selectSQLBlob(user_name));
         return user;
@@ -441,12 +456,5 @@ public class User {
             e.printStackTrace();
             return -1;
         }
-    }
-
-    /*
-    select v_driverpaypal from vehicle where v_drivername = drivername
-     */
-    public static String getDriverPaypal(String drivername) {
-        return "samplne.account@paypal.com";
     }
 }
