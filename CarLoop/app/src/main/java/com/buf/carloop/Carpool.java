@@ -823,7 +823,7 @@ public class Carpool implements Parcelable{
      */
     public static int confirmSearch(String user_name, int carpoolid) {
         String sqlComm =  "insert into passenger_carpool (pc_passengername, pc_carpoolid, pc_status) values ('" + user_name + "', "
-                + carpoolid + ", 0);";
+                + carpoolid + ", 2);";
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
 
         task.execute(sqlComm);
