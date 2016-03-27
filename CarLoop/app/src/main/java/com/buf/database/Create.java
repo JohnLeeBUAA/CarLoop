@@ -178,7 +178,11 @@ public class Create {
         return rs;
     }
     public static void main(String[] args) {
-        createTableMessage();
+        createTableVehicle();
+        createTableCarpool_created();
         createTablePassenger_carpool();
+        createTableCarpool_demanded();
+        createTableMessage();
+        createTableReview();
     }
 }
