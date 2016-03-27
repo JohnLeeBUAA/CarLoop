@@ -98,7 +98,7 @@ public class DriverVehicleInfo extends Footer {
                 if (status == 0) {
                     int statusSet = User.setDriver(GlobalVariables.user_name);
                     if(statusSet == 0) {
-                        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+                        SharedPreferences sharedPref = getSharedPreferences("CarLoopPref", Context.MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPref.edit();
                         editor.putInt("user_identity", GlobalVariables.user_identity);
                         editor.commit();

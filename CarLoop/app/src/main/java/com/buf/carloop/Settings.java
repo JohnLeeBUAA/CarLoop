@@ -79,7 +79,7 @@ public class Settings extends Footer {
                     GlobalVariables.user_identity = 2;
                     break;
         }
-        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = getSharedPreferences("CarLoopPref", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putInt("user_identity", GlobalVariables.user_identity);
         editor.commit();
@@ -114,10 +114,9 @@ public class Settings extends Footer {
     }
 
     public void logOut(View view) {
-        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = getSharedPreferences("CarLoopPref", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString("user_name", "");
-        editor.putInt("user_identity", -1);
+        editor.clear();
         editor.commit();
         Intent intent = new Intent(this, SignIn.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
