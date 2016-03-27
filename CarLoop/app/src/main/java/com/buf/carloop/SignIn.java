@@ -50,7 +50,7 @@ public class SignIn extends AppCompatActivity {
         if(validate()) {
             int status = User.signIn(username_val, password_val);
             if(status == 0) {
-                SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+                SharedPreferences sharedPref = getSharedPreferences("CarLoopPref", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString("user_name", GlobalVariables.user_name);
                 editor.putInt("user_identity", GlobalVariables.user_identity);

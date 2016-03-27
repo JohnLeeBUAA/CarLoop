@@ -15,7 +15,7 @@ public class EntryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_entry);
         // read stored record
-        SharedPreferences sharedPref = this.getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences sharedPref = getSharedPreferences("CarLoopPref", Context.MODE_PRIVATE);
         String user_name = sharedPref.getString("user_name", "");
         int user_identity = sharedPref.getInt("user_identity", -1);
 
