@@ -1125,8 +1125,8 @@ public class Carpool implements Parcelable{
             String time_range
     ) {
         String sqlComm = "select * from carpool_demanded " +
-                "where not (cc_date_range < '"  + date + "' or cc_date > '"+ date_range + "') and " +
-                "not (cc_time_range < '"  + time + "' or cc_time > '"+ time_range + "') and " +
+                "where not (cd_date_range < '"  + date + "' or cd_date > '"+ date_range + "') and " +
+                "not (cd_time_range < '"  + time + "' or cd_time > '"+ time_range + "') and " +
                 "cd_demander != '" + user_name + "';";
         List<Carpool> list = new ArrayList<Carpool>();
         Carpool carpool = null;

@@ -26,8 +26,18 @@ public class EntryActivity extends AppCompatActivity {
         else {
             GlobalVariables.user_name = user_name;
             GlobalVariables.user_identity = user_identity;
-            Intent intent = new Intent(this, CarpoolList.class);
-            startActivity(intent);
+            if(GlobalVariables.user_identity == 1) {
+                Intent intent = new Intent(this, CarpoolNew.class);
+                intent.putExtra("type", "Create");
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
+            else {
+                Intent intent = new Intent(this, CarpoolNew.class);
+                intent.putExtra("type", "Search");
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
         }
     }
 }

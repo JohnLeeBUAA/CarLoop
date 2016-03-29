@@ -12,7 +12,6 @@ public class JDBC {
 /*
     private static final String URL = "jdbc:mysql://192.168.22.1/javabase";
     private static final String USERNAME = "root";
-    private static final String PASSWORD = "jxkjinxin@4J";
 */
 
     //private static final String URL = "jdbc:mysql://104.196.60.15/carpool";
