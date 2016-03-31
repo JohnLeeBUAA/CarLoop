@@ -29,7 +29,8 @@ public class Payment extends Footer {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_payment);
+        ViewGroup vg = (ViewGroup) findViewById(R.id.content);
+        ViewGroup.inflate(this, R.layout.activity_payment, vg);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
