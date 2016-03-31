@@ -94,6 +94,7 @@ public class CarpoolList extends Footer {
             btn_sort.setText("\tAdvanced Sort\t");
             sortmethod = 1;
             sortAdvacedSort();
+            longDistanceFilter();
             if(list == null) {
                 tip.setText("Network error");
                 Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();
@@ -121,6 +122,7 @@ public class CarpoolList extends Footer {
                     getIntent().getStringExtra("time"),
                     getIntent().getStringExtra("date_range"),
                     getIntent().getStringExtra("time_range"));
+            longDistanceFilter();
             if(list == null) {
                 tip.setText("Network error");
                 Toast.makeText(this, "Network error", Toast.LENGTH_SHORT).show();
@@ -501,6 +503,18 @@ public class CarpoolList extends Footer {
             });
             populateListView();
             registerClickCallback();
+        }
+    }
+
+    private void longDistanceFilter() {
+        if(list != null && list.size() != 0) {
+            for(int i = 0; i < list.size(); i++) {
+                double walk_distance_depart = getWalkDistance(search_depart_lat, search_depart_lng, list.get(i).getDepart_lat(), list.get(i).getDepart_lng());
+                double walk_distance_desti = getWalkDistance(search_desti_lat, search_desti_lng, list.get(i).getDesti_lat(), list.get(i).getDesti_lng());
+                if(walk_distance_depart + walk_distance_desti > 0.5) {
+                    list.remove(i);
+                }
+            }
         }
     }
 
