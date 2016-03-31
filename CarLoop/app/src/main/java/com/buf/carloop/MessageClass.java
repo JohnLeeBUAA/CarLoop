@@ -87,7 +87,7 @@ public class MessageClass {
      */
     public static int addMessage(String user_name, String content, int carpoolid) {
         String sqlComm =  "insert into message (m_username, m_carpoolid, m_content) values ('" + user_name + "', "
-                + carpoolid + ", '" + content + "');";
+                + carpoolid + ", \"" + content + "\");";
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
 
         task.execute(sqlComm);
