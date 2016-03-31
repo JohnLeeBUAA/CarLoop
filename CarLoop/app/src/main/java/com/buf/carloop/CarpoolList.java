@@ -508,12 +508,12 @@ public class CarpoolList extends Footer {
 
     private void longDistanceFilter() {
         if(list != null && list.size() != 0) {
-            int size = list.size();
-            for(int i = 0; i < size; i++) {
+            for(int i = 0; i < list.size(); i++) {
                 double walk_distance_depart = getWalkDistance(search_depart_lat, search_depart_lng, list.get(i).getDepart_lat(), list.get(i).getDepart_lng());
                 double walk_distance_desti = getWalkDistance(search_desti_lat, search_desti_lng, list.get(i).getDesti_lat(), list.get(i).getDesti_lng());
                 if(walk_distance_depart + walk_distance_desti > 0.5) {
                     list.remove(i);
+                    i--;
                 }
             }
         }
