@@ -743,7 +743,7 @@ public class Carpool implements Parcelable{
         task.execute(sqlComm);
         try {
             Vector value = task.get(10000, TimeUnit.MILLISECONDS);
-            if (value != null) {
+            if (value == null) {
                 return -1;
             } else if (value.size() == 0) {
                 return -1;
@@ -1189,13 +1189,13 @@ public class Carpool implements Parcelable{
         String sqlComm = String.format("insert into carpool_created (cc_drivername, cc_depart_lat, cc_depart_lng, cc_depart_loc, " +
                         "cc_desti_lat, cc_desti_lng, cc_desti_loc, cc_date, cc_date_range, cc_time, cc_time_range, cc_maxpassenger, " +
                         "cc_price, cc_demander) values ('%s', %f, %f, '%s', %f, %f, '%s', " +
-                        "'%s', '%s', '%s', '%s', %d, %d, %s);", creator_name, depart_lat, depart_lng, depart_loc, desti_lat, desti_lng,
+                        "'%s', '%s', '%s', '%s', %d, %d, '%s');", creator_name, depart_lat, depart_lng, depart_loc, desti_lat, desti_lng,
                 desti_loc, date, date_range, time, time_range, maxpassenger, price, demander_name);
         // Sql create user operation
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
         task.execute(sqlComm);
         try {
-            return (int) task.get(10000, TimeUnit.MILLISECONDS);
+            return task.get(10000, TimeUnit.MILLISECONDS);
 
         } catch (Exception e) {
             e.printStackTrace();

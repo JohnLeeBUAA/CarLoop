@@ -85,7 +85,7 @@ public class ReviewClass {
      */
     public static int addReview(String reviewername, String drivername, double rate, String review) {
         String sqlComm = "insert into review (r_passengername, r_drivername, r_rate, r_review) values ('" +
-                reviewername + "', '" + drivername + "', " + rate + ", '" + review + "');";
+                reviewername + "', '" + drivername + "', " + rate + ", \"" + review + "\");";
 
         AsyncSQLLongHaul task = new AsyncSQLLongHaul();
 
@@ -134,12 +134,4 @@ public class ReviewClass {
         return list;
     }
 
-    public static List<ReviewClass> generatefakelist() {
-        List<ReviewClass> list = new ArrayList<>();
-        list.add(new ReviewClass("Reviewer1", null, 4.5D, "Review_Content_1"));
-        list.add(new ReviewClass("Reviewer2", null, 5D, "Review_Content_2"));
-        list.add(new ReviewClass("Reviewer3", null, 3D, "Review_Content_3"));
-        list.add(new ReviewClass("Reviewer4", null, 3.5D, "Review_Content_4"));
-        return list;
-    }
 }

@@ -136,12 +136,4 @@ public class MessageClass {
         return list;
     }
 
-    public static List<MessageClass> generatefakelist() {
-        List<MessageClass> list = new ArrayList<MessageClass>();
-        list.add(new MessageClass("john", null, "2015/03/02 12:22", "Hellozxczxczcxzxczxc"));
-        list.add(new MessageClass("james", null, "2015/03/02 12:23", "Hello How are you"));
-        list.add(new MessageClass("john", null, "2015/03/02 12:24", "I'm fine thank you. And you?"));
-        list.add(new MessageClass("james", null, "2015/03/02 12:25", "blahblahblah"));
-        return list;
-    }
 }

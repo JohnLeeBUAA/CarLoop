@@ -351,7 +351,7 @@ public class CarpoolSingle extends Footer {
     public void deleteDemanded (View view) {
         int status = Carpool.deleteDemanded(carpoolid);
         if(status == 0) {
-            Toast.makeText(this, "Record deleted", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Carpool deleted", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(this, CarpoolList.class);
             intent.putExtra("type", "Demanded");
             startActivity(intent);
