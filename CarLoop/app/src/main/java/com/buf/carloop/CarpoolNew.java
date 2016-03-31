@@ -314,6 +314,9 @@ public class CarpoolNew extends Footer {
                 );
                 if(status == 0) {
                     Toast.makeText(this, "Carpool created", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(this, CarpoolList.class);
+                    intent.putExtra("type", "Created");
+                    startActivity(intent);
                     finish();
                 }
                 else {

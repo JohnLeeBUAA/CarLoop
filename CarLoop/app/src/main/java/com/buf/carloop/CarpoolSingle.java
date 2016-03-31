@@ -330,6 +330,9 @@ public class CarpoolSingle extends Footer {
         int status = Carpool.interestedSearch(GlobalVariables.user_name, carpoolid);
         if(status == 0) {
             Toast.makeText(this, "Added to interested list", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, CarpoolList.class);
+            intent.putExtra("type", "Interested");
+            startActivity(intent);
             finish();
         }
         else {
@@ -341,6 +344,9 @@ public class CarpoolSingle extends Footer {
         int status = Carpool.confirmSearch(GlobalVariables.user_name, carpoolid);
         if(status == 0) {
             Toast.makeText(this, "Carpool confirmed", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, CarpoolList.class);
+            intent.putExtra("type", "Confirmed");
+            startActivity(intent);
             finish();
         }
         else {
