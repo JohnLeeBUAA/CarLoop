@@ -420,8 +420,8 @@ public class CarpoolList extends Footer {
     }
 
     private int compareDriverRating(Carpool lhs, Carpool rhs) {
-        if(lhs.getDriverrate() > rhs.getDriverrate()) return 1;
-        else if(lhs.getDriverrate() < rhs.getDriverrate()) return -1;
+        if(lhs.getDriverrate() > rhs.getDriverrate()) return -1;
+        else if(lhs.getDriverrate() < rhs.getDriverrate()) return 1;
         else return 0;
     }
 

@@ -96,13 +96,6 @@ public class PassengerCarpool {
         this.paid = paid;
     }
 
-    public static List<PassengerCarpool> generatefakelist() {
-        List<PassengerCarpool> list = new ArrayList<PassengerCarpool>();
-        list.add(new PassengerCarpool("John", null, 0));
-        list.add(new PassengerCarpool("Mary", null, 0));
-        list.add(new PassengerCarpool("James", null, 0));
-        return list;
-    }
 
     /*
     select * from passenger_carpool where pc_carpoolid = carpoolid and pc_status = 2
