@@ -67,7 +67,7 @@ public class SqlCommond {
             e.printStackTrace();
             return null;
         }
-        JDBC.closeConnection();
+        //JDBC.closeConnection();
         //return the result vector 返回结果集向量
         return vector;
     }
@@ -92,7 +92,7 @@ public class SqlCommond {
             e.printStackTrace();
             return new Vector<Object>();
         }
-        JDBC.closeConnection();
+        //JDBC.closeConnection();
         return vector;
     }
 
@@ -112,7 +112,7 @@ public class SqlCommond {
             e.printStackTrace();
             return null;
         }
-        JDBC.closeConnection();
+        //JDBC.closeConnection();
         return vector;
     }
 
@@ -133,7 +133,7 @@ public class SqlCommond {
             e.printStackTrace();
             return "Exception!";
         }
-        JDBC.closeConnection();
+        //JDBC.closeConnection();
         return value;
     }
 
@@ -182,7 +182,7 @@ public class SqlCommond {
                 value = -1;
             }
         }
-        JDBC.closeConnection();
+        //JDBC.closeConnection();
         return value;
     }
 
@@ -202,7 +202,7 @@ public class SqlCommond {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        JDBC.closeConnection();
+        //JDBC.closeConnection();
         return value;
     }
 
@@ -234,7 +234,7 @@ public class SqlCommond {
             }
             e.printStackTrace();
         }
-        JDBC.closeConnection();
+        //JDBC.closeConnection();
         return isLongHaul;
     }
     //change ResultSet to List ResultSet 转换到 List 方法
