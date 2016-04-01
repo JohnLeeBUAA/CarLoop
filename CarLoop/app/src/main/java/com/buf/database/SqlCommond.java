@@ -67,6 +67,7 @@ public class SqlCommond {
             e.printStackTrace();
             return null;
         }
+        JDBC.closeConnection();
         //return the result vector 返回结果集向量
         return vector;
     }
@@ -91,6 +92,7 @@ public class SqlCommond {
             e.printStackTrace();
             return new Vector<Object>();
         }
+        JDBC.closeConnection();
         return vector;
     }
 
@@ -110,6 +112,7 @@ public class SqlCommond {
             e.printStackTrace();
             return null;
         }
+        JDBC.closeConnection();
         return vector;
     }
 
@@ -130,13 +133,15 @@ public class SqlCommond {
             e.printStackTrace();
             return "Exception!";
         }
+        JDBC.closeConnection();
         return value;
     }
 
     // insert, modify, delete the record 插入、修改、删除记录
     public int longHaul(String sql) {
-        boolean isLongHaul = true; // long lasting 持久化
+        //boolean isLongHaul = true; // long lasting 持久化
         //get the connection of the database 获取数据库连接
+        int value = 0;
         Connection conn = JDBC.getConnection();
         try {
             //set it as hand commitment设置为手动提交
@@ -147,8 +152,8 @@ public class SqlCommond {
             stmt.close();
             //commit the long lasting result 提交持久化
             conn.commit();
-            if (status == 0) return 4; // password not match
-            else return 0;
+            if (status == 0) value = 4; // password not match
+            else value = 0;
         } catch (SQLException e) {
             //the long lasting fails持久化失败
             try {
@@ -159,24 +164,26 @@ public class SqlCommond {
             }
             e.printStackTrace();
             if (e.getMessage().contains("u_name") || e.getMessage().contains("PRIMARY")) {
-                return 1;
+                value = 1;
             }
             else if (e.getMessage().contains("u_email")) {
-                return 2;
+                value = 2;
             }
             else if (e.getMessage().contains("v_driverlicense")) {
-                return 3;
+                value = 3;
             }
             else if (e.getMessage().contains("v_plate")) {
-                return 5;
+                value = 5;
             }
             else if (e.getMessage().contains("v_driverpaypal")) {
-                return 6;
+                value = 6;
             }
             else {
-                return -1;
+                value = -1;
             }
         }
+        JDBC.closeConnection();
+        return value;
     }
 
     // get the image blob from database
@@ -195,6 +202,7 @@ public class SqlCommond {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        JDBC.closeConnection();
         return value;
     }
 
@@ -226,6 +234,7 @@ public class SqlCommond {
             }
             e.printStackTrace();
         }
+        JDBC.closeConnection();
         return isLongHaul;
     }
     //change ResultSet to List ResultSet 转换到 List 方法
@@ -253,7 +262,7 @@ public class SqlCommond {
         String username = "test1";
         String password = "1234";
         String email = "liu1@gmail.com";
-        Vector<Object> vector ;
+        Vector<Object> vector;
         vector = new Vector<>();
         System.out.println(vector.size());
         System.out.println(vector);

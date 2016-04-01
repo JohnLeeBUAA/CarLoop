@@ -87,7 +87,6 @@ public class Payment extends Footer {
             else {
                 tip.setText("Not paid");
             }
-
             return itemView;
         }
     }

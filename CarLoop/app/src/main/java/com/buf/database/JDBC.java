@@ -42,7 +42,6 @@ public class JDBC {
                 //then use url, username and password to get the connection 通过url, username, password 获
                 //create the connection of the database 创建新的数据库连接
                 conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-                System.out.println("Database connected!");
                 threadLocal.set(conn);
             } catch (SQLException e) {
                 System.out.println("Database connection failure!");
