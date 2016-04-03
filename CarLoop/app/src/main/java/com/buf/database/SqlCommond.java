@@ -258,13 +258,6 @@ public class SqlCommond {
         return list;
     }
 
-    public static void main(String[] args) throws IOException {
-        String username = "test1";
-        String password = "1234";
-        String email = "liu1@gmail.com";
-        Vector<Object> vector;
-        vector = new Vector<>();
-        System.out.println(vector.size());
-        System.out.println(vector);
+    public static void main(String[] args){
     }
 }

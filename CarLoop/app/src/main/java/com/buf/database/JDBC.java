@@ -9,16 +9,17 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 public class JDBC {
     private static final String DRIVERCLASS = "com.mysql.jdbc.Driver";
-/*
+
     private static final String URL = "jdbc:mysql://192.168.22.1/javabase";
     private static final String USERNAME = "root";
-*/
+    private static final String PASSWORD = "carpool";
 
+    /*
     //private static final String URL = "jdbc:mysql://104.196.60.15/carpool";
     private static final String URL = "jdbc:mysql://rdslo202fbr0p4o8420no.mysql.rds.aliyuncs.com/carpool";
     private static final String USERNAME = "carpool";
     private static final String PASSWORD = "carpool";
-
+*/
 
 
     private static final ThreadLocal<Connection> threadLocal = new ThreadLocal<Connection>();
@@ -33,11 +34,10 @@ public class JDBC {
     }
 
     //create the method for the connection of database 创建数据库连接的方法
-    public static Connection getConnection(){
+    public static Connection getConnection() throws SQLException {
         //get the database connection from the thread 从线程中获得数据库连接
         Connection  conn = threadLocal.get();
-
-        if (conn == null) { // if there is no connection of the database没有可用的数据库连接
+        if (conn == null || conn.isClosed()) { // if there is no connection of the database没有可用的数据库连接
             try {
                 //then use url, username and password to get the connection 通过url, username, password 获
                 //create the connection of the database 创建新的数据库连接
@@ -62,6 +62,7 @@ public class JDBC {
             try {
                 //close the connection of the database 关闭数据库连接
                 conn.close();
+                threadLocal.remove();
             } catch (SQLException e) {
                 isClosed = false;
                 e.printStackTrace();
@@ -69,5 +70,4 @@ public class JDBC {
         }
         return isClosed;
     }
-
 }

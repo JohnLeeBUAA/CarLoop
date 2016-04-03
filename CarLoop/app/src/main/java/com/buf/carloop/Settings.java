@@ -16,6 +16,8 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.buf.database.JDBC;
+
 public class Settings extends Footer {
 
     private TextView identity_label;
@@ -121,5 +123,6 @@ public class Settings extends Footer {
         Intent intent = new Intent(this, SignIn.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
+        JDBC.closeConnection();
     }
 }
