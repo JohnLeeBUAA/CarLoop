@@ -34,19 +34,24 @@ public class JDBC {
     }
 
     //create the method for the connection of database 创建数据库连接的方法
-    public static Connection getConnection() throws SQLException {
+    public static Connection getConnection() {
         //get the database connection from the thread 从线程中获得数据库连接
         Connection  conn = threadLocal.get();
-        if (conn == null || conn.isClosed()) { // if there is no connection of the database没有可用的数据库连接
-            try {
-                //then use url, username and password to get the connection 通过url, username, password 获
-                //create the connection of the database 创建新的数据库连接
-                conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-                threadLocal.set(conn);
-            } catch (SQLException e) {
-                System.out.println("Database connection failure!");
-                e.printStackTrace();
+        try {
+            if (conn == null || conn.isClosed()) { // if there is no connection of the database没有可用的数据库连接
+                try {
+                    //then use url, username and password to get the connection 通过url, username, password 获
+                    //create the connection of the database 创建新的数据库连接
+                    conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+                    threadLocal.set(conn);
+                } catch (SQLException e) {
+                    System.out.println("Database connection failure!");
+                    e.printStackTrace();
+                }
             }
+        } catch (SQLException e1) {
+            System.out.println("Database connection failure!");
+            e1.printStackTrace();
         }
         return conn;
     }
