@@ -38,20 +38,23 @@ public class JDBC {
         //get the database connection from the thread 从线程中获得数据库连接
         Connection  conn = threadLocal.get();
         try {
-            if (conn == null || conn.isClosed()) { // if there is no connection of the database没有可用的数据库连接
-                try {
-                    //then use url, username and password to get the connection 通过url, username, password 获
-                    //create the connection of the database 创建新的数据库连接
-                    conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
-                    threadLocal.set(conn);
-                } catch (SQLException e) {
-                    System.out.println("Database connection failure!");
-                    e.printStackTrace();
-                }
+            if (conn != null && conn.isClosed()) {
+                JDBC.closeConnection();
             }
-        } catch (SQLException e1) {
+        } catch (SQLException e1){
             System.out.println("Database connection failure!");
             e1.printStackTrace();
+        }
+        if (conn == null) { // if there is no connection of the database没有可用的数据库连接
+            try {
+                //then use url, username and password to get the connection 通过url, username, password 获
+                //create the connection of the database 创建新的数据库连接
+                conn = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+                threadLocal.set(conn);
+            } catch (SQLException e) {
+                System.out.println("Database connection failure!");
+                e.printStackTrace();
+            }
         }
         return conn;
     }
