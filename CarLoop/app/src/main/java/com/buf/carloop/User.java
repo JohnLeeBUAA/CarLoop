@@ -124,10 +124,11 @@ public class User {
      */
     public static int signIn(String username, String password) {
         String sqlComm = "select * from user where u_name = '" + username + "';";
+        Vector<Object> value = null;
         AsyncSelectOnlyNote task = new AsyncSelectOnlyNote();
         task.execute(sqlComm);
         try {
-            Vector<Object> value = task.get(10000, TimeUnit.MILLISECONDS);
+            value = task.get(10000, TimeUnit.MILLISECONDS);
             if (value == null) {
                 return 1;
             }else if (value.size() == 0)

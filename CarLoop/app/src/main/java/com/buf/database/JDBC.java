@@ -10,7 +10,7 @@ import java.sql.SQLException;
 public class JDBC {
     private static final String DRIVERCLASS = "com.mysql.jdbc.Driver";
 
-    private static final String URL = "jdbc:mysql://192.168.22.1/javabase";
+    private static final String URL = "jdbc:mysql://104.196.60.15/carpool";
     private static final String USERNAME = "root";
     private static final String PASSWORD = "carpool";
 

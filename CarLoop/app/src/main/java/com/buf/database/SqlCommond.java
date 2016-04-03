@@ -39,6 +39,7 @@ public class SqlCommond {
         Vector<Vector<Object>> vector = new Vector<Vector<Object>>();
         //get the connection of database
         Connection conn = JDBC.getConnection();
+        if (conn == null) return null;
         try {
             //create the object of the connection 创建连接状态对象
             Statement stmt = conn.createStatement();
@@ -76,6 +77,9 @@ public class SqlCommond {
     public Vector selectOnlyNote(String sql) {
         Vector<Object> vector = null;
         Connection conn = JDBC.getConnection();
+        if (conn == null) {
+            return new Vector<Object>();
+        }
         try {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
@@ -100,6 +104,9 @@ public class SqlCommond {
     public Vector selectSomeValue(String sql) {
         Vector<Object> vector = new Vector<Object>();
         Connection conn = JDBC.getConnection();
+        if (conn == null) {
+            return null;
+        }
         try {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
@@ -120,7 +127,9 @@ public class SqlCommond {
     public Object selectOnlyValue(String sql) {
         Object value = null;
         Connection conn = JDBC.getConnection();
-        if (conn == null) System.out.println("why connection is null?");
+        if (conn == null) {
+            return "Exception!";
+        }
         try {
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
@@ -143,6 +152,9 @@ public class SqlCommond {
         //get the connection of the database 获取数据库连接
         int value = 0;
         Connection conn = JDBC.getConnection();
+        if (conn == null) {
+            return -1;
+        }
         try {
             //set it as hand commitment设置为手动提交
             conn.setAutoCommit(false);
